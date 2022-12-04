@@ -8,5 +8,7 @@ namespace ProjectPioneer.Systems.Character
 {
 	public class Implant : IImplant
 	{
+		private readonly string _name = string.Empty;
+		public string Name => _name;
 	}
 }

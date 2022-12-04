@@ -10,7 +10,6 @@
     <Folder Include="Systems\Data\" />
     <Folder Include="Systems\Equipment\" />
     <Folder Include="Systems\Adventure\" />
-    <Folder Include="Systems\Statistics\" />
     <Folder Include="Systems\World\" />
   </ItemGroup>
 

@@ -8,5 +8,6 @@ namespace ProjectPioneer.Systems.Character
 {
 	public interface IImplant
 	{
+		string Name { get; }
 	}
 }

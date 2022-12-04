@@ -8,5 +8,7 @@ namespace ProjectPioneer.Systems.Character
 {
 	public class Job : IJob
 	{
+		private readonly string _name = string.Empty;
+		public string Name => _name;
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Character
 {
@@ -10,7 +11,9 @@ namespace ProjectPioneer.Systems.Character
 	{
 		public IHero CreateHero(string name, IJob job, IImplant implant)
 		{
-			IHero hero = new Hero(name, job, implant);
+			Stats stats = new();
+
+			IHero hero = new Hero(name, job, implant, stats);
 
 			return hero;
 		}
