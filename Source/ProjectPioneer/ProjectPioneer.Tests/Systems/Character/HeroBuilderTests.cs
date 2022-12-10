@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Tests.Systems.Character
 {
 	[TestFixture]
-	public class CharacterBuilderTests
+	public class HeroBuilderTests
 	{
 		private IHeroBuilder _sut;
 
@@ -28,14 +29,18 @@ namespace ProjectPioneer.Tests.Systems.Character
 		public void Should_CreateHero_When_InputsAreValid()
 		{
 			// Arrange
-			IJob job = new Job();
-			IImplant implant = new Implant();
+			IJob job = new Job("TestJob", new Stats());
+			IImplant implant = new Implant("TestImplant", new Stats());
 
 			// Act
 			var result = _sut.CreateHero("Test", job, implant);
 
 			// Assert
-			Assert.That(result, Is.Not.Null);
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.Not.Null);
+				Assert.That(result.GetLevel(), Is.EqualTo(1), "HeroBuilder did not set initial level");
+			});
 		}
 	}
 }

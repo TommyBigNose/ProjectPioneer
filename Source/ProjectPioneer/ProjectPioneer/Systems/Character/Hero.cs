@@ -8,7 +8,7 @@ using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Character
 {
-	public class Hero : IHero, ICalculableStats
+	public class Hero : IHero
 	{
 		private readonly string _name = string.Empty;
 		public string Name => _name;
@@ -30,140 +30,152 @@ namespace ProjectPioneer.Systems.Character
 			_stats = stats;
 		}
 
+		#region IHero
+		public void LevelUp()
+		{
+			_stats.Level++;
+			_stats.PhysicalAttack += _job.Stats.PhysicalAttack + _implant.Stats.PhysicalAttack;
+			_stats.PhysicalDefense+= _job.Stats.PhysicalDefense + _implant.Stats.PhysicalDefense;
+			_stats.MagicalAttack += _job.Stats.MagicalAttack + _implant.Stats.MagicalAttack;
+			_stats.MagicalDefense += _job.Stats.MagicalDefense + _implant.Stats.MagicalDefense;
+			_stats.Speed += _job.Stats.Speed + _implant.Stats.Speed;
+		}
+		#endregion
+
 		#region ICalculableStats
 		public int GetLevel()
 		{
-			throw new NotImplementedException();
+			return _stats.Level;
 		}
 
 		public int GetBasePhysicalAttack()
 		{
-			throw new NotImplementedException();
+			return _stats.PhysicalAttack;
 		}
 
 		public int GetBasePhysicalDefense()
 		{
-			throw new NotImplementedException();
+			return _stats.PhysicalDefense;
 		}
 
 		public int GetBaseMagicalAttack()
 		{
-			throw new NotImplementedException();
+			return _stats.MagicalAttack;
 		}
 
 		public int GetBaseMagicalDefense()
 		{
-			throw new NotImplementedException();
+			return _stats.MagicalDefense;
 		}
 
 		public int GetBaseSpeed()
 		{
-			throw new NotImplementedException();
+			return _stats.Speed;
 		}
 
 		public int GetBaseFireAttack()
 		{
-			throw new NotImplementedException();
+			return _stats.FireAttack;
 		}
 
 		public int GetBaseFireDefense()
 		{
-			throw new NotImplementedException();
+			return _stats.FireDefense;
 		}
 
 		public int GetBaseIceAttack()
 		{
-			throw new NotImplementedException();
+			return _stats.IceAttack;
 		}
 
 		public int GetBaseIceDefense()
 		{
-			throw new NotImplementedException();
+			return _stats.IceDefense;
 		}
 
 		public int GetBaseLightningAttack()
 		{
-			throw new NotImplementedException();
+			return _stats.LightningAttack;
 		}
 
 		public int GetBaseLightningDefense()
 		{
-			throw new NotImplementedException();
+			return _stats.LightningDefense;
 		}
 
 		public int GetBaseEarthAttack()
 		{
-			throw new NotImplementedException();
+			return _stats.EarthAttack;
 		}
 
 		public int GetBaseEarthDefense()
 		{
-			throw new NotImplementedException();
+			return _stats.EarthDefense;
 		}
 
 		public int GetTotalPhysicalAttack()
 		{
-			throw new NotImplementedException();
+			return GetBasePhysicalAttack();
 		}
 
 		public int GetTotalPhysicalDefense()
 		{
-			throw new NotImplementedException();
+			return GetBasePhysicalDefense();
 		}
 
 		public int GetTotalMagicalAttack()
 		{
-			throw new NotImplementedException();
+			return GetBaseMagicalAttack();
 		}
 
 		public int GetTotalMagicalDefense()
 		{
-			throw new NotImplementedException();
+			return GetBaseMagicalDefense();
 		}
 
 		public int GetTotalSpeed()
 		{
-			throw new NotImplementedException();
+			return GetBaseSpeed();
 		}
 
 		public int GetTotalFireAttack()
 		{
-			throw new NotImplementedException();
+			return GetBaseFireAttack();
 		}
 
 		public int GetTotalFireDefense()
 		{
-			throw new NotImplementedException();
+			return GetBaseFireDefense();
 		}
 
 		public int GetTotalIceAttack()
 		{
-			throw new NotImplementedException();
+			return GetBaseIceAttack();
 		}
 
 		public int GetTotalIceDefense()
 		{
-			throw new NotImplementedException();
+			return GetBaseIceDefense();
 		}
 
 		public int GetTotalLightningAttack()
 		{
-			throw new NotImplementedException();
+			return GetBaseLightningAttack();
 		}
 
 		public int GetTotalLightningDefense()
 		{
-			throw new NotImplementedException();
+			return GetBaseLightningDefense();
 		}
 
 		public int GetTotalEarthAttack()
 		{
-			throw new NotImplementedException();
+			return GetBaseEarthAttack();
 		}
 
 		public int GetTotalEarthDefense()
 		{
-			throw new NotImplementedException();
+			return GetBaseEarthDefense();
 		}
 		#endregion
 	}
