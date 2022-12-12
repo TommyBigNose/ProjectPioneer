@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Systems\Data\" />
     <Folder Include="Systems\Equipment\" />
     <Folder Include="Systems\Adventure\" />
     <Folder Include="Systems\World\" />
