@@ -10,5 +10,6 @@ namespace ProjectPioneer.Systems.Data
 	public interface IDataSource
 	{
 		IEnumerable<IJob> GetAllJobs();
+		IEnumerable<IImplant> GetAllImplants();
 	}
 }

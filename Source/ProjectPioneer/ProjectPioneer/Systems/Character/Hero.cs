@@ -34,11 +34,11 @@ namespace ProjectPioneer.Systems.Character
 		public void LevelUp()
 		{
 			_stats.Level++;
-			_stats.PhysicalAttack += _job.Stats.PhysicalAttack + _implant.Stats.PhysicalAttack;
-			_stats.PhysicalDefense+= _job.Stats.PhysicalDefense + _implant.Stats.PhysicalDefense;
-			_stats.MagicalAttack += _job.Stats.MagicalAttack + _implant.Stats.MagicalAttack;
-			_stats.MagicalDefense += _job.Stats.MagicalDefense + _implant.Stats.MagicalDefense;
-			_stats.Speed += _job.Stats.Speed + _implant.Stats.Speed;
+			_stats.PhysicalAttack += 1 + _job.Stats.PhysicalAttack + _implant.Stats.PhysicalAttack;
+			_stats.PhysicalDefense+= 1 + _job.Stats.PhysicalDefense + _implant.Stats.PhysicalDefense;
+			_stats.MagicalAttack += 1 + _job.Stats.MagicalAttack + _implant.Stats.MagicalAttack;
+			_stats.MagicalDefense += 1 + _job.Stats.MagicalDefense + _implant.Stats.MagicalDefense;
+			_stats.Speed += 1 + _job.Stats.Speed + _implant.Stats.Speed;
 		}
 		#endregion
 

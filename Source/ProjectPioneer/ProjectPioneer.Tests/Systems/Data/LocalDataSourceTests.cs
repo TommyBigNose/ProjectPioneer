@@ -35,5 +35,16 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough jobs.");
 		}
+
+		[Test]
+		public void Should_GetAllImplants()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllImplants();
+
+			// Assert
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough implants.");
+		}
 	}
 }
