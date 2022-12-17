@@ -29,8 +29,8 @@ namespace ProjectPioneer.Tests.Systems.Character
 		public void Should_CreateHero_When_InputsAreValid()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", new Stats());
-			IImplant implant = new Implant("TestImplant", new Stats());
+			IJob job = new Job("TestJob", "Desc", new Stats());
+			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
 
 			// Act
 			var result = _sut.CreateHero("Test", job, implant);

@@ -14,7 +14,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var jobs = new List<IJob>()
 			{
-				new Job("Vanguard", new Stats()
+				new Job("Vanguard", "Melee front line class", new Stats()
 				{
 					PhysicalAttack = 1,
 					PhysicalDefense = 1,
@@ -30,7 +30,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 5,
 					EarthDefense = 5,
 				}),
-				new Job("Ranger", new Stats()
+				new Job("Ranger", "Long range combat class", new Stats()
 				{
 					PhysicalAttack = 0,
 					PhysicalDefense = 0,
@@ -46,7 +46,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Job("Technician", new Stats()
+				new Job("Technician", "Magic focused class", new Stats()
 				{
 					PhysicalAttack = 0,
 					PhysicalDefense = 0,
@@ -71,7 +71,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var implants = new List<IImplant>()
 			{
-				new Implant("Reinforced Skin", new Stats()
+				new Implant("Reinforced Skin", "Enhanced skin for extra defenses all around", new Stats()
 				{
 					PhysicalAttack = 0,
 					PhysicalDefense = 1,
@@ -87,23 +87,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 5,
 				}),
-				new Implant("Focus Injector", new Stats()
-				{
-					PhysicalAttack = 0,
-					PhysicalDefense = 0,
-					MagicalAttack = 2,
-					MagicalDefense = 0,
-					Speed = 0,
-					FireAttack = 5,
-					FireDefense = 0,
-					IceAttack = 5,
-					IceDefense = 0,
-					LightningAttack = 5,
-					LightningDefense = 0,
-					EarthAttack = 5,
-					EarthDefense = 0,
-				}),
-				new Implant("Reinforced Joints", new Stats()
+				new Implant("Reinforced Joints", "Physical upgrades to help in harsh environments", new Stats()
 				{
 					PhysicalAttack = 1,
 					PhysicalDefense = 0,
@@ -118,6 +102,22 @@ namespace ProjectPioneer.Systems.Data
 					LightningDefense = 0,
 					EarthAttack = 5,
 					EarthDefense = 5,
+				}),
+				new Implant("Focus Injector", "Enhanced mental state for raw offence", new Stats()
+				{
+					PhysicalAttack = 0,
+					PhysicalDefense = 0,
+					MagicalAttack = 2,
+					MagicalDefense = 0,
+					Speed = 0,
+					FireAttack = 5,
+					FireDefense = 0,
+					IceAttack = 5,
+					IceDefense = 0,
+					LightningAttack = 5,
+					LightningDefense = 0,
+					EarthAttack = 5,
+					EarthDefense = 0,
 				})
 			};
 
