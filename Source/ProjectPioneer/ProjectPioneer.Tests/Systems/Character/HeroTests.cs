@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
+using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Tests.Systems.Character
@@ -74,6 +75,24 @@ namespace ProjectPioneer.Tests.Systems.Character
 					Is.EqualTo(initialStats.Speed + levelUpCount + (job.Stats.Speed * levelUpCount) + (implant.Stats.Speed * levelUpCount)),
 					"Hero did not upgrade Speed");
 			});
+		}
+
+		[TestCase("Vanguard", WeaponType.Gun)]
+		[TestCase("Ranger", WeaponType.Staff)]
+		[TestCase("Technician", WeaponType.Blade)]
+		public void Should_NotBeAbleToEquipWeapon_When_JobCannot(string jobName, WeaponType weaponType)
+		{
+			// Arrange
+			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
+			IImplant implant = new Implant("Test", "Test", new Stats());
+			_sut = new Hero("Test", job, implant, new Stats());
+			IWeapon weapon = _dataSource.GetAllWeapons().First(_ => _.WeaponType == weaponType);
+
+			// Act
+			var result = _sut.CanEquipWeapon(weapon);
+
+			// Assert
+			Assert.That(result, Is.False, "Hero was allowed to equip a weapon that its job didn't allow");
 		}
 	}
 }

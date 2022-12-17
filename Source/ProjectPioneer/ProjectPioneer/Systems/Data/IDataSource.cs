@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Equipment;
 
 namespace ProjectPioneer.Systems.Data
 {
@@ -11,5 +12,6 @@ namespace ProjectPioneer.Systems.Data
 	{
 		IEnumerable<IJob> GetAllJobs();
 		IEnumerable<IImplant> GetAllImplants();
+		IEnumerable<IWeapon> GetAllWeapons();
 	}
 }

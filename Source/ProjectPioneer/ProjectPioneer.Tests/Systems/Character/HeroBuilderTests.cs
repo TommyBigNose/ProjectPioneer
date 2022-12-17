@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Tests.Systems.Character
@@ -29,7 +30,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		public void Should_CreateHero_When_InputsAreValid()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", "Desc", new Stats());
+			IJob job = new Job("TestJob", "Desc", new List<WeaponType>() { WeaponType.None }, new Stats());
 			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
 
 			// Act

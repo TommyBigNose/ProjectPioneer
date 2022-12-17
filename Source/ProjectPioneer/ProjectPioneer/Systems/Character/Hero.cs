@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Character
@@ -39,6 +40,11 @@ namespace ProjectPioneer.Systems.Character
 			_stats.MagicalAttack += 1 + _job.Stats.MagicalAttack + _implant.Stats.MagicalAttack;
 			_stats.MagicalDefense += 1 + _job.Stats.MagicalDefense + _implant.Stats.MagicalDefense;
 			_stats.Speed += 1 + _job.Stats.Speed + _implant.Stats.Speed;
+		}
+
+		public bool CanEquipWeapon(IWeapon weapon)
+		{
+			return _job.EquipableWeaponTypes.Contains(weapon.WeaponType);
 		}
 		#endregion
 
