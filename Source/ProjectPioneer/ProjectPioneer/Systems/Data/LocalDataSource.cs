@@ -200,9 +200,103 @@ namespace ProjectPioneer.Systems.Data
 			return weapons;
 		}
 
+		public IEnumerable<IArmor> GetAllArmors()
+		{
+			var armors = new List<IArmor>()
+			{
+				new Armor("Leather Padding", "Mass produced armor for rookies", new Stats()
+				{
+					Level= 1,
+					PhysicalAttack = 0,
+					PhysicalDefense = 2,
+					MagicalAttack = 0,
+					MagicalDefense = 2,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 0,
+					IceAttack = 0,
+					IceDefense = 5,
+					LightningAttack = 0,
+					LightningDefense = 0,
+					EarthAttack = 0,
+					EarthDefense = 0,
+				}),
+			};
+
+			return armors;
+		}
+
+		public IEnumerable<IAura> GetAllAuras()
+		{
+			var auras = new List<IAura>()
+			{
+				new Aura("Resistance Barrier", "Mass produced aura for rookies", new Stats()
+				{
+					Level= 1,
+					PhysicalAttack = 0,
+					PhysicalDefense = 0,
+					MagicalAttack = 0,
+					MagicalDefense = 0,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 2,
+					IceAttack = 0,
+					IceDefense = 2,
+					LightningAttack = 0,
+					LightningDefense = 2,
+					EarthAttack = 0,
+					EarthDefense = 2,
+				}),
+			};
+
+			return auras;
+		}
+
 		public IWeapon GetDefaultWeapon()
 		{
 			return new Weapon("Nothing", "Just your fists", WeaponType.None, new Stats()
+			{
+				Level = 0,
+				PhysicalAttack = 0,
+				PhysicalDefense = 0,
+				MagicalAttack = 0,
+				MagicalDefense = 0,
+				Speed = 0,
+				FireAttack = 0,
+				FireDefense = 0,
+				IceAttack = 0,
+				IceDefense = 0,
+				LightningAttack = 0,
+				LightningDefense = 0,
+				EarthAttack = 0,
+				EarthDefense = 0,
+			});
+		}
+
+		public IArmor GetDefaultArmor()
+		{
+			return new Armor("Clothes", "Whatever you normally wear", new Stats()
+			{
+				Level = 0,
+				PhysicalAttack = 0,
+				PhysicalDefense = 0,
+				MagicalAttack = 0,
+				MagicalDefense = 0,
+				Speed = 0,
+				FireAttack = 0,
+				FireDefense = 0,
+				IceAttack = 0,
+				IceDefense = 0,
+				LightningAttack = 0,
+				LightningDefense = 0,
+				EarthAttack = 0,
+				EarthDefense = 0,
+			});
+		}
+
+		public IAura GetDefaultAura()
+		{
+			return new Aura("Basic", "Normal human aura", new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,

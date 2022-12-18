@@ -22,21 +22,23 @@ namespace ProjectPioneer.Systems.Character
 
 		private IWeapon _equippedWeapon;
 		public IWeapon EquippedWeapon => _equippedWeapon;
-		//private IArmor _equippedArmor;
-		//public IArmor EquippedArmor => _equippedArmor;
-		//private IAura _equippedAura;
-		//public IAura EquippedAura => _equippedAura;
+		private IArmor _equippedArmor;
+		public IArmor EquippedArmor => _equippedArmor;
+		private IAura _equippedAura;
+		public IAura EquippedAura => _equippedAura;
 
 		private readonly Stats _stats;
 		public Stats Stats => _stats;
 
-		public Hero(string name, IJob job, IImplant implant, Stats stats, IWeapon weapon/*, IArmor armor, IAura aura*/)
+		public Hero(string name, IJob job, IImplant implant, Stats stats, IWeapon weapon, IArmor armor, IAura aura)
 		{
 			_name = name;
 			_job = job;
 			_implant = implant;
 			_stats = stats;
 			_equippedWeapon= weapon;
+			_equippedArmor = armor;
+			_equippedAura = aura;
 		}
 
 		#region IHero
@@ -60,6 +62,30 @@ namespace ProjectPioneer.Systems.Character
 			var oldWeapon = EquippedWeapon;
 			_equippedWeapon = weapon;
 			return oldWeapon;
+		}
+
+		public bool CanEquipArmor(IArmor armor)
+		{
+			return true;
+		}
+
+		public IArmor EquipArmorAndReturnOldArmor(IArmor armor)
+		{
+			var oldArmor = EquippedArmor;
+			_equippedArmor = armor;
+			return oldArmor;
+		}
+
+		public bool CanEquipAura(IAura aura)
+		{
+			return true;
+		}
+
+		public IAura EquipAuraAndReturnOldAura(IAura aura)
+		{
+			var oldAura = EquippedAura;
+			_equippedAura = aura;
+			return oldAura;
 		}
 		#endregion
 
@@ -137,79 +163,105 @@ namespace ProjectPioneer.Systems.Character
 		public int GetTotalPhysicalAttack()
 		{
 			return GetBasePhysicalAttack() +
-				_equippedWeapon.Stats.PhysicalAttack;
+				_equippedWeapon.Stats.PhysicalAttack +
+				_equippedArmor.Stats.PhysicalAttack +
+				_equippedAura.Stats.PhysicalAttack;
 		}
 
 		public int GetTotalPhysicalDefense()
 		{
 			return GetBasePhysicalDefense() +
-				_equippedWeapon.Stats.PhysicalDefense;
+				_equippedWeapon.Stats.PhysicalDefense +
+				_equippedArmor.Stats.PhysicalDefense +
+				_equippedAura.Stats.PhysicalDefense;
 		}
 
 		public int GetTotalMagicalAttack()
 		{
 			return GetBaseMagicalAttack() +
-				_equippedWeapon.Stats.MagicalAttack;
+				_equippedWeapon.Stats.MagicalAttack +
+				_equippedArmor.Stats.MagicalAttack +
+				_equippedAura.Stats.MagicalAttack;
 		}
 
 		public int GetTotalMagicalDefense()
 		{
 			return GetBaseMagicalDefense() +
-				_equippedWeapon.Stats.MagicalDefense;
+				_equippedWeapon.Stats.MagicalDefense +
+				_equippedArmor.Stats.MagicalDefense +
+				_equippedAura.Stats.MagicalDefense;
 		}
 
 		public int GetTotalSpeed()
 		{
 			return GetBaseSpeed() +
-				_equippedWeapon.Stats.Speed;
+				_equippedWeapon.Stats.Speed +
+				_equippedArmor.Stats.Speed +
+				_equippedAura.Stats.Speed;
 		}
 
 		public int GetTotalFireAttack()
 		{
 			return GetBaseFireAttack() +
-				_equippedWeapon.Stats.FireAttack;
+				_equippedWeapon.Stats.FireAttack +
+				_equippedArmor.Stats.FireAttack +
+				_equippedAura.Stats.FireAttack;
 		}
 
 		public int GetTotalFireDefense()
 		{
 			return GetBaseFireDefense() +
-				_equippedWeapon.Stats.FireDefense;
+				_equippedWeapon.Stats.FireDefense +
+				_equippedArmor.Stats.FireDefense +
+				_equippedAura.Stats.FireDefense;
 		}
 
 		public int GetTotalIceAttack()
 		{
 			return GetBaseIceAttack() +
-				_equippedWeapon.Stats.IceAttack;
+				_equippedWeapon.Stats.IceAttack +
+				_equippedArmor.Stats.IceAttack +
+				_equippedAura.Stats.IceAttack;
 		}
 
 		public int GetTotalIceDefense()
 		{
 			return GetBaseIceDefense() +
-				_equippedWeapon.Stats.IceDefense;
+				_equippedWeapon.Stats.IceDefense +
+				_equippedArmor.Stats.IceDefense +
+				_equippedAura.Stats.IceDefense;
 		}
 
 		public int GetTotalLightningAttack()
 		{
 			return GetBaseLightningAttack() +
-				_equippedWeapon.Stats.LightningAttack;
+				_equippedWeapon.Stats.LightningAttack +
+				_equippedArmor.Stats.LightningAttack +
+				_equippedAura.Stats.LightningAttack;
 		}
 
 		public int GetTotalLightningDefense()
 		{
 			return GetBaseLightningDefense() +
-				_equippedWeapon.Stats.LightningDefense;
+				_equippedWeapon.Stats.LightningDefense +
+				_equippedArmor.Stats.LightningDefense +
+				_equippedAura.Stats.LightningDefense;
 		}
 
 		public int GetTotalEarthAttack()
 		{
 			return GetBaseEarthAttack() +
-				_equippedWeapon.Stats.EarthAttack;
+				_equippedWeapon.Stats.EarthAttack +
+				_equippedArmor.Stats.EarthAttack +
+				_equippedAura.Stats.EarthAttack;
 		}
 
 		public int GetTotalEarthDefense()
 		{
 			return GetBaseEarthDefense() +
-				_equippedWeapon.Stats.EarthDefense;
+				_equippedWeapon.Stats.EarthDefense +
+				_equippedArmor.Stats.EarthDefense +
+				_equippedAura.Stats.EarthDefense;
 		}
 		#endregion
 	}

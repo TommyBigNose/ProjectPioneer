@@ -22,8 +22,10 @@ namespace ProjectPioneer.Systems.Character
 		{
 			Stats stats = new();
 			IWeapon weapon = _dataSource.GetDefaultWeapon();
+			IArmor armor = _dataSource.GetDefaultArmor();
+			IAura aura = _dataSource.GetDefaultAura();
 
-			IHero hero = new Hero(name, job, implant, stats, weapon);
+			IHero hero = new Hero(name, job, implant, stats, weapon, armor, aura);
 
 			return hero;
 		}

@@ -13,6 +13,10 @@ namespace ProjectPioneer.Systems.Data
 		IEnumerable<IJob> GetAllJobs();
 		IEnumerable<IImplant> GetAllImplants();
 		IEnumerable<IWeapon> GetAllWeapons();
+		IEnumerable<IArmor> GetAllArmors();
+		IEnumerable<IAura> GetAllAuras();
 		IWeapon GetDefaultWeapon();
+		IArmor GetDefaultArmor();
+		IAura GetDefaultAura();
 	}
 }

@@ -41,7 +41,9 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IJob job = _dataSource.GetAllJobs().First(_=>_.Name.Equals(jobName));
 			IImplant implant = _dataSource.GetAllImplants().First(_ => _.Name.Equals(implantName));
 			IWeapon weapon = _dataSource.GetDefaultWeapon();
-			_sut = new Hero("Test", job, implant, new Stats(), weapon);
+			IArmor armor = _dataSource.GetDefaultArmor();
+			IAura aura = _dataSource.GetDefaultAura();
+			_sut = new Hero("Test", job, implant, new Stats(), weapon, armor, aura);
 			Stats initialStats = new Stats(_sut.Stats);
 
 			// Act
@@ -87,7 +89,9 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
 			IImplant implant = new Implant("Test", "Test", new Stats());
 			IWeapon defaultWeapon = _dataSource.GetDefaultWeapon();
-			_sut = new Hero("Test", job, implant, new Stats(), defaultWeapon);
+			IArmor defaultArmor = _dataSource.GetDefaultArmor();
+			IAura defaultAura = _dataSource.GetDefaultAura();
+			_sut = new Hero("Test", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
 			IWeapon weapon = _dataSource.GetAllWeapons().First(_ => _.WeaponType == weaponType);
 
 			// Act
@@ -113,6 +117,44 @@ namespace ProjectPioneer.Tests.Systems.Character
 			{
 				Assert.That(equippedWeapon, Is.Not.EqualTo(oldWeapon), "Hero's EquippedWeapon is still the same as the old weapon");
 				Assert.That(equippedWeapon, Is.EqualTo(weapon), "Hero's EquippedWeapon did not change");
+			});
+		}
+
+		[Test]
+		public void Should_ChangeEquippedArmor_When_EquippingNewArmor()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			IArmor armor = _dataSource.GetAllArmors().First();
+
+			// Act
+			var oldArmor = _sut.EquipArmorAndReturnOldArmor(armor);
+			var equippedArmor = _sut.EquippedArmor;
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(equippedArmor, Is.Not.EqualTo(oldArmor), "Hero's EquippedArmor is still the same as the old armor");
+				Assert.That(equippedArmor, Is.EqualTo(armor), "Hero's EquippedArmor did not change");
+			});
+		}
+
+		[Test]
+		public void Should_ChangeEquippedAura_When_EquippingNewAura()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			IAura aura = _dataSource.GetAllAuras().First();
+
+			// Act
+			var oldAura = _sut.EquipAuraAndReturnOldAura(aura);
+			var equippedAura = _sut.EquippedAura;
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(equippedAura, Is.Not.EqualTo(oldAura), "Hero's EquippedAura is still the same as the old aura");
+				Assert.That(equippedAura, Is.EqualTo(aura), "Hero's EquippedAura did not change");
 			});
 		}
 
@@ -190,12 +232,162 @@ namespace ProjectPioneer.Tests.Systems.Character
 			});
 		}
 
+		[Test]
+		public void Should_UpdateTotalStats_When_EquippingNewArmor()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			Stats oldStats = GatherTotalsAsStats(_sut);
+			IArmor armor = new Armor("Test", "Test", new Stats()
+			{
+				Level = 1,
+				PhysicalAttack = 1,
+				PhysicalDefense = 2,
+				MagicalAttack = 3,
+				MagicalDefense = 4,
+				Speed = 5,
+				FireAttack = 6,
+				FireDefense = 7,
+				IceAttack = 8,
+				IceDefense = 9,
+				LightningAttack = 10,
+				LightningDefense = 11,
+				EarthAttack = 12,
+				EarthDefense = 13,
+			});
+
+			// Act
+			_sut.EquipArmorAndReturnOldArmor(armor);
+			Stats newStats = GatherTotalsAsStats(_sut);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(newStats.Level, Is.EqualTo(oldStats.Level), "Equipping armor changed level");
+				Assert.That(newStats.PhysicalAttack,
+					Is.EqualTo(oldStats.PhysicalAttack + armor.Stats.PhysicalAttack),
+					"Equipping armor did not alter PhysicalAttack");
+				Assert.That(newStats.PhysicalDefense,
+					Is.EqualTo(oldStats.PhysicalDefense + armor.Stats.PhysicalDefense),
+					"Equipping armor did not alter PhysicalAttack");
+				Assert.That(newStats.MagicalAttack,
+					Is.EqualTo(oldStats.MagicalAttack + armor.Stats.MagicalAttack),
+					"Equipping armor did not alter MagicalAttack");
+				Assert.That(newStats.MagicalDefense,
+					Is.EqualTo(oldStats.MagicalDefense + armor.Stats.MagicalDefense),
+					"Equipping armor did not alter MagicalDefense");
+				Assert.That(newStats.Speed,
+					Is.EqualTo(oldStats.Speed + armor.Stats.Speed),
+					"Equipping armor did not alter Speed");
+				Assert.That(newStats.FireAttack,
+					Is.EqualTo(oldStats.FireAttack + armor.Stats.FireAttack),
+					"Equipping armor did not alter FireAttack");
+				Assert.That(newStats.FireDefense,
+					Is.EqualTo(oldStats.FireDefense + armor.Stats.FireDefense),
+					"Equipping armor did not alter FireDefense");
+				Assert.That(newStats.IceAttack,
+					Is.EqualTo(oldStats.IceAttack + armor.Stats.IceAttack),
+					"Equipping armor did not alter IceAttack");
+				Assert.That(newStats.IceDefense,
+					Is.EqualTo(oldStats.IceDefense + armor.Stats.IceDefense),
+					"Equipping armor did not alter IceDefense");
+				Assert.That(newStats.LightningAttack,
+					Is.EqualTo(oldStats.LightningAttack + armor.Stats.LightningAttack),
+					"Equipping armor did not alter LightningAttack");
+				Assert.That(newStats.LightningDefense,
+					Is.EqualTo(oldStats.LightningDefense + armor.Stats.LightningDefense),
+					"Equipping armor did not alter LightningDefense");
+				Assert.That(newStats.EarthAttack,
+					Is.EqualTo(oldStats.EarthAttack + armor.Stats.EarthAttack),
+					"Equipping armor did not alter EarthAttack");
+				Assert.That(newStats.EarthDefense,
+					Is.EqualTo(oldStats.EarthDefense + armor.Stats.EarthDefense),
+					"Equipping armor did not alter EarthDefense");
+			});
+		}
+
+		[Test]
+		public void Should_UpdateTotalStats_When_EquippingNewAura()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			Stats oldStats = GatherTotalsAsStats(_sut);
+			IAura aura = new Aura("Test", "Test", new Stats()
+			{
+				Level = 1,
+				PhysicalAttack = 1,
+				PhysicalDefense = 2,
+				MagicalAttack = 3,
+				MagicalDefense = 4,
+				Speed = 5,
+				FireAttack = 6,
+				FireDefense = 7,
+				IceAttack = 8,
+				IceDefense = 9,
+				LightningAttack = 10,
+				LightningDefense = 11,
+				EarthAttack = 12,
+				EarthDefense = 13,
+			});
+
+			// Act
+			_sut.EquipAuraAndReturnOldAura(aura);
+			Stats newStats = GatherTotalsAsStats(_sut);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(newStats.Level, Is.EqualTo(oldStats.Level), "Equipping aura changed level");
+				Assert.That(newStats.PhysicalAttack,
+					Is.EqualTo(oldStats.PhysicalAttack + aura.Stats.PhysicalAttack),
+					"Equipping aura did not alter PhysicalAttack");
+				Assert.That(newStats.PhysicalDefense,
+					Is.EqualTo(oldStats.PhysicalDefense + aura.Stats.PhysicalDefense),
+					"Equipping aura did not alter PhysicalAttack");
+				Assert.That(newStats.MagicalAttack,
+					Is.EqualTo(oldStats.MagicalAttack + aura.Stats.MagicalAttack),
+					"Equipping aura did not alter MagicalAttack");
+				Assert.That(newStats.MagicalDefense,
+					Is.EqualTo(oldStats.MagicalDefense + aura.Stats.MagicalDefense),
+					"Equipping aura did not alter MagicalDefense");
+				Assert.That(newStats.Speed,
+					Is.EqualTo(oldStats.Speed + aura.Stats.Speed),
+					"Equipping aura did not alter Speed");
+				Assert.That(newStats.FireAttack,
+					Is.EqualTo(oldStats.FireAttack + aura.Stats.FireAttack),
+					"Equipping aura did not alter FireAttack");
+				Assert.That(newStats.FireDefense,
+					Is.EqualTo(oldStats.FireDefense + aura.Stats.FireDefense),
+					"Equipping aura did not alter FireDefense");
+				Assert.That(newStats.IceAttack,
+					Is.EqualTo(oldStats.IceAttack + aura.Stats.IceAttack),
+					"Equipping aura did not alter IceAttack");
+				Assert.That(newStats.IceDefense,
+					Is.EqualTo(oldStats.IceDefense + aura.Stats.IceDefense),
+					"Equipping aura did not alter IceDefense");
+				Assert.That(newStats.LightningAttack,
+					Is.EqualTo(oldStats.LightningAttack + aura.Stats.LightningAttack),
+					"Equipping aura did not alter LightningAttack");
+				Assert.That(newStats.LightningDefense,
+					Is.EqualTo(oldStats.LightningDefense + aura.Stats.LightningDefense),
+					"Equipping aura did not alter LightningDefense");
+				Assert.That(newStats.EarthAttack,
+					Is.EqualTo(oldStats.EarthAttack + aura.Stats.EarthAttack),
+					"Equipping aura did not alter EarthAttack");
+				Assert.That(newStats.EarthDefense,
+					Is.EqualTo(oldStats.EarthDefense + aura.Stats.EarthDefense),
+					"Equipping aura did not alter EarthDefense");
+			});
+		}
+
 		private IHero GetTestHero()
 		{
 			IJob job = _dataSource.GetAllJobs().First();
 			IImplant implant = _dataSource.GetAllImplants().First();
 			IWeapon defaultWeapon = _dataSource.GetDefaultWeapon();
-			return new Hero("Test Hero", job, implant, new Stats(), defaultWeapon);
+			IArmor defaultArmor = _dataSource.GetDefaultArmor();
+			IAura defaultAura = _dataSource.GetDefaultAura();
+			return new Hero("Test Hero", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
 		}
 
 		private Stats GatherTotalsAsStats(IHero hero)

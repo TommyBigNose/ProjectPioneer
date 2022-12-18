@@ -69,5 +69,27 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.That(result.Name, Is.EqualTo("Nothing"), "LocalDataSource did not return the default weapon.");
 		}
+
+		[Test]
+		public void Should_GetDefaultArmor()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetDefaultArmor();
+
+			// Assert
+			Assert.That(result.Name, Is.EqualTo("Clothes"), "LocalDataSource did not return the default armor.");
+		}
+
+		[Test]
+		public void Should_GetDefaultAura()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetDefaultAura();
+
+			// Assert
+			Assert.That(result.Name, Is.EqualTo("Basic"), "LocalDataSource did not return the default aura.");
+		}
 	}
 }
