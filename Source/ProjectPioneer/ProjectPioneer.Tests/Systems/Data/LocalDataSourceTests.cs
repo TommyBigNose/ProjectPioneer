@@ -58,5 +58,16 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough weapons.");
 		}
+
+		[Test]
+		public void Should_GetDefaultWeapon()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetDefaultWeapon();
+
+			// Assert
+			Assert.That(result.Name, Is.EqualTo("Nothing"), "LocalDataSource did not return the default weapon.");
+		}
 	}
 }

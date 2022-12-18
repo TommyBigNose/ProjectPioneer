@@ -13,5 +13,6 @@ namespace ProjectPioneer.Systems.Data
 		IEnumerable<IJob> GetAllJobs();
 		IEnumerable<IImplant> GetAllImplants();
 		IEnumerable<IWeapon> GetAllWeapons();
+		IWeapon GetDefaultWeapon();
 	}
 }

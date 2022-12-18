@@ -40,7 +40,8 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			IJob job = _dataSource.GetAllJobs().First(_=>_.Name.Equals(jobName));
 			IImplant implant = _dataSource.GetAllImplants().First(_ => _.Name.Equals(implantName));
-			_sut = new Hero("Test", job, implant, new Stats());
+			IWeapon weapon = _dataSource.GetDefaultWeapon();
+			_sut = new Hero("Test", job, implant, new Stats(), weapon);
 			Stats initialStats = new Stats(_sut.Stats);
 
 			// Act
@@ -85,7 +86,8 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
 			IImplant implant = new Implant("Test", "Test", new Stats());
-			_sut = new Hero("Test", job, implant, new Stats());
+			IWeapon defaultWeapon = _dataSource.GetDefaultWeapon();
+			_sut = new Hero("Test", job, implant, new Stats(), defaultWeapon);
 			IWeapon weapon = _dataSource.GetAllWeapons().First(_ => _.WeaponType == weaponType);
 
 			// Act
@@ -93,6 +95,130 @@ namespace ProjectPioneer.Tests.Systems.Character
 
 			// Assert
 			Assert.That(result, Is.False, "Hero was allowed to equip a weapon that its job didn't allow");
+		}
+
+		[Test]
+		public void Should_ChangeEquippedWeapon_When_EquippingNewWeapon()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			IWeapon weapon = _dataSource.GetAllWeapons().First();
+
+			// Act
+			var oldWeapon = _sut.EquipWeaponAndReturnOldWeapon(weapon);
+			var equippedWeapon = _sut.EquippedWeapon;
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(equippedWeapon, Is.Not.EqualTo(oldWeapon), "Hero's EquippedWeapon is still the same as the old weapon");
+				Assert.That(equippedWeapon, Is.EqualTo(weapon), "Hero's EquippedWeapon did not change");
+			});
+		}
+
+		[Test]
+		public void Should_UpdateTotalStats_When_EquippingNewWeapon()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			Stats oldStats = GatherTotalsAsStats(_sut);
+			IWeapon weapon = new Weapon("Test", "Test", WeaponType.None, new Stats()
+			{
+				Level = 1,
+				PhysicalAttack = 1,
+				PhysicalDefense = 2,
+				MagicalAttack = 3,
+				MagicalDefense = 4,
+				Speed = 5,
+				FireAttack = 6,
+				FireDefense = 7,
+				IceAttack = 8,
+				IceDefense = 9,
+				LightningAttack = 10,
+				LightningDefense = 11,
+				EarthAttack = 12,
+				EarthDefense = 13,
+			});
+			
+			// Act
+			_sut.EquipWeaponAndReturnOldWeapon(weapon);
+			Stats newStats = GatherTotalsAsStats(_sut);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(newStats.Level, Is.EqualTo(oldStats.Level), "Equipping weapon changed level");
+				Assert.That(newStats.PhysicalAttack,
+					Is.EqualTo(oldStats.PhysicalAttack + weapon.Stats.PhysicalAttack),
+					"Equipping weapon did not alter PhysicalAttack");
+				Assert.That(newStats.PhysicalDefense,
+					Is.EqualTo(oldStats.PhysicalDefense + weapon.Stats.PhysicalDefense),
+					"Equipping weapon did not alter PhysicalAttack");
+				Assert.That(newStats.MagicalAttack,
+					Is.EqualTo(oldStats.MagicalAttack + weapon.Stats.MagicalAttack),
+					"Equipping weapon did not alter MagicalAttack");
+				Assert.That(newStats.MagicalDefense,
+					Is.EqualTo(oldStats.MagicalDefense + weapon.Stats.MagicalDefense),
+					"Equipping weapon did not alter MagicalDefense");
+				Assert.That(newStats.Speed,
+					Is.EqualTo(oldStats.Speed + weapon.Stats.Speed),
+					"Equipping weapon did not alter Speed");
+				Assert.That(newStats.FireAttack,
+					Is.EqualTo(oldStats.FireAttack + weapon.Stats.FireAttack),
+					"Equipping weapon did not alter FireAttack");
+				Assert.That(newStats.FireDefense,
+					Is.EqualTo(oldStats.FireDefense + weapon.Stats.FireDefense),
+					"Equipping weapon did not alter FireDefense");
+				Assert.That(newStats.IceAttack,
+					Is.EqualTo(oldStats.IceAttack + weapon.Stats.IceAttack),
+					"Equipping weapon did not alter IceAttack");
+				Assert.That(newStats.IceDefense,
+					Is.EqualTo(oldStats.IceDefense + weapon.Stats.IceDefense),
+					"Equipping weapon did not alter IceDefense");
+				Assert.That(newStats.LightningAttack,
+					Is.EqualTo(oldStats.LightningAttack + weapon.Stats.LightningAttack),
+					"Equipping weapon did not alter LightningAttack");
+				Assert.That(newStats.LightningDefense,
+					Is.EqualTo(oldStats.LightningDefense + weapon.Stats.LightningDefense),
+					"Equipping weapon did not alter LightningDefense");
+				Assert.That(newStats.EarthAttack,
+					Is.EqualTo(oldStats.EarthAttack + weapon.Stats.EarthAttack),
+					"Equipping weapon did not alter EarthAttack");
+				Assert.That(newStats.EarthDefense,
+					Is.EqualTo(oldStats.EarthDefense + weapon.Stats.EarthDefense),
+					"Equipping weapon did not alter EarthDefense");
+			});
+		}
+
+		private IHero GetTestHero()
+		{
+			IJob job = _dataSource.GetAllJobs().First();
+			IImplant implant = _dataSource.GetAllImplants().First();
+			IWeapon defaultWeapon = _dataSource.GetDefaultWeapon();
+			return new Hero("Test Hero", job, implant, new Stats(), defaultWeapon);
+		}
+
+		private Stats GatherTotalsAsStats(IHero hero)
+		{
+			var stats = new Stats
+			{
+				Level = hero.GetLevel(),
+				PhysicalAttack = hero.GetTotalPhysicalAttack(),
+				PhysicalDefense = hero.GetTotalPhysicalDefense(),
+				MagicalAttack = hero.GetTotalMagicalAttack(),
+				MagicalDefense = hero.GetTotalMagicalDefense(),
+				Speed = hero.GetTotalSpeed(),
+				FireAttack = hero.GetTotalFireAttack(),
+				FireDefense = hero.GetTotalFireDefense(),
+				IceAttack = hero.GetTotalIceAttack(),
+				IceDefense = hero.GetTotalIceDefense(),
+				LightningAttack = hero.GetTotalLightningAttack(),
+				LightningDefense = hero.GetTotalLightningDefense(),
+				EarthAttack = hero.GetTotalEarthAttack(),
+				EarthDefense = hero.GetTotalEarthDefense(),
+			};
+
+			return stats;
 		}
 	}
 }

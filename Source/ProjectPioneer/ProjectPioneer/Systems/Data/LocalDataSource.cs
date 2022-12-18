@@ -146,6 +146,7 @@ namespace ProjectPioneer.Systems.Data
 			{
 				new Weapon("Energy Blade", "Mass produced energy blade for rookies", WeaponType.Blade, new Stats()
 				{
+					Level= 1,
 					PhysicalAttack = 2,
 					PhysicalDefense = 1,
 					MagicalAttack = 0,
@@ -162,6 +163,7 @@ namespace ProjectPioneer.Systems.Data
 				}),
 				new Weapon("Energy Pistol", "Mass produced energy pistol for rookies", WeaponType.Gun, new Stats()
 				{
+					Level= 1,
 					PhysicalAttack = 1,
 					PhysicalDefense = 0,
 					MagicalAttack = 0,
@@ -178,6 +180,7 @@ namespace ProjectPioneer.Systems.Data
 				}),
 				new Weapon("Energy Staff", "Mass produced energy staff for rookies", WeaponType.Staff, new Stats()
 				{
+					Level= 1,
 					PhysicalAttack = 0,
 					PhysicalDefense = 0,
 					MagicalAttack = 2,
@@ -195,6 +198,27 @@ namespace ProjectPioneer.Systems.Data
 			};
 
 			return weapons;
+		}
+
+		public IWeapon GetDefaultWeapon()
+		{
+			return new Weapon("Nothing", "Just your fists", WeaponType.None, new Stats()
+			{
+				Level = 0,
+				PhysicalAttack = 0,
+				PhysicalDefense = 0,
+				MagicalAttack = 0,
+				MagicalDefense = 0,
+				Speed = 0,
+				FireAttack = 0,
+				FireDefense = 0,
+				IceAttack = 0,
+				IceDefense = 0,
+				LightningAttack = 0,
+				LightningDefense = 0,
+				EarthAttack = 0,
+				EarthDefense = 0,
+			});
 		}
 	}
 }

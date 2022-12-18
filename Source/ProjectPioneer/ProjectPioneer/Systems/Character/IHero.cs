@@ -13,7 +13,13 @@ namespace ProjectPioneer.Systems.Character
 		string Name { get; }
 		IJob Job { get; }
 		IImplant Implant { get; }
+		IWeapon EquippedWeapon { get; }
+		//IArmor EquippedArmor { get; }
+		//IAura EquippedAura { get; }
 		void LevelUp();
 		bool CanEquipWeapon(IWeapon weapon);
+		IWeapon EquipWeaponAndReturnOldWeapon(IWeapon weapon);
+		//void EquipArmor(IArmor weapon);
+		//void EquipAura(IAura weapon);
 	}
 }

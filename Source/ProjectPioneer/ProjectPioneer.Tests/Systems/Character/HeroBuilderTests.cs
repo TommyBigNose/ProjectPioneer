@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -12,12 +13,14 @@ namespace ProjectPioneer.Tests.Systems.Character
 	[TestFixture]
 	public class HeroBuilderTests
 	{
+		private IDataSource _dataSource;
 		private IHeroBuilder _sut;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_sut = new HeroBuilder();
+			_dataSource = new LocalDataSource();
+			_sut = new HeroBuilder(_dataSource);
 		}
 
 		[TearDown]
@@ -41,6 +44,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			{
 				Assert.That(result, Is.Not.Null);
 				Assert.That(result.GetLevel(), Is.EqualTo(1), "HeroBuilder did not set initial level");
+				Assert.That(result.EquippedWeapon.Name, Is.EqualTo("Nothing"), "HeroBuilder did not equip default weapon");
 			});
 		}
 	}
