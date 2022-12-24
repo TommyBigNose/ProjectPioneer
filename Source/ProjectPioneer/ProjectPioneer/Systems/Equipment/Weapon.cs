@@ -25,5 +25,15 @@ namespace ProjectPioneer.Systems.Equipment
 			_weaponType = weaponType;
 			_stats = stats;
 		}
+
+		public int GetPurchaseValue()
+		{
+			return _stats.Level * Constants.WeaponCostScaling;
+		}
+
+		public int GetSellableValue()
+		{
+			return (int)Math.Ceiling(GetPurchaseValue() * Constants.EquipmentSellValueScaling);
+		}
 	}
 }

@@ -7,7 +7,7 @@ using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Equipment
 {
-	public interface IArmor
+	public interface IArmor : ISellableEquipment
 	{
 		string Name { get; }
 		string Description { get; }

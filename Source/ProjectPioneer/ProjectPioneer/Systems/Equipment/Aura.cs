@@ -22,5 +22,15 @@ namespace ProjectPioneer.Systems.Equipment
 			_description = description;
 			_stats = stats;
 		}
+
+		public int GetPurchaseValue()
+		{
+			return _stats.Level * Constants.AuraCostScaling;
+		}
+
+		public int GetSellableValue()
+		{
+			return (int)Math.Ceiling(GetPurchaseValue() * Constants.EquipmentSellValueScaling);
+		}
 	}
 }
