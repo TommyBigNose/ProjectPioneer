@@ -11,7 +11,7 @@ namespace ProjectPioneer.Systems.Character
 {
 	public class HeroBuilder : IHeroBuilder
 	{
-		private IDataSource _dataSource;
+		private readonly IDataSource _dataSource;
 
 		public HeroBuilder(IDataSource dataSource)
 		{
@@ -21,9 +21,9 @@ namespace ProjectPioneer.Systems.Character
 		public IHero CreateHero(string name, IJob job, IImplant implant)
 		{
 			Stats stats = new();
-			IWeapon weapon = _dataSource.GetDefaultWeapon();
-			IArmor armor = _dataSource.GetDefaultArmor();
-			IAura aura = _dataSource.GetDefaultAura();
+			IEquipment weapon = _dataSource.GetDefaultWeapon();
+			IEquipment armor = _dataSource.GetDefaultArmor();
+			IEquipment aura = _dataSource.GetDefaultAura();
 
 			IHero hero = new Hero(name, job, implant, stats, weapon, armor, aura);
 

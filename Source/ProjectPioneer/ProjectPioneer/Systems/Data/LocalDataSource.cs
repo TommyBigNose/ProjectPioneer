@@ -16,9 +16,9 @@ namespace ProjectPioneer.Systems.Data
 			var jobs = new List<IJob>()
 			{
 				new Job("Vanguard", "Melee front line class",
-				new List<WeaponType>()
+				new List<EquipmentType>()
 				{
-					WeaponType.None, WeaponType.Blade
+					EquipmentType.None, EquipmentType.Blade
 				},
 				new Stats()
 				{
@@ -37,9 +37,9 @@ namespace ProjectPioneer.Systems.Data
 					EarthDefense = 5,
 				}),
 				new Job("Ranger", "Long range combat class",
-				new List<WeaponType>()
+				new List<EquipmentType>()
 				{
-					WeaponType.None, WeaponType.Gun
+					EquipmentType.None, EquipmentType.Gun
 				},
 				new Stats()
 				{
@@ -58,9 +58,9 @@ namespace ProjectPioneer.Systems.Data
 					EarthDefense = 0,
 				}),
 				new Job("Technician", "Magic focused class",
-				new List<WeaponType>()
+				new List<EquipmentType>()
 				{
-					WeaponType.None, WeaponType.Staff
+					EquipmentType.None, EquipmentType.Staff
 				},
 				new Stats()
 				{
@@ -140,11 +140,11 @@ namespace ProjectPioneer.Systems.Data
 			return implants;
 		}
 
-		public IEnumerable<IWeapon> GetAllWeapons()
+		public IEnumerable<IEquipment> GetAllWeapons()
 		{
-			var weapons = new List<IWeapon>()
+			var weapons = new List<IEquipment>()
 			{
-				new Weapon("Energy Blade", "Mass produced energy blade for rookies", WeaponType.Blade, new Stats()
+				new Weapon("Energy Blade", "Mass produced energy blade for rookies", EquipmentType.Blade, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 2,
@@ -161,7 +161,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Weapon("Energy Pistol", "Mass produced energy pistol for rookies", WeaponType.Gun, new Stats()
+				new Weapon("Energy Pistol", "Mass produced energy pistol for rookies", EquipmentType.Gun, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 1,
@@ -178,7 +178,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Weapon("Energy Staff", "Mass produced energy staff for rookies", WeaponType.Staff, new Stats()
+				new Weapon("Energy Staff", "Mass produced energy staff for rookies", EquipmentType.Staff, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 0,
@@ -200,11 +200,11 @@ namespace ProjectPioneer.Systems.Data
 			return weapons;
 		}
 
-		public IEnumerable<IArmor> GetAllArmors()
+		public IEnumerable<IEquipment> GetAllArmors()
 		{
-			var armors = new List<IArmor>()
+			var armors = new List<IEquipment>()
 			{
-				new Armor("Leather Padding", "Mass produced armor for rookies", new Stats()
+				new Armor("Leather Padding", "Mass produced armor for rookies", EquipmentType.Armor, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 0,
@@ -221,16 +221,33 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
+				new Armor("Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
+				{
+					Level= 20,
+					PhysicalAttack = 0,
+					PhysicalDefense = 15,
+					MagicalAttack = 0,
+					MagicalDefense = 20,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 25,
+					IceAttack = 0,
+					IceDefense = 25,
+					LightningAttack = 0,
+					LightningDefense = 25,
+					EarthAttack = 0,
+					EarthDefense = 25,
+				}),
 			};
 
 			return armors;
 		}
 
-		public IEnumerable<IAura> GetAllAuras()
+		public IEnumerable<IEquipment> GetAllAuras()
 		{
-			var auras = new List<IAura>()
+			var auras = new List<IEquipment>()
 			{
-				new Aura("Resistance Barrier", "Mass produced aura for rookies", new Stats()
+				new Aura("Resistance Barrier", "Mass produced aura for rookies", EquipmentType.Aura,new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 0,
@@ -247,14 +264,31 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 2,
 				}),
+				new Aura("Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
+				{
+					Level= 20,
+					PhysicalAttack = 0,
+					PhysicalDefense = 5,
+					MagicalAttack = 0,
+					MagicalDefense = 10,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 40,
+					IceAttack = 0,
+					IceDefense = 40,
+					LightningAttack = 0,
+					LightningDefense = 40,
+					EarthAttack = 0,
+					EarthDefense = 40,
+				}),
 			};
 
 			return auras;
 		}
 
-		public IWeapon GetDefaultWeapon()
+		public IEquipment GetDefaultWeapon()
 		{
-			return new Weapon("Nothing", "Just your fists", WeaponType.None, new Stats()
+			return new Weapon("Nothing", "Just your fists", EquipmentType.None, new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,
@@ -273,9 +307,9 @@ namespace ProjectPioneer.Systems.Data
 			});
 		}
 
-		public IArmor GetDefaultArmor()
+		public IEquipment GetDefaultArmor()
 		{
-			return new Armor("Clothes", "Whatever you normally wear", new Stats()
+			return new Armor("Clothes", "Whatever you normally wear", EquipmentType.Armor, new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,
@@ -294,9 +328,9 @@ namespace ProjectPioneer.Systems.Data
 			});
 		}
 
-		public IAura GetDefaultAura()
+		public IEquipment GetDefaultAura()
 		{
-			return new Aura("Basic", "Normal human aura", new Stats()
+			return new Aura("Basic", "Normal human aura", EquipmentType.Aura, new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,

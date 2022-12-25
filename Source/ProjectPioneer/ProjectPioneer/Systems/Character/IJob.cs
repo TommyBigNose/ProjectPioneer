@@ -12,7 +12,7 @@ namespace ProjectPioneer.Systems.Character
 	{
 		string Name { get; }
 		string Description { get; }
-		IEnumerable<WeaponType> EquipableWeaponTypes { get; }
+		IEnumerable<EquipmentType> EquipableWeaponTypes { get; }
 		Stats Stats { get; }
 	}
 }

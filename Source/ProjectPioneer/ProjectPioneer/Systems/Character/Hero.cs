@@ -20,17 +20,17 @@ namespace ProjectPioneer.Systems.Character
 		private readonly IImplant _implant;
 		public IImplant Implant => _implant;
 
-		private IWeapon _equippedWeapon;
-		public IWeapon EquippedWeapon => _equippedWeapon;
-		private IArmor _equippedArmor;
-		public IArmor EquippedArmor => _equippedArmor;
-		private IAura _equippedAura;
-		public IAura EquippedAura => _equippedAura;
+		private IEquipment _equippedWeapon;
+		public IEquipment EquippedWeapon => _equippedWeapon;
+		private IEquipment _equippedArmor;
+		public IEquipment EquippedArmor => _equippedArmor;
+		private IEquipment _equippedAura;
+		public IEquipment EquippedAura => _equippedAura;
 
 		private readonly Stats _stats;
 		public Stats Stats => _stats;
 
-		public Hero(string name, IJob job, IImplant implant, Stats stats, IWeapon weapon, IArmor armor, IAura aura)
+		public Hero(string name, IJob job, IImplant implant, Stats stats, IEquipment weapon, IEquipment armor, IEquipment aura)
 		{
 			_name = name;
 			_job = job;
@@ -52,36 +52,36 @@ namespace ProjectPioneer.Systems.Character
 			_stats.Speed += 1 + _job.Stats.Speed + _implant.Stats.Speed;
 		}
 
-		public bool CanEquipWeapon(IWeapon weapon)
+		public bool CanEquipWeapon(IEquipment weapon)
 		{
-			return _job.EquipableWeaponTypes.Contains(weapon.WeaponType);
+			return _job.EquipableWeaponTypes.Contains(weapon.EquipmentType);
 		}
 
-		public IWeapon EquipWeaponAndReturnOldWeapon(IWeapon weapon)
+		public IEquipment EquipWeaponAndReturnOldWeapon(IEquipment weapon)
 		{
 			var oldWeapon = EquippedWeapon;
 			_equippedWeapon = weapon;
 			return oldWeapon;
 		}
 
-		public bool CanEquipArmor(IArmor armor)
+		public bool CanEquipArmor(IEquipment armor)
 		{
 			return true;
 		}
 
-		public IArmor EquipArmorAndReturnOldArmor(IArmor armor)
+		public IEquipment EquipArmorAndReturnOldArmor(IEquipment armor)
 		{
 			var oldArmor = EquippedArmor;
 			_equippedArmor = armor;
 			return oldArmor;
 		}
 
-		public bool CanEquipAura(IAura aura)
+		public bool CanEquipAura(IEquipment aura)
 		{
 			return true;
 		}
 
-		public IAura EquipAuraAndReturnOldAura(IAura aura)
+		public IEquipment EquipAuraAndReturnOldAura(IEquipment aura)
 		{
 			var oldAura = EquippedAura;
 			_equippedAura = aura;

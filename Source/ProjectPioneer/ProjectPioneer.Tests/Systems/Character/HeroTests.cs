@@ -40,9 +40,9 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			IJob job = _dataSource.GetAllJobs().First(_=>_.Name.Equals(jobName));
 			IImplant implant = _dataSource.GetAllImplants().First(_ => _.Name.Equals(implantName));
-			IWeapon weapon = _dataSource.GetDefaultWeapon();
-			IArmor armor = _dataSource.GetDefaultArmor();
-			IAura aura = _dataSource.GetDefaultAura();
+			IEquipment weapon = _dataSource.GetDefaultWeapon();
+			IEquipment armor = _dataSource.GetDefaultArmor();
+			IEquipment aura = _dataSource.GetDefaultAura();
 			_sut = new Hero("Test", job, implant, new Stats(), weapon, armor, aura);
 			Stats initialStats = new Stats(_sut.Stats);
 
@@ -80,19 +80,19 @@ namespace ProjectPioneer.Tests.Systems.Character
 			});
 		}
 
-		[TestCase("Vanguard", WeaponType.Gun)]
-		[TestCase("Ranger", WeaponType.Staff)]
-		[TestCase("Technician", WeaponType.Blade)]
-		public void Should_NotBeAbleToEquipWeapon_When_JobCannot(string jobName, WeaponType weaponType)
+		[TestCase("Vanguard", EquipmentType.Gun)]
+		[TestCase("Ranger", EquipmentType.Staff)]
+		[TestCase("Technician", EquipmentType.Blade)]
+		public void Should_NotBeAbleToEquipWeapon_When_JobCannot(string jobName, EquipmentType weaponType)
 		{
 			// Arrange
 			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
 			IImplant implant = new Implant("Test", "Test", new Stats());
-			IWeapon defaultWeapon = _dataSource.GetDefaultWeapon();
-			IArmor defaultArmor = _dataSource.GetDefaultArmor();
-			IAura defaultAura = _dataSource.GetDefaultAura();
+			IEquipment defaultWeapon = _dataSource.GetDefaultWeapon();
+			IEquipment defaultArmor = _dataSource.GetDefaultArmor();
+			IEquipment defaultAura = _dataSource.GetDefaultAura();
 			_sut = new Hero("Test", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
-			IWeapon weapon = _dataSource.GetAllWeapons().First(_ => _.WeaponType == weaponType);
+			IEquipment weapon = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == weaponType);
 
 			// Act
 			var result = _sut.CanEquipWeapon(weapon);
@@ -106,7 +106,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			_sut = GetTestHero();
-			IWeapon weapon = _dataSource.GetAllWeapons().First();
+			IEquipment weapon = _dataSource.GetAllWeapons().First();
 
 			// Act
 			var oldWeapon = _sut.EquipWeaponAndReturnOldWeapon(weapon);
@@ -125,7 +125,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			_sut = GetTestHero();
-			IArmor armor = _dataSource.GetAllArmors().First();
+			IEquipment armor = _dataSource.GetAllArmors().First();
 
 			// Act
 			var oldArmor = _sut.EquipArmorAndReturnOldArmor(armor);
@@ -144,7 +144,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			_sut = GetTestHero();
-			IAura aura = _dataSource.GetAllAuras().First();
+			IEquipment aura = _dataSource.GetAllAuras().First();
 
 			// Act
 			var oldAura = _sut.EquipAuraAndReturnOldAura(aura);
@@ -164,7 +164,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			_sut = GetTestHero();
 			Stats oldStats = GatherTotalsAsStats(_sut);
-			IWeapon weapon = new Weapon("Test", "Test", WeaponType.None, new Stats()
+			IEquipment weapon = new Weapon("Test", "Test", EquipmentType.None, new Stats()
 			{
 				Level = 1,
 				PhysicalAttack = 1,
@@ -238,7 +238,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			_sut = GetTestHero();
 			Stats oldStats = GatherTotalsAsStats(_sut);
-			IArmor armor = new Armor("Test", "Test", new Stats()
+			IEquipment armor = new Armor("Test", "Test", EquipmentType.Armor, new Stats()
 			{
 				Level = 1,
 				PhysicalAttack = 1,
@@ -312,7 +312,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			_sut = GetTestHero();
 			Stats oldStats = GatherTotalsAsStats(_sut);
-			IAura aura = new Aura("Test", "Test", new Stats()
+			IEquipment aura = new Aura("Test", "Test", EquipmentType.Aura, new Stats()
 			{
 				Level = 1,
 				PhysicalAttack = 1,
@@ -384,9 +384,9 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			IJob job = _dataSource.GetAllJobs().First();
 			IImplant implant = _dataSource.GetAllImplants().First();
-			IWeapon defaultWeapon = _dataSource.GetDefaultWeapon();
-			IArmor defaultArmor = _dataSource.GetDefaultArmor();
-			IAura defaultAura = _dataSource.GetDefaultAura();
+			IEquipment defaultWeapon = _dataSource.GetDefaultWeapon();
+			IEquipment defaultArmor = _dataSource.GetDefaultArmor();
+			IEquipment defaultAura = _dataSource.GetDefaultAura();
 			return new Hero("Test Hero", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
 		}
 

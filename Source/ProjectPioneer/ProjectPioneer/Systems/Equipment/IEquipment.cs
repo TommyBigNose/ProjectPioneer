@@ -7,10 +7,23 @@ using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Equipment
 {
-	public interface IAura : ISellableEquipment
+	public interface IEquipment
 	{
 		string Name { get; }
 		string Description { get; }
 		Stats Stats { get; }
+		EquipmentType EquipmentType { get; }
+		int GetPurchaseValue();
+		int GetSellableValue();
+	}
+
+	public enum EquipmentType
+	{
+		None,
+		Blade,
+		Gun,
+		Staff,
+		Armor,
+		Aura
 	}
 }

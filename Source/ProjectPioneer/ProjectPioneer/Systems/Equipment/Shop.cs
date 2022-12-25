@@ -16,20 +16,16 @@ namespace ProjectPioneer.Systems.Equipment
 			_dataSource= dataSource;
 		}
 
-		public IEnumerable<ISellableEquipment> GetShopInventory(int level)
+		public IEnumerable<IEquipment> GetShopInventory(int level)
 		{
-			List<IWeapon> weapons = _dataSource.GetAllWeapons().ToList().FindAll(_ => _.Stats.Level <= level + 1);
-			List<IArmor> armors = _dataSource.GetAllArmors().ToList().FindAll(_ => _.Stats.Level <= level + 1);
-			List<IAura> auras = _dataSource.GetAllAuras().ToList().FindAll(_ => _.Stats.Level <= level + 1);
-
-			List<ISellableEquipment> returnedEquipment = weapons.Cast<ISellableEquipment>().ToList();
-			returnedEquipment.AddRange(armors.Cast<ISellableEquipment>().ToList());
-			returnedEquipment.AddRange(auras.Cast<ISellableEquipment>().ToList());
+			List<IEquipment> returnedEquipment = _dataSource.GetAllWeapons().ToList().FindAll(_ => _.Stats.Level <= level + 1);
+			returnedEquipment.AddRange(_dataSource.GetAllArmors().ToList().FindAll(_ => _.Stats.Level <= level + 1));
+			returnedEquipment.AddRange(_dataSource.GetAllAuras().ToList().FindAll(_ => _.Stats.Level <= level + 1));
 
 			return returnedEquipment;
 		}
 
-		public bool CanPlayerAffordEquipment(ISellableEquipment equipment, int credits)
+		public bool CanPlayerAffordEquipment(IEquipment equipment, int credits)
 		{
 			return equipment.GetPurchaseValue() <= credits;
 		}

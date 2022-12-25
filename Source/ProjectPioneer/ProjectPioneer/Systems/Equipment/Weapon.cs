@@ -7,22 +7,22 @@ using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Equipment
 {
-	public class Weapon : IWeapon
+	public class Weapon : IEquipment
 	{
 		private readonly string _name = string.Empty;
 		public string Name => _name;
 		private readonly string _description = string.Empty;
 		public string Description => _description;
-		private readonly WeaponType _weaponType = WeaponType.None;
-		public WeaponType WeaponType => _weaponType;
+		private readonly EquipmentType _equipmentType = EquipmentType.None;
+		public EquipmentType EquipmentType => _equipmentType;
 		private readonly Stats _stats;
 		public Stats Stats => _stats;
 
-		public Weapon(string name, string description, WeaponType weaponType, Stats stats)
+		public Weapon(string name, string description, EquipmentType equipmentType, Stats stats)
 		{
 			_name = name;
 			_description = description;
-			_weaponType = weaponType;
+			_equipmentType = equipmentType;
 			_stats = stats;
 		}
 

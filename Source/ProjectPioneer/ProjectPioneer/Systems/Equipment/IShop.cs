@@ -8,7 +8,7 @@ namespace ProjectPioneer.Systems.Equipment
 {
 	public interface IShop
 	{
-		IEnumerable<ISellableEquipment> GetShopInventory(int level);
-		bool CanPlayerAffordEquipment(ISellableEquipment equipment, int credits);
+		IEnumerable<IEquipment> GetShopInventory(int level);
+		bool CanPlayerAffordEquipment(IEquipment equipment, int credits);
 	}
 }
