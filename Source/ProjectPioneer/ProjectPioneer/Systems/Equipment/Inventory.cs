@@ -9,8 +9,23 @@ namespace ProjectPioneer.Systems.Equipment
 {
 	public class Inventory : IInventory
 	{
+		private int _credits;
+		public int Credits => _credits;
 		private List<IEquipment> _heroInventory = new List<IEquipment>();
 		public List<IEquipment> HeroInventory => _heroInventory;
+
+		public void AddCredits(int credits)
+		{
+			_credits += credits;
+		}
+
+		public void RemoveCredits(int credits)
+		{
+			if (_credits - credits <= 0)
+				_credits = 0;
+			else 
+				_credits -= credits;
+		}
 
 		public void AddEquipment(IEquipment equipment)
 		{
@@ -45,7 +60,11 @@ namespace ProjectPioneer.Systems.Equipment
 
 		public int SellEquipment(IEquipment equipment)
 		{
-			throw new NotImplementedException();
+			int creditValue = equipment.GetSellableValue();
+			AddCredits(creditValue);
+			HeroInventory.Remove(equipment);
+			
+			return creditValue;
 		}
 
 		public void SortEquipment()
