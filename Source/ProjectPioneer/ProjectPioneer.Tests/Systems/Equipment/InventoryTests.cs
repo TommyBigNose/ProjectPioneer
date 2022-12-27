@@ -175,6 +175,29 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		}
 
 		[Test]
+		public void Should_SellSingleEquipment_When_ThereAreDuplicates()
+		{
+			// Arrange
+			_dataSource.GetAllWeapons().ToList().ForEach(_ => _sut.AddEquipment(_));
+			_dataSource.GetAllWeapons().ToList().ForEach(_ => _sut.AddEquipment(_));
+			IEquipment equipmentToBeSold = _sut.HeroInventory.First();
+			int initialInventoryAmount = _sut.HeroInventory.Count;
+			int initialDuplicateAmount = _sut.HeroInventory.Count(_ => _.Name == equipmentToBeSold.Name);
+
+			// Act
+			var result = _sut.SellEquipment(equipmentToBeSold);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.Credits, Is.EqualTo(result), "Inventory did not gain credits from sold equipment");
+				Assert.That(_sut.HeroInventory.Count, Is.EqualTo(initialInventoryAmount - 1), "Inventory did not remove sold equipment from inventory collection");
+				Assert.That(_sut.HeroInventory.Contains(equipmentToBeSold), Is.False, "Inventory still has sold equipment");
+				Assert.That(_sut.HeroInventory.Count(_=>_.Name == equipmentToBeSold.Name), Is.LessThan(initialDuplicateAmount), "Inventory still has other duplicates as expected");
+			});
+		}
+
+		[Test]
 		public void Should_SortEquipment_When_Prompted()
 		{
 			// Arrange
