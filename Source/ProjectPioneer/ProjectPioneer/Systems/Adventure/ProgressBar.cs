@@ -12,7 +12,8 @@ namespace ProjectPioneer.Systems.Adventure
 		private float _value = 0.0f;
 		public float Value => _value;
 
-		public const float ValueMax = 1000.0f;
+		private float _valueMax = 0.0f;
+		public float ValueMax => _valueMax;
 
 		public ProgressBar()
 		{

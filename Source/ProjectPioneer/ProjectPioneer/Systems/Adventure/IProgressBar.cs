@@ -9,6 +9,7 @@ namespace ProjectPioneer.Systems.Adventure
 	public interface IProgressBar
 	{
 		float Value { get; }
+		float ValueMax { get; }
 		bool IsFinished();
 		void IncrementActionBar(float increment);
 		void ResetActionBar();
