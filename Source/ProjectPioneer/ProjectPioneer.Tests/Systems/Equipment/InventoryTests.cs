@@ -201,8 +201,24 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_SortEquipment_When_Prompted()
 		{
 			// Arrange
+			_dataSource.GetAllAuras().ToList().ForEach(_ => _sut.AddEquipment(_));
+			_dataSource.GetAllArmors().ToList().ForEach(_ => _sut.AddEquipment(_));
+			_dataSource.GetAllWeapons().ToList().ForEach(_ => _sut.AddEquipment(_));
+			IEquipment initialFirstEquipment = _sut.HeroInventory.First();
+
 			// Act
+			_sut.SortEquipment();
+			IEquipment resultFirstEquipment = _sut.HeroInventory.First();
+			IEquipment resultLastEquipment = _sut.HeroInventory.Last();
+			int maxLevel = _sut.HeroInventory.Max(_ => _.Stats.Level);
+
 			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(resultFirstEquipment, Is.Not.EqualTo(initialFirstEquipment), "First item was not sorted as expected");
+				Assert.That(resultFirstEquipment.EquipmentType, Is.EqualTo(EquipmentType.Blade), "First item was not in the order of expected");
+				Assert.That(resultLastEquipment.Stats.Level, Is.EqualTo(maxLevel), "Secondary sort by level did not apply");
+			});
 		}
 	}
 }

@@ -19,11 +19,11 @@ namespace ProjectPioneer.Systems.Equipment
 
 	public enum EquipmentType
 	{
-		None,
-		Blade,
-		Gun,
-		Staff,
-		Armor,
-		Aura
+		None = 0,
+		Blade = 1,
+		Gun = 2,
+		Staff = 3,
+		Armor = 4,
+		Aura = 5
 	}
 }

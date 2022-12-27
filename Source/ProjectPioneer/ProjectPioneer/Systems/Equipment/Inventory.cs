@@ -69,7 +69,9 @@ namespace ProjectPioneer.Systems.Equipment
 
 		public void SortEquipment()
 		{
-			throw new NotImplementedException();
+			_heroInventory = _heroInventory.OrderBy(_ => (int)_.EquipmentType)
+				.ThenBy(_=>_.Stats.Level)
+				.ToList();
 		}
 	}
 }
