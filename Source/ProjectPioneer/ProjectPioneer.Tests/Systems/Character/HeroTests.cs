@@ -83,7 +83,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		[TestCase("Vanguard", EquipmentType.Gun)]
 		[TestCase("Ranger", EquipmentType.Staff)]
 		[TestCase("Technician", EquipmentType.Blade)]
-		public void Should_NotBeAbleToEquipWeapon_When_JobCannot(string jobName, EquipmentType weaponType)
+		public void Should_NotBeAbleToEquip_When_JobCannot(string jobName, EquipmentType weaponType)
 		{
 			// Arrange
 			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
@@ -95,7 +95,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IEquipment weapon = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == weaponType);
 
 			// Act
-			var result = _sut.CanEquipWeapon(weapon);
+			var result = _sut.CanEquip(weapon);
 
 			// Assert
 			Assert.That(result, Is.False, "Hero was allowed to equip a weapon that its job didn't allow");

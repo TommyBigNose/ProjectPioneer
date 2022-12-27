@@ -18,7 +18,7 @@ namespace ProjectPioneer.Systems.Data
 				new Job("Vanguard", "Melee front line class",
 				new List<EquipmentType>()
 				{
-					EquipmentType.None, EquipmentType.Blade
+					EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura
 				},
 				new Stats()
 				{
@@ -39,7 +39,7 @@ namespace ProjectPioneer.Systems.Data
 				new Job("Ranger", "Long range combat class",
 				new List<EquipmentType>()
 				{
-					EquipmentType.None, EquipmentType.Gun
+					EquipmentType.None, EquipmentType.Gun, EquipmentType.Armor, EquipmentType.Aura
 				},
 				new Stats()
 				{
@@ -60,7 +60,7 @@ namespace ProjectPioneer.Systems.Data
 				new Job("Technician", "Magic focused class",
 				new List<EquipmentType>()
 				{
-					EquipmentType.None, EquipmentType.Staff
+					EquipmentType.None, EquipmentType.Staff, EquipmentType.Armor, EquipmentType.Aura
 				},
 				new Stats()
 				{

@@ -9,17 +9,17 @@ namespace ProjectPioneer.Systems.Equipment
 {
 	public class Inventory : IInventory
 	{
-		private IEnumerable<IEquipment> _heroInventory;
-		public IEnumerable<IEquipment> HeroInventory => _heroInventory;
+		private List<IEquipment> _heroInventory = new List<IEquipment>();
+		public List<IEquipment> HeroInventory => _heroInventory;
 
 		public void AddEquipment(IEquipment equipment)
 		{
-			throw new NotImplementedException();
+			HeroInventory.Add(equipment);
 		}
 
-		public void CanEquip(IEquipment equipment, IHero hero)
+		public bool CanEquip(IEquipment equipment, IHero hero)
 		{
-			throw new NotImplementedException();
+			return hero.CanEquip(equipment);
 		}
 
 		public void EquipEquipment(IEquipment equipment, EquipmentType equipmentType, IHero hero)
@@ -28,6 +28,11 @@ namespace ProjectPioneer.Systems.Equipment
 		}
 
 		public int SellEquipment(IEquipment equipment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SortEquipment()
 		{
 			throw new NotImplementedException();
 		}

@@ -14,16 +14,16 @@ namespace ProjectPioneer.Systems.Character
 		public string Name => _name;
 		private readonly string _description = string.Empty;
 		public string Description => _description;
-		private readonly IEnumerable<EquipmentType> _equipableWeaponTypes;
-		public IEnumerable<EquipmentType> EquipableWeaponTypes => _equipableWeaponTypes;
+		private readonly IEnumerable<EquipmentType> _equipableTypes;
+		public IEnumerable<EquipmentType> EquipableTypes => _equipableTypes;
 		private readonly Stats _stats;
 		public Stats Stats => _stats;
 
-		public Job(string name, string description, IEnumerable<EquipmentType> equipableWeaponTypes, Stats stats)
+		public Job(string name, string description, IEnumerable<EquipmentType> equipableTypes, Stats stats)
 		{
 			_name = name;
 			_description = description;
-			_equipableWeaponTypes = equipableWeaponTypes;
+			_equipableTypes = equipableTypes;
 			_stats = stats;
 		}
 	}

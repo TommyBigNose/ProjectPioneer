@@ -52,9 +52,9 @@ namespace ProjectPioneer.Systems.Character
 			_stats.Speed += 1 + _job.Stats.Speed + _implant.Stats.Speed;
 		}
 
-		public bool CanEquipWeapon(IEquipment weapon)
+		public bool CanEquip(IEquipment equipment)
 		{
-			return _job.EquipableWeaponTypes.Contains(weapon.EquipmentType);
+			return _job.EquipableTypes.Contains(equipment.EquipmentType);
 		}
 
 		public IEquipment EquipWeaponAndReturnOldWeapon(IEquipment weapon)
@@ -64,11 +64,6 @@ namespace ProjectPioneer.Systems.Character
 			return oldWeapon;
 		}
 
-		public bool CanEquipArmor(IEquipment armor)
-		{
-			return true;
-		}
-
 		public IEquipment EquipArmorAndReturnOldArmor(IEquipment armor)
 		{
 			var oldArmor = EquippedArmor;
@@ -76,10 +71,6 @@ namespace ProjectPioneer.Systems.Character
 			return oldArmor;
 		}
 
-		public bool CanEquipAura(IEquipment aura)
-		{
-			return true;
-		}
 
 		public IEquipment EquipAuraAndReturnOldAura(IEquipment aura)
 		{

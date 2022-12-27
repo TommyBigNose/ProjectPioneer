@@ -17,7 +17,7 @@ namespace ProjectPioneer.Systems.Character
 		IEquipment EquippedArmor { get; }
 		IEquipment EquippedAura { get; }
 		void LevelUp();
-		bool CanEquipWeapon(IEquipment weapon);
+		bool CanEquip(IEquipment equipment);
 		IEquipment EquipWeaponAndReturnOldWeapon(IEquipment weapon);
 		IEquipment EquipArmorAndReturnOldArmor(IEquipment armor);
 		IEquipment EquipAuraAndReturnOldAura(IEquipment aura);
