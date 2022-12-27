@@ -22,9 +22,25 @@ namespace ProjectPioneer.Systems.Equipment
 			return hero.CanEquip(equipment);
 		}
 
-		public void EquipEquipment(IEquipment equipment, EquipmentType equipmentType, IHero hero)
+		public void EquipEquipment(IEquipment equipment, IHero hero)
 		{
-			throw new NotImplementedException();
+			HeroInventory.Remove(equipment);
+
+			IEquipment oldEquipment;
+			switch (equipment.EquipmentType)
+			{
+				case EquipmentType.Armor:
+					oldEquipment = hero.EquipArmorAndReturnOldArmor(equipment);
+					break;
+				case EquipmentType.Aura:
+					oldEquipment = hero.EquipAuraAndReturnOldAura(equipment);
+					break;
+				default:
+					oldEquipment = hero.EquipWeaponAndReturnOldWeapon(equipment);
+					break;
+			}
+
+			HeroInventory.Add(oldEquipment);
 		}
 
 		public int SellEquipment(IEquipment equipment)

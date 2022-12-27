@@ -13,7 +13,7 @@ namespace ProjectPioneer.Systems.Equipment
 		void AddEquipment(IEquipment equipment);
 		int SellEquipment(IEquipment equipment);
 		bool CanEquip(IEquipment equipment, IHero hero);
-		void EquipEquipment(IEquipment equipment, EquipmentType equipmentType, IHero hero);
+		void EquipEquipment(IEquipment equipment, IHero hero);
 		void SortEquipment();
 	}
 }

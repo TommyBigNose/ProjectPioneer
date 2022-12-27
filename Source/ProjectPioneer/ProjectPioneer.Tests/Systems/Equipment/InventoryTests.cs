@@ -96,8 +96,29 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_EquipEquipmentAndReturnOldToInventory_When_Prompted()
 		{
 			// Arrange
+			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>()
+			{ EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura }, new Stats());
+
+			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IHero hero = _heroBuilder.CreateHero("Test", job, implant);
+
 			// Act
+			IEquipment weapon = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
+			IEquipment armor = _dataSource.GetAllArmors().First(_ => _.EquipmentType == EquipmentType.Armor);
+			IEquipment aura = _dataSource.GetAllAuras().First(_ => _.EquipmentType == EquipmentType.Aura);
+			_sut.EquipEquipment(weapon, hero);
+			_sut.EquipEquipment(armor, hero);
+			_sut.EquipEquipment(aura, hero);
+			var result = _sut.HeroInventory;
+
 			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count, Is.EqualTo(3), "Inventory did not equip equipment and put them in the inventory collection");
+				Assert.That(hero.EquippedWeapon, Is.EqualTo(weapon), "Inventory did not equip hero with specified weapon");
+				Assert.That(hero.EquippedArmor, Is.EqualTo(armor), "Inventory did not equip hero with specified armor");
+				Assert.That(hero.EquippedAura, Is.EqualTo(aura), "Inventory did not equip hero with specified aura");
+			});
 		}
 
 		[Test]
