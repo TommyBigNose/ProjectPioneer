@@ -12,6 +12,7 @@ namespace ProjectPioneer.Systems.Adventure
 	{
 		string Name { get; }
 		string Description { get; }
+		IProgressBar ProgressBar { get; }
 		Stats Stats { get; }
 		int GetRecommendedLevel();
 		int GetCreditsReward();
