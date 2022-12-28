@@ -91,5 +91,16 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.That(result.Name, Is.EqualTo("Basic"), "LocalDataSource did not return the default aura.");
 		}
+
+		[Test]
+		public void Should_GetAllQuests()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllQuestInfos();
+
+			// Assert
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "LocalDataSource did not return enough quests.");
+		}
 	}
 }

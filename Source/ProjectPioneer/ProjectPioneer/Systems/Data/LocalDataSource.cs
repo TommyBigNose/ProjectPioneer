@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -347,6 +348,73 @@ namespace ProjectPioneer.Systems.Data
 				EarthAttack = 0,
 				EarthDefense = 0,
 			});
+		}
+
+		public IEnumerable<QuestInfo> GetAllQuestInfos()
+		{
+			var questInfos = new List<QuestInfo>()
+			{
+				new QuestInfo()
+				{
+					Name = "Forest - Part 1",
+					Description = "Desolate buildings are all that remains of the colony's first city.  A seemingly friendly forest encapsulates the town.",
+					Completed = false,
+					QuestLengthInSeconds = 60,
+					ChanceForNormalLoot = 600,
+					ChanceForRareLoot = 50, 
+					TotalChancesForLoot = 2,
+					Stats = new Stats()
+					{
+						Level = 1,
+						PhysicalAttack = 3,
+						PhysicalDefense = 3,
+						MagicalAttack = 3,
+						MagicalDefense = 3,
+						Speed = 2,
+						FireAttack = 0,
+						FireDefense = 0,
+						IceAttack = 0,
+						IceDefense = 5,
+						LightningAttack = 0,
+						LightningDefense = 5,
+						EarthAttack = 5,
+						EarthDefense = 20,
+					},
+					NormalLoot = GetAllWeapons(),
+					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
+				},
+				new QuestInfo()
+				{
+					Name = "Forest - Part 2",
+					Description = "Day turns to night, or is that the shade from the trees playing tricks on you?  A large warehouse stands at the end of the path, where you hear the cry of a large creature.",
+					Completed = false,
+					QuestLengthInSeconds = 60,
+					ChanceForNormalLoot = 600,
+					ChanceForRareLoot = 50,
+					TotalChancesForLoot = 2,
+					Stats = new Stats()
+					{
+						Level = 2,
+						PhysicalAttack = 5,
+						PhysicalDefense = 5,
+						MagicalAttack = 5,
+						MagicalDefense = 5,
+						Speed = 4,
+						FireAttack = 0,
+						FireDefense = 0,
+						IceAttack = 0,
+						IceDefense = 5,
+						LightningAttack = 0,
+						LightningDefense = 5,
+						EarthAttack = 5,
+						EarthDefense = 20,
+					},
+					NormalLoot = GetAllWeapons(),
+					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
+				},
+			};
+			
+			return questInfos;
 		}
 	}
 }
