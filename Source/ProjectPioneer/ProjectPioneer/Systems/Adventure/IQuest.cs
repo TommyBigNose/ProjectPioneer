@@ -12,10 +12,25 @@ namespace ProjectPioneer.Systems.Adventure
 	{
 		string Name { get; }
 		string Description { get; }
-		IProgressBar ProgressBar { get; }
+		bool Completed { get; }
+		int QuestLengthInSeconds { get; }
+		Timer QuestTimer { get; }
+		int ChanceForNormalLoot { get; }
+		int ChanceForRareLoot { get; }
+		int TotalChancesForLoot { get; }
 		Stats Stats { get; }
+		IProgressBar ProgressBar { get; }
+		IEnumerable<IEquipment> NormalLoot { get; }
+		IEquipment RareLoot { get; }
+
 		int GetRecommendedLevel();
 		int GetCreditsReward();
-		IEnumerable<IEquipment> GetPossibleEquipmentRewards();
+		int GetExpReward();
+		Stats GetStatComparison(Stats heroStats);
+		int GetSecondReductionFromStatComparison(Stats comparedStats);
+		void StartQuest();
+		void EndQuest();
+		void CancelQuest();
+		IEquipment? RollDiceForLoot();
 	}
 }
