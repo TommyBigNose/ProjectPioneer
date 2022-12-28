@@ -10,8 +10,10 @@ namespace ProjectPioneer.Systems.Adventure
 	{
 		float Value { get; }
 		float ValueMax { get; }
+		int IncrementRateInMs { get; }
+		float Increment { get; }
 		bool IsFinished();
-		void IncrementActionBar(float increment);
-		void ResetActionBar();
+		void IncrementProgressBar();
+		void ResetProgressBar();
 	}
 }
