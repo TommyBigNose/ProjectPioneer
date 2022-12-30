@@ -163,7 +163,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			_sut = GetTestHero();
-			Stats oldStats = GatherTotalsAsStats(_sut);
+			Stats oldStats = _sut.GetTotalsAsStats();
 			IEquipment weapon = new Weapon("Test", "Test", EquipmentType.None, new Stats()
 			{
 				Level = 1,
@@ -184,7 +184,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			
 			// Act
 			_sut.EquipWeaponAndReturnOldWeapon(weapon);
-			Stats newStats = GatherTotalsAsStats(_sut);
+			Stats newStats = _sut.GetTotalsAsStats();
 
 			// Assert
 			Assert.Multiple(() =>
@@ -237,7 +237,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			_sut = GetTestHero();
-			Stats oldStats = GatherTotalsAsStats(_sut);
+			Stats oldStats = _sut.GetTotalsAsStats();
 			IEquipment armor = new Armor("Test", "Test", EquipmentType.Armor, new Stats()
 			{
 				Level = 1,
@@ -258,7 +258,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 
 			// Act
 			_sut.EquipArmorAndReturnOldArmor(armor);
-			Stats newStats = GatherTotalsAsStats(_sut);
+			Stats newStats = _sut.GetTotalsAsStats();
 
 			// Assert
 			Assert.Multiple(() =>
@@ -311,7 +311,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			_sut = GetTestHero();
-			Stats oldStats = GatherTotalsAsStats(_sut);
+			Stats oldStats = _sut.GetTotalsAsStats();
 			IEquipment aura = new Aura("Test", "Test", EquipmentType.Aura, new Stats()
 			{
 				Level = 1,
@@ -332,7 +332,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 
 			// Act
 			_sut.EquipAuraAndReturnOldAura(aura);
-			Stats newStats = GatherTotalsAsStats(_sut);
+			Stats newStats = _sut.GetTotalsAsStats();
 
 			// Assert
 			Assert.Multiple(() =>
@@ -388,29 +388,6 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IEquipment defaultArmor = _dataSource.GetDefaultArmor();
 			IEquipment defaultAura = _dataSource.GetDefaultAura();
 			return new Hero("Test Hero", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
-		}
-
-		private Stats GatherTotalsAsStats(IHero hero)
-		{
-			var stats = new Stats
-			{
-				Level = hero.GetLevel(),
-				PhysicalAttack = hero.GetTotalPhysicalAttack(),
-				PhysicalDefense = hero.GetTotalPhysicalDefense(),
-				MagicalAttack = hero.GetTotalMagicalAttack(),
-				MagicalDefense = hero.GetTotalMagicalDefense(),
-				Speed = hero.GetTotalSpeed(),
-				FireAttack = hero.GetTotalFireAttack(),
-				FireDefense = hero.GetTotalFireDefense(),
-				IceAttack = hero.GetTotalIceAttack(),
-				IceDefense = hero.GetTotalIceDefense(),
-				LightningAttack = hero.GetTotalLightningAttack(),
-				LightningDefense = hero.GetTotalLightningDefense(),
-				EarthAttack = hero.GetTotalEarthAttack(),
-				EarthDefense = hero.GetTotalEarthDefense(),
-			};
-
-			return stats;
 		}
 	}
 }

@@ -40,5 +40,6 @@ namespace ProjectPioneer.Systems.Statistics
 		int GetTotalLightningDefense();
 		int GetTotalEarthAttack();
 		int GetTotalEarthDefense();
+		Stats GetTotalsAsStats();
 	}
 }

@@ -17,5 +17,6 @@ namespace ProjectPioneer.Systems
 		public const float EquipmentSellValueScaling = 0.5f;
 
 		public const int QuestRewardCreditScaling = 50;
+		public const int QuestRewardExpScaling = 50;
 	}
 }

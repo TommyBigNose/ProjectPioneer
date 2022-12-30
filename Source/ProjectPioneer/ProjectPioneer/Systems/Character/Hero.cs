@@ -254,6 +254,29 @@ namespace ProjectPioneer.Systems.Character
 				_equippedArmor.Stats.EarthDefense +
 				_equippedAura.Stats.EarthDefense;
 		}
+
+		public Stats GetTotalsAsStats()
+		{
+			var stats = new Stats
+			{
+				Level = GetLevel(),
+				PhysicalAttack = GetTotalPhysicalAttack(),
+				PhysicalDefense = GetTotalPhysicalDefense(),
+				MagicalAttack = GetTotalMagicalAttack(),
+				MagicalDefense = GetTotalMagicalDefense(),
+				Speed = GetTotalSpeed(),
+				FireAttack = GetTotalFireAttack(),
+				FireDefense = GetTotalFireDefense(),
+				IceAttack = GetTotalIceAttack(),
+				IceDefense = GetTotalIceDefense(),
+				LightningAttack = GetTotalLightningAttack(),
+				LightningDefense = GetTotalLightningDefense(),
+				EarthAttack = GetTotalEarthAttack(),
+				EarthDefense = GetTotalEarthDefense(),
+			};
+
+			return stats;
+		}
 		#endregion
 	}
 }
