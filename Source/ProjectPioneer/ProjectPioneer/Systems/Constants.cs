@@ -15,5 +15,7 @@ namespace ProjectPioneer.Systems
 		public const int ArmorCostScaling = 120;
 		public const int AuraCostScaling = 80;
 		public const float EquipmentSellValueScaling = 0.5f;
+
+		public const int QuestRewardCreditScaling = 50;
 	}
 }

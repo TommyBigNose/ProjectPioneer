@@ -32,7 +32,7 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public int GetCreditsReward()
 		{
-			throw new NotImplementedException();
+			return _questInfo.Stats.Level * Constants.QuestRewardCreditScaling;
 		}
 
 		public int GetExpReward()
