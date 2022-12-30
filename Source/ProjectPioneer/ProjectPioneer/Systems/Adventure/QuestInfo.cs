@@ -12,7 +12,6 @@ namespace ProjectPioneer.Systems.Adventure
 	{
 		public string Name { get; set; }
 		public string Description { get; set; }
-		public bool Completed { get; set; }
 		public int QuestLengthInSeconds { get; set; }
 		public int ChanceForNormalLoot { get; set; }
 		public int ChanceForRareLoot { get; set; }

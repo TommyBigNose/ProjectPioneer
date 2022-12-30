@@ -358,7 +358,6 @@ namespace ProjectPioneer.Systems.Data
 				{
 					Name = "Forest - Part 1",
 					Description = "Desolate buildings are all that remains of the colony's first city.  A seemingly friendly forest encapsulates the town.",
-					Completed = false,
 					QuestLengthInSeconds = 60,
 					ChanceForNormalLoot = 600,
 					ChanceForRareLoot = 50, 
@@ -387,7 +386,6 @@ namespace ProjectPioneer.Systems.Data
 				{
 					Name = "Forest - Part 2",
 					Description = "Day turns to night, or is that the shade from the trees playing tricks on you?  A large warehouse stands at the end of the path, where you hear the cry of a large creature.",
-					Completed = false,
 					QuestLengthInSeconds = 60,
 					ChanceForNormalLoot = 600,
 					ChanceForRareLoot = 50,

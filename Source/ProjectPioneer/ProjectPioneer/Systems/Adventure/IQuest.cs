@@ -10,6 +10,7 @@ namespace ProjectPioneer.Systems.Adventure
 {
 	public interface IQuest
 	{
+		public bool Completed { get; }
 		QuestInfo QuestInfo { get; }
 		IProgressBar ProgressBar { get; }
 

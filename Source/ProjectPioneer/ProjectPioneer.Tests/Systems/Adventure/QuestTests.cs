@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Adventure;
+using ProjectPioneer.Systems.Data;
 
 namespace ProjectPioneer.Tests.Systems.Adventure
 {
 	[TestFixture]
 	internal class QuestTests
 	{
+		private IDataSource _dataSource;
 		private IQuest _sut;
 
 		[SetUp]
 		public void SetUp()
 		{
-
+			_dataSource = new LocalDataSource();
 		}
 
 		[TearDown]
@@ -24,15 +26,19 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 
 		}
 
-		//[Test]
-		//public void Should_Pass_When_Valid()
-		//{
-		//	// Arrange
-		//	// Act
-		//	var result = _sut.Test();
 
-		//	// Assert
-		//	Assert.That(result, Is.Not.Null, "Result was null");
-		//}
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_GetRecommendedLevel_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+
+			// Act
+			var result = _sut.GetRecommendedLevel();
+
+			// Assert
+			Assert.That(result, Is.EqualTo(questLevel), "Quest did not return expected recommend level");
+		}
 	}
 }
