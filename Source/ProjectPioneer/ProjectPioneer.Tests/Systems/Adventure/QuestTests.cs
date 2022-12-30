@@ -155,5 +155,40 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 					"Quest stat comparison failed for EarthDefense");
 			});
 		}
+
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_GetReductionInSeconds_When_GivenStats(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			Stats comparedStarts = new Stats()
+			{
+				Level = 2 * questLevel,
+				PhysicalAttack = 2 * questLevel,
+				PhysicalDefense = 2 * questLevel,
+				MagicalAttack = 2 * questLevel,
+				MagicalDefense = 2 * questLevel,
+				Speed = 2 * questLevel,
+				FireAttack = 2 * questLevel,
+				FireDefense = 2 * questLevel,
+				IceAttack = 2 * questLevel,
+				IceDefense = 2 * questLevel,
+				LightningAttack = 2 * questLevel,
+				LightningDefense = 2 * questLevel,
+				EarthAttack = 2 * questLevel,
+				EarthDefense = 2 * questLevel,
+			};
+
+			// 14 stats, scaling appropriately 
+			int expectedSeconds = 14 * (2 * questLevel);
+
+			// Act
+			var result = _sut.GetSecondReductionFromStatComparison(comparedStarts);
+
+			// Assert
+			Assert.That(result, Is.EqualTo(expectedSeconds), "Quest second reduction calculation did not return as expected");
+		}
 	}
 }

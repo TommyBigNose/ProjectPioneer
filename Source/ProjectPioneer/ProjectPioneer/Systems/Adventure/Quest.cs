@@ -77,7 +77,24 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public int GetSecondReductionFromStatComparison(Stats comparedStats)
 		{
-			throw new NotImplementedException();
+			int secondReduction = 0;
+
+			secondReduction += comparedStats.Level;
+			secondReduction += comparedStats.PhysicalAttack;
+			secondReduction += comparedStats.PhysicalDefense;
+			secondReduction += comparedStats.MagicalAttack;
+			secondReduction += comparedStats.MagicalDefense;
+			secondReduction += comparedStats.Speed;
+			secondReduction += comparedStats.FireAttack;
+			secondReduction += comparedStats.FireDefense;
+			secondReduction += comparedStats.IceAttack;
+			secondReduction += comparedStats.IceDefense;
+			secondReduction += comparedStats.LightningAttack;
+			secondReduction += comparedStats.LightningDefense;
+			secondReduction += comparedStats.EarthAttack;
+			secondReduction += comparedStats.EarthDefense;
+
+			return secondReduction;
 		}
 
 		public void StartQuest()
