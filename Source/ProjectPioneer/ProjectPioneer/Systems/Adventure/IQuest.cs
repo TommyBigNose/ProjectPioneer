@@ -12,7 +12,7 @@ namespace ProjectPioneer.Systems.Adventure
 	{
 		public bool Completed { get; }
 		QuestInfo QuestInfo { get; }
-		IProgressBar ProgressBar { get; }
+		OnGoingQuest OnGoingQuest { get; }
 
 		int GetRecommendedLevel();
 		int GetCreditsReward();

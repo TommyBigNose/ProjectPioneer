@@ -16,13 +16,13 @@ namespace ProjectPioneer.Systems.Adventure
 		private QuestInfo _questInfo;
 		public QuestInfo QuestInfo => _questInfo;
 
-		private IProgressBar _progressBar;
-		public IProgressBar ProgressBar => _progressBar;
+		private OnGoingQuest _onGoingQuest;
+		public OnGoingQuest OnGoingQuest => _onGoingQuest;
 
 		public Quest(QuestInfo questInfo)
 		{
 			_questInfo = questInfo;
-			_progressBar = new ProgressBar(TimeSpan.FromSeconds(_questInfo.QuestLengthInSeconds));
+			_onGoingQuest = new OnGoingQuest(QuestInfo);
 		}
 
 		public int GetRecommendedLevel()
