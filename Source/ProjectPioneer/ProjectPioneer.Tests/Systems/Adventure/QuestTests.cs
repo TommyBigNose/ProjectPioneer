@@ -190,5 +190,41 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			// Assert
 			Assert.That(result, Is.EqualTo(expectedSeconds), "Quest second reduction calculation did not return as expected");
 		}
+
+		[TestCase(0)]
+		[TestCase(10)]
+		[TestCase(50)]
+		[TestCase(100)]
+		[TestCase(-10)]
+		[TestCase(-50)]
+		[TestCase(-100)]
+		public void Should_GetFinalQuestLengthInSeconds_When_GivenStats(int secondReduction)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First());
+			int initialQuestLength = _sut.QuestInfo.QuestLengthInSeconds;
+			
+			// Act
+			var result = _sut.GetFinalQuestLengthInSeconds(secondReduction);
+			int expectedSeconds = Math.Max(Constants.QuestMinimumLengthInSeconds, initialQuestLength - secondReduction);
+
+			// Assert
+			Assert.That(result, Is.EqualTo(expectedSeconds), $"Quest final length check did not subtract/add as expected, with a minimum quest length of {Constants.QuestMinimumLengthInSeconds} seconds");
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_StartQuest_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+
+			// Act
+			//_sut.StartQuest();
+			//var result = _sut.
+
+			// Assert
+			//Assert.That(result, Is.Not.Null, "Result was null");
+		}
 	}
 }

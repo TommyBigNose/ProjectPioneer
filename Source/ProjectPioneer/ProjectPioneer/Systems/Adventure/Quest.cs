@@ -97,11 +97,17 @@ namespace ProjectPioneer.Systems.Adventure
 			return secondReduction;
 		}
 
-		public void StartQuest()
+		public int GetFinalQuestLengthInSeconds(int secondReduction)
 		{
-			throw new NotImplementedException();
+			return Math.Max(Constants.QuestMinimumLengthInSeconds, QuestInfo.QuestLengthInSeconds - secondReduction);
 		}
 
+		public void StartQuest(Stats comparedStats)
+		{
+			// Calculate where chances for loot should go
+			// Start timer
+			// Overhead variables setup
+		}
 
 		public void EndQuest()
 		{
@@ -109,6 +115,21 @@ namespace ProjectPioneer.Systems.Adventure
 		}
 
 		public void CancelQuest()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ContinueQuest()
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool IsQuestCompleted()
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool IsQuestOnGoing()
 		{
 			throw new NotImplementedException();
 		}

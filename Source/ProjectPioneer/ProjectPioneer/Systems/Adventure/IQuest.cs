@@ -19,9 +19,13 @@ namespace ProjectPioneer.Systems.Adventure
 		int GetExpReward();
 		Stats GetStatComparison(Stats heroStats);
 		int GetSecondReductionFromStatComparison(Stats comparedStats);
-		void StartQuest();
+		int GetFinalQuestLengthInSeconds(int secondReduction);
+		void StartQuest(Stats comparedStats);
 		void EndQuest();
 		void CancelQuest();
+		void ContinueQuest();
+		bool IsQuestCompleted();
+		bool IsQuestOnGoing();
 		IEquipment? RollDiceForLoot();
 	}
 }
