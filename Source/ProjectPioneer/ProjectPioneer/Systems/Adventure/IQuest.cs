@@ -24,6 +24,7 @@ namespace ProjectPioneer.Systems.Adventure
 		void EndQuest();
 		void CancelQuest();
 		void ContinueQuest();
+		void ResetQuest();
 		bool IsQuestCompleted();
 		bool IsQuestOnGoing();
 		IEquipment? RollDiceForLoot();

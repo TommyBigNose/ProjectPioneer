@@ -11,13 +11,14 @@ namespace ProjectPioneer.Systems.Adventure
 		public QuestInfo QuestInfo { get; set; }
 		public IProgressBar ProgressBar { get; set; }
 		public int FinalQuestLengthInSeconds { get; set; }
-
+		public System.Timers.Timer QuestTimer { get; set; }
 
 		public OnGoingQuest(QuestInfo questInfo)
 		{
 			QuestInfo = questInfo;
 			ProgressBar = new ProgressBar(TimeSpan.FromSeconds(QuestInfo.QuestLengthInSeconds));
 			FinalQuestLengthInSeconds = QuestInfo.QuestLengthInSeconds;
+			QuestTimer = new System.Timers.Timer(ProgressBar.IncrementTickRateInMs);
 		}
 	}
 }

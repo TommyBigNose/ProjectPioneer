@@ -19,5 +19,6 @@ namespace ProjectPioneer.Systems
 		public const int QuestRewardCreditScaling = 50;
 		public const int QuestRewardExpScaling = 50;
 		public const int QuestMinimumLengthInSeconds = 10;
+		public const int QuestProgressBarIncrementTickRateInMs = 100;
 	}
 }

@@ -32,10 +32,10 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		{
 			// Arrange
 			_sut = new ProgressBar(TimeSpan.FromSeconds(seconds));
-			float expected = (float)(_sut.ValueMax / seconds) / (float)(_sut.ValueMax / _sut.IncrementRateInMs);
+			float expected = (float)(_sut.ValueMax / seconds) / (float)(_sut.ValueMax / _sut.IncrementTickRateInMs);
 
 			// Act
-			var result = _sut.Increment;
+			var result = _sut.IncrementRate;
 
 			// Assert
 			Assert.That(result, Is.EqualTo(expected), "ProgressBar Increment rate was not at the expected amount");
@@ -84,7 +84,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 
 		private void IncrementForSimulatedSeconds(int seconds)
 		{
-			int numberOfTicksPerSecond = (int)(_sut.ValueMax / _sut.IncrementRateInMs);
+			int numberOfTicksPerSecond = (int)(_sut.ValueMax / _sut.IncrementTickRateInMs);
 			int totalNumberOfTickets = seconds * numberOfTicksPerSecond;
 
 			for (int i = 0; i < totalNumberOfTickets; i++)

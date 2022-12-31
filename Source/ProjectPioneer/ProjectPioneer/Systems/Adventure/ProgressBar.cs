@@ -15,17 +15,17 @@ namespace ProjectPioneer.Systems.Adventure
 		private float _valueMax = 1000.0f;
 		public float ValueMax => _valueMax;
 
-		private int _incrementRateInMs = 100;
-		public int IncrementRateInMs => _incrementRateInMs;
+		private int _incrementTickRateInMs = Constants.QuestProgressBarIncrementTickRateInMs;
+		public int IncrementTickRateInMs => _incrementTickRateInMs;
 
-		private float _increment = 16.67f; // 1000 / 60 seconds / (1000 / 100) == One minute by default
-		public float Increment => _increment;
+		private float _incrementRate = 16.67f; // 1000 / 60 seconds / (1000 / 100) == One minute by default
+		public float IncrementRate => _incrementRate;
 
 		public ProgressBar(TimeSpan seconds)
 		{
 			// Max is 1000, divde by seconds, then divide by the ratio of our refresh rate versus our max
 			// So, 1000 / 60 seconds == 16.666 then divide by 1000 / 100, which equals 1.666
-			_increment = (float)(ValueMax / seconds.TotalSeconds) / (float)(ValueMax / IncrementRateInMs);
+			_incrementRate = (float)(ValueMax / seconds.TotalSeconds) / (float)(ValueMax / IncrementTickRateInMs);
 		}
 
 		public bool IsFinished()
@@ -36,7 +36,7 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public void IncrementProgressBar()
 		{
-			_value += Increment;
+			_value += IncrementRate;
 			if (_value >= ValueMax) _value = ValueMax;
 		}
 
