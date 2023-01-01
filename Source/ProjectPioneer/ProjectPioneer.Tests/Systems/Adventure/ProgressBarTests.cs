@@ -85,9 +85,9 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		private void IncrementForSimulatedSeconds(int seconds)
 		{
 			int numberOfTicksPerSecond = (int)(_sut.ValueMax / _sut.IncrementTickRateInMs);
-			int totalNumberOfTickets = seconds * numberOfTicksPerSecond;
+			int totalNumberOfTicks = seconds * numberOfTicksPerSecond;
 
-			for (int i = 0; i < totalNumberOfTickets; i++)
+			for (int i = 0; i < totalNumberOfTicks; i++)
 			{
 				_sut.IncrementProgressBar();
 			}
