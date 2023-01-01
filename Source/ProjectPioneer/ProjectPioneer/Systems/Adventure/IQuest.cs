@@ -21,7 +21,9 @@ namespace ProjectPioneer.Systems.Adventure
 		int GetSecondReductionFromStatComparison(Stats comparedStats);
 		int GetFinalQuestLengthInSeconds(int secondReduction);
 		void StartQuest(Stats comparedStats);
+		void QuestTimerElapsed(object? sender, ElapsedEventArgs e);
 		void EndQuest();
+		void PauseQuest();
 		void CancelQuest();
 		void ContinueQuest();
 		void ResetQuest();

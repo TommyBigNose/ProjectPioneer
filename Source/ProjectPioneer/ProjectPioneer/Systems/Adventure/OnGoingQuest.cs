@@ -11,6 +11,7 @@ namespace ProjectPioneer.Systems.Adventure
 		public QuestInfo QuestInfo { get; set; }
 		public IProgressBar ProgressBar { get; set; }
 		public int FinalQuestLengthInSeconds { get; set; }
+		public float LootIntervals { get; set; }
 		public System.Timers.Timer QuestTimer { get; set; }
 
 		public OnGoingQuest(QuestInfo questInfo)

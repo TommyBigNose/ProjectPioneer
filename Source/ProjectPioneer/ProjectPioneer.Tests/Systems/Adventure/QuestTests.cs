@@ -240,7 +240,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			_sut.StartQuest(comparedStats);
 			var finalQuestLengthInSeconds = _sut.GetFinalQuestLengthInSeconds(_sut.GetSecondReductionFromStatComparison(comparedStats));
 			var timer = _sut.OnGoingQuest.QuestTimer;
-			Thread.Sleep(100);
+			Thread.Sleep(150);
 
 			// Assert
 			Assert.Multiple(() =>
@@ -248,7 +248,44 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 				Assert.That(finalQuestLengthInSeconds, Is.EqualTo(_sut.OnGoingQuest.FinalQuestLengthInSeconds), "Quest total time in seconds was not expected value");
 				Assert.That(timer.Interval, Is.EqualTo(Constants.QuestProgressBarIncrementTickRateInMs), "Quest timer interface was not expected value");
 				Assert.That(_sut.OnGoingQuest.ProgressBar.Value, Is.GreaterThanOrEqualTo(_sut.OnGoingQuest.ProgressBar.IncrementRate), "Quest progress bar did not increment");
+				Assert.That(_sut.OnGoingQuest.LootIntervals, Is.EqualTo(_sut.OnGoingQuest.FinalQuestLengthInSeconds / _sut.QuestInfo.TotalChancesForLoot), "Quest loot interval was not setup properly");
 			});
+		}
+
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_PauseQuest_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			Stats comparedStats = new Stats()
+			{
+				Level = 2 * questLevel,
+				PhysicalAttack = 2 * questLevel,
+				PhysicalDefense = 2 * questLevel,
+				MagicalAttack = 2 * questLevel,
+				MagicalDefense = 2 * questLevel,
+				Speed = 2 * questLevel,
+				FireAttack = 2 * questLevel,
+				FireDefense = 2 * questLevel,
+				IceAttack = 2 * questLevel,
+				IceDefense = 2 * questLevel,
+				LightningAttack = 2 * questLevel,
+				LightningDefense = 2 * questLevel,
+				EarthAttack = 2 * questLevel,
+				EarthDefense = 2 * questLevel,
+			};
+			_sut.StartQuest(comparedStats);
+			Thread.Sleep(150);
+			// Act
+			_sut.PauseQuest();
+			float initialProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+			Thread.Sleep(150);
+			float pausedProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+
+			// Assert
+			Assert.That(pausedProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest pause did not pause the timern");
 		}
 	}
 }

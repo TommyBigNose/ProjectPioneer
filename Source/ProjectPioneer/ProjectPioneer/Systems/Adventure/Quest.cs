@@ -107,15 +107,15 @@ namespace ProjectPioneer.Systems.Adventure
 			// Calculate where chances for loot should go
 			OnGoingQuest.FinalQuestLengthInSeconds = GetFinalQuestLengthInSeconds(GetSecondReductionFromStatComparison(comparedStats));
 
+			// Calculate when loot is received
+			OnGoingQuest.LootIntervals = OnGoingQuest.FinalQuestLengthInSeconds / QuestInfo.TotalChancesForLoot;
+
 			// Start timer
 			OnGoingQuest.QuestTimer.Elapsed += QuestTimerElapsed;
 			OnGoingQuest.QuestTimer.Start();
-
-			// Calculate when loot is received
-
 		}
 
-		private void QuestTimerElapsed(object? sender, ElapsedEventArgs e)
+		public void QuestTimerElapsed(object? sender, ElapsedEventArgs e)
 		{
 			OnGoingQuest.ProgressBar.IncrementProgressBar();
 		}
@@ -123,6 +123,11 @@ namespace ProjectPioneer.Systems.Adventure
 		public void EndQuest()
 		{
 			throw new NotImplementedException();
+		}
+
+		public void PauseQuest()
+		{
+			OnGoingQuest.QuestTimer.Stop();
 		}
 
 		public void CancelQuest()
