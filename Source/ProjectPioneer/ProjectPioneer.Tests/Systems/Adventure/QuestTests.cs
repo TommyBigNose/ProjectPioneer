@@ -253,7 +253,48 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			float pausedProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
 
 			// Assert
-			Assert.That(pausedProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest pause did not pause the timern");
+			Assert.That(pausedProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest pause did not pause the timer");
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_CancelQuest_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			Thread.Sleep(150);
+
+			// Act
+			_sut.CancelQuest();
+			float initialProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+			Thread.Sleep(150);
+			float cancelledProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+
+			// Assert
+			Assert.That(cancelledProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest cancel did not pause the timer");
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_ContinueQuest_When_PromptedAfterStopping(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			Thread.Sleep(150);
+			_sut.PauseQuest();
+			float initialProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+
+			// Act
+			_sut.ContinueQuest();
+			Thread.Sleep(150);
+			float continuedProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+
+			// Assert
+			Assert.That(continuedProgressBarValue, Is.GreaterThan(initialProgressBarValue), "Quest continue did not resume the timer");
 		}
 
 		private Stats GetStatsScaledByLevel(int level)

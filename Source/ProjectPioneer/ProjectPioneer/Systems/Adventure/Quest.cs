@@ -138,12 +138,12 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public void CancelQuest()
 		{
-			throw new NotImplementedException();
+			OnGoingQuest.QuestTimer.Stop();
 		}
 
 		public void ContinueQuest()
 		{
-			throw new NotImplementedException();
+			OnGoingQuest.QuestTimer.Start();
 		}
 
 		public void ResetQuest()
