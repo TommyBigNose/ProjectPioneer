@@ -297,6 +297,67 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			Assert.That(continuedProgressBarValue, Is.GreaterThan(initialProgressBarValue), "Quest continue did not resume the timer");
 		}
 
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_ResetQuest_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+
+			// Act
+			_sut.ResetQuest();
+			float resetProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
+
+			// Assert
+			Assert.That(resetProgressBarValue, Is.EqualTo(0.0f), "Quest reset did not reset the progress bar");
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_BeCompleted_When_WaitedLongEnough(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			int finalQuestLengthInSeconds = _sut.OnGoingQuest.FinalQuestLengthInSeconds;
+
+			// Act
+			IncrementForSimulatedSeconds(finalQuestLengthInSeconds);
+			var result = _sut.IsQuestCompleted();
+			
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.True, "Quest did not complete properly when enough time lapsed was not properly added to loot collection");
+			});
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_BeNotCompleted_When_WaitingLessThanTheFullLength(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			int finalQuestLengthInSeconds = _sut.OnGoingQuest.FinalQuestLengthInSeconds;
+
+			// Act
+			IncrementForSimulatedSeconds(finalQuestLengthInSeconds/2);
+			var result = _sut.IsQuestCompleted();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.False, "Quest did completed despite not waiting enough time");
+			});
+		}
+
 		private Stats GetStatsScaledByLevel(int level)
 		{
 			Stats stats = new()

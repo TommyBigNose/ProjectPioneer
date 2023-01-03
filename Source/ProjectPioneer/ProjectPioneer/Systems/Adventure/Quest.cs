@@ -148,12 +148,13 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public void ResetQuest()
 		{
-			throw new NotImplementedException();
+			OnGoingQuest.QuestTimer.Stop();
+			_onGoingQuest = new OnGoingQuest(QuestInfo);
 		}
 
 		public bool IsQuestCompleted()
 		{
-			throw new NotImplementedException();
+			return (OnGoingQuest.ProgressBar.IsFinished());
 		}
 
 		public bool IsQuestOnGoing()
