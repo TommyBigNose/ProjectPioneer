@@ -13,6 +13,7 @@ namespace ProjectPioneer.Systems.Adventure
 		public bool Completed { get; }
 		QuestInfo QuestInfo { get; }
 		OnGoingQuest OnGoingQuest { get; }
+		QuestStatus Status { get; }
 
 		int GetRecommendedLevel();
 		int GetCreditsReward();
@@ -30,5 +31,14 @@ namespace ProjectPioneer.Systems.Adventure
 		bool IsQuestCompleted();
 		bool IsQuestOnGoing();
 		IEquipment? RollDiceForLoot();
+	}
+
+	public enum QuestStatus
+	{
+		None = 0,
+		Completed = 1,
+		OnGoing = 2,
+		Paused = 3,
+		Cancelled = 4
 	}
 }

@@ -201,6 +201,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 				Assert.That(timer.Interval, Is.EqualTo(Constants.QuestProgressBarIncrementTickRateInMs), "Quest timer interface was not expected value");
 				Assert.That(_sut.OnGoingQuest.ProgressBar.Value, Is.GreaterThanOrEqualTo(_sut.OnGoingQuest.ProgressBar.IncrementRate), "Quest progress bar did not increment");
 				Assert.That(_sut.OnGoingQuest.LootIntervals, Is.EqualTo(_sut.OnGoingQuest.ProgressBar.ValueMax / _sut.QuestInfo.TotalChancesForLoot), "Quest loot interval was not setup properly");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.OnGoing), "Quest status is not OnGoing");
 			});
 		}
 
@@ -253,7 +254,11 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			float pausedProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
 
 			// Assert
-			Assert.That(pausedProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest pause did not pause the timer");
+			Assert.Multiple(() =>
+			{
+				Assert.That(pausedProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest pause did not pause the timer");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.Paused), "Quest status is not Paused");
+			});
 		}
 
 		[TestCase(1)]
@@ -273,7 +278,11 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			float cancelledProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
 
 			// Assert
-			Assert.That(cancelledProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest cancel did not pause the timer");
+			Assert.Multiple(() =>
+			{
+				Assert.That(cancelledProgressBarValue, Is.EqualTo(initialProgressBarValue), "Quest cancel did not pause the timer");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.Cancelled), "Quest status is not Cancelled");
+			});
 		}
 
 		[TestCase(1)]
@@ -294,7 +303,11 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			float continuedProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
 
 			// Assert
-			Assert.That(continuedProgressBarValue, Is.GreaterThan(initialProgressBarValue), "Quest continue did not resume the timer");
+			Assert.Multiple(() =>
+			{
+				Assert.That(continuedProgressBarValue, Is.GreaterThan(initialProgressBarValue), "Quest continue did not resume the timer");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.OnGoing), "Quest status is not OnGoing");
+			});
 		}
 
 		[TestCase(1)]
@@ -311,7 +324,11 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			float resetProgressBarValue = _sut.OnGoingQuest.ProgressBar.Value;
 
 			// Assert
-			Assert.That(resetProgressBarValue, Is.EqualTo(0.0f), "Quest reset did not reset the progress bar");
+			Assert.Multiple(() =>
+			{
+				Assert.That(resetProgressBarValue, Is.EqualTo(0.0f), "Quest reset did not reset the progress bar");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.None), "Quest status did not reset");
+			});
 		}
 
 		[TestCase(1)]
@@ -333,6 +350,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Is.True, "Quest did not complete properly when enough time lapsed was not properly added to loot collection");
+				//Assert.That(_sut.Status, Is.EqualTo(QuestStatus.Completed), "Quest status is not Completed");
 			});
 		}
 
@@ -355,6 +373,30 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Is.False, "Quest did completed despite not waiting enough time");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.OnGoing), "Quest status is not OnGoing");
+			});
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_BeOnGoing_When_InTheMiddleOfAQuest(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			int finalQuestLengthInSeconds = _sut.OnGoingQuest.FinalQuestLengthInSeconds;
+
+			// Act
+			IncrementForSimulatedSeconds(finalQuestLengthInSeconds / 2);
+			var result = _sut.IsQuestOnGoing();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.True, "Quest completed despite not waiting enough time");
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.OnGoing), "Quest status is not OnGoing");
 			});
 		}
 

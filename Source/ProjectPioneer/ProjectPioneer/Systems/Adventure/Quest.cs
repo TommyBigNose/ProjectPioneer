@@ -19,6 +19,9 @@ namespace ProjectPioneer.Systems.Adventure
 		private OnGoingQuest _onGoingQuest;
 		public OnGoingQuest OnGoingQuest => _onGoingQuest;
 
+		private QuestStatus _status = QuestStatus.None;
+		public QuestStatus Status => _status;
+
 		public Quest(QuestInfo questInfo)
 		{
 			_questInfo = questInfo;
@@ -114,6 +117,8 @@ namespace ProjectPioneer.Systems.Adventure
 			// Start timer
 			OnGoingQuest.QuestTimer.Elapsed += QuestTimerElapsed;
 			OnGoingQuest.QuestTimer.Start();
+			
+			_status = QuestStatus.OnGoing;
 		}
 
 		public void QuestTimerElapsed(object? sender, ElapsedEventArgs e)
@@ -133,21 +138,25 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public void PauseQuest()
 		{
+			_status = QuestStatus.Paused;
 			OnGoingQuest.QuestTimer.Stop();
 		}
 
 		public void CancelQuest()
 		{
+			_status = QuestStatus.Cancelled;
 			OnGoingQuest.QuestTimer.Stop();
 		}
 
 		public void ContinueQuest()
 		{
+			_status = QuestStatus.OnGoing;
 			OnGoingQuest.QuestTimer.Start();
 		}
 
 		public void ResetQuest()
 		{
+			_status = QuestStatus.None;
 			OnGoingQuest.QuestTimer.Stop();
 			_onGoingQuest = new OnGoingQuest(QuestInfo);
 		}
@@ -159,7 +168,8 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public bool IsQuestOnGoing()
 		{
-			throw new NotImplementedException();
+			return (!OnGoingQuest.ProgressBar.IsFinished() &&
+				_status == QuestStatus.OnGoing);
 		}
 
 		public IEquipment? RollDiceForLoot()
