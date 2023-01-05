@@ -481,9 +481,6 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 				Assert.That(loot.Count, Is.EqualTo(totalLoot), "Randomly returned loot did return expected amount of loot");
 				Assert.That(amountOfNormalLoot, Is.GreaterThanOrEqualTo(expectedNormalLoot), "Randomly returned loot did return expected amount of Normal loot");
 				Assert.That(amountOfRareLoot, Is.GreaterThanOrEqualTo(expectedRareLoot), "Randomly returned loot did return expected amount of Rare loot");
-				//Assert.That(loot.Count, Is.EqualTo(totalLoot), "Randomly returned loot did return expected amount of loot");
-				//Assert.That(result.Count, Is.EqualTo(totalRealRewards), "Real Quest loot was not properly added to loot collection and returned");
-				//Assert.That(totalRewardAttempts.Count, Is.EqualTo(expectedAttemptedLootCount), "Quest loot was not properly added to loot collection and returned");
 			});
 		}
 
