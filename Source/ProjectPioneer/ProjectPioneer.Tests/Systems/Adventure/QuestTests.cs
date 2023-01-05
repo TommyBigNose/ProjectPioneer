@@ -73,6 +73,39 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			Assert.That(result, Is.EqualTo(questLevel * Constants.QuestRewardExpScaling), "Quest did not return expected reward in exp");
 		}
 
+		[TestCase(1, 0)]
+		[TestCase(1, 1)]
+		[TestCase(1, 5)]
+		[TestCase(2, 0)]
+		[TestCase(2, 1)]
+		[TestCase(2, 5)]
+		public void Should_ReturnLootedEquipment_When_Prompted(int questLevel, int expectedLootCount)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+
+			IncrementForSimulatedSeconds(60);
+			for(int i = 0; i < expectedLootCount; i++)
+			{
+				_sut.QuestTimerElapsed(null, null);
+			}
+
+			// Act
+			var result = _sut.GetEquipmentReward();
+			var totalRewardAttempts = _sut.OnGoingQuest.LootedEquipment.ToList();
+			var totalRealRewards = totalRewardAttempts.FindAll(_ => _ != null).Sum(_=>1);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count, Is.EqualTo(totalRealRewards), "Real Quest loot was not properly added to loot collection and returned");
+				Assert.That(totalRewardAttempts.Count, Is.EqualTo(expectedLootCount), "Quest loot was not properly added to loot collection and returned");
+			});
+		}
+
 		[TestCase(1)]
 		[TestCase(2)]
 		public void Should_GetStatsComparison_When_GivenHeroStats(int questLevel)
@@ -236,6 +269,24 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			});
 		}
 
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_CompleteQuest_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			
+			// Act
+			_sut.CompleteQuest();
+			
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.Completed), "Quest status is not Completed");
+			});
+		}
 
 		[TestCase(1)]
 		[TestCase(2)]

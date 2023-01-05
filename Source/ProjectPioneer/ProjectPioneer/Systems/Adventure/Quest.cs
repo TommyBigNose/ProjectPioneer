@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Timers;
+using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -10,9 +11,6 @@ namespace ProjectPioneer.Systems.Adventure
 {
 	public class Quest : IQuest
 	{
-		private bool _completed = false;
-		public bool Completed => _completed;
-
 		private QuestInfo _questInfo;
 		public QuestInfo QuestInfo => _questInfo;
 
@@ -41,6 +39,21 @@ namespace ProjectPioneer.Systems.Adventure
 		public int GetExpReward()
 		{
 			return _questInfo.Stats.Level * Constants.QuestRewardExpScaling;
+		}
+
+		public IEnumerable<IEquipment> GetEquipmentReward()
+		{
+			List<IEquipment> returnedEquipment = new List<IEquipment>();
+
+			foreach(IEquipment? equipment in _onGoingQuest.LootedEquipment)
+			{
+				if(equipment != null)
+				{
+					returnedEquipment.Add(equipment);
+				}
+			}
+
+			return returnedEquipment;
 		}
 
 		public Stats GetStatComparison(Stats heroStats)
@@ -131,9 +144,10 @@ namespace ProjectPioneer.Systems.Adventure
 			}
 		}
 
-		public void EndQuest()
+		public void CompleteQuest()
 		{
-			throw new NotImplementedException();
+			_status = QuestStatus.Completed;
+			OnGoingQuest.QuestTimer.Stop();
 		}
 
 		public void PauseQuest()

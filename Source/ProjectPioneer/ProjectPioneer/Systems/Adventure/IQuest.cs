@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Timers;
+using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -10,7 +11,6 @@ namespace ProjectPioneer.Systems.Adventure
 {
 	public interface IQuest
 	{
-		public bool Completed { get; }
 		QuestInfo QuestInfo { get; }
 		OnGoingQuest OnGoingQuest { get; }
 		QuestStatus Status { get; }
@@ -18,12 +18,13 @@ namespace ProjectPioneer.Systems.Adventure
 		int GetRecommendedLevel();
 		int GetCreditsReward();
 		int GetExpReward();
+		IEnumerable<IEquipment> GetEquipmentReward();
 		Stats GetStatComparison(Stats heroStats);
 		int GetSecondReductionFromStatComparison(Stats comparedStats);
 		int GetFinalQuestLengthInSeconds(int secondReduction);
 		void StartQuest(Stats comparedStats);
 		void QuestTimerElapsed(object? sender, ElapsedEventArgs e);
-		void EndQuest();
+		void CompleteQuest();
 		void PauseQuest();
 		void CancelQuest();
 		void ContinueQuest();
