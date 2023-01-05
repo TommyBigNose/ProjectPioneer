@@ -8,6 +8,8 @@ using ProjectPioneer.Systems;
 using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
+using ProjectPioneer.Systems.Dice;
+using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Tests.Systems.Adventure
@@ -79,7 +81,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		[TestCase(2, 0)]
 		[TestCase(2, 1)]
 		[TestCase(2, 5)]
-		public void Should_ReturnLootedEquipment_When_Prompted(int questLevel, int expectedLootCount)
+		public void Should_ReturnLootedEquipment_When_Prompted(int questLevel, int expectedAttemptedLootCount)
 		{
 			// Arrange
 			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
@@ -88,7 +90,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			_sut.StartQuest(comparedStats);
 
 			IncrementForSimulatedSeconds(60);
-			for(int i = 0; i < expectedLootCount; i++)
+			for(int i = 0; i < expectedAttemptedLootCount; i++)
 			{
 				_sut.QuestTimerElapsed(null, null);
 			}
@@ -102,7 +104,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			Assert.Multiple(() =>
 			{
 				Assert.That(result.Count, Is.EqualTo(totalRealRewards), "Real Quest loot was not properly added to loot collection and returned");
-				Assert.That(totalRewardAttempts.Count, Is.EqualTo(expectedLootCount), "Quest loot was not properly added to loot collection and returned");
+				Assert.That(totalRewardAttempts.Count, Is.EqualTo(expectedAttemptedLootCount), "Quest loot was not properly added to loot collection and returned");
 			});
 		}
 
@@ -448,6 +450,40 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			{
 				Assert.That(result, Is.True, "Quest completed despite not waiting enough time");
 				Assert.That(_sut.Status, Is.EqualTo(QuestStatus.OnGoing), "Quest status is not OnGoing");
+			});
+		}
+
+		[TestCase(1, 1000, 0, 100)]
+		[TestCase(1, 0, 1000, 100)]
+		[TestCase(1, 500, 500, 100)]
+		public void Should_RandomlyReturnEquipment_When_Prompted(int questLevel, int chanceForNormalLoot, int chanceForRareLoot, int totalLoot)
+		{
+			// Arrange
+			List<IEquipment?> loot = new List<IEquipment?>();
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.ChanceForNormalLoot = chanceForNormalLoot;
+			_sut.QuestInfo.ChanceForRareLoot = chanceForRareLoot;
+			
+			// Act
+			for (int i = 0; i < totalLoot; i++)
+			{
+				loot.Add(_sut.RollDiceForLoot());
+			}
+			var amountOfNormalLoot = loot.FindAll(_ => _sut.QuestInfo.NormalLoot.Contains(_)).Sum(_=>1);
+			var amountOfRareLoot = loot.FindAll(_ => _sut.QuestInfo.RareLoot == _).Sum(_=>1);
+
+			var expectedNormalLoot = (chanceForNormalLoot >= 500)? 1 : 0;
+			var expectedRareLoot = (chanceForRareLoot >= 500)? 1 : 0;
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(loot.Count, Is.EqualTo(totalLoot), "Randomly returned loot did return expected amount of loot");
+				Assert.That(amountOfNormalLoot, Is.GreaterThanOrEqualTo(expectedNormalLoot), "Randomly returned loot did return expected amount of Normal loot");
+				Assert.That(amountOfRareLoot, Is.GreaterThanOrEqualTo(expectedRareLoot), "Randomly returned loot did return expected amount of Rare loot");
+				//Assert.That(loot.Count, Is.EqualTo(totalLoot), "Randomly returned loot did return expected amount of loot");
+				//Assert.That(result.Count, Is.EqualTo(totalRealRewards), "Real Quest loot was not properly added to loot collection and returned");
+				//Assert.That(totalRewardAttempts.Count, Is.EqualTo(expectedAttemptedLootCount), "Quest loot was not properly added to loot collection and returned");
 			});
 		}
 
