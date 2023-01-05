@@ -59,6 +59,26 @@ namespace ProjectPioneer.Tests.Systems.Data
 			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough weapons.");
 		}
 
+		[TestCase(1, 5)]
+		[TestCase(1, 20)]
+		[TestCase(0, 999)]
+		public void Should_GetAllEquipmentWithinLevelRange_When_Prompted(int minLevel, int maxLevel)
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllEquipment(minLevel, maxLevel);
+			var totalEquipment = _sut.GetAllEquipment().ToList().Count;
+			bool isEquipmentOutOfRange = result.ToList().Exists(_ => _.Stats.Level < minLevel || _.Stats.Level > maxLevel);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count, Is.LessThanOrEqualTo(totalEquipment), "LocalDataSource returned too much equipment");
+				Assert.That(result.Count, Is.GreaterThanOrEqualTo(0), "LocalDataSource did not return enough equipment between range");
+				Assert.That(isEquipmentOutOfRange, Is.False, "LocalDataSource returned equipment out of specified range");
+			});
+		}
+
 		[Test]
 		public void Should_GetDefaultWeapon()
 		{

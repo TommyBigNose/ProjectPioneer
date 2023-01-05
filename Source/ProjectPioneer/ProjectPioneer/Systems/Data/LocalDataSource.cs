@@ -287,6 +287,17 @@ namespace ProjectPioneer.Systems.Data
 			return auras;
 		}
 
+		public IEnumerable<IEquipment> GetAllEquipment(int minlevel = 0, int maxLevel = 999)
+		{
+			List<IEquipment> equipment = new List<IEquipment>();
+
+			equipment.AddRange(GetAllWeapons().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
+			equipment.AddRange(GetAllArmors().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
+			equipment.AddRange(GetAllAuras().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
+
+			return equipment;
+		}
+
 		public IEquipment GetDefaultWeapon()
 		{
 			return new Weapon("Nothing", "Just your fists", EquipmentType.None, new Stats()

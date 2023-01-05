@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Timers;
 using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Dice;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -20,10 +21,13 @@ namespace ProjectPioneer.Systems.Adventure
 		private QuestStatus _status = QuestStatus.None;
 		public QuestStatus Status => _status;
 
+		private IDiceSystem _diceSystem;
+
 		public Quest(QuestInfo questInfo)
 		{
 			_questInfo = questInfo;
 			_onGoingQuest = new OnGoingQuest(QuestInfo);
+			_diceSystem = new DiceSystem();
 		}
 
 		public int GetRecommendedLevel()
@@ -188,7 +192,25 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public IEquipment? RollDiceForLoot()
 		{
-			throw new NotImplementedException();
+			IEquipment? equipment = null;
+			
+			// Chance for Rare Loot
+			int diceRoll = _diceSystem.GetDiceRoll(1, 1001);
+			if(diceRoll <= QuestInfo.ChanceForRareLoot)
+			{
+				return QuestInfo.RareLoot;
+			}
+
+			// Chance for Normal Loot if that doesn't pass
+			diceRoll = _diceSystem.GetDiceRoll(1, 1001);
+			if (diceRoll <= QuestInfo.ChanceForNormalLoot)
+			{
+				diceRoll = _diceSystem.GetDiceRoll(0, QuestInfo.NormalLoot.Count());
+				return QuestInfo.NormalLoot.ToList()[diceRoll];
+			}
+
+			// Return null equipment if nothing
+			return equipment;
 		}
 	}
 }

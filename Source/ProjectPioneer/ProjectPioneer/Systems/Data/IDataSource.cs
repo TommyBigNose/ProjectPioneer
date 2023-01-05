@@ -16,6 +16,7 @@ namespace ProjectPioneer.Systems.Data
 		IEnumerable<IEquipment> GetAllWeapons();
 		IEnumerable<IEquipment> GetAllArmors();
 		IEnumerable<IEquipment> GetAllAuras();
+		IEnumerable<IEquipment> GetAllEquipment(int minlevel = 0, int maxLevel = 999);
 		IEquipment GetDefaultWeapon();
 		IEquipment GetDefaultArmor();
 		IEquipment GetDefaultAura();
