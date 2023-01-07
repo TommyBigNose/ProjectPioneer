@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -29,6 +30,43 @@ namespace ProjectPioneer.Tests.Systems.Character
 
 		}
 
+		[TestCase(0, 100)]
+		[TestCase(50, 100)]
+		public void Should_GetExp_When_Prompted(int initialExp, int addedExp)
+		{
+			// Arrange
+			_sut = GetTestHero();
+			_sut.AddExp(initialExp);
+
+			// Act
+			_sut.AddExp(addedExp);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.Exp, Is.EqualTo(initialExp + addedExp), "Hero did not add exp as expected");
+			});
+		}
+
+		[Test]
+		public void Should_GetRequiredExpIsBasedOnlevel_When_Prompted()
+		{
+			// Arrange
+			_sut = GetTestHero();
+			_sut.AddExp(10000);
+			int initialRequiredExp = _sut.GetRequiredExp();
+
+			// Act
+			_sut.Stats.Level++;
+			int finalRequiredExp = _sut.GetRequiredExp();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(finalRequiredExp, Is.GreaterThan(initialRequiredExp), "Hero did increase in required exp as expected");
+			});
+		}
+
 		[TestCase(1, "Vanguard", "Reinforced Skin")]
 		[TestCase(5, "Vanguard", "Reinforced Skin")]
 		[TestCase(1, "Ranger", "Reinforced Joints")]
@@ -45,6 +83,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IEquipment aura = _dataSource.GetDefaultAura();
 			_sut = new Hero("Test", job, implant, new Stats(), weapon, armor, aura);
 			Stats initialStats = new Stats(_sut.Stats);
+			_sut.AddExp(10000);
 
 			// Act
 			for (int i = 0; i < levelUpCount; i++)
@@ -52,10 +91,13 @@ namespace ProjectPioneer.Tests.Systems.Character
 				_sut.LevelUp();
 			}
 			Stats resultingStats = new Stats(_sut.Stats);
+			int requiredExp = _sut.GetRequiredExp();
 
 			// Assert
 			Assert.Multiple(() =>
 			{
+				Assert.That(_sut.Exp, Is.LessThan(10000), "Hero current exp did not reduce upon leveling");
+				Assert.That(requiredExp, Is.EqualTo(_sut.Stats.Level * Constants.HeroLevelExpScaling), "Hero required exp did not increase upon leveling");
 				Assert.That(resultingStats.Level, Is.EqualTo(initialStats.Level + levelUpCount), "Hero did not upgrade Level");
 
 				Assert.That(resultingStats.PhysicalAttack, 

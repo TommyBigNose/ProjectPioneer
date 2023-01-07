@@ -13,6 +13,9 @@ namespace ProjectPioneer.Systems.Character
 	{
 		private readonly string _name = string.Empty;
 		public string Name => _name;
+		
+		private int _exp;
+		public int Exp => _exp;
 
 		private readonly IJob _job;
 		public IJob Job => _job;
@@ -42,14 +45,29 @@ namespace ProjectPioneer.Systems.Character
 		}
 
 		#region IHero
+
+		public void AddExp(int exp)
+		{
+			_exp += exp;
+		}
+
+		public int GetRequiredExp()
+		{
+			return _stats.Level * Constants.HeroLevelExpScaling;
+		}
+
 		public void LevelUp()
 		{
-			_stats.Level++;
-			_stats.PhysicalAttack += 1 + _job.Stats.PhysicalAttack + _implant.Stats.PhysicalAttack;
-			_stats.PhysicalDefense+= 1 + _job.Stats.PhysicalDefense + _implant.Stats.PhysicalDefense;
-			_stats.MagicalAttack += 1 + _job.Stats.MagicalAttack + _implant.Stats.MagicalAttack;
-			_stats.MagicalDefense += 1 + _job.Stats.MagicalDefense + _implant.Stats.MagicalDefense;
-			_stats.Speed += 1 + _job.Stats.Speed + _implant.Stats.Speed;
+			if(Exp >= GetRequiredExp())
+			{
+				_exp -= GetRequiredExp();
+				_stats.Level++;
+				_stats.PhysicalAttack += 1 + _job.Stats.PhysicalAttack + _implant.Stats.PhysicalAttack;
+				_stats.PhysicalDefense += 1 + _job.Stats.PhysicalDefense + _implant.Stats.PhysicalDefense;
+				_stats.MagicalAttack += 1 + _job.Stats.MagicalAttack + _implant.Stats.MagicalAttack;
+				_stats.MagicalDefense += 1 + _job.Stats.MagicalDefense + _implant.Stats.MagicalDefense;
+				_stats.Speed += 1 + _job.Stats.Speed + _implant.Stats.Speed;
+			}
 		}
 
 		public bool CanEquip(IEquipment equipment)

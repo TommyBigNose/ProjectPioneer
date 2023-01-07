@@ -11,6 +11,8 @@ namespace ProjectPioneer.Systems
 {
 	public class Constants
 	{
+		public const int HeroLevelExpScaling = 150;
+
 		public const int WeaponCostScaling = 100;
 		public const int ArmorCostScaling = 120;
 		public const int AuraCostScaling = 80;
