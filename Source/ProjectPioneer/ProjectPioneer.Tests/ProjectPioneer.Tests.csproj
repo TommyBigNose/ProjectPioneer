@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Systems\Statistics\" />
-    <Folder Include="Systems\World\" />
   </ItemGroup>
 
   <ItemGroup>
