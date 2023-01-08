@@ -118,5 +118,28 @@ namespace ProjectPioneer.Tests.Systems
 				Assert.That(credits, Is.EqualTo(equipment.GetSellableValue()), "Game did sell equipment at the right value");
 			});
 		}
+
+		[Test]
+		public void Should_CheckIfEquipmentCanBeEquipped_When_Prompted()
+		{
+			// Arrange
+			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
+			var equipmentGun = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Gun);
+			
+			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
+			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			_sut.SetUpHero("Test", job, implant);
+
+			// Act
+			var resultBlade = _sut.CanEquip(equipmentBlade);
+			var resultGun = _sut.CanEquip(equipmentGun);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(resultBlade, Is.False, "Game is allowing the player to equipment they cannot");
+				Assert.That(resultGun, Is.True, "Game is not allowing the player to equipment they can");
+			});
+		}
 	}
 }

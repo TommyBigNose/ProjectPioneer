@@ -61,6 +61,11 @@ namespace ProjectPioneer.Systems
 		{
 			Inventory.SellEquipment(equipment);
 		}
+
+		public bool CanEquip(IEquipment equipment)
+		{
+			return Inventory.CanEquip(equipment, Hero);
+		}
 		#endregion
 
 		#region Shop

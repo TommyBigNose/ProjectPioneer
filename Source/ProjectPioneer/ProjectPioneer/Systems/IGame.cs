@@ -23,6 +23,7 @@ namespace ProjectPioneer.Systems
 		int GetCredits();
 		IEnumerable<IEquipment> GetInventory();
 		void SellEquipment(IEquipment equipment);
+		bool CanEquip(IEquipment equipment);
 		#endregion
 
 		#region Shop
