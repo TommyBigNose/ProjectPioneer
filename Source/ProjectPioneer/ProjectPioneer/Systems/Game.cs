@@ -27,6 +27,16 @@ namespace ProjectPioneer.Systems
 		{
 			_hero = _heroBuilder.CreateHero(name, job, implant);
 		}
+
+		public IEnumerable<IJob> GetAllJobs()
+		{
+			return _dataSource.GetAllJobs();
+		}
+
+		public IEnumerable<IImplant> GetAllImplants()
+		{
+			return _dataSource.GetAllImplants();
+		}
 		#endregion
 
 		#region Inventory

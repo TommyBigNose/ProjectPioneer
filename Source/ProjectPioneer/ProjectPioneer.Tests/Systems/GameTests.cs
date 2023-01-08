@@ -52,5 +52,34 @@ namespace ProjectPioneer.Tests.Systems
 				Assert.That(_sut.Hero.Implant.Name, Is.EqualTo("TestImplant"), "Game did not properly setup a hero's implant");
 			});
 		}
+
+
+		[Test]
+		public void Should_GetAllJobs_When_Prompted()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllJobs();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count(), Is.GreaterThanOrEqualTo(3), "Game did not return enough Jobs");
+			});
+		}
+
+		[Test]
+		public void Should_GetAllImplants_When_Prompted()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllImplants();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count(), Is.GreaterThanOrEqualTo(3), "Game did not return enough Implants");
+			});
+		}
 	}
 }
