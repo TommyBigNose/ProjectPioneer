@@ -15,18 +15,18 @@ namespace ProjectPioneer.Systems
 		private IHero _hero;
 		public IHero Hero => _hero;
 
-		private IInventory _inventory;
+		private readonly IInventory _inventory;
 		public IInventory Inventory => _inventory;
 
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
 
-		public Game(IDataSource dataSource, IHeroBuilder heroBuilder)
+		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory)
 		{
 			_dataSource = dataSource;
 			_heroBuilder = heroBuilder;
 
-			_inventory= new Inventory();
+			_inventory = inventory;
 		}
 
 		#region Hero
@@ -47,9 +47,19 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Inventory
+		public int GetCredits()
+		{
+			return Inventory.Credits;
+		}
+
 		public IEnumerable<IEquipment> GetInventory()
 		{
 			return Inventory.HeroInventory;
+		}
+
+		public void SellEquipment(IEquipment equipment)
+		{
+			Inventory.SellEquipment(equipment);
 		}
 		#endregion
 

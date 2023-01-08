@@ -17,6 +17,8 @@ namespace ProjectPioneer.Tests.Systems
 	{
 		private IDataSource _dataSource;
 		private IHeroBuilder _heroBuilder;
+		private IInventory _inventory;
+
 		private IGame _sut;
 
 		[SetUp]
@@ -24,7 +26,9 @@ namespace ProjectPioneer.Tests.Systems
 		{
 			_dataSource = new LocalDataSource();
 			_heroBuilder = new HeroBuilder(_dataSource);
-			_sut = new Game(_dataSource, _heroBuilder);
+			_inventory = new Inventory();
+
+			_sut = new Game(_dataSource, _heroBuilder, _inventory);
 		}
 
 		[TearDown]
@@ -93,6 +97,25 @@ namespace ProjectPioneer.Tests.Systems
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Is.Not.Null, "Game did not return Inventory");
+			});
+		}
+
+		[Test]
+		public void Should_SellEquipmentFromInventory_When_Prompted()
+		{
+			// Arrange
+			var equipment = _dataSource.GetAllWeapons().First();
+			_inventory.AddEquipment(equipment);
+
+			// Act
+			_sut.SellEquipment(equipment);
+			int credits = _sut.GetCredits();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.GetInventory().Contains(equipment), Is.False, "Game did not remove equipment after it got sold");
+				Assert.That(credits, Is.EqualTo(equipment.GetSellableValue()), "Game did sell equipment at the right value");
 			});
 		}
 	}
