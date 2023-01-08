@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
+using ProjectPioneer.Systems.Equipment;
 
 namespace ProjectPioneer.Systems
 {
@@ -13,6 +15,9 @@ namespace ProjectPioneer.Systems
 		private IHero _hero;
 		public IHero Hero => _hero;
 
+		private IInventory _inventory;
+		public IInventory Inventory => _inventory;
+
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
 
@@ -20,6 +25,8 @@ namespace ProjectPioneer.Systems
 		{
 			_dataSource = dataSource;
 			_heroBuilder = heroBuilder;
+
+			_inventory= new Inventory();
 		}
 
 		#region Hero
@@ -40,6 +47,10 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Inventory
+		public IEnumerable<IEquipment> GetInventory()
+		{
+			return Inventory.HeroInventory;
+		}
 		#endregion
 
 		#region Shop

@@ -11,6 +11,7 @@ namespace ProjectPioneer.Systems
 	public interface IGame
 	{
 		IHero Hero { get; }
+		IInventory Inventory { get; }
 
 		#region Hero
 		void SetUpHero(string name, IJob job, IImplant implant);
@@ -19,6 +20,7 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Inventory
+		IEnumerable<IEquipment> GetInventory();
 		#endregion
 
 		#region Shop

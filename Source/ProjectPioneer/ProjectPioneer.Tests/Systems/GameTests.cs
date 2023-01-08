@@ -81,5 +81,19 @@ namespace ProjectPioneer.Tests.Systems
 				Assert.That(result.Count(), Is.GreaterThanOrEqualTo(3), "Game did not return enough Implants");
 			});
 		}
+
+		[Test]
+		public void Should_GetInventory_When_Prompted()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetInventory();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.Not.Null, "Game did not return Inventory");
+			});
+		}
 	}
 }
