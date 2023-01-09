@@ -90,6 +90,8 @@ namespace ProjectPioneer.Tests.Systems
 		public void Should_GetInventory_When_Prompted()
 		{
 			// Arrange
+			_dataSource.GetAllEquipment().ToList().ForEach(_ => _sut.AddEquipment(_));
+
 			// Act
 			var result = _sut.GetInventory();
 
@@ -97,6 +99,7 @@ namespace ProjectPioneer.Tests.Systems
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Is.Not.Null, "Game did not return Inventory");
+				Assert.That(result.ToList().Count, Is.EqualTo(_dataSource.GetAllEquipment().ToList().Count), "Game did not return Inventory with the expected amount of Equipment");
 			});
 		}
 
@@ -139,6 +142,44 @@ namespace ProjectPioneer.Tests.Systems
 			{
 				Assert.That(resultBlade, Is.False, "Game is allowing the player to equipment they cannot");
 				Assert.That(resultGun, Is.True, "Game is not allowing the player to equipment they can");
+			});
+		}
+
+		[Test]
+		public void Should_GrowInventory_When_AddedEquipment()
+		{
+			// Arrange
+			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
+			var equipmentGun = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Gun);
+
+			// Act
+			_sut.AddEquipment(equipmentBlade);
+			_sut.AddEquipment(equipmentGun);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.GetInventory().Count(), Is.EqualTo(2), "Game not adding the expected amount of equipment");
+			});
+		}
+
+
+		[Test]
+		public void Should_SortEquipment_When_Prompted()
+		{
+			// Arrange
+			_dataSource.GetAllEquipment().ToList().ForEach(_ => _sut.AddEquipment(_));
+
+			// Act
+			_sut.SortEquipment();
+			var firstEquipment = _dataSource.GetAllEquipment().First();
+			var lastEquipment = _dataSource.GetAllEquipment().Last();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(firstEquipment.EquipmentType, Is.EqualTo(EquipmentType.Blade), "Game did not sort Blades first as expected");
+				Assert.That(lastEquipment.EquipmentType, Is.EqualTo(EquipmentType.Aura), "Game did not sort as expected");
 			});
 		}
 	}

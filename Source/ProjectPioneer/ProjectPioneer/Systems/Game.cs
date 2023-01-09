@@ -66,6 +66,16 @@ namespace ProjectPioneer.Systems
 		{
 			return Inventory.CanEquip(equipment, Hero);
 		}
+
+		public void AddEquipment(IEquipment equipment)
+		{
+			Inventory.AddEquipment(equipment);
+		}
+
+		public void SortEquipment()
+		{
+			Inventory.SortEquipment();
+		}
 		#endregion
 
 		#region Shop

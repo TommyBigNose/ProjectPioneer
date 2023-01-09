@@ -24,6 +24,8 @@ namespace ProjectPioneer.Systems
 		IEnumerable<IEquipment> GetInventory();
 		void SellEquipment(IEquipment equipment);
 		bool CanEquip(IEquipment equipment);
+		void AddEquipment(IEquipment equipment);
+		void SortEquipment();
 		#endregion
 
 		#region Shop
