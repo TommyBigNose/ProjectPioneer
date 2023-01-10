@@ -94,13 +94,16 @@ namespace ProjectPioneer.Tests.Systems
 
 			// Act
 			_sut.SetUpHero("Test", job, implant);
+			var weapon = _sut.GetEquippedWeapon().Name;
+			var armor = _sut.GetEquippedArmor().Name;
+			var aura = _sut.GetEquippedAura().Name;
 
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(_sut.GetEquippedWeapon().Name, Is.EqualTo(_dataSource.GetDefaultWeapon().Name), "Game did not start Hero with default Weapon");
-				Assert.That(_sut.GetEquippedArmor().Name, Is.EqualTo(_dataSource.GetDefaultArmor().Name), "Game did not start Hero with default Armor");
-				Assert.That(_sut.GetEquippedAura().Name, Is.EqualTo(_dataSource.GetDefaultAura().Name), "Game did not start Hero with default Aura");
+				Assert.That(weapon, Is.EqualTo(_dataSource.GetDefaultWeapon().Name), "Game did not start Hero with default Weapon");
+				Assert.That(armor, Is.EqualTo(_dataSource.GetDefaultArmor().Name), "Game did not start Hero with default Armor");
+				Assert.That(aura, Is.EqualTo(_dataSource.GetDefaultAura().Name), "Game did not start Hero with default Aura");
 			});
 		}
 
