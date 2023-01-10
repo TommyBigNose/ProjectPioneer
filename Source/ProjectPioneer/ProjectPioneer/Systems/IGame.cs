@@ -17,6 +17,9 @@ namespace ProjectPioneer.Systems
 		void SetUpHero(string name, IJob job, IImplant implant);
 		IEnumerable<IJob> GetAllJobs();
 		IEnumerable<IImplant> GetAllImplants();
+		IEquipment GetEquippedWeapon();
+		IEquipment GetEquippedArmor();
+		IEquipment GetEquippedAura();
 		#endregion
 
 		#region Inventory
@@ -28,6 +31,7 @@ namespace ProjectPioneer.Systems
 		bool CanEquip(IEquipment equipment);
 		void AddEquipment(IEquipment equipment);
 		void SortEquipment();
+		void EquipEquipment(IEquipment equipment, IHero hero);
 		#endregion
 
 		#region Shop

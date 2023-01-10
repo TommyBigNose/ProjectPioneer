@@ -44,6 +44,21 @@ namespace ProjectPioneer.Systems
 		{
 			return _dataSource.GetAllImplants();
 		}
+
+		public IEquipment GetEquippedWeapon()
+		{
+			return _hero.EquippedWeapon;
+		}
+
+		public IEquipment GetEquippedArmor()
+		{
+			return _hero.EquippedArmor;
+		}
+
+		public IEquipment GetEquippedAura()
+		{
+			return _hero.EquippedAura;
+		}
 		#endregion
 
 		#region Inventory
@@ -85,6 +100,11 @@ namespace ProjectPioneer.Systems
 		public void SortEquipment()
 		{
 			Inventory.SortEquipment();
+		}
+
+		public void EquipEquipment(IEquipment equipment, IHero hero)
+		{
+			Inventory.EquipEquipment(equipment, hero);
 		}
 		#endregion
 

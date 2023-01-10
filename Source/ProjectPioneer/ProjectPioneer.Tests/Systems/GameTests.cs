@@ -57,7 +57,6 @@ namespace ProjectPioneer.Tests.Systems
 			});
 		}
 
-
 		[Test]
 		public void Should_GetAllJobs_When_Prompted()
 		{
@@ -86,6 +85,24 @@ namespace ProjectPioneer.Tests.Systems
 			});
 		}
 
+		[Test]
+		public void Should_GetDefaultEquipment_When_NewPlayer()
+		{
+			// Arrange
+			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
+			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+
+			// Act
+			_sut.SetUpHero("Test", job, implant);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.GetEquippedWeapon().Name, Is.EqualTo(_dataSource.GetDefaultWeapon().Name), "Game did not start Hero with default Weapon");
+				Assert.That(_sut.GetEquippedArmor().Name, Is.EqualTo(_dataSource.GetDefaultArmor().Name), "Game did not start Hero with default Armor");
+				Assert.That(_sut.GetEquippedAura().Name, Is.EqualTo(_dataSource.GetDefaultAura().Name), "Game did not start Hero with default Aura");
+			});
+		}
 
 		[TestCase(0, 100)]
 		[TestCase(100, 100)]
@@ -211,6 +228,29 @@ namespace ProjectPioneer.Tests.Systems
 			{
 				Assert.That(firstEquipment.EquipmentType, Is.EqualTo(EquipmentType.Blade), "Game did not sort Blades first as expected");
 				Assert.That(lastEquipment.EquipmentType, Is.EqualTo(EquipmentType.Aura), "Game did not sort as expected");
+			});
+		}
+
+		[Test]
+		public void Should_EquipEquipmentOnHeroAndReturnsOldOneToInventory_When_Prompted()
+		{
+			// Arrange
+			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
+			
+			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
+			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			_sut.SetUpHero("Test", job, implant);
+			var initialEquipment = _sut.GetEquippedWeapon();
+
+			// Act
+			_sut.EquipEquipment(equipmentBlade, _sut.Hero);
+			var currentEquipment = _sut.GetEquippedWeapon();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(currentEquipment, Is.EqualTo(equipmentBlade), "Game did equip the proper equipment on the hero");
+				Assert.That(_sut.Inventory.HeroInventory.Contains(initialEquipment), Is.True, "Game did return old equipment to inventory");
 			});
 		}
 	}
