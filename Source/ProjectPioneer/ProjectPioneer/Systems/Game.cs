@@ -52,6 +52,16 @@ namespace ProjectPioneer.Systems
 			return Inventory.Credits;
 		}
 
+		public void AddCredits(int credits)
+		{
+			Inventory.AddCredits(credits);
+		}
+
+		public void RemoveCredits(int credits)
+		{
+			Inventory.RemoveCredits(credits);
+		}
+
 		public IEnumerable<IEquipment> GetInventory()
 		{
 			return Inventory.HeroInventory;

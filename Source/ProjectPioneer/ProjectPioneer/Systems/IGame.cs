@@ -21,6 +21,8 @@ namespace ProjectPioneer.Systems
 
 		#region Inventory
 		int GetCredits();
+		void AddCredits(int credits);
+		void RemoveCredits(int credits);
 		IEnumerable<IEquipment> GetInventory();
 		void SellEquipment(IEquipment equipment);
 		bool CanEquip(IEquipment equipment);

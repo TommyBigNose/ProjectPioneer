@@ -86,6 +86,37 @@ namespace ProjectPioneer.Tests.Systems
 			});
 		}
 
+
+		[TestCase(0, 100)]
+		[TestCase(100, 100)]
+		public void Should_IncreaseCredits_When_Prompted(int initialCredits, int credits)
+		{
+			// Arrange
+			_inventory.AddCredits(initialCredits);
+
+			// Act
+			_sut.AddCredits(credits);
+			var finalCredits = _sut.GetCredits();
+
+			// Assert
+			Assert.That(finalCredits, Is.EqualTo(initialCredits+credits), "Game did not add credits");
+		}
+
+		[TestCase(0, 100)]
+		[TestCase(100, 100)]
+		public void Should_ReduceCredits_When_Prompted(int initialCredits, int credits)
+		{
+			// Arrange
+			_inventory.AddCredits(initialCredits);
+
+			// Act
+			_sut.RemoveCredits(credits);
+			var finalCredits = _sut.GetCredits();
+
+			// Assert
+			Assert.That(finalCredits, Is.EqualTo(Math.Max(initialCredits - credits, 0)), "Game did not remove credits");
+		}
+
 		[Test]
 		public void Should_GetInventory_When_Prompted()
 		{
