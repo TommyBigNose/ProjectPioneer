@@ -38,6 +38,7 @@ namespace ProjectPioneer.Systems
 		#region Shop
 		//IEnumerable<IEquipment> GetShopInventory(int level);
 		//bool CanPlayerAffordEquipment(IEquipment equipment, int credits);
+		//void BuyEquipmentAndAddToInventory(IEquipment equipment, IInventory inventory)
 		#endregion
 
 		#region Quest
