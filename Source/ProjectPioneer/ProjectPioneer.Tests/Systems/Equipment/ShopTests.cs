@@ -75,7 +75,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 
 
 		[TestCase(1000)]
-		public void Should_AddEquipmentToInventoryAndRemoveCredits_When_PlayerCanAffordIt(int credits)
+		public void Should_AddEquipmentToInventoryAndRemoveCredits_When_PlayerBuysEquipment(int credits)
 		{
 			// Arrange
 			_inventory.AddCredits(credits);

@@ -260,15 +260,65 @@ namespace ProjectPioneer.Tests.Systems
 		}
 
 
-		//[Test]
-		//public void Should_Pass_When_Valid()
-		//{
-		//	// Arrange
-		//	// Act
-		//	var result = _sut.Test();
+		[TestCase(1)]
+		[TestCase(20)]
+		public void Should_GetShopInventoryInLevelRange_When_Prompted(int level)
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetShopInventory(level);
+			int maxLevel = result.Max(_ => _.Stats.Level);
 
-		//	// Assert
-		//	Assert.That(result, Is.Not.Null, "Result was null");
-		//}
+			// Assert
+			Assert.That(maxLevel, Is.LessThanOrEqualTo(level + 1), "Game's Shop invetory returned wrong equipment level range");
+		}
+
+
+		[TestCase(10000)]
+		public void Should_AffordEquipment_When_InventoryHasEnoughCredits(int credits)
+		{
+			// Arrange
+			_sut.AddCredits(credits);
+			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
+
+			// Act
+			var result = _sut.CanHeroAffordEquipment(equipmentBlade, _inventory);
+
+			// Assert
+			Assert.That(result, Is.True, "Game said player could not afford some equipment when they had enough credits");
+		}
+
+		[TestCase(0)]
+		[TestCase(5)]
+		public void Should_NotBeAbleToAffordEquipment_When_InventoryIsBroke(int credits)
+		{
+			// Arrange
+			_sut.AddCredits(credits);
+			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
+
+			// Act
+			var result = _sut.CanHeroAffordEquipment(equipmentBlade, _inventory);
+
+			// Assert
+			Assert.That(result, Is.False, "Game said player could afford some equipment when they clearly did not");
+		}
+
+		[TestCase(1000)]
+		public void Should_AddEquipmentToInventoryAndRemoveCredits_When_PlayerBuysEquipment(int credits)
+		{
+			// Arrange
+			_sut.AddCredits(credits);
+			IEquipment sellableWeapon = _dataSource.GetAllWeapons().First();
+
+			// Act
+			_sut.BuyEquipmentAndAddToInventory(sellableWeapon, _inventory);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.GetInventory().Contains(sellableWeapon), Is.True, "Game's Shop did not add sold Weapon to Inventory");
+				Assert.That(_sut.Inventory.Credits, Is.EqualTo(credits - sellableWeapon.GetPurchaseValue()), "Game's Shop did not remove credits from Inventory");
+			});
+		}
 	}
 }

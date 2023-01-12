@@ -113,6 +113,20 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Shop
+		public IEnumerable<IEquipment> GetShopInventory(int level)
+		{
+			return _shop.GetShopInventory(level);
+		}
+
+		public bool CanHeroAffordEquipment(IEquipment equipment, IInventory inventory)
+		{
+			return _shop.CanHeroAffordEquipment(equipment, inventory);
+		}
+
+		public void BuyEquipmentAndAddToInventory(IEquipment equipment, IInventory inventory)
+		{
+			_shop.BuyEquipmentAndAddToInventory(equipment, inventory);
+		}
 		#endregion
 
 		#region Quest
