@@ -13,12 +13,14 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 	public class ShopTests
 	{
 		private IDataSource _dataSource;
+		private IInventory _inventory;
 		private IShop _sut;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_dataSource = new LocalDataSource();
+			_inventory = new Inventory();
 			_sut = new Shop(_dataSource);
 		}
 
@@ -49,7 +51,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 			IEquipment sellableWeapon = _dataSource.GetAllWeapons().First(_ => _.GetPurchaseValue() <= credits);
 
 			// Act
-			var result = _sut.CanPlayerAffordEquipment(sellableWeapon, credits);
+			var result = _sut.CanHeroAffordEquipment(sellableWeapon, credits);
 
 			// Assert
 			Assert.That(result, Is.True, "Shop said the equipment was not affordable despite being within the player's budget");
@@ -63,10 +65,29 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 			IEquipment sellableWeapon = _dataSource.GetAllWeapons().First(_ => _.GetPurchaseValue() >= credits);
 
 			// Act
-			var result = _sut.CanPlayerAffordEquipment(sellableWeapon, credits);
+			var result = _sut.CanHeroAffordEquipment(sellableWeapon, credits);
 
 			// Assert
 			Assert.That(result, Is.False, "Shop said the equipment was affordable despite being broke");
+		}
+
+
+		[TestCase(1000)]
+		public void Should_AddEquipmentToInventoryAndRemoveCredits_When_PlayerCanAffordIt(int credits)
+		{
+			// Arrange
+			_inventory.AddCredits(credits);
+			IEquipment sellableWeapon = _dataSource.GetAllWeapons().First();
+
+			// Act
+			_sut.BuyEquipmentAndAddToInventory(sellableWeapon, _inventory);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_inventory.HeroInventory.Contains(sellableWeapon), Is.True, "Shop did not add sold Weapon to Inventory");
+				Assert.That(_inventory.Credits, Is.EqualTo(credits - sellableWeapon.GetPurchaseValue()), "Shop did not remove credits from Inventory");
+			});
 		}
 	}
 }

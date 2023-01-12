@@ -18,15 +18,19 @@ namespace ProjectPioneer.Systems
 		private readonly IInventory _inventory;
 		public IInventory Inventory => _inventory;
 
+		private readonly IShop _shop;
+		public IShop Shop => _shop;
+
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
 
-		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory)
+		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop)
 		{
 			_dataSource = dataSource;
 			_heroBuilder = heroBuilder;
 
 			_inventory = inventory;
+			_shop = shop;
 		}
 
 		#region Hero

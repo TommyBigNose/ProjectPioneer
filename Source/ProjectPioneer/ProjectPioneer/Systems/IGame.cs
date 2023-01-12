@@ -12,6 +12,7 @@ namespace ProjectPioneer.Systems
 	{
 		IHero Hero { get; }
 		IInventory Inventory { get; }
+		IShop Shop { get; }
 
 		#region Hero
 		void SetUpHero(string name, IJob job, IImplant implant);
@@ -35,6 +36,8 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Shop
+		//IEnumerable<IEquipment> GetShopInventory(int level);
+		//bool CanPlayerAffordEquipment(IEquipment equipment, int credits);
 		#endregion
 
 		#region Quest

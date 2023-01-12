@@ -25,9 +25,15 @@ namespace ProjectPioneer.Systems.Equipment
 			return returnedEquipment;
 		}
 
-		public bool CanPlayerAffordEquipment(IEquipment equipment, int credits)
+		public bool CanHeroAffordEquipment(IEquipment equipment, int credits)
 		{
 			return equipment.GetPurchaseValue() <= credits;
+		}
+
+		public void BuyEquipmentAndAddToInventory(IEquipment equipment, IInventory inventory)
+		{
+			inventory.AddEquipment(equipment);
+			inventory.RemoveCredits(equipment.GetPurchaseValue());
 		}
 	}
 }

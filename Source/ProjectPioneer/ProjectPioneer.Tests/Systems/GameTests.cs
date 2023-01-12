@@ -18,6 +18,7 @@ namespace ProjectPioneer.Tests.Systems
 		private IDataSource _dataSource;
 		private IHeroBuilder _heroBuilder;
 		private IInventory _inventory;
+		private IShop _shop;
 
 		private IGame _sut;
 
@@ -27,8 +28,9 @@ namespace ProjectPioneer.Tests.Systems
 			_dataSource = new LocalDataSource();
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
+			_shop = new Shop(_dataSource);
 
-			_sut = new Game(_dataSource, _heroBuilder, _inventory);
+			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop);
 		}
 
 		[TearDown]
@@ -256,5 +258,17 @@ namespace ProjectPioneer.Tests.Systems
 				Assert.That(_sut.Inventory.HeroInventory.Contains(initialEquipment), Is.True, "Game did return old equipment to inventory");
 			});
 		}
+
+
+		//[Test]
+		//public void Should_Pass_When_Valid()
+		//{
+		//	// Arrange
+		//	// Act
+		//	var result = _sut.Test();
+
+		//	// Assert
+		//	Assert.That(result, Is.Not.Null, "Result was null");
+		//}
 	}
 }

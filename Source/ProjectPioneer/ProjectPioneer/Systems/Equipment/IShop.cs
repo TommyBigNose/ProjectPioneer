@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Character;
 
 namespace ProjectPioneer.Systems.Equipment
 {
 	public interface IShop
 	{
 		IEnumerable<IEquipment> GetShopInventory(int level);
-		bool CanPlayerAffordEquipment(IEquipment equipment, int credits);
+		bool CanHeroAffordEquipment(IEquipment equipment, int credits);
+		void BuyEquipmentAndAddToInventory(IEquipment equipment, IInventory inventory);
 	}
 }
