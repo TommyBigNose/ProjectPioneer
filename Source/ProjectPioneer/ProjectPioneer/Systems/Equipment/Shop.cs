@@ -25,9 +25,9 @@ namespace ProjectPioneer.Systems.Equipment
 			return returnedEquipment;
 		}
 
-		public bool CanHeroAffordEquipment(IEquipment equipment, int credits)
+		public bool CanHeroAffordEquipment(IEquipment equipment, IInventory inventory)
 		{
-			return equipment.GetPurchaseValue() <= credits;
+			return equipment.GetPurchaseValue() <= inventory.Credits;
 		}
 
 		public void BuyEquipmentAndAddToInventory(IEquipment equipment, IInventory inventory)

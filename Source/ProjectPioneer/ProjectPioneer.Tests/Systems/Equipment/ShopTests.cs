@@ -48,10 +48,11 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_CanPurchaseEquipment_When_PlayerHasEnoughCredits(int credits)
 		{
 			// Arrange
+			_inventory.AddCredits(credits);
 			IEquipment sellableWeapon = _dataSource.GetAllWeapons().First(_ => _.GetPurchaseValue() <= credits);
 
 			// Act
-			var result = _sut.CanHeroAffordEquipment(sellableWeapon, credits);
+			var result = _sut.CanHeroAffordEquipment(sellableWeapon, _inventory);
 
 			// Assert
 			Assert.That(result, Is.True, "Shop said the equipment was not affordable despite being within the player's budget");
@@ -62,10 +63,11 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_CannotPurchaseEquipment_When_PlayerIsBroke(int credits)
 		{
 			// Arrange
+			_inventory.AddCredits(credits);
 			IEquipment sellableWeapon = _dataSource.GetAllWeapons().First(_ => _.GetPurchaseValue() >= credits);
 
 			// Act
-			var result = _sut.CanHeroAffordEquipment(sellableWeapon, credits);
+			var result = _sut.CanHeroAffordEquipment(sellableWeapon, _inventory);
 
 			// Assert
 			Assert.That(result, Is.False, "Shop said the equipment was affordable despite being broke");
