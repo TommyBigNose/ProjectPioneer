@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 
@@ -13,6 +14,7 @@ namespace ProjectPioneer.Systems
 		IHero Hero { get; }
 		IInventory Inventory { get; }
 		IShop Shop { get; }
+		QuestLog QuestLog { get; }
 
 		#region Hero
 		void SetUpHero(string name, IJob job, IImplant implant);

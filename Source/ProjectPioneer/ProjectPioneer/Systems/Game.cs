@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -20,6 +21,9 @@ namespace ProjectPioneer.Systems
 
 		private readonly IShop _shop;
 		public IShop Shop => _shop;
+
+		private readonly QuestLog _questLog;
+		public QuestLog QuestLog => _questLog;
 
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
