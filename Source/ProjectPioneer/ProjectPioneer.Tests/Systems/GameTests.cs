@@ -31,7 +31,7 @@ namespace ProjectPioneer.Tests.Systems
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
 			_shop = new Shop(_dataSource);
-			_questLog = new QuestLog();
+			_questLog = new QuestLog(_dataSource);
 
 			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog);
 		}
