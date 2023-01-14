@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems;
+using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -19,6 +20,7 @@ namespace ProjectPioneer.Tests.Systems
 		private IHeroBuilder _heroBuilder;
 		private IInventory _inventory;
 		private IShop _shop;
+		private IQuestLog _questLog;
 
 		private IGame _sut;
 
@@ -29,8 +31,9 @@ namespace ProjectPioneer.Tests.Systems
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
 			_shop = new Shop(_dataSource);
+			_questLog = new QuestLog();
 
-			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop);
+			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog);
 		}
 
 		[TearDown]

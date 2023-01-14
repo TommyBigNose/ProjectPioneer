@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace ProjectPioneer.Systems.Adventure
 {
-	public class QuestLog
+	public class QuestLog : IQuestLog
 	{
-		public List<IQuest> Quests { get; set; } = new List<IQuest>();
-		public List<IQuest> CompletedQuests { get; set; } = new List<IQuest>();
+		public List<IQuest> Quests { get; } = new List<IQuest>();
+		public List<IQuest> CompletedQuests { get; } = new List<IQuest>();
+
+		public QuestLog()
+		{
+
+		}
+
+		public void CompleteQuest(IQuest quest)
+		{
+			CompletedQuests.Add(quest);
+		}
 	}
 }

@@ -14,7 +14,7 @@ namespace ProjectPioneer.Systems
 		IHero Hero { get; }
 		IInventory Inventory { get; }
 		IShop Shop { get; }
-		QuestLog QuestLog { get; }
+		IQuestLog QuestLog { get; }
 
 		#region Hero
 		void SetUpHero(string name, IJob job, IImplant implant);

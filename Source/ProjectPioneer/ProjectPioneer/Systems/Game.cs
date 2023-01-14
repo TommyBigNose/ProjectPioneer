@@ -22,19 +22,21 @@ namespace ProjectPioneer.Systems
 		private readonly IShop _shop;
 		public IShop Shop => _shop;
 
-		private readonly QuestLog _questLog;
-		public QuestLog QuestLog => _questLog;
+		private readonly IQuestLog _questLog;
+		public IQuestLog QuestLog => _questLog;
 
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
 
-		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop)
+		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog)
 		{
 			_dataSource = dataSource;
 			_heroBuilder = heroBuilder;
 
 			_inventory = inventory;
 			_shop = shop;
+
+			_questLog = questLog;
 		}
 
 		#region Hero
