@@ -136,6 +136,20 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Quest
+		public IEnumerable<IQuest> GetAllQuests()
+		{
+			return QuestLog.Quests;
+		}
+
+		public void CompleteQuest(IQuest quest)
+		{
+			QuestLog.CompleteQuest(quest);
+		}
+
+		public ISet<IQuest> GetCompletedQuests()
+		{
+			return QuestLog.CompletedQuests;
+		}
 		#endregion
 	}
 }

@@ -44,6 +44,9 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Quest
+		IEnumerable<IQuest> GetAllQuests();
+		void CompleteQuest(IQuest quest);
+		ISet<IQuest> GetCompletedQuests();
 		#endregion
 	}
 }

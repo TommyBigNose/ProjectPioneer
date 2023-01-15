@@ -323,5 +323,44 @@ namespace ProjectPioneer.Tests.Systems
 				Assert.That(_sut.Inventory.Credits, Is.EqualTo(credits - sellableWeapon.GetPurchaseValue()), "Game's Shop did not remove credits from Inventory");
 			});
 		}
+
+
+		[Test]
+		public void Should_GetAllQuests_When_Prompted()
+		{
+			// Arrange
+			int totalQuestCount = _dataSource.GetAllQuestInfos().Count();
+
+			// Act
+			var result = _sut.GetAllQuests();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count(), Is.EqualTo(totalQuestCount), "Game did not return all quests");
+			});
+		}
+
+		[Test]
+		public void Should_GetAllCompletedQuests_When_GivenCompletedQuests()
+		{
+			// Arrange
+			int totalQuestCount = _dataSource.GetAllQuestInfos().Count();
+			var questToComplete1 = _sut.GetAllQuests().First();
+			var questToComplete2 = _sut.GetAllQuests().Last();
+			_sut.CompleteQuest(questToComplete1);
+			_sut.CompleteQuest(questToComplete2);
+
+			// Act
+			var result = _sut.GetCompletedQuests();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count(), Is.EqualTo(2), "Game did not return completed quests");
+				Assert.That(result.Contains(questToComplete1), Is.True, "Game did not return expected completed quest 1");
+				Assert.That(result.Contains(questToComplete2), Is.True, "Game did not return expected completed quest 2");
+			});
+		}
 	}
 }
