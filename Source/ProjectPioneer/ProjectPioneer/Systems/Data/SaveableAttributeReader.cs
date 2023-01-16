@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Equipment;
+using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Data
 {
@@ -18,8 +22,6 @@ namespace ProjectPioneer.Systems.Data
 			{
 				case "Hero":
 
-					Dictionary<string, string> _dict = new Dictionary<string, string>();
-
 					PropertyInfo[] props = type.GetProperties();
 					foreach (PropertyInfo prop in props)
 					{
@@ -29,11 +31,23 @@ namespace ProjectPioneer.Systems.Data
 							SaveableAttribute saveableAttr = attr as SaveableAttribute;
 							if (saveableAttr != null)
 							{
-								string propName = prop.Name;
 								var val = prop.GetValue(data);
-								string? val2 = val.ToString();
-
-								//_dict.Add(propName, val);
+								switch(prop.PropertyType.Name)
+								{
+									case "IJob":
+										val = ((IJob)val).ID;
+										break;
+									case "IImplant":
+										val = ((IImplant)val).ID;
+										break;
+									case "IEquipment":
+										val = ((IEquipment)val).ID;
+										break;
+									case "Stats":
+										val = JsonSerializer.Serialize(val);
+										//val = JsonSerializer.Serialize(((Stats)val));
+										break;
+								}
 								attributes.Add($"{saveableAttr.Name}|||{val}");
 							}
 						}
