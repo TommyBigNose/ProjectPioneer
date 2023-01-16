@@ -22,5 +22,20 @@ namespace ProjectPioneer.Systems
 		public const int QuestRewardExpScaling = 50;
 		public const int QuestMinimumLengthInSeconds = 10;
 		public const int QuestProgressBarIncrementTickRateInMs = 100;
+
+		public const string AttributeSeparator = "|||";
+		public const string AttributeListSeparator = ",";
+
+		public const string AttributeHeroName = "HeroName";
+		public const string AttributeHeroExp = "HeroExp";
+		public const string AttributeHeroJob = "HeroJob";
+		public const string AttributeHeroImplant = "HeroImplant";
+		public const string AttributeHeroWeapon = "HeroWeapon";
+		public const string AttributeHeroArmor = "HeroArmor";
+		public const string AttributeHeroAura = "HeroAura";
+		public const string AttributeHeroStats = "HeroStats";
+
+		public const string AttributeInventoryCredits = "InventoryCredits";
+		public const string AttributeInventoryHerosInventory = "InventoryHerosInventory";
 	}
 }

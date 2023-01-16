@@ -11,11 +11,11 @@ namespace ProjectPioneer.Systems.Equipment
 	public class Inventory : IInventory
 	{
 		private int _credits;
-		[SaveableAttribute("InventoryCredits")]
+		[SaveableAttribute(Constants.AttributeInventoryCredits)]
 		public int Credits => _credits;
 
 		private List<IEquipment> _heroInventory = new List<IEquipment>();
-		[SaveableAttribute("InventoryHerosInventory")]
+		[SaveableAttribute(Constants.AttributeInventoryHerosInventory)]
 		public List<IEquipment> HeroInventory => _heroInventory;
 
 		public void AddCredits(int credits)

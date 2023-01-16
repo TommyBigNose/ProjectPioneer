@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -16,80 +17,98 @@ namespace ProjectPioneer.Systems.Data
 		public IEnumerable<string> ReadAllAttributesOfObject(object data)
 		{
 			List<string> attributes = new List<string>();
-			Type type = data.GetType();
+			//Type type = data.GetType();
 
-			switch(type.Name)
+			switch(data.GetType().Name)
 			{
 				case "Hero":
-
-					PropertyInfo[] props = type.GetProperties();
-					foreach (PropertyInfo prop in props)
-					{
-						object[] attrs = prop.GetCustomAttributes(true);
-						foreach (object attr in attrs)
-						{
-							SaveableAttribute saveableAttr = attr as SaveableAttribute;
-							if (saveableAttr != null)
-							{
-								var val = prop.GetValue(data);
-								switch(prop.PropertyType.Name)
-								{
-									case "IJob":
-										val = ((IJob)val).ID;
-										break;
-									case "IImplant":
-										val = ((IImplant)val).ID;
-										break;
-									case "IEquipment":
-										val = ((IEquipment)val).ID;
-										break;
-									case "Stats":
-										val = JsonSerializer.Serialize(val);
-										//val = JsonSerializer.Serialize(((Stats)val));
-										break;
-								}
-								attributes.Add($"{saveableAttr.Name}|||{val}");
-							}
-						}
-					}
-
-					//var dict = type
-					//			  .GetProperty("Name")
-					//			  .GetCustomAttributes(true)
-					//			  .ToDictionary(a => a.GetType().Name, a => a);
-
-					//var dict = new Dictionary<MemberInfo, string>();
-					//var members = type.GetMembers(BindingFlags.Public | BindingFlags.Instance)
-					//					.Where(x => x.MemberType == MemberTypes.Field || x.MemberType == MemberTypes.Property);
-
-					//foreach (MemberInfo member in members)
-					//{
-					//	var attr = member.GetCustomAttribute<SaveableAttribute>(true);
-
-					//	if (attr != null)
-					//	{
-					//		dict.Add(member, attr.Name);
-					//	}
-					//}
-
-
-
-					//// Using reflection.  
-					//System.Attribute[] attrs = System.Attribute.GetCustomAttributes(type);  // Reflection.  
-
-					//// Displaying output.  
-					//foreach (System.Attribute attr in attrs)
-					//{
-					//	if (attr is SaveableAttribute)
-					//	{
-					//		SaveableAttribute a = (SaveableAttribute)attr;
-					//		System.Console.WriteLine("Attribuate name {0}, value {1}", a.Name, a);
-					//	}
-					//}
+					attributes.AddRange(GetHeroSaveableAttributes(data));
+					break;
+				case "Inventory":
+					attributes.AddRange(GetInventorySaveableAttributes(data));
+					break;
+				case "QuestLog":
 					break;
 			}
 
 			return attributes;
+		}
+
+		private List<string> GetHeroSaveableAttributes(object data)
+		{
+			List<string> attributes = new List<string>();
+
+			foreach (var attrib in GetSaveableAttributes(data))
+			{
+				var val = attrib.Key.GetValue(data);
+
+				switch (attrib.Key.PropertyType.Name)
+				{
+					case "IJob":
+						val = ((IJob)val).ID;
+						break;
+					case "IImplant":
+						val = ((IImplant)val).ID;
+						break;
+					case "IEquipment":
+						val = ((IEquipment)val).ID;
+						break;
+					case "Stats":
+						val = JsonSerializer.Serialize(val);
+						break;
+				}
+
+				attributes.Add($"{attrib.Value.Name}|||{val}");
+			}
+
+			return attributes;
+		}
+
+		private List<string> GetInventorySaveableAttributes(object data)
+		{
+			List<string> attributes = new List<string>();
+
+			foreach (var attrib in GetSaveableAttributes(data))
+			{
+				var val = attrib.Key.GetValue(data);
+
+				switch (attrib.Key.PropertyType.Name)
+				{
+					case "List`1":
+						val = string.Join(Constants.AttributeListSeparator, ((List<IEquipment>)val).Select(_=>_.ID));
+						break;
+				}
+
+				attributes.Add($"{attrib.Value.Name}|||{val}");
+			}
+
+			return attributes;
+		}
+
+		/// <summary>
+		/// Gathers all the property information and saveable attribute data in a dictionary so you can parse out the actual value and the name of the attribute for easy reading/usage
+		/// </summary>
+		/// <param name="data"></param>
+		/// <returns></returns>
+		private Dictionary<PropertyInfo, SaveableAttribute> GetSaveableAttributes(object data)
+		{
+			Dictionary<PropertyInfo, SaveableAttribute> dictionary = new Dictionary<PropertyInfo, SaveableAttribute>();
+
+			PropertyInfo[] props = data.GetType().GetProperties();
+			foreach (PropertyInfo prop in props)
+			{
+				object[] attrs = prop.GetCustomAttributes(true);
+				foreach (object attr in attrs)
+				{
+					SaveableAttribute? saveableAttr = attr as SaveableAttribute;
+					if (saveableAttr != null)
+					{
+						dictionary.Add(prop, saveableAttr);
+					}
+				}
+			}
+
+			return dictionary;
 		}
 	}
 }
