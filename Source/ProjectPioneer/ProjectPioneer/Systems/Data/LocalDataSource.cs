@@ -16,7 +16,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var jobs = new List<IJob>()
 			{
-				new Job("Vanguard", "Melee front line class",
+				new Job(1, "Vanguard", "Melee front line class",
 				new List<EquipmentType>()
 				{
 					EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura
@@ -37,7 +37,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 5,
 					EarthDefense = 5,
 				}),
-				new Job("Ranger", "Long range combat class",
+				new Job(2, "Ranger", "Long range combat class",
 				new List<EquipmentType>()
 				{
 					EquipmentType.None, EquipmentType.Gun, EquipmentType.Armor, EquipmentType.Aura
@@ -58,7 +58,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Job("Technician", "Magic focused class",
+				new Job(3, "Technician", "Magic focused class",
 				new List<EquipmentType>()
 				{
 					EquipmentType.None, EquipmentType.Staff, EquipmentType.Armor, EquipmentType.Aura
@@ -88,7 +88,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var implants = new List<IImplant>()
 			{
-				new Implant("Reinforced Skin", "Enhanced skin for extra defenses all around", new Stats()
+				new Implant(1, "Reinforced Skin", "Enhanced skin for extra defenses all around", new Stats()
 				{
 					PhysicalAttack = 0,
 					PhysicalDefense = 1,
@@ -104,7 +104,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 5,
 				}),
-				new Implant("Reinforced Joints", "Physical upgrades to help in harsh environments", new Stats()
+				new Implant(2, "Reinforced Joints", "Physical upgrades to help in harsh environments", new Stats()
 				{
 					PhysicalAttack = 1,
 					PhysicalDefense = 0,
@@ -120,7 +120,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 5,
 					EarthDefense = 5,
 				}),
-				new Implant("Focus Injector", "Enhanced mental state for raw offence", new Stats()
+				new Implant(3, "Focus Injector", "Enhanced mental state for raw offence", new Stats()
 				{
 					PhysicalAttack = 0,
 					PhysicalDefense = 0,

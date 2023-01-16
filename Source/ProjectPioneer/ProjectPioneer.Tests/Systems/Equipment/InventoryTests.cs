@@ -78,10 +78,10 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_BeAbleToEquipEquipment_When_PlayersJobAllowsIt()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() 
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() 
 			{ EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura }, new Stats());
 
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 			IHero hero = _heroBuilder.CreateHero("Test", job, implant);
 
 			// Act
@@ -102,10 +102,10 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_NotBeAbleToEquipEquipment_When_PlayersJobDoesNotAllowIt()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>()
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>()
 			{ EquipmentType.None, EquipmentType.Blade }, new Stats());
 
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 			IHero hero = _heroBuilder.CreateHero("Test", job, implant);
 
 			// Act
@@ -126,10 +126,10 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_EquipEquipmentAndReturnOldToInventory_When_Prompted()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>()
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>()
 			{ EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura }, new Stats());
 
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 			IHero hero = _heroBuilder.CreateHero("Test", job, implant);
 
 			// Act

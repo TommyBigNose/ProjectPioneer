@@ -46,8 +46,8 @@ namespace ProjectPioneer.Tests.Systems
 		public void Should_SetUpHero_When_ValidInputsProvided()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 
 			// Act
 			_sut.SetUpHero("Test", job , implant);
@@ -94,8 +94,8 @@ namespace ProjectPioneer.Tests.Systems
 		public void Should_GetDefaultEquipment_When_NewPlayer()
 		{
 			// Arrange
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 
 			// Act
 			_sut.SetUpHero("Test", job, implant);
@@ -185,8 +185,8 @@ namespace ProjectPioneer.Tests.Systems
 			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
 			var equipmentGun = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Gun);
 			
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 			_sut.SetUpHero("Test", job, implant);
 
 			// Act
@@ -245,8 +245,8 @@ namespace ProjectPioneer.Tests.Systems
 			// Arrange
 			var equipmentBlade = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Blade);
 			
-			IJob job = new Job("TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
-			IImplant implant = new Implant("TestImplant", "Desc", new Stats());
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
 			_sut.SetUpHero("Test", job, implant);
 			var initialEquipment = _sut.GetEquippedWeapon();
 

@@ -129,7 +129,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		{
 			// Arrange
 			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
-			IImplant implant = new Implant("Test", "Test", new Stats());
+			IImplant implant = new Implant(999, "Test", "Test", new Stats());
 			IEquipment defaultWeapon = _dataSource.GetDefaultWeapon();
 			IEquipment defaultArmor = _dataSource.GetDefaultArmor();
 			IEquipment defaultAura = _dataSource.GetDefaultAura();
