@@ -9,6 +9,7 @@ namespace ProjectPioneer.Systems.Equipment
 {
 	public interface IEquipment
 	{
+		int ID { get; }
 		string Name { get; }
 		string Description { get; }
 		Stats Stats { get; }

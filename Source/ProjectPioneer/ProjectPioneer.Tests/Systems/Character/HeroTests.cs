@@ -206,7 +206,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			_sut = GetTestHero();
 			Stats oldStats = _sut.GetTotalsAsStats();
-			IEquipment weapon = new Weapon("Test", "Test", EquipmentType.None, new Stats()
+			IEquipment weapon = new Weapon(999, "Test", "Test", EquipmentType.None, new Stats()
 			{
 				Level = 1,
 				PhysicalAttack = 1,
@@ -280,7 +280,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			_sut = GetTestHero();
 			Stats oldStats = _sut.GetTotalsAsStats();
-			IEquipment armor = new Armor("Test", "Test", EquipmentType.Armor, new Stats()
+			IEquipment armor = new Armor(999, "Test", "Test", EquipmentType.Armor, new Stats()
 			{
 				Level = 1,
 				PhysicalAttack = 1,
@@ -354,7 +354,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			// Arrange
 			_sut = GetTestHero();
 			Stats oldStats = _sut.GetTotalsAsStats();
-			IEquipment aura = new Aura("Test", "Test", EquipmentType.Aura, new Stats()
+			IEquipment aura = new Aura(999, "Test", "Test", EquipmentType.Aura, new Stats()
 			{
 				Level = 1,
 				PhysicalAttack = 1,

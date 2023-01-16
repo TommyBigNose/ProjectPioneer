@@ -145,7 +145,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var weapons = new List<IEquipment>()
 			{
-				new Weapon("Energy Blade", "Mass produced energy blade for rookies", EquipmentType.Blade, new Stats()
+				new Weapon(101, "Energy Blade", "Mass produced energy blade for rookies", EquipmentType.Blade, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 2,
@@ -162,7 +162,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Weapon("Energy Pistol", "Mass produced energy pistol for rookies", EquipmentType.Gun, new Stats()
+				new Weapon(102, "Energy Pistol", "Mass produced energy pistol for rookies", EquipmentType.Gun, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 1,
@@ -179,7 +179,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Weapon("Energy Staff", "Mass produced energy staff for rookies", EquipmentType.Staff, new Stats()
+				new Weapon(103, "Energy Staff", "Mass produced energy staff for rookies", EquipmentType.Staff, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 0,
@@ -205,7 +205,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var armors = new List<IEquipment>()
 			{
-				new Armor("Leather Padding", "Mass produced armor for rookies", EquipmentType.Armor, new Stats()
+				new Armor(301, "Leather Padding", "Mass produced armor for rookies", EquipmentType.Armor, new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 0,
@@ -222,7 +222,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Armor("Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
+				new Armor(302, "Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
 				{
 					Level= 20,
 					PhysicalAttack = 0,
@@ -248,7 +248,7 @@ namespace ProjectPioneer.Systems.Data
 		{
 			var auras = new List<IEquipment>()
 			{
-				new Aura("Resistance Barrier", "Mass produced aura for rookies", EquipmentType.Aura,new Stats()
+				new Aura(501, "Resistance Barrier", "Mass produced aura for rookies", EquipmentType.Aura,new Stats()
 				{
 					Level= 1,
 					PhysicalAttack = 0,
@@ -265,7 +265,7 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 2,
 				}),
-				new Aura("Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
+				new Aura(502, "Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
 				{
 					Level= 20,
 					PhysicalAttack = 0,
@@ -300,7 +300,7 @@ namespace ProjectPioneer.Systems.Data
 
 		public IEquipment GetDefaultWeapon()
 		{
-			return new Weapon("Nothing", "Just your fists", EquipmentType.None, new Stats()
+			return new Weapon(1, "Nothing", "Just your fists", EquipmentType.None, new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,
@@ -321,7 +321,7 @@ namespace ProjectPioneer.Systems.Data
 
 		public IEquipment GetDefaultArmor()
 		{
-			return new Armor("Clothes", "Whatever you normally wear", EquipmentType.Armor, new Stats()
+			return new Armor(2, "Clothes", "Whatever you normally wear", EquipmentType.Armor, new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,
@@ -342,7 +342,7 @@ namespace ProjectPioneer.Systems.Data
 
 		public IEquipment GetDefaultAura()
 		{
-			return new Aura("Basic", "Normal human aura", EquipmentType.Aura, new Stats()
+			return new Aura(3, "Basic", "Normal human aura", EquipmentType.Aura, new Stats()
 			{
 				Level = 0,
 				PhysicalAttack = 0,
@@ -367,6 +367,7 @@ namespace ProjectPioneer.Systems.Data
 			{
 				new QuestInfo()
 				{
+					ID = 1,
 					Name = "Forest - Part 1",
 					Description = "Desolate buildings are all that remains of the colony's first city.  A seemingly friendly forest encapsulates the town.",
 					QuestLengthInSeconds = 60,
@@ -395,6 +396,7 @@ namespace ProjectPioneer.Systems.Data
 				},
 				new QuestInfo()
 				{
+					ID = 2,
 					Name = "Forest - Part 2",
 					Description = "Day turns to night, or is that the shade from the trees playing tricks on you?  A large warehouse stands at the end of the path, where you hear the cry of a large creature.",
 					QuestLengthInSeconds = 60,
