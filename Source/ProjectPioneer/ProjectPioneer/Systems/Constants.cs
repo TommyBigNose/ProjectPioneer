@@ -37,5 +37,7 @@ namespace ProjectPioneer.Systems
 
 		public const string AttributeInventoryCredits = "InventoryCredits";
 		public const string AttributeInventoryHerosInventory = "InventoryHerosInventory";
+
+		public const string AttributeQuestLogCompletedQuests = "QuestLogCompletedQuests";
 	}
 }

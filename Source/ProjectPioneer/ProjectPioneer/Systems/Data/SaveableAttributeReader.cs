@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -28,6 +29,7 @@ namespace ProjectPioneer.Systems.Data
 					attributes.AddRange(GetInventorySaveableAttributes(data));
 					break;
 				case "QuestLog":
+					attributes.AddRange(GetQuestLogSaveableAttributes(data));
 					break;
 			}
 
@@ -76,6 +78,27 @@ namespace ProjectPioneer.Systems.Data
 				{
 					case "List`1":
 						val = string.Join(Constants.AttributeListSeparator, ((List<IEquipment>)val).Select(_=>_.ID));
+						break;
+				}
+
+				attributes.Add($"{attrib.Value.Name}|||{val}");
+			}
+
+			return attributes;
+		}
+
+		private List<string> GetQuestLogSaveableAttributes(object data)
+		{
+			List<string> attributes = new List<string>();
+
+			foreach (var attrib in GetSaveableAttributes(data))
+			{
+				var val = attrib.Key.GetValue(data);
+
+				switch (attrib.Key.PropertyType.Name)
+				{
+					case "HashSet`1":
+						val = string.Join(Constants.AttributeListSeparator, ((HashSet<IQuest>)val).Select(_ => _.QuestInfo.ID));
 						break;
 				}
 

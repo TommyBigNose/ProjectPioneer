@@ -70,7 +70,6 @@ namespace ProjectPioneer.Tests.Systems.Data
 		public void Should_ReturnsInventoryData_When_GivenNewInventory()
 		{
 			// Arrange
-
 			// Act
 			var result = _sut.ReadAllAttributesOfObject(_inventory);
 
@@ -97,7 +96,38 @@ namespace ProjectPioneer.Tests.Systems.Data
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Does.Contain($"{Constants.AttributeInventoryCredits}|||9999"), "SaveableAttributeReader did not parse out Credits");
-				Assert.That(result, Does.Contain($"{Constants.AttributeInventoryHerosInventory}|||{csvOfEquipment}"), "SaveableAttributeReader did not parse out Hero Inventory");
+				Assert.That(result, Does.Contain($"{Constants.AttributeInventoryHerosInventory}|||{csvOfEquipment}"), "SaveableAttributeReader did not parse out an empty Hero Inventory");
+			});
+		}
+
+		[Test]
+		public void Should_ReturnsQuestLogData_When_GivenNewQuestLog()
+		{
+			// Arrange
+			// Act
+			var result = _sut.ReadAllAttributesOfObject(_questLog);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Does.Contain($"{Constants.AttributeQuestLogCompletedQuests}|||"), "SaveableAttributeReader did not parse out an empty set of Completed Quests");
+			});
+		}
+
+		[Test]
+		public void Should_ReturnsQuestLogData_When_GivenQuestLog()
+		{
+			// Arrange
+			_dataSource.GetAllQuestInfos().ToList().ForEach(_ => _questLog.CompleteQuest(new Quest(_)));
+			string csvOfCompletedQuests = string.Join(Constants.AttributeListSeparator, _questLog.CompletedQuests.Select(_ => _.QuestInfo.ID));
+
+			// Act
+			var result = _sut.ReadAllAttributesOfObject(_questLog);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Does.Contain($"{Constants.AttributeQuestLogCompletedQuests}|||{csvOfCompletedQuests}"), "SaveableAttributeReader did not parse out Completed Quests");
 			});
 		}
 	}
