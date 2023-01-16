@@ -19,7 +19,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		[SetUp]
 		public void SetUp()
 		{
-			_dataSource = new LocalDataSource();
+			_dataSource = new MemoryDataSource();
 			_sut = new HeroBuilder(_dataSource);
 		}
 

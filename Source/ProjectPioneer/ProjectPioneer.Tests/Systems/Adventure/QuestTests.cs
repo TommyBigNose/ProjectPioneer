@@ -23,7 +23,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		[SetUp]
 		public void SetUp()
 		{
-			_dataSource = new LocalDataSource();
+			_dataSource = new MemoryDataSource();
 		}
 
 		[TearDown]

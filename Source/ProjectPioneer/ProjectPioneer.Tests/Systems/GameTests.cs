@@ -27,7 +27,7 @@ namespace ProjectPioneer.Tests.Systems
 		[SetUp]
 		public void SetUp()
 		{
-			_dataSource = new LocalDataSource();
+			_dataSource = new MemoryDataSource();
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
 			_shop = new Shop(_dataSource);

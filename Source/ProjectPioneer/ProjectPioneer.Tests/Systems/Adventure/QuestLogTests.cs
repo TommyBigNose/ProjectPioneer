@@ -17,7 +17,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		[SetUp]
 		public void SetUp()
 		{
-			_dataSource = new LocalDataSource();
+			_dataSource = new MemoryDataSource();
 			_sut = new QuestLog(_dataSource);
 		}
 

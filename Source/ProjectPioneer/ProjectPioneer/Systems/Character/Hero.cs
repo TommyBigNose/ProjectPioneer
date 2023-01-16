@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -12,25 +13,35 @@ namespace ProjectPioneer.Systems.Character
 	public class Hero : IHero
 	{
 		private readonly string _name = string.Empty;
+		[SaveableAttribute("HeroName")]
 		public string Name => _name;
 		
 		private int _exp;
+		[SaveableAttribute("HeroExp")]
 		public int Exp => _exp;
 
 		private readonly IJob _job;
+		[SaveableAttribute("HeroJob")]
 		public IJob Job => _job;
 
 		private readonly IImplant _implant;
+		[SaveableAttribute("HeroImplant")]
 		public IImplant Implant => _implant;
 
 		private IEquipment _equippedWeapon;
+		[SaveableAttribute("HeroWeapon")]
 		public IEquipment EquippedWeapon => _equippedWeapon;
+
 		private IEquipment _equippedArmor;
+		[SaveableAttribute("HeroArmor")]
 		public IEquipment EquippedArmor => _equippedArmor;
+
 		private IEquipment _equippedAura;
+		[SaveableAttribute("HeroAura")]
 		public IEquipment EquippedAura => _equippedAura;
 
 		private readonly Stats _stats;
+		[SaveableAttribute("HeroStats")]
 		public Stats Stats => _stats;
 
 		public Hero(string name, IJob job, IImplant implant, Stats stats, IEquipment weapon, IEquipment armor, IEquipment aura)

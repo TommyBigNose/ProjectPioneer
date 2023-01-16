@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Character;
+using ProjectPioneer.Systems.Data;
 
 namespace ProjectPioneer.Systems.Equipment
 {
 	public class Inventory : IInventory
 	{
 		private int _credits;
+		[SaveableAttribute("InventoryCredits")]
 		public int Credits => _credits;
+
 		private List<IEquipment> _heroInventory = new List<IEquipment>();
+		[SaveableAttribute("InventoryHerosInventory")]
 		public List<IEquipment> HeroInventory => _heroInventory;
 
 		public void AddCredits(int credits)

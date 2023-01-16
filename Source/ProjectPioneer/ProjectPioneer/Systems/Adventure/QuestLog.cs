@@ -10,7 +10,10 @@ namespace ProjectPioneer.Systems.Adventure
 	public class QuestLog : IQuestLog
 	{
 		public List<IQuest> Quests { get; } = new List<IQuest>();
+
+		[SaveableAttribute("QuestLogCompletedQuests")]
 		public HashSet<IQuest> CompletedQuests { get; } = new HashSet<IQuest>();
+		
 		private readonly IDataSource _dataSource;
 
 		public QuestLog(IDataSource dataSource)

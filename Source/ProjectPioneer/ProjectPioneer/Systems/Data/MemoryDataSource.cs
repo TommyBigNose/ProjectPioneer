@@ -10,7 +10,7 @@ using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Data
 {
-	public class LocalDataSource : IDataSource
+	public class MemoryDataSource : IDataSource
 	{
 		public IEnumerable<IJob> GetAllJobs()
 		{

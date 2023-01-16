@@ -9,14 +9,14 @@ using ProjectPioneer.Systems.Data;
 namespace ProjectPioneer.Tests.Systems.Data
 {
 	[TestFixture]
-	public class LocalDataSourceTests
+	public class MemoryDataSourceTests
 	{
 		private IDataSource _sut;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_sut = new LocalDataSource();
+			_sut = new MemoryDataSource();
 		}
 
 		[TearDown]
