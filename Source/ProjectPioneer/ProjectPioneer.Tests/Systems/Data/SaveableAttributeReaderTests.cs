@@ -20,6 +20,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 		private IHeroBuilder _heroBuilder;
 		private IInventory _inventory;
 		private IQuestLog _questLog;
+		private SaveData _saveData;
 
 		private ISaveableAttributeReader _sut;
 
@@ -30,6 +31,13 @@ namespace ProjectPioneer.Tests.Systems.Data
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
 			_questLog = new QuestLog(_dataSource);
+			_saveData = new SaveData()
+			{
+				Hero = _heroBuilder.CreateHero("", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First()),
+				Inventory = _inventory,
+				QuestLog = _questLog
+			};
+
 			_sut = new SaveableAttributeReader();
 		}
 
@@ -49,8 +57,10 @@ namespace ProjectPioneer.Tests.Systems.Data
 			IImplant implant = new Implant(1001, "TestImplant", "Desc", new Stats());
 			IHero hero = _heroBuilder.CreateHero("TestHeroName", job, implant);
 
+			_saveData.Hero = hero;
+
 			// Act
-			var result = _sut.ReadAllAttributesOfObject(hero);
+			var result = _sut.ReadAllAttributesOfObject(_saveData);
 
 			// Assert
 			Assert.Multiple(() =>
@@ -71,7 +81,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 		{
 			// Arrange
 			// Act
-			var result = _sut.ReadAllAttributesOfObject(_inventory);
+			var result = _sut.ReadAllAttributesOfObject(_saveData);
 
 			// Assert
 			Assert.Multiple(() =>
@@ -90,7 +100,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			_inventory.AddCredits(9999);
 
 			// Act
-			var result = _sut.ReadAllAttributesOfObject(_inventory);
+			var result = _sut.ReadAllAttributesOfObject(_saveData);
 
 			// Assert
 			Assert.Multiple(() =>
@@ -105,7 +115,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 		{
 			// Arrange
 			// Act
-			var result = _sut.ReadAllAttributesOfObject(_questLog);
+			var result = _sut.ReadAllAttributesOfObject(_saveData);
 
 			// Assert
 			Assert.Multiple(() =>
@@ -122,7 +132,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			string csvOfCompletedQuests = string.Join(Constants.AttributeListSeparator, _questLog.CompletedQuests.Select(_ => _.QuestInfo.ID));
 
 			// Act
-			var result = _sut.ReadAllAttributesOfObject(_questLog);
+			var result = _sut.ReadAllAttributesOfObject(_saveData);
 
 			// Assert
 			Assert.Multiple(() =>

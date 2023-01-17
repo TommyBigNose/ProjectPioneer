@@ -15,32 +15,22 @@ namespace ProjectPioneer.Systems.Data
 {
 	public class SaveableAttributeReader : ISaveableAttributeReader
 	{
-		public IEnumerable<string> ReadAllAttributesOfObject(object data)
+		public IEnumerable<string> ReadAllAttributesOfObject(SaveData saveData)
 		{
 			List<string> attributes = new List<string>();
-			//Type type = data.GetType();
 
-			switch(data.GetType().Name)
-			{
-				case "Hero":
-					attributes.AddRange(GetHeroSaveableAttributes(data));
-					break;
-				case "Inventory":
-					attributes.AddRange(GetInventorySaveableAttributes(data));
-					break;
-				case "QuestLog":
-					attributes.AddRange(GetQuestLogSaveableAttributes(data));
-					break;
-			}
+			attributes.AddRange(GetSaveableAttributes(saveData.Hero));
+			attributes.AddRange(GetSaveableAttributes(saveData.Inventory));
+			attributes.AddRange(GetSaveableAttributes(saveData.QuestLog));
 
 			return attributes;
 		}
 
-		private List<string> GetHeroSaveableAttributes(object data)
+		private List<string> GetSaveableAttributes(object data)
 		{
 			List<string> attributes = new List<string>();
 
-			foreach (var attrib in GetSaveableAttributes(data))
+			foreach (var attrib in GetSaveablePropertiesAndAttributes(data))
 			{
 				var val = attrib.Key.GetValue(data);
 
@@ -58,51 +48,15 @@ namespace ProjectPioneer.Systems.Data
 					case "Stats":
 						val = JsonSerializer.Serialize(val);
 						break;
-				}
-
-				attributes.Add($"{attrib.Value.Name}|||{val}");
-			}
-
-			return attributes;
-		}
-
-		private List<string> GetInventorySaveableAttributes(object data)
-		{
-			List<string> attributes = new List<string>();
-
-			foreach (var attrib in GetSaveableAttributes(data))
-			{
-				var val = attrib.Key.GetValue(data);
-
-				switch (attrib.Key.PropertyType.Name)
-				{
 					case "List`1":
-						val = string.Join(Constants.AttributeListSeparator, ((List<IEquipment>)val).Select(_=>_.ID));
+						val = string.Join(Constants.AttributeListSeparator, ((List<IEquipment>)val).Select(_ => _.ID));
 						break;
-				}
-
-				attributes.Add($"{attrib.Value.Name}|||{val}");
-			}
-
-			return attributes;
-		}
-
-		private List<string> GetQuestLogSaveableAttributes(object data)
-		{
-			List<string> attributes = new List<string>();
-
-			foreach (var attrib in GetSaveableAttributes(data))
-			{
-				var val = attrib.Key.GetValue(data);
-
-				switch (attrib.Key.PropertyType.Name)
-				{
 					case "HashSet`1":
 						val = string.Join(Constants.AttributeListSeparator, ((HashSet<IQuest>)val).Select(_ => _.QuestInfo.ID));
 						break;
 				}
 
-				attributes.Add($"{attrib.Value.Name}|||{val}");
+				attributes.Add($"{attrib.Value.Name}{Constants.AttributeSeparator}{val}");
 			}
 
 			return attributes;
@@ -113,7 +67,7 @@ namespace ProjectPioneer.Systems.Data
 		/// </summary>
 		/// <param name="data"></param>
 		/// <returns></returns>
-		private Dictionary<PropertyInfo, SaveableAttribute> GetSaveableAttributes(object data)
+		private Dictionary<PropertyInfo, SaveableAttribute> GetSaveablePropertiesAndAttributes(object data)
 		{
 			Dictionary<PropertyInfo, SaveableAttribute> dictionary = new Dictionary<PropertyInfo, SaveableAttribute>();
 
