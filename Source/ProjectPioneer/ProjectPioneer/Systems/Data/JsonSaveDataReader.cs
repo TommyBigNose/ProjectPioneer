@@ -18,12 +18,17 @@ namespace ProjectPioneer.Systems.Data
 	{
 		public string GetStringFromSaveData(SaveData saveData)
 		{
-			string json = JsonSerializer.Serialize<SaveData>(saveData, new JsonSerializerOptions()
+			string json = JsonSerializer.Serialize(saveData, new JsonSerializerOptions()
 			{
 				WriteIndented = true
 			});
 
 			return json;
+		}
+
+		public SaveData GetSaveDataFromString(string stringData)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

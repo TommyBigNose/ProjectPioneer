@@ -9,6 +9,6 @@ namespace ProjectPioneer.Systems.Data
 	public interface ISaveDataReader
 	{
 		string GetStringFromSaveData(SaveData saveData);
-		//SaveData Read
+		SaveData GetSaveDataFromString(string stringData);
 	}
 }
