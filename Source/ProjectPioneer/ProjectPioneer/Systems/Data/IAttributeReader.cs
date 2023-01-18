@@ -9,6 +9,6 @@ namespace ProjectPioneer.Systems.Data
 	public interface ISaveableAttributeReader
 	{
 		IEnumerable<string> ReadAllAttributesOfObject(SaveData saveData);
-		//object Read
+		//SaveData Read
 	}
 }

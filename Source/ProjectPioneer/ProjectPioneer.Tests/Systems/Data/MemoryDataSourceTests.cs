@@ -113,14 +113,25 @@ namespace ProjectPioneer.Tests.Systems.Data
 		}
 
 		[Test]
-		public void Should_GetAllQuests()
+		public void Should_GetAllQuestsInfos()
 		{
 			// Arrange
 			// Act
 			var result = _sut.GetAllQuestInfos();
 
 			// Assert
-			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "LocalDataSource did not return enough quests.");
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "LocalDataSource did not return enough QuestsInfos.");
+		}
+
+		[Test]
+		public void Should_GetAllQuests()
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllQuests();
+
+			// Assert
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "LocalDataSource did not return enough Quests.");
 		}
 	}
 }

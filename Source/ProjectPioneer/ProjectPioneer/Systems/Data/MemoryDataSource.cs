@@ -427,5 +427,14 @@ namespace ProjectPioneer.Systems.Data
 			
 			return questInfos;
 		}
+
+		public IEnumerable<IQuest> GetAllQuests()
+		{
+			List<IQuest> quests = new List<IQuest>();
+			
+			GetAllQuestInfos().ToList().ForEach(_ => quests.Add(new Quest(_)));
+
+			return quests;
+		}
 	}
 }

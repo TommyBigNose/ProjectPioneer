@@ -18,7 +18,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		public void SetUp()
 		{
 			_dataSource = new MemoryDataSource();
-			_sut = new QuestLog(_dataSource);
+			_sut = new QuestLog();
 		}
 
 		[TearDown]
@@ -28,22 +28,11 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 		}
 
 		[Test]
-		public void Should_HaveSetUpQuests_When_Initialized()
-		{
-			// Arrange
-			// Act
-			var result = _sut.Quests;
-
-			// Assert
-			Assert.That(result.Count, Is.EqualTo(_dataSource.GetAllQuestInfos().Count()), "QuestLog did not initialize correctly");
-		}
-
-		[Test]
 		public void Should_LogQuestAsCompleted_When_Prompted()
 		{
 			// Arrange
-			var questToComplete1 = _sut.Quests.First();
-			var questToComplete2 = _sut.Quests.Last();
+			var questToComplete1 = _dataSource.GetAllQuests().First();
+			var questToComplete2 = _dataSource.GetAllQuests().Last();
 
 			// Act
 			_sut.CompleteQuest(questToComplete1);
@@ -54,8 +43,8 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			Assert.Multiple(() =>
 			{
 				Assert.That(result.Count, Is.EqualTo(2), "QuestLog did not complete a quest as expected");
-				Assert.That(result.Contains(questToComplete1), Is.True, "QuestLog did not contain completed quest");
-				Assert.That(result.Contains(questToComplete2), Is.True, "QuestLog did not contain completed quest");
+				Assert.That(result.Contains(questToComplete1.QuestInfo.ID), Is.True, "QuestLog did not contain completed quest");
+				Assert.That(result.Contains(questToComplete2.QuestInfo.ID), Is.True, "QuestLog did not contain completed quest");
 			});
 		}
 	}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ProjectPioneer.Systems.Adventure;
@@ -22,6 +23,12 @@ namespace ProjectPioneer.Systems.Data
 			attributes.AddRange(GetSaveableAttributes(saveData.Hero));
 			attributes.AddRange(GetSaveableAttributes(saveData.Inventory));
 			attributes.AddRange(GetSaveableAttributes(saveData.QuestLog));
+
+			//string json = JsonSerializer.Serialize<SaveData>(saveData, new JsonSerializerOptions()
+			//{
+			//	WriteIndented = true,
+			//	DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+			//});
 
 			return attributes;
 		}
@@ -52,7 +59,7 @@ namespace ProjectPioneer.Systems.Data
 						val = string.Join(Constants.AttributeListSeparator, ((List<IEquipment>)val).Select(_ => _.ID));
 						break;
 					case "HashSet`1":
-						val = string.Join(Constants.AttributeListSeparator, ((HashSet<IQuest>)val).Select(_ => _.QuestInfo.ID));
+						val = string.Join(Constants.AttributeListSeparator, ((HashSet<int>)val));
 						break;
 				}
 

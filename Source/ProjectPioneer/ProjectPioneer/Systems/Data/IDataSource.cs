@@ -21,5 +21,6 @@ namespace ProjectPioneer.Systems.Data
 		IEquipment GetDefaultArmor();
 		IEquipment GetDefaultAura();
 		IEnumerable<QuestInfo> GetAllQuestInfos();
+		IEnumerable<IQuest> GetAllQuests();
 	}
 }

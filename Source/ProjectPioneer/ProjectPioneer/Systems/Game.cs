@@ -138,7 +138,7 @@ namespace ProjectPioneer.Systems
 		#region Quest
 		public IEnumerable<IQuest> GetAllQuests()
 		{
-			return QuestLog.Quests;
+			return _dataSource.GetAllQuests();
 		}
 
 		public void CompleteQuest(IQuest quest)
@@ -146,7 +146,7 @@ namespace ProjectPioneer.Systems
 			QuestLog.CompleteQuest(quest);
 		}
 
-		public ISet<IQuest> GetCompletedQuests()
+		public ISet<int> GetCompletedQuests()
 		{
 			return QuestLog.CompletedQuests;
 		}

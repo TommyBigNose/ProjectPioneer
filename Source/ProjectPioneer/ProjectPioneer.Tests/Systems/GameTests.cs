@@ -31,7 +31,7 @@ namespace ProjectPioneer.Tests.Systems
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
 			_shop = new Shop(_dataSource);
-			_questLog = new QuestLog(_dataSource);
+			_questLog = new QuestLog();
 
 			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog);
 		}
@@ -358,8 +358,8 @@ namespace ProjectPioneer.Tests.Systems
 			Assert.Multiple(() =>
 			{
 				Assert.That(result.Count(), Is.EqualTo(2), "Game did not return completed quests");
-				Assert.That(result.Contains(questToComplete1), Is.True, "Game did not return expected completed quest 1");
-				Assert.That(result.Contains(questToComplete2), Is.True, "Game did not return expected completed quest 2");
+				Assert.That(result.Contains(questToComplete1.QuestInfo.ID), Is.True, "Game did not return expected completed quest 1");
+				Assert.That(result.Contains(questToComplete2.QuestInfo.ID), Is.True, "Game did not return expected completed quest 2");
 			});
 		}
 	}

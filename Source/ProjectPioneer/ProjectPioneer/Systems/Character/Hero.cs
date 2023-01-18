@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -15,7 +16,7 @@ namespace ProjectPioneer.Systems.Character
 		private readonly string _name = string.Empty;
 		[SaveableAttribute(Constants.AttributeHeroName)]
 		public string Name => _name;
-		
+
 		private int _exp;
 		[SaveableAttribute(Constants.AttributeHeroExp)]
 		public int Exp => _exp;

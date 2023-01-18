@@ -2,8 +2,7 @@
 {
 	public interface IQuestLog
 	{
-		List<IQuest> Quests { get; }
-		HashSet<IQuest> CompletedQuests { get; }
+		HashSet<int> CompletedQuests { get; }
 		void CompleteQuest(IQuest quest);
 	}
 }

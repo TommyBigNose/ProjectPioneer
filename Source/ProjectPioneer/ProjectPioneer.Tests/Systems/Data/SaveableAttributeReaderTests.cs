@@ -30,7 +30,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			_dataSource = new MemoryDataSource();
 			_heroBuilder = new HeroBuilder(_dataSource);
 			_inventory = new Inventory();
-			_questLog = new QuestLog(_dataSource);
+			_questLog = new QuestLog();
 			_saveData = new SaveData()
 			{
 				Hero = _heroBuilder.CreateHero("", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First()),
@@ -129,7 +129,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 		{
 			// Arrange
 			_dataSource.GetAllQuestInfos().ToList().ForEach(_ => _questLog.CompleteQuest(new Quest(_)));
-			string csvOfCompletedQuests = string.Join(Constants.AttributeListSeparator, _questLog.CompletedQuests.Select(_ => _.QuestInfo.ID));
+			string csvOfCompletedQuests = string.Join(Constants.AttributeListSeparator, _questLog.CompletedQuests);
 
 			// Act
 			var result = _sut.ReadAllAttributesOfObject(_saveData);
