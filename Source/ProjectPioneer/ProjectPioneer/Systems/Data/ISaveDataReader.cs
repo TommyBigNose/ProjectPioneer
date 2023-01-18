@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProjectPioneer.Systems.Data
 {
-	public interface ISaveableAttributeReader
+	public interface ISaveDataReader
 	{
-		IEnumerable<string> ReadAllAttributesOfObject(SaveData saveData);
+		string GetStringFromSaveData(SaveData saveData);
 		//SaveData Read
 	}
 }
