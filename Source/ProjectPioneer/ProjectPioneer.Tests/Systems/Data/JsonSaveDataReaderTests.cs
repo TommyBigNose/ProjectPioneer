@@ -65,14 +65,14 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result, Does.Contain("\"Name\": \"TestHeroName\""), "SaveableAttributeReader did not parse out Name");
-				Assert.That(result, Does.Contain("\"Exp\": 0"), "SaveableAttributeReader did not parse out Exp");
-				Assert.That(result, Does.Contain("\"ID\": 999"), "SaveableAttributeReader did not parse out Job");
-				Assert.That(result, Does.Contain("\"ID\": 1001"), "SaveableAttributeReader did not parse out Implant");
-				Assert.That(result, Does.Contain("\"ID\": 1"), "SaveableAttributeReader did not parse out Weapon");
-				Assert.That(result, Does.Contain("\"ID\": 2"), "SaveableAttributeReader did not parse out Armor");
-				Assert.That(result, Does.Contain("\"ID\": 3"), "SaveableAttributeReader did not parse out Aura");
-				Assert.That(result, Does.Contain("\"Level\": 1"), "SaveableAttributeReader did not parse out Stats");
+				Assert.That(result, Does.Contain("\"Name\": \"TestHeroName\""), "JsonSaveDataReaderTests did not parse out Name");
+				Assert.That(result, Does.Contain("\"Exp\": 0"), "JsonSaveDataReaderTests did not parse out Exp");
+				Assert.That(result, Does.Contain("\"ID\": 999"), "JsonSaveDataReaderTests did not parse out Job");
+				Assert.That(result, Does.Contain("\"ID\": 1001"), "JsonSaveDataReaderTests did not parse out Implant");
+				Assert.That(result, Does.Contain("\"ID\": 1"), "JsonSaveDataReaderTests did not parse out Weapon");
+				Assert.That(result, Does.Contain("\"ID\": 2"), "JsonSaveDataReaderTests did not parse out Armor");
+				Assert.That(result, Does.Contain("\"ID\": 3"), "JsonSaveDataReaderTests did not parse out Aura");
+				Assert.That(result, Does.Contain("\"Level\": 1"), "JsonSaveDataReaderTests did not parse out Stats");
 			});
 		}
 
@@ -86,8 +86,8 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result, Does.Contain("\"Credits\": 0"), "SaveableAttributeReader did not parse out Credits");
-				Assert.That(result, Does.Contain("\"HeroInventory\": []"), "SaveableAttributeReader did not parse out Hero Inventory");
+				Assert.That(result, Does.Contain("\"Credits\": 0"), "JsonSaveDataReaderTests did not parse out Credits");
+				Assert.That(result, Does.Contain("\"HeroInventory\": []"), "JsonSaveDataReaderTests did not parse out Hero Inventory");
 			});
 		}
 
@@ -104,8 +104,8 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result, Does.Contain("\"Credits\": 9999"), "SaveableAttributeReader did not parse out Credits");
-				Assert.That(result, Does.Contain("\"ID\": 101"), "SaveableAttributeReader did not parse out an empty Hero Inventory");
+				Assert.That(result, Does.Contain("\"Credits\": 9999"), "JsonSaveDataReaderTests did not parse out Credits");
+				Assert.That(result, Does.Contain("\"ID\": 101"), "JsonSaveDataReaderTests did not parse out an empty Hero Inventory");
 			});
 		}
 
@@ -119,7 +119,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result, Does.Contain("\"CompletedQuests\": []"), "SaveableAttributeReader did not parse out an empty set of Completed Quests");
+				Assert.That(result, Does.Contain("\"CompletedQuests\": []"), "JsonSaveDataReaderTests did not parse out an empty set of Completed Quests");
 			});
 		}
 
@@ -128,7 +128,6 @@ namespace ProjectPioneer.Tests.Systems.Data
 		{
 			// Arrange
 			_dataSource.GetAllQuests().ToList().ForEach(_ => _questLog.CompleteQuest(_));
-			string csvOfCompletedQuests = string.Join(Constants.AttributeListSeparator, _questLog.CompletedQuests);
 
 			// Act
 			var result = _sut.GetStringFromSaveData(_saveData);
@@ -136,7 +135,60 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result, Does.Contain("\"CompletedQuests\": [\r\n      1,"), "SaveableAttributeReader did not parse out Completed Quests");
+				Assert.That(result, Does.Contain("\"CompletedQuests\": [\r\n      1,"), "JsonSaveDataReaderTests did not parse out Completed Quests");
+			});
+		}
+
+		[Test]
+		public void Should_ReturnsSaveData_When_GivenOlderSavedDataAsString()
+		{
+			// Arrange
+			// Hero
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>()
+			{ EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura }, new Stats());
+
+			IImplant implant = new Implant(1001, "TestImplant", "Desc", new Stats());
+			IHero hero = _heroBuilder.CreateHero("TestHeroName", job, implant);
+
+			_saveData.Hero = hero;
+
+			// Inventory
+			_dataSource.GetAllEquipment().ToList().ForEach(_ => _inventory.AddEquipment(_));
+			_inventory.AddCredits(9999);
+
+			// QuestLog
+			_dataSource.GetAllQuests().ToList().ForEach(_ => _questLog.CompleteQuest(_));
+
+			string json = _sut.GetStringFromSaveData(_saveData);
+
+			// Act
+			var result = _sut.GetSaveDataFromString(json);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Hero.Name, Is.EqualTo(_saveData.Hero.Name), "JsonSaveDataReaderTests loaded a mismatching Hero's Name");
+				Assert.That(result.Hero.Stats.Level, Is.EqualTo(_saveData.Hero.Stats.Level), "JsonSaveDataReaderTests loaded a mismatching Hero's Level");
+				Assert.That(result.Hero.Stats.PhysicalAttack, Is.EqualTo(_saveData.Hero.Stats.PhysicalAttack), "JsonSaveDataReaderTests loaded a mismatching Hero's PhysicalAttack");
+				Assert.That(result.Hero.Stats.PhysicalDefense, Is.EqualTo(_saveData.Hero.Stats.PhysicalDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's PhysicalDefense");
+				Assert.That(result.Hero.Stats.MagicalAttack, Is.EqualTo(_saveData.Hero.Stats.MagicalAttack), "JsonSaveDataReaderTests loaded a mismatching Hero's MagicalAttack");
+				Assert.That(result.Hero.Stats.MagicalDefense, Is.EqualTo(_saveData.Hero.Stats.MagicalDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's MagicalDefense");
+				Assert.That(result.Hero.Stats.Speed, Is.EqualTo(_saveData.Hero.Stats.Speed), "JsonSaveDataReaderTests loaded a mismatching Hero's Speed");
+
+				Assert.That(result.Hero.Stats.FireAttack, Is.EqualTo(_saveData.Hero.Stats.FireAttack), "JsonSaveDataReaderTests loaded a mismatching Hero's FireAttack");
+				Assert.That(result.Hero.Stats.FireDefense, Is.EqualTo(_saveData.Hero.Stats.FireDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's FireDefense");
+				Assert.That(result.Hero.Stats.IceAttack, Is.EqualTo(_saveData.Hero.Stats.IceAttack), "JsonSaveDataReaderTests loaded a mismatching Hero's IceAttack");
+				Assert.That(result.Hero.Stats.IceDefense, Is.EqualTo(_saveData.Hero.Stats.IceDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's IceDefense");
+				Assert.That(result.Hero.Stats.LightningAttack, Is.EqualTo(_saveData.Hero.Stats.LightningAttack), "JsonSaveDataReaderTests loaded a mismatching Hero's LightningAttack");
+				Assert.That(result.Hero.Stats.LightningDefense, Is.EqualTo(_saveData.Hero.Stats.LightningDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's LightningDefense");
+				Assert.That(result.Hero.Stats.EarthAttack, Is.EqualTo(_saveData.Hero.Stats.EarthAttack), "JsonSaveDataReaderTests loaded a mismatching Hero's EarthAttack");
+				Assert.That(result.Hero.Stats.EarthDefense, Is.EqualTo(_saveData.Hero.Stats.EarthDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's EarthDefense");
+
+				Assert.That(result.Inventory.HeroInventory.Count, Is.EqualTo(_saveData.Inventory.HeroInventory.Count), "JsonSaveDataReaderTests loaded a mismatching HeroInventory count");
+				Assert.That(!result.Inventory.HeroInventory.Except(_saveData.Inventory.HeroInventory).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching HeroInventory");
+
+				Assert.That(result.QuestLog.CompletedQuests.Count, Is.EqualTo(_saveData.QuestLog.CompletedQuests.Count), "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog count");
+				Assert.That(!result.QuestLog.CompletedQuests.Except(_saveData.QuestLog.CompletedQuests).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog");
 			});
 		}
 	}
