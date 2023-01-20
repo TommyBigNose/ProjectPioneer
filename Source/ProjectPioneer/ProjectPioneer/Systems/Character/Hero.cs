@@ -14,40 +14,33 @@ namespace ProjectPioneer.Systems.Character
 	public class Hero : IHero
 	{
 		private readonly string _name = string.Empty;
-		[SaveableAttribute(Constants.AttributeHeroName)]
 		public string Name => _name;
 
 		private int _exp;
-		[SaveableAttribute(Constants.AttributeHeroExp)]
 		public int Exp => _exp;
 
 		private readonly IJob _job;
-		[SaveableAttribute(Constants.AttributeHeroJob)]
 		public IJob Job => _job;
 
 		private readonly IImplant _implant;
-		[SaveableAttribute(Constants.AttributeHeroImplant)]
 		public IImplant Implant => _implant;
 
 		private IEquipment _equippedWeapon;
-		[SaveableAttribute(Constants.AttributeHeroWeapon)]
 		public IEquipment EquippedWeapon => _equippedWeapon;
 
 		private IEquipment _equippedArmor;
-		[SaveableAttribute(Constants.AttributeHeroArmor)]
 		public IEquipment EquippedArmor => _equippedArmor;
 
 		private IEquipment _equippedAura;
-		[SaveableAttribute(Constants.AttributeHeroAura)]
 		public IEquipment EquippedAura => _equippedAura;
 
 		private readonly Stats _stats;
-		[SaveableAttribute(Constants.AttributeHeroStats)]
 		public Stats Stats => _stats;
 
-		public Hero(string name, IJob job, IImplant implant, Stats stats, IEquipment weapon, IEquipment armor, IEquipment aura)
+		public Hero(string name, int exp, IJob job, IImplant implant, Stats stats, IEquipment weapon, IEquipment armor, IEquipment aura)
 		{
 			_name = name;
+			_exp = exp;
 			_job = job;
 			_implant = implant;
 			_stats = stats;

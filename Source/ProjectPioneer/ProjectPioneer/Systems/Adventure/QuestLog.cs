@@ -10,8 +10,14 @@ namespace ProjectPioneer.Systems.Adventure
 {
 	public class QuestLog : IQuestLog
 	{
-		[SaveableAttribute("QuestLogCompletedQuests")]
 		public HashSet<int> CompletedQuests { get; } = new HashSet<int>();
+
+		public QuestLog() { }
+
+		public QuestLog(HashSet<int> completedQuests)
+		{
+			CompletedQuests = completedQuests;
+		}
 
 		public void CompleteQuest(IQuest quest)
 		{

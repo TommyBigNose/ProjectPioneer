@@ -16,9 +16,17 @@ namespace ProjectPioneer.Systems.Data
 {
 	public class JsonSaveDataReader : ISaveDataReader
 	{
+		private readonly IDataSource _dataSource;
+
+		public JsonSaveDataReader(IDataSource dataSource)
+		{
+			_dataSource = dataSource;
+		}
+
 		public string GetStringFromSaveData(SaveData saveData)
 		{
-			string json = JsonSerializer.Serialize(saveData, new JsonSerializerOptions()
+			SerializeableSaveData serializeableSaveData = saveData.ConvertToSerializeableSaveData();
+			string json = JsonSerializer.Serialize(serializeableSaveData, new JsonSerializerOptions()
 			{
 				WriteIndented = true
 			});
@@ -28,7 +36,10 @@ namespace ProjectPioneer.Systems.Data
 
 		public SaveData GetSaveDataFromString(string stringData)
 		{
-			throw new NotImplementedException();
+			SerializeableSaveData serializeableSaveData = JsonSerializer.Deserialize<SerializeableSaveData>(stringData);
+			SaveData saveData = serializeableSaveData.ConvertToSaveData(_dataSource);
+
+			return saveData;
 		}
 	}
 }

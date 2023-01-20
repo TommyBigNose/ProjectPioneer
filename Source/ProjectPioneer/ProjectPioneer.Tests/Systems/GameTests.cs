@@ -234,7 +234,7 @@ namespace ProjectPioneer.Tests.Systems
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(firstEquipment.EquipmentType, Is.EqualTo(EquipmentType.Blade), "Game did not sort Blades first as expected");
+				Assert.That(firstEquipment.EquipmentType, Is.EqualTo(EquipmentType.None), "Game did not sort None first as expected");
 				Assert.That(lastEquipment.EquipmentType, Is.EqualTo(EquipmentType.Aura), "Game did not sort as expected");
 			});
 		}

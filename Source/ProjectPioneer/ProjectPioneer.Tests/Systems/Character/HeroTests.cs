@@ -81,9 +81,8 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IEquipment weapon = _dataSource.GetDefaultWeapon();
 			IEquipment armor = _dataSource.GetDefaultArmor();
 			IEquipment aura = _dataSource.GetDefaultAura();
-			_sut = new Hero("Test", job, implant, new Stats(), weapon, armor, aura);
+			_sut = new Hero("Test", 10000, job, implant, new Stats(), weapon, armor, aura);
 			Stats initialStats = new Stats(_sut.Stats);
-			_sut.AddExp(10000);
 
 			// Act
 			for (int i = 0; i < levelUpCount; i++)
@@ -133,7 +132,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IEquipment defaultWeapon = _dataSource.GetDefaultWeapon();
 			IEquipment defaultArmor = _dataSource.GetDefaultArmor();
 			IEquipment defaultAura = _dataSource.GetDefaultAura();
-			_sut = new Hero("Test", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
+			_sut = new Hero("Test", 0, job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
 			IEquipment weapon = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == weaponType);
 
 			// Act
@@ -429,7 +428,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 			IEquipment defaultWeapon = _dataSource.GetDefaultWeapon();
 			IEquipment defaultArmor = _dataSource.GetDefaultArmor();
 			IEquipment defaultAura = _dataSource.GetDefaultAura();
-			return new Hero("Test Hero", job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
+			return new Hero("Test Hero", 0, job, implant, new Stats(), defaultWeapon, defaultArmor, defaultAura);
 		}
 	}
 }

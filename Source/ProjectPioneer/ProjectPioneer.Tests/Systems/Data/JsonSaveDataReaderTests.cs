@@ -38,7 +38,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 				QuestLog = _questLog
 			};
 
-			_sut = new JsonSaveDataReader();
+			_sut = new JsonSaveDataReader(_dataSource);
 		}
 
 		[TearDown]
@@ -67,11 +67,11 @@ namespace ProjectPioneer.Tests.Systems.Data
 			{
 				Assert.That(result, Does.Contain("\"Name\": \"TestHeroName\""), "JsonSaveDataReaderTests did not parse out Name");
 				Assert.That(result, Does.Contain("\"Exp\": 0"), "JsonSaveDataReaderTests did not parse out Exp");
-				Assert.That(result, Does.Contain("\"ID\": 999"), "JsonSaveDataReaderTests did not parse out Job");
-				Assert.That(result, Does.Contain("\"ID\": 1001"), "JsonSaveDataReaderTests did not parse out Implant");
-				Assert.That(result, Does.Contain("\"ID\": 1"), "JsonSaveDataReaderTests did not parse out Weapon");
-				Assert.That(result, Does.Contain("\"ID\": 2"), "JsonSaveDataReaderTests did not parse out Armor");
-				Assert.That(result, Does.Contain("\"ID\": 3"), "JsonSaveDataReaderTests did not parse out Aura");
+				Assert.That(result, Does.Contain("\"JobID\": 999"), "JsonSaveDataReaderTests did not parse out Job");
+				Assert.That(result, Does.Contain("\"ImplantID\": 1001"), "JsonSaveDataReaderTests did not parse out Implant");
+				Assert.That(result, Does.Contain("\"EquippedWeaponID\": 1"), "JsonSaveDataReaderTests did not parse out Weapon");
+				Assert.That(result, Does.Contain("\"EquippedArmorID\": 2"), "JsonSaveDataReaderTests did not parse out Armor");
+				Assert.That(result, Does.Contain("\"EquippedAuraID\": 3"), "JsonSaveDataReaderTests did not parse out Aura");
 				Assert.That(result, Does.Contain("\"Level\": 1"), "JsonSaveDataReaderTests did not parse out Stats");
 			});
 		}
@@ -87,7 +87,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Does.Contain("\"Credits\": 0"), "JsonSaveDataReaderTests did not parse out Credits");
-				Assert.That(result, Does.Contain("\"HeroInventory\": []"), "JsonSaveDataReaderTests did not parse out Hero Inventory");
+				Assert.That(result, Does.Contain("\"HeroInventoryIDs\": []"), "JsonSaveDataReaderTests did not parse out Hero Inventory");
 			});
 		}
 
@@ -105,7 +105,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			Assert.Multiple(() =>
 			{
 				Assert.That(result, Does.Contain("\"Credits\": 9999"), "JsonSaveDataReaderTests did not parse out Credits");
-				Assert.That(result, Does.Contain("\"ID\": 101"), "JsonSaveDataReaderTests did not parse out an empty Hero Inventory");
+				Assert.That(result, Does.Contain("HeroInventoryIDs\": [\r\n    1,"), "JsonSaveDataReaderTests did not parse out an empty Hero Inventory");
 			});
 		}
 
@@ -135,7 +135,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result, Does.Contain("\"CompletedQuests\": [\r\n      1,"), "JsonSaveDataReaderTests did not parse out Completed Quests");
+				Assert.That(result, Does.Contain("\"CompletedQuests\": [\r\n    1,"), "JsonSaveDataReaderTests did not parse out Completed Quests");
 			});
 		}
 
@@ -144,11 +144,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 		{
 			// Arrange
 			// Hero
-			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>()
-			{ EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura }, new Stats());
-
-			IImplant implant = new Implant(1001, "TestImplant", "Desc", new Stats());
-			IHero hero = _heroBuilder.CreateHero("TestHeroName", job, implant);
+			IHero hero = _heroBuilder.CreateHero("TestHeroName", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First());
 
 			_saveData.Hero = hero;
 
@@ -185,10 +181,10 @@ namespace ProjectPioneer.Tests.Systems.Data
 				Assert.That(result.Hero.Stats.EarthDefense, Is.EqualTo(_saveData.Hero.Stats.EarthDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's EarthDefense");
 
 				Assert.That(result.Inventory.HeroInventory.Count, Is.EqualTo(_saveData.Inventory.HeroInventory.Count), "JsonSaveDataReaderTests loaded a mismatching HeroInventory count");
-				Assert.That(!result.Inventory.HeroInventory.Except(_saveData.Inventory.HeroInventory).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching HeroInventory");
+				Assert.That(result.Inventory.HeroInventory.Select(_=>_.ID).Except(_saveData.Inventory.HeroInventory.Select(_ => _.ID)).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching HeroInventory");
 
 				Assert.That(result.QuestLog.CompletedQuests.Count, Is.EqualTo(_saveData.QuestLog.CompletedQuests.Count), "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog count");
-				Assert.That(!result.QuestLog.CompletedQuests.Except(_saveData.QuestLog.CompletedQuests).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog");
+				Assert.That(result.QuestLog.CompletedQuests.Except(_saveData.QuestLog.CompletedQuests).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog");
 			});
 		}
 	}

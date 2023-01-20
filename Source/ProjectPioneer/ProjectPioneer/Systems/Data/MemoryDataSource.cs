@@ -291,11 +291,28 @@ namespace ProjectPioneer.Systems.Data
 		{
 			List<IEquipment> equipment = new List<IEquipment>();
 
+			if(minlevel == 0)
+			{
+				equipment.Add(GetDefaultWeapon());
+				equipment.Add(GetDefaultArmor());
+				equipment.Add(GetDefaultAura());
+			}
+			
 			equipment.AddRange(GetAllWeapons().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
 			equipment.AddRange(GetAllArmors().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
 			equipment.AddRange(GetAllAuras().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
-
+			
 			return equipment;
+		}
+
+		public IEquipment GetEquipmentByID(int id)
+		{
+			return GetAllEquipment().First(_ => _.ID == id);
+		}
+
+		public IEnumerable<IEquipment> GetEquipmentByIDs(List<int> ids)
+		{
+			return GetAllEquipment().Where(_ => ids.Contains(_.ID));
 		}
 
 		public IEquipment GetDefaultWeapon()

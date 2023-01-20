@@ -33,7 +33,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetAllJobs();
 
 			// Assert
-			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough jobs.");
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "MemoryDataSourceTests did not return enough jobs.");
 		}
 
 		[Test]
@@ -44,7 +44,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetAllImplants();
 
 			// Assert
-			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough implants.");
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "MemoryDataSourceTests did not return enough implants.");
 		}
 
 
@@ -56,7 +56,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetAllWeapons();
 
 			// Assert
-			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "LocalDataSource did not return enough weapons.");
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(3), "MemoryDataSourceTests did not return enough weapons.");
 		}
 
 		[TestCase(1, 5)]
@@ -73,10 +73,37 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result.Count, Is.LessThanOrEqualTo(totalEquipment), "LocalDataSource returned too much equipment");
-				Assert.That(result.Count, Is.GreaterThanOrEqualTo(0), "LocalDataSource did not return enough equipment between range");
-				Assert.That(isEquipmentOutOfRange, Is.False, "LocalDataSource returned equipment out of specified range");
+				Assert.That(result.Count, Is.LessThanOrEqualTo(totalEquipment), "MemoryDataSourceTests returned too much equipment");
+				Assert.That(result.Count, Is.GreaterThanOrEqualTo(0), "MemoryDataSourceTests did not return enough equipment between range");
+				Assert.That(isEquipmentOutOfRange, Is.False, "MemoryDataSourceTests returned equipment out of specified range");
 			});
+		}
+
+		[TestCase(1)]
+		[TestCase(101)]
+		[TestCase(301)]
+		[TestCase(501)]
+		public void Should_GetSpecificEquipment_When_GivenID(int id)
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetEquipmentByID(id);
+
+			// Assert
+			Assert.That(result.ID, Is.EqualTo(id), "MemoryDataSourceTests did not return the expected equipment.");
+		}
+
+		[Test]
+		public void Should_GetSpecificEquipmentList_When_GivenListOfIDs()
+		{
+			// Arrange
+			List<int> ids = new List<int>() { 1, 101, 301, 501 };
+
+			// Act
+			var result = _sut.GetEquipmentByIDs(ids).Select(_ => _.ID);
+
+			// Assert
+			Assert.That(result.Except(ids).Any(), Is.False, "MemoryDataSourceTests did not return the expected equipment list.");
 		}
 
 		[Test]
@@ -87,7 +114,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetDefaultWeapon();
 
 			// Assert
-			Assert.That(result.Name, Is.EqualTo("Nothing"), "LocalDataSource did not return the default weapon.");
+			Assert.That(result.Name, Is.EqualTo("Nothing"), "MemoryDataSourceTests did not return the default weapon.");
 		}
 
 		[Test]
@@ -98,7 +125,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetDefaultArmor();
 
 			// Assert
-			Assert.That(result.Name, Is.EqualTo("Clothes"), "LocalDataSource did not return the default armor.");
+			Assert.That(result.Name, Is.EqualTo("Clothes"), "MemoryDataSourceTests did not return the default armor.");
 		}
 
 		[Test]
@@ -109,7 +136,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetDefaultAura();
 
 			// Assert
-			Assert.That(result.Name, Is.EqualTo("Basic"), "LocalDataSource did not return the default aura.");
+			Assert.That(result.Name, Is.EqualTo("Basic"), "MemoryDataSourceTests did not return the default aura.");
 		}
 
 		[Test]
@@ -120,7 +147,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetAllQuestInfos();
 
 			// Assert
-			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "LocalDataSource did not return enough QuestsInfos.");
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "MemoryDataSourceTests did not return enough QuestsInfos.");
 		}
 
 		[Test]
@@ -131,7 +158,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 			var result = _sut.GetAllQuests();
 
 			// Assert
-			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "LocalDataSource did not return enough Quests.");
+			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "MemoryDataSourceTests did not return enough Quests.");
 		}
 	}
 }

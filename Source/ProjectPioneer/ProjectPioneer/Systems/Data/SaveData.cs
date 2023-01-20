@@ -14,5 +14,27 @@ namespace ProjectPioneer.Systems.Data
 		public IHero Hero { get; set; }
 		public IInventory Inventory { get; set; }
 		public IQuestLog QuestLog { get; set; }
+
+		public SerializeableSaveData ConvertToSerializeableSaveData()
+		{
+			SerializeableSaveData data = new SerializeableSaveData()
+			{
+				Name = Hero.Name,
+				Exp = Hero.Exp,
+				JobID = Hero.Job.ID,
+				ImplantID = Hero.Implant.ID,
+				EquippedWeaponID = Hero.EquippedWeapon.ID,
+				EquippedArmorID = Hero.EquippedArmor.ID,
+				EquippedAuraID = Hero.EquippedAura.ID,
+				Stats = Hero.Stats,
+
+				Credits = Inventory.Credits,
+				HeroInventoryIDs = Inventory.HeroInventory.Select(_=>_.ID).ToList(),
+
+				CompletedQuests = QuestLog.CompletedQuests
+			};
+
+			return data;
+		}
 	}
 }
