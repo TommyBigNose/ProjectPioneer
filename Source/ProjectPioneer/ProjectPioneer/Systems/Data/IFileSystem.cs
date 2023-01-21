@@ -8,7 +8,7 @@ namespace ProjectPioneer.Systems.Data
 {
 	public interface IFileSystem
 	{
-		void SaveGame(SaveData saveData);
-		SaveData LoadGame();
+		void SaveGame(SaveData saveData, string fullFilePath);
+		SaveData LoadGame(string fullFilePath);
 	}
 }
