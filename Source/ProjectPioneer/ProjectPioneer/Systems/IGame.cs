@@ -50,7 +50,7 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Data
-
+		void LoadSavedData();
 		#endregion
 	}
 }

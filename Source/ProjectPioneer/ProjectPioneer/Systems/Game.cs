@@ -13,16 +13,18 @@ namespace ProjectPioneer.Systems
 {
 	public class Game : IGame
 	{
+		private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
+
 		private IHero _hero;
 		public IHero Hero => _hero;
 
-		private readonly IInventory _inventory;
+		private IInventory _inventory;
 		public IInventory Inventory => _inventory;
 
 		private readonly IShop _shop;
 		public IShop Shop => _shop;
 
-		private readonly IQuestLog _questLog;
+		private IQuestLog _questLog;
 		public IQuestLog QuestLog => _questLog;
 
 		private readonly IDataSource _dataSource;
@@ -156,7 +158,13 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Data
-
+		public void LoadSavedData()
+		{
+			var saveData = _fileSystem.LoadGame(_SaveDataFullFilePath);
+			_hero = saveData.Hero;
+			_inventory = saveData.Inventory;
+			_questLog = saveData.QuestLog;
+		}
 		#endregion
 	}
 }

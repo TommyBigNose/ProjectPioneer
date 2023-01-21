@@ -366,5 +366,15 @@ namespace ProjectPioneer.Tests.Systems
 				Assert.That(result.Contains(questToComplete2.QuestInfo.ID), Is.True, "Game did not return expected completed quest 2");
 			});
 		}
+
+
+		[Test]
+		public void Should_ThrowFileNotFoundException_When_LoadingWithNoFile()
+		{
+			// Arrange
+			// Act
+			// Assert
+			Assert.Throws<FileNotFoundException>(() => _sut.LoadSavedData());
+		}
 	}
 }
