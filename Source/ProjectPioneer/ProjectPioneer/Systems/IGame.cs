@@ -48,5 +48,9 @@ namespace ProjectPioneer.Systems
 		void CompleteQuest(IQuest quest);
 		ISet<int> GetCompletedQuests();
 		#endregion
+
+		#region Data
+
+		#endregion
 	}
 }

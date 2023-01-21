@@ -28,7 +28,9 @@ namespace ProjectPioneer.Systems
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
 
-		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog)
+		private readonly IFileSystem _fileSystem;
+
+		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, IFileSystem fileSystem)
 		{
 			_dataSource = dataSource;
 			_heroBuilder = heroBuilder;
@@ -37,6 +39,7 @@ namespace ProjectPioneer.Systems
 			_shop = shop;
 
 			_questLog = questLog;
+			_fileSystem = fileSystem;
 		}
 
 		#region Hero
@@ -150,6 +153,10 @@ namespace ProjectPioneer.Systems
 		{
 			return QuestLog.CompletedQuests;
 		}
+		#endregion
+
+		#region Data
+
 		#endregion
 	}
 }

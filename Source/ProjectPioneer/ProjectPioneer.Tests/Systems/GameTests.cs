@@ -21,6 +21,8 @@ namespace ProjectPioneer.Tests.Systems
 		private IInventory _inventory;
 		private IShop _shop;
 		private IQuestLog _questLog;
+		private ISaveDataReader _saveDataReader;
+		private IFileSystem _fileSystem;
 
 		private IGame _sut;
 
@@ -32,8 +34,10 @@ namespace ProjectPioneer.Tests.Systems
 			_inventory = new Inventory();
 			_shop = new Shop(_dataSource);
 			_questLog = new QuestLog();
+			_saveDataReader = new JsonSaveDataReader(_dataSource);
+			_fileSystem = new LocalFileSystem(_saveDataReader);
 
-			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog);
+			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog, _fileSystem);
 		}
 
 		[TearDown]
