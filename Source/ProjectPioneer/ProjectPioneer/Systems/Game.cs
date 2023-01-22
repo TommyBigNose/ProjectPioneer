@@ -158,6 +158,17 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Data
+		public void SaveData()
+		{
+			var saveData = new SaveData()
+			{
+				Hero = _hero,
+				Inventory = _inventory,
+				QuestLog = QuestLog,
+			};
+			_fileSystem.SaveGame(saveData, _SaveDataFullFilePath);
+		}
+
 		public void LoadSavedData()
 		{
 			var saveData = _fileSystem.LoadGame(_SaveDataFullFilePath);

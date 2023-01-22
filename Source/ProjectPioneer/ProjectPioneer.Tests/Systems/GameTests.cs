@@ -16,6 +16,8 @@ namespace ProjectPioneer.Tests.Systems
 	[TestFixture]
 	public class GameTests
 	{
+		private string _FullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
+
 		private IDataSource _dataSource;
 		private IHeroBuilder _heroBuilder;
 		private IInventory _inventory;
@@ -43,7 +45,10 @@ namespace ProjectPioneer.Tests.Systems
 		[TearDown]
 		public void TearDown()
 		{
-
+			if (File.Exists(_FullFilePath))
+			{
+				File.Delete(_FullFilePath);
+			}
 		}
 
 		[Test]
@@ -367,6 +372,45 @@ namespace ProjectPioneer.Tests.Systems
 			});
 		}
 
+		[Test]
+		public void Should_CreateASaveFile_When_SavingForTheFirstTime()
+		{
+			// Arrange
+			_sut.SetUpHero("TestHeroName", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First());
+
+			// Act
+			_sut.SaveData();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(File.Exists(_FullFilePath), Is.True, "Game did not create a save file");
+			});
+		}
+
+		[Test]
+		public void Should_OverwriteCurrentData_When_LoadingUpOlderData()
+		{
+			// Arrange
+			_sut.SetUpHero("TestHeroName", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First());
+			_sut.SaveData();
+			_sut.SetUpHero("SecondHero", _dataSource.GetAllJobs().Last(), _dataSource.GetAllImplants().Last());
+			IHero heroBeforeLoading = _sut.Hero;
+			_sut.AddEquipment(_dataSource.GetAllWeapons().First());
+			_sut.CompleteQuest(_dataSource.GetAllQuests().First());
+
+			// Act
+			_sut.LoadSavedData();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(File.Exists(_FullFilePath), Is.True, "Game did not create a save file");
+				Assert.That(_sut.Hero.Name, Is.Not.EqualTo(heroBeforeLoading.Name), "Game did not overwrite Hero");
+				Assert.That(_sut.GetInventory().Count(), Is.EqualTo(0), "Game did not overwrite Inventory");
+				Assert.That(_sut.GetCompletedQuests().Count(), Is.EqualTo(0), "Game did not overwrite QuestLog");
+			});
+		}
 
 		[Test]
 		public void Should_ThrowFileNotFoundException_When_LoadingWithNoFile()
@@ -374,7 +418,7 @@ namespace ProjectPioneer.Tests.Systems
 			// Arrange
 			// Act
 			// Assert
-			Assert.Throws<FileNotFoundException>(() => _sut.LoadSavedData());
+			Assert.Throws<FileNotFoundException>(() => _sut.LoadSavedData(), "Game did not throw an exception when attempting to load a file that isn't there");
 		}
 	}
 }
