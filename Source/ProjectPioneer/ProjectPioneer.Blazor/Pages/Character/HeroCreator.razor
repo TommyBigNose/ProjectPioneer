@@ -1,34 +1,59 @@
 ﻿@page "/Character/HeroCreator"
 
+@using ProjectPioneer.Systems.Character
+
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Hero Creator</h3>
 
 <div>
-        <table class="table table-bordered table-sm">
-        <tr>
-            <td>Name</td>
-            <td>INPUT</td>
-            <td></td>
-            <td></td>
-        </tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Info</th>
+                <th>Input</th>
+                <th>Description</th>
+                <th>Stats</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>INPUT</td>
+                <td></td>
+                <td></td>
+            </tr>
 
-        <tr>
-            <td>Job</td>
-            <td>INPUT</td>
-            <td>DESCRIPTION</td>
-            <td>STATS</td>
-        </tr>
+            <tr>
+                <td>Job</td>
+                <td>
+                    @foreach(var job in ProjectPioneerGame.GetAllJobs())
+                    {
+                        <button class="btn btn-primary" >
+                            @job.Name
+                        </button>
+                        <br />
+                    }
+                </td>
+                <td>DESCRIPTION</td>
+                <td>STATS</td>
+            </tr>
 
-        <tr>
-            <td>Implant</td>
-            <td>INPUT</td>
-            <td>DESCRIPTION</td>
-            <td>STATS</td>
-        </tr>
+            <tr>
+                <td>Implant</td>
+                <td>INPUT</td>
+                <td>DESCRIPTION</td>
+                <td>STATS</td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
 @code {
+    string selectedName;
+    IJob selectedJob;
+    IImplant selectedImplant;
 
+    // Stuff for later
+    //style="background-color:blue; color:white;"
 }
