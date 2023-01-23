@@ -9,18 +9,20 @@ namespace ProjectPioneer.Systems.Data
 {
 	public class LocalFileSystem : IFileSystem
 	{
-		private ISaveDataReader _saveDataReader;
+        private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
+
+        private ISaveDataReader _saveDataReader;
 
 		public LocalFileSystem(ISaveDataReader saveDataReader)
 		{
 			this._saveDataReader = saveDataReader;
 		}
 
-		public SaveData LoadGame(string fullFilePath)
+		public SaveData LoadGame()
 		{
 			List<String> lines = new();
 
-			using (var sr = new StreamReader(fullFilePath))
+			using (var sr = new StreamReader(_SaveDataFullFilePath))
 			{
 				string? line;
 
@@ -36,9 +38,9 @@ namespace ProjectPioneer.Systems.Data
 			return _saveDataReader.GetSaveDataFromString(fileContent);
 		}
 
-		public void SaveGame(SaveData saveData, string fullFilePath)
+		public void SaveGame(SaveData saveData)
 		{
-			using (var fs = new FileStream(fullFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+			using (var fs = new FileStream(_SaveDataFullFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
 			using (var sw = new StreamWriter(fs))
 			{
 				string saveDataString = _saveDataReader.GetStringFromSaveData(saveData);

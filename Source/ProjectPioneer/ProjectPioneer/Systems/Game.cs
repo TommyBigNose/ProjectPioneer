@@ -13,8 +13,6 @@ namespace ProjectPioneer.Systems
 {
 	public class Game : IGame
 	{
-		private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
-
 		private IHero _hero;
 		public IHero Hero => _hero;
 
@@ -166,12 +164,12 @@ namespace ProjectPioneer.Systems
 				Inventory = _inventory,
 				QuestLog = QuestLog,
 			};
-			_fileSystem.SaveGame(saveData, _SaveDataFullFilePath);
+			_fileSystem.SaveGame(saveData);
 		}
 
 		public void LoadSavedData()
 		{
-			var saveData = _fileSystem.LoadGame(_SaveDataFullFilePath);
+			var saveData = _fileSystem.LoadGame();
 			_hero = saveData.Hero;
 			_inventory = saveData.Inventory;
 			_questLog = saveData.QuestLog;

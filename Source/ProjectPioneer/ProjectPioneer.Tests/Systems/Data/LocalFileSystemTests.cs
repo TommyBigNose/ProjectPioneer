@@ -13,9 +13,9 @@ namespace ProjectPioneer.Tests.Systems.Data
 	[TestFixture]
 	public class LocalFileSystemTests
 	{
-		private string _FullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "testSaveFile.json");
-		
-		private IDataSource _dataSource;
+        private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
+
+        private IDataSource _dataSource;
 		private IHeroBuilder _heroBuilder;
 		private IInventory _inventory;
 		private IQuestLog _questLog;
@@ -46,9 +46,9 @@ namespace ProjectPioneer.Tests.Systems.Data
 		[TearDown]
 		public void TearDown()
 		{
-			if(File.Exists(_FullFilePath))
+			if(File.Exists(_SaveDataFullFilePath))
 			{
-				File.Delete(_FullFilePath);
+				File.Delete(_SaveDataFullFilePath);
 			}
 		}
 
@@ -68,12 +68,12 @@ namespace ProjectPioneer.Tests.Systems.Data
 			_dataSource.GetAllQuests().ToList().ForEach(_ => _questLog.CompleteQuest(_));
 
 			// Act
-			_sut.SaveGame(_saveData, _FullFilePath);
+			_sut.SaveGame(_saveData);
 
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(File.Exists(_FullFilePath), Is.True, "LocalFileSystem did not create a save file");
+				Assert.That(File.Exists(_SaveDataFullFilePath), Is.True, "LocalFileSystem did not create a save file");
 			});
 		}
 
@@ -92,10 +92,10 @@ namespace ProjectPioneer.Tests.Systems.Data
 			// QuestLog
 			_dataSource.GetAllQuests().ToList().ForEach(_ => _questLog.CompleteQuest(_));
 			
-			_sut.SaveGame(_saveData, _FullFilePath);
+			_sut.SaveGame(_saveData);
 
 			// Act
-			var result = _sut.LoadGame(_FullFilePath);
+			var result = _sut.LoadGame();
 
 			// Assert
 			Assert.Multiple(() =>
