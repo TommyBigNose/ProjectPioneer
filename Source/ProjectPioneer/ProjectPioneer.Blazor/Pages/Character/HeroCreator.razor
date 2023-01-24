@@ -30,7 +30,7 @@
                 <td>
                     @foreach(var job in ProjectPioneerGame.GetAllJobs())
                     {
-                        <button class="btn btn-primary" @onclick="@(_ => SetDisplayedJob(job))">
+                        <button class="btn btn-primary" name="job@job.ID" @ref="jobElements[job.ID]" @onclick="@(_ => SetDisplayedJob(job))">
                             @job.Name
                         </button>
                         <br />
@@ -48,27 +48,62 @@
 
             <tr>
                 <td>Implant</td>
-                <td>INPUT</td>
-                <td>DESCRIPTION</td>
-                <td>STATS</td>
+                 <td>
+                    @foreach (var implant in ProjectPioneerGame.GetAllImplants())
+                    {
+                        <button class="btn btn-primary" name="implant@implant.ID" @ref="implantElements[implant.ID]" @onclick="@(_ => SetDisplayedImplant(implant))">
+                            @implant.Name
+                            </button>
+                            <br />
+                    }
+                </td>
+                <td>@selectedImplant.Description</td>
+                <td>
+                    @foreach (var stat in selectedImplant.Stats.GetStatsAsList())
+                    {
+                        @stat
+                        <br />
+                    }
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
 
 @code {
+    private Dictionary<int, ElementReference> jobElements = new Dictionary<int, ElementReference>();
+    private Dictionary<int, ElementReference> implantElements = new Dictionary<int, ElementReference>();
     string selectedName;
     IJob selectedJob;
     IImplant selectedImplant;
 
+    string selectedStyle = "style=\"background-color:blue; color:white;\"";
+    string unselectedStyle = "style=\"background-color:gray; color:white;\"";
+
     protected override void OnInitialized()
     {
         selectedJob = ProjectPioneerGame.GetAllJobs().First();
+        selectedImplant = ProjectPioneerGame.GetAllImplants().First();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //if (firstRender)
+        //{
+        //    await jobElements.First().Value.FocusAsync();
+        //    await implantElements.First().Value.FocusAsync();
+        //}
+        //jobElements.First().Value.
     }
 
     private void SetDisplayedJob(IJob job)
     {
         selectedJob = job;
+    }
+
+    private void SetDisplayedImplant(IImplant implant)
+    {
+        selectedImplant = implant;
     }
 
     //style="background-color:blue; color:white;"
