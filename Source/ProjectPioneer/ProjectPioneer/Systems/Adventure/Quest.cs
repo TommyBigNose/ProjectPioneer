@@ -12,7 +12,7 @@ namespace ProjectPioneer.Systems.Adventure
 {
 	public class Quest : IQuest
 	{
-		private QuestInfo _questInfo;
+		private readonly QuestInfo _questInfo;
 		public QuestInfo QuestInfo => _questInfo;
 
 		private OnGoingQuest _onGoingQuest;
@@ -21,7 +21,7 @@ namespace ProjectPioneer.Systems.Adventure
 		private QuestStatus _status = QuestStatus.None;
 		public QuestStatus Status => _status;
 
-		private IDiceSystem _diceSystem;
+		private readonly IDiceSystem _diceSystem;
 
 		public Quest(QuestInfo questInfo)
 		{
@@ -47,7 +47,7 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public IEnumerable<IEquipment> GetEquipmentReward()
 		{
-			List<IEquipment> returnedEquipment = new List<IEquipment>();
+			List<IEquipment> returnedEquipment = new();
 
 			foreach(IEquipment? equipment in _onGoingQuest.LootedEquipment)
 			{
@@ -67,7 +67,7 @@ namespace ProjectPioneer.Systems.Adventure
 			// Negative is bad for the player
 			// Hero Attack vs Quest Defense
 			// Hero Defense vs Quest Attack
-			Stats stats = new Stats()
+			Stats stats = new()
 			{
 				Level = heroStats.Level - QuestInfo.Stats.Level,
 

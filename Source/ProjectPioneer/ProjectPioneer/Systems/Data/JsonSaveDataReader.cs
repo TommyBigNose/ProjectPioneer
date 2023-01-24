@@ -36,8 +36,8 @@ namespace ProjectPioneer.Systems.Data
 
 		public SaveData GetSaveDataFromString(string stringData)
 		{
-			SerializeableSaveData serializeableSaveData = JsonSerializer.Deserialize<SerializeableSaveData>(stringData);
-			SaveData saveData = serializeableSaveData.ConvertToSaveData(_dataSource);
+			SerializeableSaveData? serializeableSaveData = JsonSerializer.Deserialize<SerializeableSaveData?>(stringData);
+			SaveData saveData = serializeableSaveData!.ConvertToSaveData(_dataSource);
 
 			return saveData;
 		}

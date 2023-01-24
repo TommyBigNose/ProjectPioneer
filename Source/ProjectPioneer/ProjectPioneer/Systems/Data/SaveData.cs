@@ -17,7 +17,7 @@ namespace ProjectPioneer.Systems.Data
 
 		public SerializeableSaveData ConvertToSerializeableSaveData()
 		{
-			SerializeableSaveData data = new SerializeableSaveData()
+			SerializeableSaveData data = new()
 			{
 				Name = Hero.Name,
 				Exp = Hero.Exp,
