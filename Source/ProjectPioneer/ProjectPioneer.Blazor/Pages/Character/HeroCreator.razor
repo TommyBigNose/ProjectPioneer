@@ -1,6 +1,7 @@
 ﻿@page "/Character/HeroCreator"
 
 @using ProjectPioneer.Systems.Character
+@using ProjectPioneer.Systems.Statistics;
 
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
@@ -29,14 +30,20 @@
                 <td>
                     @foreach(var job in ProjectPioneerGame.GetAllJobs())
                     {
-                        <button class="btn btn-primary" >
+                        <button class="btn btn-primary" @onclick="@(_ => SetDisplayedJob(job))">
                             @job.Name
                         </button>
                         <br />
                     }
                 </td>
-                <td>DESCRIPTION</td>
-                <td>STATS</td>
+                <td>@selectedJob.Description</td>
+                <td>
+                    @foreach (var stat in selectedJob.Stats.GetStatsAsList())
+                    {
+                        @stat
+                        <br />
+                    }
+                </td>
             </tr>
 
             <tr>
@@ -53,6 +60,16 @@
     string selectedName;
     IJob selectedJob;
     IImplant selectedImplant;
+
+    protected override void OnInitialized()
+    {
+        selectedJob = ProjectPioneerGame.GetAllJobs().First();
+    }
+
+    private void SetDisplayedJob(IJob job)
+    {
+        selectedJob = job;
+    }
 
     //style="background-color:blue; color:white;"
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ProjectPioneer.Systems.Statistics
 {
@@ -59,5 +60,28 @@ namespace ProjectPioneer.Systems.Statistics
 			EarthAttack = clone.EarthAttack;
 			EarthDefense = clone.EarthDefense;
 		}
-	}
+
+        public List<string> GetStatsAsList()
+		{
+            List<string> statList = new()
+            {
+                $"Level: {Level}",
+                $"Physical Attack: {PhysicalAttack}",
+                $"Physical Defense: {PhysicalDefense}",
+                $"Magical Attack: {MagicalAttack}",
+                $"Magical Defense: {MagicalDefense}",
+                $"Speed: {Speed}",
+                $"Fire Attack: {FireAttack}",
+                $"Fire Defense: {FireDefense}",
+                $"Ice Attack: {IceAttack}",
+                $"Ice Defense: {IceDefense}",
+                $"Lightning Attack: {LightningAttack}",
+                $"Lightning Defense: {LightningDefense}",
+                $"Earth Attack: {EarthAttack}",
+                $"Earth Defense: {EarthDefense}"
+            };
+
+            return statList;
+        }
+    }
 }
