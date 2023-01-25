@@ -14,7 +14,7 @@
                 <th>Info</th>
                 <th>Input</th>
                 <th>Description</th>
-                <th>Stats</th>
+                <th>Level Up Bonuses</th>
             </tr>
         </thead>
         <tbody>
@@ -38,11 +38,7 @@
                 </td>
                 <td>@selectedJob.Description</td>
                 <td>
-                    @foreach (var stat in selectedJob.Stats.GetStatsAsList())
-                    {
-                        @stat
-                        <br />
-                    }
+                    <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@selectedJob.Stats" ShowLevel=false />
                 </td>
             </tr>
 
@@ -59,11 +55,7 @@
                 </td>
                 <td>@selectedImplant.Description</td>
                 <td>
-                    @foreach (var stat in selectedImplant.Stats.GetStatsAsList())
-                    {
-                        @stat
-                        <br />
-                    }
+                   <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@selectedImplant.Stats" ShowLevel=false />
                 </td>
             </tr>
         </tbody>
