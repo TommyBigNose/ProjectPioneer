@@ -1,11 +1,23 @@
 ﻿@page "/Character/HeroCreator"
 
+@using System.ComponentModel.DataAnnotations
 @using ProjectPioneer.Systems.Character
 @using ProjectPioneer.Systems.Statistics;
 
+@inject ILogger<HeroCreator> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Hero Creator</h3>
+
+Continue with this Hero?
+<br />
+@heroInput.Name
+<br />
+@heroInput.Job.Name
+<br />
+@heroInput.Implant.Name
+
+<button class="btn btn-primary" type="submit">Submit</button>
 
 <div>
     <table class="table table-striped">
@@ -20,7 +32,13 @@
         <tbody>
             <tr>
                 <td>Name</td>
-                <td>INPUT</td>
+                <td>
+                    <EditForm Model="heroInput" OnSubmit="@HandleSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <InputText @bind-Value=heroInput.Name />
+                    </EditForm>
+                </td>
                 <td></td>
                 <td></td>
             </tr>
@@ -36,9 +54,9 @@
                         <br />
                     }
                 </td>
-                <td>@selectedJob.Description</td>
+                <td>@heroInput.Job.Description</td>
                 <td>
-                    <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@selectedJob.Stats" ShowLevel=false />
+                    <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Job.Stats" ShowLevel=false />
                 </td>
             </tr>
 
@@ -53,9 +71,9 @@
                             <br />
                     }
                 </td>
-                <td>@selectedImplant.Description</td>
+                <td>@heroInput.Implant.Description</td>
                 <td>
-                   <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@selectedImplant.Stats" ShowLevel=false />
+                    <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Implant.Stats" ShowLevel=false />
                 </td>
             </tr>
         </tbody>
@@ -65,17 +83,15 @@
 @code {
     private Dictionary<int, ElementReference> jobElements = new Dictionary<int, ElementReference>();
     private Dictionary<int, ElementReference> implantElements = new Dictionary<int, ElementReference>();
-    string selectedName;
-    IJob selectedJob;
-    IImplant selectedImplant;
+    HeroInput heroInput = new HeroInput();
 
     string selectedStyle = "style=\"background-color:blue; color:white;\"";
     string unselectedStyle = "style=\"background-color:gray; color:white;\"";
 
     protected override void OnInitialized()
     {
-        selectedJob = ProjectPioneerGame.GetAllJobs().First();
-        selectedImplant = ProjectPioneerGame.GetAllImplants().First();
+        heroInput.Job = ProjectPioneerGame.GetAllJobs().First();
+        heroInput.Implant = ProjectPioneerGame.GetAllImplants().First();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -90,13 +106,33 @@
 
     private void SetDisplayedJob(IJob job)
     {
-        selectedJob = job;
+        heroInput.Job = job;
     }
 
     private void SetDisplayedImplant(IImplant implant)
     {
-        selectedImplant = implant;
+        heroInput.Implant = implant;
+    }
+
+    private void HandleSubmit()
+    {
+        Logger.LogInformation("HandleSubmit called");
+
+        // Process the form
     }
 
     //style="background-color:blue; color:white;"
+
+    public class HeroInput
+    {
+        [Required]
+        [StringLength(maximumLength: 10, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 10 characters.")]
+        public string? Name { get; set; }
+        
+        [Required]
+        public IJob? Job { get; set; }
+        
+        [Required]
+        public IImplant? Implant { get; set; }
+    }
 }
