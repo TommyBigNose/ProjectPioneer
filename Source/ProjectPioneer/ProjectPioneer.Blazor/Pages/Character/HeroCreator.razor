@@ -126,6 +126,7 @@ Continue with this Hero?
     public class HeroInput
     {
         [Required]
+        [RegularExpression(@"^[a-zA-Z\s\d]+$", ErrorMessage = "Name must be letters, numbers or spaces")]
         [StringLength(maximumLength: 10, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 10 characters.")]
         public string? Name { get; set; }
         
