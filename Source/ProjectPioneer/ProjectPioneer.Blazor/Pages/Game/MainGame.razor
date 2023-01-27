@@ -1,6 +1,11 @@
 ﻿@page "/Game/MainGame"
 
+@inject ILogger<MainGame> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
 <h3>Project Pioneer Main Game</h3>
+
+<ProjectPioneer.Blazor.Pages.Components.HeroDisplay Hero="@ProjectPioneerGame.Hero" />
 
 @code {
 

@@ -1,0 +1,16 @@
+﻿@using ProjectPioneer.Systems.Character;
+
+<h3>Hero Display</h3>
+
+Hero Name: @Hero.Name
+<br />
+Equipped Weapon: @Hero.EquippedWeapon.Name
+<br />
+Equipped Armor: @Hero.EquippedArmor.Name
+<br />
+Equipped Aura: @Hero.EquippedAura.Name
+
+@code {
+    [Parameter]
+    public IHero Hero { get; set; }
+}
