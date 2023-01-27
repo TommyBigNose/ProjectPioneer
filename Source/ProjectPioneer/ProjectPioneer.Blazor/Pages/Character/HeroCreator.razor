@@ -30,7 +30,7 @@ Continue with this Hero?
                     <th>Info</th>
                     <th>Input</th>
                     <th>Description</th>
-                    <th>Level Up Bonuses</th>
+                    <th>Stat Information</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@ Continue with this Hero?
                     </td>
                     <td>@heroInput.Job.Description</td>
                     <td>
-                        <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Job.Stats" ShowLevel=false />
+                        <ProjectPioneer.Blazor.Pages.Components.HeroCreatorStatsSimple Stats="@heroInput.Job.Stats" />
                     </td>
                 </tr>
 
@@ -73,7 +73,7 @@ Continue with this Hero?
                     </td>
                     <td>@heroInput.Implant.Description</td>
                     <td>
-                        <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Implant.Stats" ShowLevel=false />
+                        <ProjectPioneer.Blazor.Pages.Components.HeroCreatorStatsSimple Stats="@heroInput.Implant.Stats" />
                     </td>
                 </tr>
             </tbody>

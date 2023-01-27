@@ -61,8 +61,39 @@ namespace ProjectPioneer.Systems.Statistics
 			EarthDefense = clone.EarthDefense;
 		}
 
-        public List<string> GetStatsAsList()
+        public List<string> GetLevelUpStatsAsList()
 		{
+            List<string> statList = new()
+            {
+                $"Physical Attack: {PhysicalAttack}",
+                $"Physical Defense: {PhysicalDefense}",
+                $"Magical Attack: {MagicalAttack}",
+                $"Magical Defense: {MagicalDefense}",
+                $"Speed: {Speed}"
+            };
+
+            return statList;
+        }
+
+        public List<string> GetElementalStatsAsList()
+        {
+            List<string> statList = new()
+            {
+                $"Fire Attack: {FireAttack}",
+                $"Fire Defense: {FireDefense}",
+                $"Ice Attack: {IceAttack}",
+                $"Ice Defense: {IceDefense}",
+                $"Lightning Attack: {LightningAttack}",
+                $"Lightning Defense: {LightningDefense}",
+                $"Earth Attack: {EarthAttack}",
+                $"Earth Defense: {EarthDefense}"
+            };
+
+            return statList;
+        }
+
+        public List<string> GetStatsAsList()
+        {
             List<string> statList = new()
             {
                 $"Level: {Level}",

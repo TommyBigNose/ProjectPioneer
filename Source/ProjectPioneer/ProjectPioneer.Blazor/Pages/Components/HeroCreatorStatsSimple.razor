@@ -1,0 +1,36 @@
+﻿@using ProjectPioneer.Systems.Statistics;
+@*<h3>StatsSimple</h3>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Per Level Bonuses</th>
+            <th>Initial Elemental Resistance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var stat in Stats.GetLevelUpStatsAsList())
+                {
+                    @stat
+                    <br />
+                }
+            </td>
+            <td>
+                @foreach (var stat in Stats.GetElementalStatsAsList())
+                {
+                    @stat
+                    <br />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+@code {
+    [Parameter]
+    public Stats Stats { get; set; }
+}
