@@ -9,6 +9,7 @@
 
 <h3>Hero Creator</h3>
 
+<br />
 Continue with this Hero?
 <br />
 @heroInput.Name
@@ -16,75 +17,75 @@ Continue with this Hero?
 @heroInput.Job.Name
 <br />
 @heroInput.Implant.Name
+<br />
 
-<button class="btn btn-primary" type="submit">Submit</button>
-
-<div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Info</th>
-                <th>Input</th>
-                <th>Description</th>
-                <th>Level Up Bonuses</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Name</td>
-                <td>
-                    <EditForm Model="heroInput" OnSubmit="@HandleSubmit">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary />
+<EditForm Model=@heroInput OnValidSubmit=@HandleValidSubmit>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <button type="submit" class="btn btn-primary">Create Hero</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Info</th>
+                    <th>Input</th>
+                    <th>Description</th>
+                    <th>Level Up Bonuses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>
                         <InputText @bind-Value=heroInput.Name />
-                    </EditForm>
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
-            <tr>
-                <td>Job</td>
-                <td>
-                    @foreach(var job in ProjectPioneerGame.GetAllJobs())
-                    {
-                        <button class="btn btn-primary" name="job@job.ID" @ref="jobElements[job.ID]" @onclick="@(_ => SetDisplayedJob(job))">
-                            @job.Name
-                        </button>
-                        <br />
-                    }
-                </td>
-                <td>@heroInput.Job.Description</td>
-                <td>
-                    <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Job.Stats" ShowLevel=false />
-                </td>
-            </tr>
-
-            <tr>
-                <td>Implant</td>
-                 <td>
-                    @foreach (var implant in ProjectPioneerGame.GetAllImplants())
-                    {
-                        <button class="btn btn-primary" name="implant@implant.ID" @ref="implantElements[implant.ID]" @onclick="@(_ => SetDisplayedImplant(implant))">
-                            @implant.Name
+                <tr>
+                    <td>Job</td>
+                    <td>
+                        @foreach(var job in ProjectPioneerGame.GetAllJobs())
+                        {
+                            <button type="button" class="btn btn-primary" name="job@job.ID" @ref="jobElements[job.ID]" @onclick="@(_ => SetDisplayedJob(job))">
+                                @job.Name
                             </button>
                             <br />
-                    }
-                </td>
-                <td>@heroInput.Implant.Description</td>
-                <td>
-                    <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Implant.Stats" ShowLevel=false />
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                        }
+                    </td>
+                    <td>@heroInput.Job.Description</td>
+                    <td>
+                        <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Job.Stats" ShowLevel=false />
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>Implant</td>
+                     <td>
+                        @foreach (var implant in ProjectPioneerGame.GetAllImplants())
+                        {
+                            <button type="button" class="btn btn-primary" name="implant@implant.ID" @ref="implantElements[implant.ID]" @onclick="@(_ => SetDisplayedImplant(implant))">
+                                @implant.Name
+                            </button>
+                            <br />
+                        }
+                    </td>
+                    <td>@heroInput.Implant.Description</td>
+                    <td>
+                        <ProjectPioneer.Blazor.Pages.Components.StatsSimple Stats="@heroInput.Implant.Stats" ShowLevel=false />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</EditForm>
 @code {
     private Dictionary<int, ElementReference> jobElements = new Dictionary<int, ElementReference>();
     private Dictionary<int, ElementReference> implantElements = new Dictionary<int, ElementReference>();
     HeroInput heroInput = new HeroInput();
 
+    //style="background-color:blue; color:white;"
     string selectedStyle = "style=\"background-color:blue; color:white;\"";
     string unselectedStyle = "style=\"background-color:gray; color:white;\"";
 
@@ -114,14 +115,13 @@ Continue with this Hero?
         heroInput.Implant = implant;
     }
 
-    private void HandleSubmit()
+    private void HandleValidSubmit(EditContext editContext)
     {
-        Logger.LogInformation("HandleSubmit called");
+        Logger.LogInformation("HandleValidSubmit called");
 
         // Process the form
+        ProjectPioneerGame.SetUpHero(heroInput.Name, heroInput.Job, heroInput.Implant);
     }
-
-    //style="background-color:blue; color:white;"
 
     public class HeroInput
     {
