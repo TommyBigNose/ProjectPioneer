@@ -1,0 +1,29 @@
+﻿@using ProjectPioneer.Systems.Character;
+@using ProjectPioneer.Systems.Statistics;
+@*<h3>HeroStatsTotal</h3>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Stats</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var stat in Hero.GetTotalsAsStats().GetStatsAsList())
+                {
+                    @stat
+                    <br />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+@code {
+    [Parameter]
+    public IHero Hero { get; set; }
+}

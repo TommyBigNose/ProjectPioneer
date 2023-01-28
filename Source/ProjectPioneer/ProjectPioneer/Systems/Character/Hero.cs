@@ -111,67 +111,93 @@ namespace ProjectPioneer.Systems.Character
 
 		public int GetBasePhysicalAttack()
 		{
-			return _stats.PhysicalAttack;
+			return _stats.PhysicalAttack +
+				Job.Stats.PhysicalAttack + 
+				Implant.Stats.PhysicalAttack;
 		}
 
 		public int GetBasePhysicalDefense()
 		{
-			return _stats.PhysicalDefense;
+			return _stats.PhysicalDefense +
+                Job.Stats.PhysicalDefense +
+                Implant.Stats.PhysicalDefense;
 		}
 
 		public int GetBaseMagicalAttack()
 		{
-			return _stats.MagicalAttack;
+			return _stats.MagicalAttack +
+                Job.Stats.MagicalAttack +
+                Implant.Stats.MagicalAttack;
 		}
 
 		public int GetBaseMagicalDefense()
 		{
-			return _stats.MagicalDefense;
+			return _stats.MagicalDefense +
+                Job.Stats.MagicalDefense +
+                Implant.Stats.MagicalDefense;
 		}
 
 		public int GetBaseSpeed()
 		{
-			return _stats.Speed;
+			return _stats.Speed +
+                Job.Stats.Speed +
+                Implant.Stats.Speed;
 		}
 
 		public int GetBaseFireAttack()
 		{
-			return _stats.FireAttack;
+			return _stats.FireAttack +
+                Job.Stats.FireAttack +
+                Implant.Stats.FireAttack;
 		}
 
 		public int GetBaseFireDefense()
 		{
-			return _stats.FireDefense;
+			return _stats.FireDefense +
+                Job.Stats.FireDefense +
+                Implant.Stats.FireDefense;
 		}
 
 		public int GetBaseIceAttack()
 		{
-			return _stats.IceAttack;
+			return _stats.IceAttack +
+                Job.Stats.IceAttack +
+                Implant.Stats.IceAttack;
 		}
 
 		public int GetBaseIceDefense()
 		{
-			return _stats.IceDefense;
+			return _stats.IceDefense +
+                Job.Stats.IceDefense +
+                Implant.Stats.IceDefense;
 		}
 
 		public int GetBaseLightningAttack()
 		{
-			return _stats.LightningAttack;
+			return _stats.LightningAttack +
+                Job.Stats.LightningAttack +
+                Implant.Stats.LightningAttack;
 		}
 
 		public int GetBaseLightningDefense()
 		{
-			return _stats.LightningDefense;
+			return _stats.LightningDefense +
+                Job.Stats.LightningDefense +
+                Implant.Stats.LightningDefense;
 		}
 
 		public int GetBaseEarthAttack()
 		{
-			return _stats.EarthAttack;
+			return _stats.EarthAttack +
+                Job.Stats.EarthAttack +
+                Implant.Stats.EarthAttack;
 		}
 
 		public int GetBaseEarthDefense()
 		{
-			return _stats.EarthDefense;
+			return _stats.EarthDefense +
+                Job.Stats.EarthDefense +
+                Implant.Stats.EarthDefense;
 		}
 
 		public int GetTotalPhysicalAttack()
