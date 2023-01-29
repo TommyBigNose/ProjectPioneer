@@ -26,7 +26,8 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Inventory
-		int GetCredits();
+		IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999);
+        int GetCredits();
 		void AddCredits(int credits);
 		void RemoveCredits(int credits);
 		IEnumerable<IEquipment> GetInventory();
@@ -53,5 +54,16 @@ namespace ProjectPioneer.Systems
 		void SaveData();
 		void LoadSavedData();
 		#endregion
-	}
+
+		#region System
+		/// <summary>
+		/// Random number greater than or equal to min, less than max
+		/// min <= result < max
+		/// </summary>
+		/// <param name="min">Inclusive</param>
+		/// <param name="max">Exclusive</param>
+		/// <returns></returns>
+		int GetDiceRoll(int min, int max);
+        #endregion
+    }
 }

@@ -1,15 +1,38 @@
 ﻿@page "/Game/MainGame"
+@using ProjectPioneer.Blazor.Pages.Components;
 
 @inject ILogger<MainGame> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Project Pioneer Main Game</h3>
+<ProjectPioneer.Blazor.Pages.Components.DebugTools UseDebugFunction="@UseDebugFunction"/>
+<br />
+<br />
+<br />
 
 <ProjectPioneer.Blazor.Pages.Components.HeroDisplay Hero="@ProjectPioneerGame.Hero" />
 <br />
 <br />
 <ProjectPioneer.Blazor.Pages.Components.HeroStatsTotal Hero="@ProjectPioneerGame.Hero" />
+<br />
+<br />
+<ProjectPioneer.Blazor.Pages.Components.InventoryDisplay @ref="InventoryComponent"/>
+<br />
+<br />
+
 
 @code {
+    protected InventoryDisplay? InventoryComponent;
 
+    protected override void OnInitialized()
+    {
+        InventoryComponent = new InventoryDisplay();
+    }
+
+    private void UseDebugFunction()
+    {
+        InventoryComponent?.Refresh();
+        base.InvokeAsync(StateHasChanged);
+        Logger.LogInformation("UseDebugFunction called");
+    }
 }

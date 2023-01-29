@@ -1,0 +1,27 @@
+﻿@using ProjectPioneer.Systems.Equipment;
+@inject ILogger<DebugTools> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>Debug Tools</h3>
+
+<button type="button" class="btn btn-warning" @onclick="@(_ => AddRandomEquipmentAsync())">
+    Add Random Equipment
+</button>
+
+
+@code {
+    [Parameter]
+    public EventCallback<string> UseDebugFunction { get; set; }
+
+    private async Task AddRandomEquipmentAsync()
+    {
+        List<IEquipment> equipmentList = ProjectPioneerGame.GetAllPossibleEquipment().ToList();
+        int max = equipmentList.Count;
+        IEquipment equipment = equipmentList[ProjectPioneerGame.GetDiceRoll(0, max)];
+        ProjectPioneerGame.AddEquipment(equipment);
+
+        await UseDebugFunction.InvokeAsync();
+        Logger.LogInformation("Added random equipment {0}", equipment.Name);
+    }
+
+}

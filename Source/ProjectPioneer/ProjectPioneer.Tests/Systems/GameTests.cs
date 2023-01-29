@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,7 @@ using ProjectPioneer.Systems;
 using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
+using ProjectPioneer.Systems.Dice;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -25,6 +27,7 @@ namespace ProjectPioneer.Tests.Systems
 		private IQuestLog _questLog;
 		private ISaveDataReader _saveDataReader;
 		private IFileSystem _fileSystem;
+		private IDiceSystem _diceSystem;
 
 		private IGame _sut;
 
@@ -38,8 +41,9 @@ namespace ProjectPioneer.Tests.Systems
 			_questLog = new QuestLog();
 			_saveDataReader = new JsonSaveDataReader(_dataSource);
 			_fileSystem = new LocalFileSystem(_saveDataReader);
+            _diceSystem = new DiceSystem();
 
-			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog, _fileSystem);
+			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog, _fileSystem, _diceSystem);
 		}
 
 		[TearDown]
@@ -121,7 +125,27 @@ namespace ProjectPioneer.Tests.Systems
 			});
 		}
 
-		[TestCase(0, 100)]
+        [TestCase(1, 5)]
+        [TestCase(1, 20)]
+        [TestCase(0, 999)]
+        public void Should_GetAllEquipmentWithinLevelRange_When_Prompted(int minLevel, int maxLevel)
+        {
+            // Arrange
+            // Act
+            var result = _sut.GetAllPossibleEquipment(minLevel, maxLevel);
+            var totalEquipment = _sut.GetAllPossibleEquipment().ToList().Count;
+            bool isEquipmentOutOfRange = result.ToList().Exists(_ => _.Stats.Level < minLevel || _.Stats.Level > maxLevel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.LessThanOrEqualTo(totalEquipment), "Game returned too much equipment");
+                Assert.That(result.Count, Is.GreaterThanOrEqualTo(0), "Game did not return enough equipment between range");
+                Assert.That(isEquipmentOutOfRange, Is.False, "Game returned equipment out of specified range");
+            });
+        }
+
+        [TestCase(0, 100)]
 		[TestCase(100, 100)]
 		public void Should_IncreaseCredits_When_Prompted(int initialCredits, int credits)
 		{
@@ -420,5 +444,27 @@ namespace ProjectPioneer.Tests.Systems
 			// Assert
 			Assert.Throws<FileNotFoundException>(() => _sut.LoadSavedData(), "Game did not throw an exception when attempting to load a file that isn't there");
 		}
-	}
+
+        [TestCaseSource(nameof(GetDiceSystemMinMaxesValid))]
+        public void Should_GetRandomNumberFromDiceRoll_When_MinIsLessThanMax(int min, int max)
+        {
+            // Arrange
+            // Act
+            var result = _sut.GetDiceRoll(min, max);
+
+            // Assert
+            Assert.That(result, Is.InRange(min, max), "Dice roll was not within specified ranges.");
+        }
+
+        private static IEnumerable GetDiceSystemMinMaxesValid()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = i; j < 10; j++)
+                {
+                    yield return new object[] { i, j };
+                }
+            }
+        }
+    }
 }

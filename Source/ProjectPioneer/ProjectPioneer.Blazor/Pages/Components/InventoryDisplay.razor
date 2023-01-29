@@ -1,0 +1,76 @@
+﻿@using ProjectPioneer.Systems.Equipment;
+
+@inject ILogger<InventoryDisplay> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>InventoryDisplay</h3>
+
+@foreach (var item in EquipmentCatalog)
+{
+    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
+        @item.Equipment.Name
+    </button>
+    <br />
+}
+
+
+@code {
+    IInventory Inventory;
+    List<EquipmentDisplay> EquipmentCatalog;
+    EquipmentDisplay selectedEquipment;
+
+    protected override void OnInitialized()
+    {
+        EquipmentCatalog = new();
+        selectedEquipment = new();
+        Inventory = ProjectPioneerGame.Inventory;
+        TrySetInitialEquipment();
+    }
+
+    public void Refresh()
+    {
+        TrySetInitialEquipment();
+        EquipmentCatalog.Clear();
+        for (int i = 0; i < Inventory.HeroInventory.Count; i++)
+        {
+            EquipmentCatalog.Add(new EquipmentDisplay()
+            {
+                Index = i,
+                Equipment = Inventory.HeroInventory[i]
+            });
+        }
+        base.InvokeAsync(StateHasChanged);
+    }
+
+    private void TrySetInitialEquipment()
+    {
+        if (selectedEquipment.Equipment == null && Inventory.HeroInventory.Count > 0)
+        {
+            selectedEquipment = new EquipmentDisplay()
+            {
+                Index = 0,
+                Equipment = Inventory.HeroInventory[0]
+            };
+        }
+    }
+
+    private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
+    {
+        selectedEquipment = new EquipmentDisplay()
+        {
+            Index = equipmentDisplay.Index,
+            Equipment = Inventory.HeroInventory[equipmentDisplay.Index]
+        };
+    }
+
+    private string GetItemStyle(EquipmentDisplay equipmentDisplay)
+    {
+        return (selectedEquipment.Index == equipmentDisplay.Index && selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
+    }
+
+    public class EquipmentDisplay
+    {
+        public int Index { get; set; }
+        public IEquipment Equipment { get; set; }
+    }
+}

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
+using ProjectPioneer.Systems.Dice;
 using ProjectPioneer.Systems.Equipment;
 
 namespace ProjectPioneer.Systems
@@ -27,23 +28,24 @@ namespace ProjectPioneer.Systems
 
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
-
 		private readonly IFileSystem _fileSystem;
+		private readonly IDiceSystem _diceSystem;
 
-		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, IFileSystem fileSystem)
-		{
-			_dataSource = dataSource;
-			_heroBuilder = heroBuilder;
+        public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, IFileSystem fileSystem, IDiceSystem diceSystem)
+        {
+            _dataSource = dataSource;
+            _heroBuilder = heroBuilder;
 
-			_inventory = inventory;
-			_shop = shop;
+            _inventory = inventory;
+            _shop = shop;
 
-			_questLog = questLog;
-			_fileSystem = fileSystem;
-		}
+            _questLog = questLog;
+            _fileSystem = fileSystem;
+            _diceSystem = diceSystem;
+        }
 
-		#region Hero
-		public void SetUpHero(string name, IJob job, IImplant implant)
+        #region Hero
+        public void SetUpHero(string name, IJob job, IImplant implant)
 		{
 			_hero = _heroBuilder.CreateHero(name, job, implant);
 		}
@@ -72,10 +74,15 @@ namespace ProjectPioneer.Systems
 		{
 			return _hero.EquippedAura;
 		}
-		#endregion
+        #endregion
 
-		#region Inventory
-		public int GetCredits()
+        #region Inventory
+        public IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999)
+		{
+			return _dataSource.GetAllEquipment(minlevel, maxLevel);
+		}
+
+        public int GetCredits()
 		{
 			return Inventory.Credits;
 		}
@@ -175,5 +182,12 @@ namespace ProjectPioneer.Systems
 			_questLog = saveData.QuestLog;
 		}
 		#endregion
-	}
+
+		#region System
+		public int GetDiceRoll(int min, int max)
+		{
+			return _diceSystem.GetDiceRoll(min, max);
+		}
+        #endregion
+    }
 }
