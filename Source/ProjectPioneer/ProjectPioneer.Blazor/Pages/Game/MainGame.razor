@@ -5,7 +5,7 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Project Pioneer Main Game</h3>
-<ProjectPioneer.Blazor.Pages.Components.DebugTools UseDebugFunction="@UseDebugFunction"/>
+<ProjectPioneer.Blazor.Pages.Components.DebugTools DebugCallback="@Callback" />
 <br />
 <br />
 <br />
@@ -16,7 +16,7 @@
 <ProjectPioneer.Blazor.Pages.Components.HeroStatsTotal Hero="@ProjectPioneerGame.Hero" />
 <br />
 <br />
-<ProjectPioneer.Blazor.Pages.Components.InventoryDisplay @ref="InventoryComponent"/>
+<ProjectPioneer.Blazor.Pages.Components.InventoryDisplay @ref="InventoryComponent" InventoryCallback="@Callback"/>
 <br />
 <br />
 
@@ -29,10 +29,10 @@
         InventoryComponent = new InventoryDisplay();
     }
 
-    private void UseDebugFunction()
+    private void Callback()
     {
         InventoryComponent?.Refresh();
         base.InvokeAsync(StateHasChanged);
-        Logger.LogInformation("UseDebugFunction called");
+        Logger.LogInformation("Callback called");
     }
 }

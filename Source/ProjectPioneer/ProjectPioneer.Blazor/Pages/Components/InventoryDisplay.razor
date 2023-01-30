@@ -5,6 +5,11 @@
 
 <h3>InventoryDisplay</h3>
 
+<button type="button" class="btn btn-primary" disabled="@(selectedEquipment.Equipment == null)" @onclick="@(_ => EquipSelectedItem())">
+    Equip Selected Item
+</button>
+<br />
+
 @foreach (var item in EquipmentCatalog)
 {
     <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
@@ -14,7 +19,11 @@
 }
 
 
+
 @code {
+    [Parameter]
+    public EventCallback<string> InventoryCallback { get; set; }
+
     IInventory Inventory;
     List<EquipmentDisplay> EquipmentCatalog;
     EquipmentDisplay selectedEquipment;
@@ -52,6 +61,14 @@
                 Equipment = Inventory.HeroInventory[0]
             };
         }
+    }
+
+    private void EquipSelectedItem()
+    {
+        ProjectPioneerGame.EquipEquipment(selectedEquipment.Equipment, ProjectPioneerGame.Hero);
+        selectedEquipment.Equipment = null;
+        Refresh();
+        InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
