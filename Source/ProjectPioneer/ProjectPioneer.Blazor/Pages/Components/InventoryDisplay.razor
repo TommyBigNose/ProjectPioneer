@@ -5,9 +5,17 @@
 
 <h3>InventoryDisplay</h3>
 
+Credits: @Inventory.Credits
+<br />
+
 <button type="button" class="btn btn-primary" disabled="@(selectedEquipment.Equipment == null)" @onclick="@(_ => EquipSelectedItem())">
     Equip Selected Item
 </button>
+<br />
+<button type="button" class="btn btn-danger" disabled="@(selectedEquipment.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
+    Sell Selected Item
+</button>
+<br />
 <br />
 
 @foreach (var item in EquipmentCatalog)
@@ -17,8 +25,6 @@
     </button>
     <br />
 }
-
-
 
 @code {
     [Parameter]
@@ -66,6 +72,14 @@
     private void EquipSelectedItem()
     {
         ProjectPioneerGame.EquipEquipment(selectedEquipment.Equipment, ProjectPioneerGame.Hero);
+        selectedEquipment.Equipment = null;
+        Refresh();
+        InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+    }
+
+    private void SellSelectedItem()
+    {
+        ProjectPioneerGame.SellEquipment(selectedEquipment.Equipment);
         selectedEquipment.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
