@@ -4,6 +4,11 @@
 
 <h3>ShopDisplay</h3>
 
+<button type="button" class="btn btn-primary" disabled="@(!CanBuyItem(_selectedEquipment.Equipment))" @onclick="@(_ => BuySelectedItem())">
+    Buy Selected Item
+</button>
+<br />
+
 @foreach (var item in _equipmentCatalog)
 {
     <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
@@ -16,9 +21,9 @@
     [Parameter]
     public EventCallback<string> ShopCallback { get; set; }
 
+    List<IEquipment> _shopStock;
     List<EquipmentDisplay> _equipmentCatalog;
     EquipmentDisplay _selectedEquipment;
-    List<IEquipment> _shopStock;
 
     protected override void OnInitialized()
     {
@@ -44,6 +49,19 @@
         }
 
         base.InvokeAsync(StateHasChanged);
+    }
+
+    private void BuySelectedItem()
+    {
+        ProjectPioneerGame.BuyEquipmentAndAddToInventory(_selectedEquipment.Equipment, ProjectPioneerGame.Inventory);
+        _selectedEquipment.Equipment = null;
+        Refresh();
+        ShopCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+    }
+
+    public bool CanBuyItem(IEquipment equipment)
+    {
+        return (_selectedEquipment.Equipment != null && ProjectPioneerGame.CanHeroAffordEquipment(equipment, ProjectPioneerGame.Inventory));
     }
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)

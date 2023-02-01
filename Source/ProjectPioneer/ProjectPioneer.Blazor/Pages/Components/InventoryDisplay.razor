@@ -5,7 +5,7 @@
 
 <h3>InventoryDisplay</h3>
 
-Credits: @_inventory.Credits
+Credits: @ProjectPioneerGame.GetCredits()
 <br />
 
 <button type="button" class="btn btn-primary" disabled="@(_selectedEquipment.Equipment == null)" @onclick="@(_ => EquipSelectedItem())">
@@ -30,7 +30,7 @@ Credits: @_inventory.Credits
     [Parameter]
     public EventCallback<string> InventoryCallback { get; set; }
 
-    IInventory _inventory;
+    List<IEquipment> _inventory;
     List<EquipmentDisplay> _equipmentCatalog;
     EquipmentDisplay _selectedEquipment;
 
@@ -38,20 +38,24 @@ Credits: @_inventory.Credits
     {
         _equipmentCatalog = new();
         _selectedEquipment = new();
-        _inventory = ProjectPioneerGame.Inventory;
+        _inventory = new();
         TrySetInitialEquipment();
     }
 
     public void Refresh()
     {
-        TrySetInitialEquipment();
+        _inventory.Clear();
         _equipmentCatalog.Clear();
-        for (int i = 0; i < _inventory.HeroInventory.Count; i++)
+        _inventory = ProjectPioneerGame.GetInventory().ToList();
+
+        TrySetInitialEquipment();
+
+        for (int i = 0; i < _inventory.Count; i++)
         {
             _equipmentCatalog.Add(new EquipmentDisplay()
             {
                 Index = i,
-                Equipment = _inventory.HeroInventory[i]
+                    Equipment = _inventory[i]
             });
         }
         base.InvokeAsync(StateHasChanged);
@@ -59,12 +63,12 @@ Credits: @_inventory.Credits
 
     private void TrySetInitialEquipment()
     {
-        if (_selectedEquipment.Equipment == null && _inventory.HeroInventory.Count > 0)
+        if (_selectedEquipment.Equipment == null && _inventory.Count > 0)
         {
             _selectedEquipment = new EquipmentDisplay()
             {
                 Index = 0,
-                Equipment = _inventory.HeroInventory[0]
+                Equipment = _inventory[0]
             };
         }
     }
@@ -90,7 +94,7 @@ Credits: @_inventory.Credits
         _selectedEquipment = new EquipmentDisplay()
         {
             Index = equipmentDisplay.Index,
-            Equipment = _inventory.HeroInventory[equipmentDisplay.Index]
+            Equipment = _inventory[equipmentDisplay.Index]
         };
     }
 
