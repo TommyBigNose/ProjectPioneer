@@ -1,0 +1,68 @@
+﻿@using ProjectPioneer.Systems.Equipment;
+@inject ILogger<ShopDisplay> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>ShopDisplay</h3>
+
+@foreach (var item in _equipmentCatalog)
+{
+    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
+        @item.Equipment.Name
+    </button>
+    <br />
+}
+
+@code {
+    [Parameter]
+    public EventCallback<string> ShopCallback { get; set; }
+
+    List<EquipmentDisplay> _equipmentCatalog;
+    EquipmentDisplay _selectedEquipment;
+    List<IEquipment> _shopStock;
+
+    protected override void OnInitialized()
+    {
+        _equipmentCatalog = new();
+        _selectedEquipment = new();
+        _shopStock = new List<IEquipment>();
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        _shopStock.Clear();
+        _equipmentCatalog.Clear();
+        _shopStock = ProjectPioneerGame.GetShopInventory(ProjectPioneerGame.Hero.Stats.Level).ToList();
+
+        for (int i = 0; i < _shopStock.Count; i++)
+        {
+            _equipmentCatalog.Add(new EquipmentDisplay()
+                {
+                    Index = i,
+                    Equipment = _shopStock[i]
+                });
+        }
+
+        base.InvokeAsync(StateHasChanged);
+    }
+
+    private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
+    {
+        _selectedEquipment = new EquipmentDisplay()
+        {
+            Index = equipmentDisplay.Index,
+            Equipment = _shopStock[equipmentDisplay.Index]
+        };
+    }
+
+    private string GetItemStyle(EquipmentDisplay equipmentDisplay)
+    {
+        return (_selectedEquipment.Index == equipmentDisplay.Index && _selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
+    }
+
+    public class EquipmentDisplay
+    {
+        public int Index { get; set; }
+        public IEquipment Equipment { get; set; }
+    }
+}

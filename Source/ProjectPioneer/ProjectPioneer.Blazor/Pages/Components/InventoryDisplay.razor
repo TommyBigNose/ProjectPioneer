@@ -5,20 +5,20 @@
 
 <h3>InventoryDisplay</h3>
 
-Credits: @Inventory.Credits
+Credits: @_inventory.Credits
 <br />
 
-<button type="button" class="btn btn-primary" disabled="@(selectedEquipment.Equipment == null)" @onclick="@(_ => EquipSelectedItem())">
+<button type="button" class="btn btn-primary" disabled="@(_selectedEquipment.Equipment == null)" @onclick="@(_ => EquipSelectedItem())">
     Equip Selected Item
 </button>
 <br />
-<button type="button" class="btn btn-danger" disabled="@(selectedEquipment.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
+<button type="button" class="btn btn-danger" disabled="@(_selectedEquipment.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
     Sell Selected Item
 </button>
 <br />
 <br />
 
-@foreach (var item in EquipmentCatalog)
+@foreach (var item in _equipmentCatalog)
 {
     <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
         @item.Equipment.Name
@@ -30,28 +30,28 @@ Credits: @Inventory.Credits
     [Parameter]
     public EventCallback<string> InventoryCallback { get; set; }
 
-    IInventory Inventory;
-    List<EquipmentDisplay> EquipmentCatalog;
-    EquipmentDisplay selectedEquipment;
+    IInventory _inventory;
+    List<EquipmentDisplay> _equipmentCatalog;
+    EquipmentDisplay _selectedEquipment;
 
     protected override void OnInitialized()
     {
-        EquipmentCatalog = new();
-        selectedEquipment = new();
-        Inventory = ProjectPioneerGame.Inventory;
+        _equipmentCatalog = new();
+        _selectedEquipment = new();
+        _inventory = ProjectPioneerGame.Inventory;
         TrySetInitialEquipment();
     }
 
     public void Refresh()
     {
         TrySetInitialEquipment();
-        EquipmentCatalog.Clear();
-        for (int i = 0; i < Inventory.HeroInventory.Count; i++)
+        _equipmentCatalog.Clear();
+        for (int i = 0; i < _inventory.HeroInventory.Count; i++)
         {
-            EquipmentCatalog.Add(new EquipmentDisplay()
+            _equipmentCatalog.Add(new EquipmentDisplay()
             {
                 Index = i,
-                Equipment = Inventory.HeroInventory[i]
+                Equipment = _inventory.HeroInventory[i]
             });
         }
         base.InvokeAsync(StateHasChanged);
@@ -59,44 +59,44 @@ Credits: @Inventory.Credits
 
     private void TrySetInitialEquipment()
     {
-        if (selectedEquipment.Equipment == null && Inventory.HeroInventory.Count > 0)
+        if (_selectedEquipment.Equipment == null && _inventory.HeroInventory.Count > 0)
         {
-            selectedEquipment = new EquipmentDisplay()
+            _selectedEquipment = new EquipmentDisplay()
             {
                 Index = 0,
-                Equipment = Inventory.HeroInventory[0]
+                Equipment = _inventory.HeroInventory[0]
             };
         }
     }
 
     private void EquipSelectedItem()
     {
-        ProjectPioneerGame.EquipEquipment(selectedEquipment.Equipment, ProjectPioneerGame.Hero);
-        selectedEquipment.Equipment = null;
+        ProjectPioneerGame.EquipEquipment(_selectedEquipment.Equipment, ProjectPioneerGame.Hero);
+        _selectedEquipment.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
     private void SellSelectedItem()
     {
-        ProjectPioneerGame.SellEquipment(selectedEquipment.Equipment);
-        selectedEquipment.Equipment = null;
+        ProjectPioneerGame.SellEquipment(_selectedEquipment.Equipment);
+        _selectedEquipment.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
     {
-        selectedEquipment = new EquipmentDisplay()
+        _selectedEquipment = new EquipmentDisplay()
         {
             Index = equipmentDisplay.Index,
-            Equipment = Inventory.HeroInventory[equipmentDisplay.Index]
+            Equipment = _inventory.HeroInventory[equipmentDisplay.Index]
         };
     }
 
     private string GetItemStyle(EquipmentDisplay equipmentDisplay)
     {
-        return (selectedEquipment.Index == equipmentDisplay.Index && selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
+        return (_selectedEquipment.Index == equipmentDisplay.Index && _selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
     }
 
     public class EquipmentDisplay
