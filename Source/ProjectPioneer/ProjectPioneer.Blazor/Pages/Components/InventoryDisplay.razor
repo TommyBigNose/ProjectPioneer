@@ -16,6 +16,10 @@ Credits: @ProjectPioneerGame.GetCredits()
     Sell Selected Item
 </button>
 <br />
+<button type="button" class="btn btn-link" disabled="@(_equipmentCatalog.Count <= 1)" @onclick="@(_ => SortInventory())">
+    Sort Inventory
+</button>
+<br />
 <br />
 
 @foreach (var item in _equipmentCatalog)
@@ -84,6 +88,14 @@ Credits: @ProjectPioneerGame.GetCredits()
     private void SellSelectedItem()
     {
         ProjectPioneerGame.SellEquipment(_selectedEquipment.Equipment);
+        _selectedEquipment.Equipment = null;
+        Refresh();
+        InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+    }
+
+    private void SortInventory()
+    {
+        ProjectPioneerGame.SortEquipment();
         _selectedEquipment.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
