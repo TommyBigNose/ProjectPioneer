@@ -5,23 +5,34 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Project Pioneer Main Game</h3>
-<ProjectPioneer.Blazor.Pages.Components.DebugTools DebugCallback="@Callback" />
+<DebugTools DebugCallback="@Callback" />
 <br />
 <br />
 <br />
 
-<ProjectPioneer.Blazor.Pages.Components.HeroDisplay Hero="@ProjectPioneerGame.Hero" />
-<br />
-<br />
-<ProjectPioneer.Blazor.Pages.Components.HeroStatsTotal Hero="@ProjectPioneerGame.Hero" />
-<br />
-<br />
-<ProjectPioneer.Blazor.Pages.Components.InventoryDisplay @ref="InventoryComponent" InventoryCallback="@Callback"/>
-<br />
-<br />
-<ProjectPioneer.Blazor.Pages.Components.ShopDisplay ShopCallback="@Callback"/>
-<br />
-<br />
+<table>
+    <tr>
+        <td>
+            <HeroDisplay Hero="@ProjectPioneerGame.Hero" />
+            <br />
+            <br />
+            <HeroStatsTotal Hero="@ProjectPioneerGame.Hero" />
+            <br />
+            <br />
+            <InventoryDisplay @ref="InventoryComponent" InventoryCallback="@Callback" />
+            <br />
+            <br />
+            <ShopDisplay ShopCallback="@Callback" />
+            <br />
+            <br />
+        </td>
+        <td>
+            <QuestLogDisplay QuestLogCallback="@Callback" />
+        </td>
+    </tr>
+</table>
+
+
 
 @code {
     protected InventoryDisplay? InventoryComponent;

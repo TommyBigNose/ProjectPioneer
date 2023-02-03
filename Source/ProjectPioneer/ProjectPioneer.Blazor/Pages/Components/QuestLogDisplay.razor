@@ -1,0 +1,41 @@
+﻿@using ProjectPioneer.Systems.Adventure;
+@inject ILogger<QuestLogDisplay> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>QuestLogDisplay</h3>
+
+@foreach (var quest in ProjectPioneerGame.GetAllQuests())
+{
+    <button type="button" class="btn @GetItemStyle(quest)" @onclick="@(_ => SetDisplayedItem(quest))">
+        @quest.QuestInfo.Name
+    </button>
+    <br />
+}
+
+@code {
+    [Parameter]
+    public EventCallback<string> QuestLogCallback { get; set; }
+
+    private IQuest _selectedQuest;
+
+    protected override void OnInitialized()
+    {
+
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        base.InvokeAsync(StateHasChanged);
+    }
+
+    private void SetDisplayedItem(IQuest quest)
+    {
+        _selectedQuest = quest;
+    }
+
+    private string GetItemStyle(IQuest quest)
+    {
+        return (_selectedQuest != null && _selectedQuest.QuestInfo.ID == quest.QuestInfo.ID) ? "btn btn-info" : "btn btn-warning";
+    }
+}
