@@ -55,7 +55,123 @@ namespace ProjectPioneer.Tests.Systems
 			}
 		}
 
-		[Test]
+        [TestCase(0, 100)]
+        [TestCase(50, 100)]
+        public void Should_GetExp_When_Prompted(int initialExp, int addedExp)
+        {
+            // Arrange
+            IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
+            IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
+            _sut.SetUpHero("TestHero", job, implant);
+
+            _sut.AddExp(initialExp);
+
+            // Act
+            _sut.AddExp(addedExp);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(_sut.Hero.Exp, Is.EqualTo(initialExp + addedExp), "Hero did not add exp as expected");
+            });
+        }
+
+        [Test]
+        public void Should_GetRequiredExpIsBasedOnlevel_When_Prompted()
+        {
+            // Arrange
+            IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
+            IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
+            _sut.SetUpHero("TestHero", job, implant);
+
+            _sut.AddExp(10000);
+            int initialRequiredExp = _sut.GetRequiredExp();
+
+            // Act
+            _sut.Hero.Stats.Level++;
+            int finalRequiredExp = _sut.GetRequiredExp();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(finalRequiredExp, Is.GreaterThan(initialRequiredExp), "Hero did increase in required exp as expected");
+            });
+        }
+
+        [TestCase(1, "Vanguard", "Reinforced Skin")]
+        [TestCase(5, "Vanguard", "Reinforced Skin")]
+        [TestCase(1, "Ranger", "Reinforced Joints")]
+        [TestCase(5, "Ranger", "Reinforced Joints")]
+        [TestCase(1, "Technician", "Focus Injector")]
+        [TestCase(5, "Technician", "Focus Injector")]
+        public void Should_HaveUpgradedStats_When_LeveledUp(int levelUpCount, string jobName, string implantName)
+        {
+            // Arrange
+            IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
+            IImplant implant = _dataSource.GetAllImplants().First(_ => _.Name.Equals(implantName));
+            _sut.SetUpHero("TestHero", job, implant);
+			_sut.AddExp(10000);
+			
+
+            Stats initialStats = new Stats(_sut.Hero.Stats);
+
+            // Act
+            for (int i = 0; i < levelUpCount; i++)
+            {
+                _sut.LevelUp();
+            }
+            Stats resultingStats = new Stats(_sut.Hero.Stats);
+            int requiredExp = _sut.GetRequiredExp();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(_sut.Hero.Exp, Is.LessThan(10000), "Hero current exp did not reduce upon leveling");
+                Assert.That(requiredExp, Is.EqualTo(_sut.Hero.Stats.Level * Constants.HeroLevelExpScaling), "Hero required exp did not increase upon leveling");
+                Assert.That(resultingStats.Level, Is.EqualTo(initialStats.Level + levelUpCount), "Hero did not upgrade Level");
+
+                Assert.That(resultingStats.PhysicalAttack,
+                    Is.EqualTo(initialStats.PhysicalAttack + levelUpCount + (job.Stats.PhysicalAttack * levelUpCount) + (implant.Stats.PhysicalAttack * levelUpCount)),
+                    "Hero did not upgrade PhysicalAttack");
+
+                Assert.That(resultingStats.PhysicalDefense,
+                    Is.EqualTo(initialStats.PhysicalDefense + levelUpCount + (job.Stats.PhysicalDefense * levelUpCount) + (implant.Stats.PhysicalDefense * levelUpCount)),
+                    "Hero did not upgrade PhysicalDefense");
+
+                Assert.That(resultingStats.MagicalAttack,
+                    Is.EqualTo(initialStats.MagicalAttack + levelUpCount + (job.Stats.MagicalAttack * levelUpCount) + (implant.Stats.MagicalAttack * levelUpCount)),
+                    "Hero did not upgrade MagicalAttack");
+
+                Assert.That(resultingStats.MagicalDefense,
+                    Is.EqualTo(initialStats.MagicalDefense + levelUpCount + (job.Stats.MagicalDefense * levelUpCount) + (implant.Stats.MagicalDefense * levelUpCount)),
+                    "Hero did not upgrade MagicalDefense");
+
+                Assert.That(resultingStats.Speed,
+                    Is.EqualTo(initialStats.Speed + levelUpCount + (job.Stats.Speed * levelUpCount) + (implant.Stats.Speed * levelUpCount)),
+                    "Hero did not upgrade Speed");
+            });
+        }
+
+        [TestCase("Vanguard", EquipmentType.Gun)]
+        [TestCase("Ranger", EquipmentType.Staff)]
+        [TestCase("Technician", EquipmentType.Blade)]
+        public void Should_NotBeAbleToEquip_When_JobCannot(string jobName, EquipmentType weaponType)
+        {
+            // Arrange
+             IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
+            IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
+            _sut.SetUpHero("TestHero", job, implant);
+
+            IEquipment weapon = _dataSource.GetAllWeapons().First(_ => _.EquipmentType == weaponType);
+
+            // Act
+            var result = _sut.CanEquip(weapon);
+
+            // Assert
+            Assert.That(result, Is.False, "Hero was allowed to equip a weapon that its job didn't allow");
+        }
+
+        [Test]
 		public void Should_SetUpHero_When_ValidInputsProvided()
 		{
 			// Arrange

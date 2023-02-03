@@ -4,9 +4,24 @@
 
 <h3>Debug Tools</h3>
 
-<button type="button" class="btn btn-warning" @onclick="@(_ => AddRandomEquipmentAsync())">
-    Add Random Equipment
-</button>
+<table>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddRandomEquipmentAsync())">
+                Add Random Equipment
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddExpToHeroAsync(1000))">
+                Add 100 exp
+            </button>
+        </td>
+    </tr>
+</table>
+
+
+
+
 
 
 @code {
@@ -22,6 +37,15 @@
 
         await DebugCallback.InvokeAsync();
         Logger.LogInformation("Added random equipment {0}", equipment.Name);
+    }
+
+    private async Task AddExpToHeroAsync(int exp)
+    {
+        ProjectPioneerGame.AddExp(100);
+        ProjectPioneerGame.LevelUp();
+
+        await DebugCallback.InvokeAsync();
+        Logger.LogInformation("Added exp to hero {0}", exp);
     }
 
 }

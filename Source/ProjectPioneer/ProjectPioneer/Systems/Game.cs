@@ -60,7 +60,22 @@ namespace ProjectPioneer.Systems
 			return _dataSource.GetAllImplants();
 		}
 
-		public IEquipment GetEquippedWeapon()
+        public void AddExp(int exp)
+		{
+			_hero.AddExp(exp);
+		}
+
+        public int GetRequiredExp()
+        {
+			return _hero.GetRequiredExp();
+        }
+
+        public void LevelUp()
+        {
+			_hero.LevelUp();
+        }
+
+        public IEquipment GetEquippedWeapon()
 		{
 			return _hero.EquippedWeapon;
 		}

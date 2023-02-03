@@ -20,7 +20,10 @@ namespace ProjectPioneer.Systems
 		void SetUpHero(string name, IJob job, IImplant implant);
 		IEnumerable<IJob> GetAllJobs();
 		IEnumerable<IImplant> GetAllImplants();
-		IEquipment GetEquippedWeapon();
+        void AddExp(int exp);
+        int GetRequiredExp();
+        void LevelUp();
+        IEquipment GetEquippedWeapon();
 		IEquipment GetEquippedArmor();
 		IEquipment GetEquippedAura();
 		#endregion
