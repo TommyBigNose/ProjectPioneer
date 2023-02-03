@@ -8,7 +8,7 @@
 Credits: @ProjectPioneerGame.GetCredits()
 <br />
 
-<button type="button" class="btn btn-primary" disabled="@(_selectedEquipment.Equipment == null)" @onclick="@(_ => EquipSelectedItem())">
+<button type="button" class="btn btn-primary" disabled="@(!CanEquip(_selectedEquipment.Equipment))" @onclick="@(_ => EquipSelectedItem())">
     Equip Selected Item
 </button>
 <br />
@@ -74,6 +74,18 @@ Credits: @ProjectPioneerGame.GetCredits()
                 Index = 0,
                 Equipment = _inventory[0]
             };
+        }
+    }
+
+    private bool CanEquip(IEquipment equipment)
+    {
+        if(equipment == null)
+        {
+            return false;
+        }
+        else
+        {
+            return ProjectPioneerGame.CanEquip(equipment);
         }
     }
 
