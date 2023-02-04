@@ -43,7 +43,7 @@ Credits: @ProjectPioneerGame.GetCredits()
         _equipmentCatalog = new();
         _selectedEquipment = new();
         _inventory = new();
-        TrySetInitialEquipment();
+        //TrySetInitialEquipment();
     }
 
     public void Refresh()
@@ -52,7 +52,7 @@ Credits: @ProjectPioneerGame.GetCredits()
         _equipmentCatalog.Clear();
         _inventory = ProjectPioneerGame.GetInventory().ToList();
 
-        TrySetInitialEquipment();
+        //TrySetInitialEquipment();
 
         for (int i = 0; i < _inventory.Count; i++)
         {
@@ -115,11 +115,22 @@ Credits: @ProjectPioneerGame.GetCredits()
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
     {
-        _selectedEquipment = new EquipmentDisplay()
+        // Remove selection if the user is re-selecting it
+        if (_selectedEquipment.Equipment != null && _selectedEquipment.Index == equipmentDisplay.Index)
         {
-            Index = equipmentDisplay.Index,
-            Equipment = _inventory[equipmentDisplay.Index]
-        };
+            _selectedEquipment = new EquipmentDisplay()
+            {
+                Index = -1
+            }; ;
+        }
+        else
+        {
+            _selectedEquipment = new EquipmentDisplay()
+            {
+                Index = equipmentDisplay.Index,
+                Equipment = _inventory[equipmentDisplay.Index]
+            };
+        }
     }
 
     private string GetItemStyle(EquipmentDisplay equipmentDisplay)

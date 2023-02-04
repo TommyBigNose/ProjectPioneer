@@ -10,6 +10,9 @@
         @quest.QuestInfo.Name
     </button>
     <br />
+    @quest.QuestInfo.Description
+    <br />
+    <hr />
 }
 
 @code {
@@ -31,7 +34,15 @@
 
     private void SetDisplayedItem(IQuest quest)
     {
-        _selectedQuest = quest;
+        // Remove selection if the user is re-selecting it
+        if (_selectedQuest != null && _selectedQuest.QuestInfo.ID == quest.QuestInfo.ID)
+        {
+            _selectedQuest = null;
+        }
+        else
+        {
+            _selectedQuest = quest;
+        }
     }
 
     private string GetItemStyle(IQuest quest)

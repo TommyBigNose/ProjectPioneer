@@ -66,11 +66,22 @@
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
     {
-        _selectedEquipment = new EquipmentDisplay()
+        // Remove selection if the user is re-selecting it
+        if (_selectedEquipment.Equipment != null && _selectedEquipment.Index == equipmentDisplay.Index)
         {
-            Index = equipmentDisplay.Index,
-            Equipment = _shopStock[equipmentDisplay.Index]
-        };
+            _selectedEquipment = new EquipmentDisplay()
+            {
+                Index = -1
+            };
+        }
+        else
+        {
+            _selectedEquipment = new EquipmentDisplay()
+            {
+                Index = equipmentDisplay.Index,
+                Equipment = _shopStock[equipmentDisplay.Index]
+            };
+        }
     }
 
     private string GetItemStyle(EquipmentDisplay equipmentDisplay)

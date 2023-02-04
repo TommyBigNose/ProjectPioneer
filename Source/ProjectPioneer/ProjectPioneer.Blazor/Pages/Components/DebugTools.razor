@@ -12,8 +12,8 @@
             </button>
         </td>
         <td>
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddExpToHeroAsync(1000))">
-                Add 100 exp
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddExpToHeroAsync(10000))">
+                Add 10000 exp
             </button>
         </td>
     </tr>
@@ -41,7 +41,7 @@
 
     private async Task AddExpToHeroAsync(int exp)
     {
-        ProjectPioneerGame.AddExp(100);
+        ProjectPioneerGame.AddExp(exp);
         ProjectPioneerGame.LevelUp();
 
         await DebugCallback.InvokeAsync();

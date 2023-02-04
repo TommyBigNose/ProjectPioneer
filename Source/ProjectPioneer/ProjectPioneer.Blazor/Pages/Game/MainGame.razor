@@ -22,7 +22,7 @@
             <InventoryDisplay @ref="InventoryComponent" InventoryCallback="@Callback" />
             <br />
             <br />
-            <ShopDisplay ShopCallback="@Callback" />
+            <ShopDisplay @ref="ShopComponent" ShopCallback="@Callback" />
             <br />
             <br />
         </td>
@@ -36,16 +36,19 @@
 
 @code {
     protected InventoryDisplay? InventoryComponent;
+    protected ShopDisplay? ShopComponent;
 
     protected override void OnInitialized()
     {
         InventoryComponent = new InventoryDisplay();
+        ShopComponent = new ShopDisplay();
     }
 
     private void Callback()
     {
         InventoryComponent?.Refresh();
+        ShopComponent?.Refresh();
         base.InvokeAsync(StateHasChanged);
-        Logger.LogInformation("Callback called");
+        Logger.LogInformation("MainGame Callback invoked");
     }
 }
