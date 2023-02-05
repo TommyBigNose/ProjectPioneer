@@ -1,4 +1,5 @@
 ﻿@using ProjectPioneer.Systems.Equipment;
+@using ProjectPioneer.Systems.Statistics;
 
 @inject ILogger<InventoryDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
@@ -22,6 +23,11 @@ Credits: @ProjectPioneerGame.GetCredits()
 <br />
 <br />
 
+@if(_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
+{
+    <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" />
+}
+
 @foreach (var item in _equipmentCatalog)
 {
     <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
@@ -38,11 +44,14 @@ Credits: @ProjectPioneerGame.GetCredits()
     List<EquipmentDisplay> _equipmentCatalog;
     EquipmentDisplay _selectedEquipment;
 
+    Stats _statsHeroEquipment;
+
     protected override void OnInitialized()
     {
         _equipmentCatalog = new();
         _selectedEquipment = new();
         _inventory = new();
+        //_statsHeroEquipment = new();
         //TrySetInitialEquipment();
     }
 
@@ -121,7 +130,7 @@ Credits: @ProjectPioneerGame.GetCredits()
             _selectedEquipment = new EquipmentDisplay()
             {
                 Index = -1
-            }; ;
+            };
         }
         else
         {
@@ -130,6 +139,31 @@ Credits: @ProjectPioneerGame.GetCredits()
                 Index = equipmentDisplay.Index,
                 Equipment = _inventory[equipmentDisplay.Index]
             };
+        }
+
+        SetUpHeroEquipmentComparison();
+    }
+
+    private void SetUpHeroEquipmentComparison()
+    {
+        if (_selectedEquipment != null && _selectedEquipment.Equipment != null)
+        {
+            switch(_selectedEquipment.Equipment.EquipmentType)
+            {
+                case EquipmentType.Armor:
+                    _statsHeroEquipment = ProjectPioneerGame.GetEquippedArmor().Stats;
+                    break;
+                case EquipmentType.Aura:
+                    _statsHeroEquipment = ProjectPioneerGame.GetEquippedAura().Stats;
+                    break;
+                default:
+                    _statsHeroEquipment = ProjectPioneerGame.GetEquippedWeapon().Stats;
+                    break;
+            }
+        }
+        else
+        {
+            _statsHeroEquipment = null;
         }
     }
 

@@ -1,7 +1,26 @@
 ﻿@using ProjectPioneer.Systems.Statistics;
 
+@inject ILogger<CompareStatsDisplay> Logger
+<h3>Compare Stats Display</h3>
 
-<h3>CompareStatsDisplay</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Stats</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var stat in GetComparedStats())
+                {
+                    @stat
+                    <br />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 @code {
     [Parameter]
@@ -9,4 +28,17 @@
 
     [Parameter]
     public Stats Stats2 { get; set; }
+
+    private List<string> GetComparedStats()
+    {
+        try
+        {
+            return Stats1.GetStatComparison(Stats2).GetStatsAsList();
+        }
+        catch
+        {
+            Logger.LogInformation("Failed to compare stats");
+        }
+        return new Stats().GetStatsAsList();
+    }
 }
