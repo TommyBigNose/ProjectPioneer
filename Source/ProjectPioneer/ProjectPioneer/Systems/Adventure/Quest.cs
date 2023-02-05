@@ -67,30 +67,7 @@ namespace ProjectPioneer.Systems.Adventure
 			// Negative is bad for the player
 			// Hero Attack vs Quest Defense
 			// Hero Defense vs Quest Attack
-			Stats stats = new()
-			{
-				Level = heroStats.Level - QuestInfo.Stats.Level,
-
-				PhysicalAttack = heroStats.PhysicalAttack - QuestInfo.Stats.PhysicalDefense,
-				PhysicalDefense = heroStats.PhysicalDefense - QuestInfo.Stats.PhysicalAttack,
-
-				MagicalAttack = heroStats.MagicalAttack - QuestInfo.Stats.MagicalDefense,
-				MagicalDefense = heroStats.MagicalDefense - QuestInfo.Stats.MagicalAttack,
-
-				Speed = heroStats.Speed - QuestInfo.Stats.Speed,
-
-				FireAttack = heroStats.FireAttack - QuestInfo.Stats.FireDefense,
-				FireDefense = heroStats.FireDefense - QuestInfo.Stats.FireAttack,
-
-				IceAttack = heroStats.IceAttack - QuestInfo.Stats.IceDefense,
-				IceDefense = heroStats.IceDefense - QuestInfo.Stats.IceAttack,
-
-				LightningAttack = heroStats.LightningAttack - QuestInfo.Stats.LightningDefense,
-				LightningDefense = heroStats.LightningDefense - QuestInfo.Stats.LightningAttack,
-
-				EarthAttack = heroStats.EarthAttack - QuestInfo.Stats.EarthDefense,
-				EarthDefense = heroStats.EarthDefense - QuestInfo.Stats.EarthAttack,
-			};
+			Stats stats = heroStats.GetStatComparison(QuestInfo.Stats);
 
 			return stats;
 		}

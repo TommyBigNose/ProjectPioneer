@@ -61,6 +61,36 @@ namespace ProjectPioneer.Systems.Statistics
 			EarthDefense = clone.EarthDefense;
 		}
 
+        public Stats GetStatComparison(Stats comparedStats)
+        {
+            Stats stats = new()
+            {
+                Level = this.Level - comparedStats.Level,
+
+                PhysicalAttack = this.PhysicalAttack - comparedStats.PhysicalDefense,
+                PhysicalDefense = this.PhysicalDefense - comparedStats.PhysicalAttack,
+
+                MagicalAttack = this.MagicalAttack - comparedStats.MagicalDefense,
+                MagicalDefense = this.MagicalDefense - comparedStats.MagicalAttack,
+
+                Speed = this.Speed - comparedStats.Speed,
+
+                FireAttack = this.FireAttack - comparedStats.FireDefense,
+                FireDefense = this.FireDefense - comparedStats.FireAttack,
+
+                IceAttack = this.IceAttack - comparedStats.IceDefense,
+                IceDefense = this.IceDefense - comparedStats.IceAttack,
+
+                LightningAttack = this.LightningAttack - comparedStats.LightningDefense,
+                LightningDefense = this.LightningDefense - comparedStats.LightningAttack,
+
+                EarthAttack = this.EarthAttack - comparedStats.EarthDefense,
+                EarthDefense = this.EarthDefense - comparedStats.EarthAttack,
+            };
+
+            return stats;
+        }
+
         public List<string> GetLevelUpStatsAsList()
 		{
             List<string> statList = new()
