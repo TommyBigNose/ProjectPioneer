@@ -1,4 +1,5 @@
 ﻿@using ProjectPioneer.Systems.Statistics;
+@using System.Text.RegularExpressions;
 
 @inject ILogger<CompareStatsDisplay> Logger
 <h3>Compare Stats Display</h3>
@@ -14,7 +15,7 @@
             <td>
                 @foreach (var stat in GetComparedStats())
                 {
-                    @stat
+                    @GetExtractedStatType(stat) <span style="@GetStatColor(stat)">@GetStatNumber(stat)</span>
                     <br />
                 }
             </td>
@@ -41,4 +42,43 @@
         }
         return new Stats().GetStatsAsList();
     }
+
+    private string GetExtractedStatType(string stat)
+    {
+        // The following Regex gets the text up until the ':'
+        // ^.*?(?=:)
+        return Regex.Match(stat, @"^.*?(?=:)").Value;
+    }
+
+    private string GetStatNumber(string stat)
+    {
+        // The following Regex gets the numbers out of the string, including potentially negative numbers
+        // -?\d+$
+        return Regex.Match(stat, @"-?\d+$").Value;
+    }
+
+    private string GetStatColor(string stat)
+    {
+        int.TryParse(GetStatNumber(stat), out int statValue);
+        
+        string statStyle = $"color:@@color";
+
+        if (statValue > 0)
+        {
+            statStyle = statStyle.Replace("@@color", "green");
+        }
+        else if (statValue < 0)
+        {
+            statStyle = statStyle.Replace("@@color", "red");
+        }
+        else
+        {
+            statStyle = statStyle.Replace("@@color", "blue");
+        }
+
+        return statStyle;
+    }
+
+    
+
 }
