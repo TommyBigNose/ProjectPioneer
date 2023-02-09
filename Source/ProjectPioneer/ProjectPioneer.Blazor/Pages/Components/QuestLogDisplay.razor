@@ -1,14 +1,14 @@
 ﻿@using ProjectPioneer.Systems.Adventure;
+
+@inject NavigationManager NavManager
 @inject ILogger<QuestLogDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>QuestLogDisplay</h3>
 
-<button type="button" class="btn btn-warning" @onclick="@(_ => StartQuest())">
+<button type="button" class="btn btn-warning" disabled="@(_selectedQuest == null)" @onclick="@(_ => StartQuest())">
     Start Selected Quest
 </button>
-<CurrentQuestModal @ref="_currentQuestModal" Quest="@_selectedQuest" />
-
 <br />
 <br />
 
@@ -26,8 +26,6 @@
 @code {
     [Parameter]
     public EventCallback<string> QuestLogCallback { get; set; }
-
-    private CurrentQuestModal _currentQuestModal;
 
     private IQuest _selectedQuest;
 
@@ -62,10 +60,6 @@
 
     private void StartQuest()
     {
-        if (_selectedQuest != null)
-        {
-            _currentQuestModal.Quest = _selectedQuest;
-            _currentQuestModal.Show("Popup body text");
-        }
+        NavManager.NavigateTo($"/Adventure/QuestPage/{_selectedQuest.QuestInfo.ID}");
     }
 }

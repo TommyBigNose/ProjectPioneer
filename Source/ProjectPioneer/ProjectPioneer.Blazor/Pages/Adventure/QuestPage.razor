@@ -1,0 +1,31 @@
+﻿@page "/Adventure/QuestPage"
+@page "/Adventure/QuestPage/{QuestID}"
+
+@using ProjectPioneer.Systems.Adventure;
+@using System.Collections;
+
+@inject ILogger<QuestPage> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>Quest Page</h3>
+<br />
+
+Name: @_quest.QuestInfo.Name
+<br />
+Description: @_quest.QuestInfo.Description
+<br />
+Quest Length in Seconds: @_quest.QuestInfo.QuestLengthInSeconds
+<br />
+Is Quest Ongoing?: @_quest.IsQuestOnGoing()
+
+@code {
+    [Parameter]
+    public string QuestID { get; set; }
+
+    private IQuest _quest;
+
+    protected override void OnInitialized()
+    {
+        _quest = ProjectPioneerGame.GetAllQuests().First(_ => _.QuestInfo.ID == int.Parse(QuestID));
+    }
+}
