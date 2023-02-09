@@ -3,6 +3,8 @@
 
 @using ProjectPioneer.Systems.Adventure;
 @using System.Collections;
+@using System.Timers;
+@using ProjectPioneer.Systems.Statistics;
 
 @inject ILogger<QuestPage> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
@@ -18,6 +20,11 @@ Quest Length in Seconds: @_quest.QuestInfo.QuestLengthInSeconds
 <br />
 Is Quest Ongoing?: @_quest.IsQuestOnGoing()
 
+<br />
+<br />
+
+<progress value="@_quest.OnGoingQuest.ProgressBar.Value" max="1000.0"></progress>
+
 @code {
     [Parameter]
     public string QuestID { get; set; }
@@ -27,5 +34,20 @@ Is Quest Ongoing?: @_quest.IsQuestOnGoing()
     protected override void OnInitialized()
     {
         _quest = ProjectPioneerGame.GetAllQuests().First(_ => _.QuestInfo.ID == int.Parse(QuestID));
+        _quest.OnGoingQuest.QuestTimer.Elapsed += TimerOnElapsed;
+
+        Stats comparedStats = _quest.GetStatComparison(ProjectPioneerGame.Hero.Stats);
+
+        _quest.StartQuest(comparedStats);
+    }
+
+    private void TimerOnElapsed(object? sender, ElapsedEventArgs e)
+    {
+        base.InvokeAsync(StateHasChanged);
+
+        if(_quest.IsQuestCompleted())
+        {
+            _quest.CompleteQuest();
+        }
     }
 }
