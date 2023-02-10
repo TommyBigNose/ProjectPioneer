@@ -271,7 +271,30 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			});
 		}
 
-		[TestCase(1)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void Should_BeReadyForLootChance_When_OnGoingQuestHitsInterval(int questLevel)
+        {
+            // Arrange
+            _sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+            _sut.QuestInfo.TotalChancesForLoot = 5;
+            Stats comparedStats = GetStatsScaledByLevel(questLevel);
+            _sut.StartQuest(comparedStats);
+
+			// Act
+			var result1 = _sut.IsProgressReadyForLootChance();
+            IncrementForSimulatedSeconds(60);
+            var result2 = _sut.IsProgressReadyForLootChance();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result1, Is.False, "Quest is ready to loot too soon");
+                Assert.That(result2, Is.True, "Quest is not ready to loot despite enough time passing");
+            });
+        }
+
+        [TestCase(1)]
 		[TestCase(2)]
 		public void Should_CompleteQuest_When_Prompted(int questLevel)
 		{

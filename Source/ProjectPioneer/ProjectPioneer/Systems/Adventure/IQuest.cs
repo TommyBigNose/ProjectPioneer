@@ -24,6 +24,7 @@ namespace ProjectPioneer.Systems.Adventure
 		int GetFinalQuestLengthInSeconds(int secondReduction);
 		void StartQuest(Stats comparedStats);
 		void QuestTimerElapsed(object? sender, ElapsedEventArgs e);
+		bool IsProgressReadyForLootChance();
 		void CompleteQuest();
 		void PauseQuest();
 		void CancelQuest();

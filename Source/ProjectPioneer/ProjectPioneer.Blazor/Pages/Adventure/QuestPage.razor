@@ -19,17 +19,28 @@ Description: @_quest.QuestInfo.Description
 Quest Length in Seconds: @_quest.QuestInfo.QuestLengthInSeconds
 <br />
 Is Quest Ongoing?: @_quest.IsQuestOnGoing()
+<br />
+Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 
 <br />
 <br />
 
 <progress style="width: 200px; height: 100px" value="@_quest.OnGoingQuest.ProgressBar.Value" max="1000.0"></progress>
 
+<br />
+
+@for (int i = 1; i <= @_quest.QuestInfo.TotalChancesForLoot; i++)
+{
+    <span style="padding-left: @_paddingStyle">|</span>
+}
+
 @code {
     [Parameter]
     public string QuestID { get; set; }
 
     private IQuest _quest;
+    private int _padding = 0;
+    private string _paddingStyle = string.Empty;
 
     protected override void OnInitialized()
     {
@@ -39,6 +50,8 @@ Is Quest Ongoing?: @_quest.IsQuestOnGoing()
         Stats comparedStats = _quest.GetStatComparison(ProjectPioneerGame.Hero.Stats);
 
         _quest.StartQuest(comparedStats);
+        _padding = 200 / _quest.QuestInfo.TotalChancesForLoot;
+        _paddingStyle = $"{_padding}px";
     }
 
     private void TimerOnElapsed(object? sender, ElapsedEventArgs e)

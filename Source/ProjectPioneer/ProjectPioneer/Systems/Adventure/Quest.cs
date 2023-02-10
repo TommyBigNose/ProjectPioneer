@@ -118,14 +118,19 @@ namespace ProjectPioneer.Systems.Adventure
 		public void QuestTimerElapsed(object? sender, ElapsedEventArgs e)
 		{
 			OnGoingQuest.ProgressBar.IncrementProgressBar();
-			if(OnGoingQuest.ProgressBar.Value >= 
-				(OnGoingQuest.LootIntervals * Math.Max(OnGoingQuest.LootedEquipment.Count, 1)))
+			if(IsProgressReadyForLootChance())
 			{
-				OnGoingQuest.LootedEquipment.Add(null);
+				//OnGoingQuest.LootedEquipment.Add(null);
+				OnGoingQuest.LootedEquipment.Add(RollDiceForLoot());
 			}
 		}
 
-		public void CompleteQuest()
+		public bool IsProgressReadyForLootChance()
+		{
+			return OnGoingQuest.ProgressBar.Value >= (OnGoingQuest.LootIntervals * Math.Max(OnGoingQuest.LootedEquipment.Count, 1));
+        }
+
+        public void CompleteQuest()
 		{
 			_status = QuestStatus.Completed;
 			OnGoingQuest.QuestTimer.Stop();
