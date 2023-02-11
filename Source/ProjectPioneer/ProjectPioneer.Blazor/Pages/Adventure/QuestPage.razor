@@ -51,6 +51,9 @@ else
     public string QuestID { get; set; }
 
     private IQuest _quest;
+    private int _currentLootCount = 0;
+
+    // UI stuff
     private int _padding = 0;
     private string _paddingStyle = string.Empty;
 
@@ -74,10 +77,23 @@ else
     {
         base.InvokeAsync(StateHasChanged);
 
+        HasHitLootInterval();
+
         if(_quest.IsQuestCompleted())
         {
             _quest.CompleteQuest();
         }
+    }
+
+    private bool HasHitLootInterval()
+    {
+        if (_currentLootCount < _quest.OnGoingQuest.LootedEquipment.Count)
+        {
+            _currentLootCount++;
+            PlaySound(_soundSrcUrl).ConfigureAwait(true).GetAwaiter().GetResult();
+        }
+
+        return false;
     }
 
     private async Task PlaySound(string srcUrl)
