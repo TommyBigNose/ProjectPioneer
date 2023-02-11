@@ -34,6 +34,18 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
     <span style="padding-left: @_paddingStyle">|</span>
 }
 
+<br /><br />
+<button @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav"))>Play</button>
+@if (!_hiddenSound)
+{
+    <audio autoplay controls hidden="hidden"><source src="/sounds/Windows_Balloon.wav" /></audio>
+}
+else
+{
+    <audio controls muted hidden="hidden"><source src="/sounds/Windows_Balloon.wav" /></audio>
+}
+
+
 @code {
     [Parameter]
     public string QuestID { get; set; }
@@ -41,6 +53,9 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
     private IQuest _quest;
     private int _padding = 0;
     private string _paddingStyle = string.Empty;
+
+    bool _hiddenSound = true;
+    string _soundSrcUrl = "/sounds/Windows_Balloon.wav";
 
     protected override void OnInitialized()
     {
@@ -52,6 +67,7 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
         _quest.StartQuest(comparedStats);
         _padding = 200 / _quest.QuestInfo.TotalChancesForLoot;
         _paddingStyle = $"{_padding}px";
+
     }
 
     private void TimerOnElapsed(object? sender, ElapsedEventArgs e)
@@ -62,5 +78,12 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
         {
             _quest.CompleteQuest();
         }
+    }
+
+    private async Task PlaySound(string srcUrl)
+    {
+        _hiddenSound = false;
+        await Task.Delay(500);
+        _hiddenSound = true;
     }
 }

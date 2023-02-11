@@ -120,7 +120,6 @@ namespace ProjectPioneer.Systems.Adventure
 			OnGoingQuest.ProgressBar.IncrementProgressBar();
 			if(IsProgressReadyForLootChance())
 			{
-				//OnGoingQuest.LootedEquipment.Add(null);
 				OnGoingQuest.LootedEquipment.Add(RollDiceForLoot());
 			}
 		}
