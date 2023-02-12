@@ -23,6 +23,8 @@ Quest Final Quest Length in Seconds: @_quest.OnGoingQuest.FinalQuestLengthInSeco
 <br />
 Is Quest Ongoing?: @_quest.IsQuestOnGoing()
 <br />
+Quest Status?: @_quest.Status
+<br />
 Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 <br />
 
@@ -39,8 +41,15 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
     <span style="padding-left: @_paddingStyle">|</span>
 }
 
+<br />
+
+<button type="button" class="btn btn-warning" @onclick="@(_ => CollectRewards())">
+    Collect Rewards
+</button>
+
 <br /><br />
-<button @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav"))>Play</button>
+<button @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav", 1000))>Play</button>
+<button @onclick=@(async () => await PlaySound("/sounds/Windows_Logon.wav", 5000))>Play2</button>
 @if (!_hiddenSound)
 {
     <audio autoplay controls hidden="hidden"><source src="@_soundSrcUrl" /></audio>
@@ -78,38 +87,45 @@ else
 
     }
 
-    private void TimerOnElapsed(object? sender, ElapsedEventArgs e)
+    private async void TimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
-        base.InvokeAsync(StateHasChanged);
+        await base.InvokeAsync(StateHasChanged);
 
-        HasHitLootInterval();
+        if (!_quest.IsQuestCompleted())
+        {
+            await HasHitLootInterval();
+        }
 
         if(_quest.IsQuestCompleted())
         {
+            await PlaySound("/sounds/Windows_Logon.wav", 5000).ConfigureAwait(false);
             _quest.CompleteQuest();
-            ProjectPioneerGame.AddCredits(_quest.GetCreditsReward());
-            ProjectPioneerGame.AddExp(_quest.GetExpReward());
-            _quest.GetEquipmentReward().ToList().ForEach(_ => ProjectPioneerGame.AddEquipment(_));
-            PlaySound("/sounds/Windows_Logon.wav").ConfigureAwait(true).GetAwaiter().GetResult();
-            NavManager.NavigateTo($"/Game/MainGame");
         }
+        await base.InvokeAsync(StateHasChanged);
     }
 
-    private bool HasHitLootInterval()
+    private void CollectRewards()
+    {
+        ProjectPioneerGame.AddCredits(_quest.GetCreditsReward());
+        ProjectPioneerGame.AddExp(_quest.GetExpReward());
+        _quest.GetEquipmentReward().ToList().ForEach(_ => ProjectPioneerGame.AddEquipment(_));
+        NavManager.NavigateTo($"/Game/MainGame");
+    }
+
+    private async Task HasHitLootInterval()
     {
         if (_currentLootCount < _quest.OnGoingQuest.LootedEquipment.Count)
         {
             _currentLootCount++;
-            PlaySound(_soundSrcUrl).ConfigureAwait(true).GetAwaiter().GetResult();
+            await PlaySound("/sounds/Windows_Balloon.wav", 1000).ConfigureAwait(false);
         }
-
-        return false;
     }
 
-    private async Task PlaySound(string srcUrl)
+    private async Task PlaySound(string srcUrl, int soundLengthInMs)
     {
+        _soundSrcUrl = srcUrl;
         _hiddenSound = false;
-        await Task.Delay(500);
+        await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
     }
 }

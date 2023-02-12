@@ -51,6 +51,7 @@ Credits: @ProjectPioneerGame.GetCredits()
         _equipmentCatalog = new();
         _selectedEquipment = new();
         _inventory = new();
+        Refresh();
         //_statsHeroEquipment = new();
         //TrySetInitialEquipment();
     }
@@ -68,7 +69,7 @@ Credits: @ProjectPioneerGame.GetCredits()
             _equipmentCatalog.Add(new EquipmentDisplay()
             {
                 Index = i,
-                    Equipment = _inventory[i]
+                Equipment = _inventory[i]
             });
         }
         base.InvokeAsync(StateHasChanged);
