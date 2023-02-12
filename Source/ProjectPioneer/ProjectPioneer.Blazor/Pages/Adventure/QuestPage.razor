@@ -6,6 +6,7 @@
 @using System.Timers;
 @using ProjectPioneer.Systems.Statistics;
 
+@inject NavigationManager NavManager
 @inject ILogger<QuestPage> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
@@ -42,11 +43,11 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 <button @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav"))>Play</button>
 @if (!_hiddenSound)
 {
-    <audio autoplay controls hidden="hidden"><source src="/sounds/Windows_Balloon.wav" /></audio>
+    <audio autoplay controls hidden="hidden"><source src="@_soundSrcUrl" /></audio>
 }
 else
 {
-    <audio controls muted hidden="hidden"><source src="/sounds/Windows_Balloon.wav" /></audio>
+    <audio controls muted hidden="hidden"><source src="@_soundSrcUrl" /></audio>
 }
 
 
@@ -86,6 +87,11 @@ else
         if(_quest.IsQuestCompleted())
         {
             _quest.CompleteQuest();
+            ProjectPioneerGame.AddCredits(_quest.GetCreditsReward());
+            ProjectPioneerGame.AddExp(_quest.GetExpReward());
+            _quest.GetEquipmentReward().ToList().ForEach(_ => ProjectPioneerGame.AddEquipment(_));
+            PlaySound("/sounds/Windows_Logon.wav").ConfigureAwait(true).GetAwaiter().GetResult();
+            NavManager.NavigateTo($"/Game/MainGame");
         }
     }
 
