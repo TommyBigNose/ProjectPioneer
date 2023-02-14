@@ -20,6 +20,7 @@ namespace ProjectPioneer.Systems.Character
 		void AddExp(int exp);
 		int GetRequiredExp();
 		void LevelUp();
+		bool CanLevelUp();
 		bool CanEquip(IEquipment equipment);
 		IEquipment EquipWeaponAndReturnOldWeapon(IEquipment weapon);
 		IEquipment EquipArmorAndReturnOldArmor(IEquipment armor);

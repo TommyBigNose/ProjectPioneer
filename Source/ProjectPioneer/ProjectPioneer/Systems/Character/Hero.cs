@@ -63,7 +63,7 @@ namespace ProjectPioneer.Systems.Character
 
 		public void LevelUp()
 		{
-			if(Exp >= GetRequiredExp())
+			if(CanLevelUp())
 			{
 				_exp -= GetRequiredExp();
 				_stats.Level++;
@@ -75,7 +75,13 @@ namespace ProjectPioneer.Systems.Character
 			}
 		}
 
-		public bool CanEquip(IEquipment equipment)
+		public bool CanLevelUp()
+		{
+			return Exp >= GetRequiredExp();
+        }
+
+
+        public bool CanEquip(IEquipment equipment)
 		{
 			return _job.EquipableTypes.Contains(equipment.EquipmentType);
 		}

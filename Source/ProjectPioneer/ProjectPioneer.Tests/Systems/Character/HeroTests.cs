@@ -67,7 +67,27 @@ namespace ProjectPioneer.Tests.Systems.Character
 			});
 		}
 
-		[TestCase(1, "Vanguard", "Reinforced Skin")]
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(10000)]
+        public void Should_BeAbleToLevelUp_When_ThereIsEnoughExp(int expToAdd)
+        {
+            // Arrange
+            _sut = GetTestHero();
+            _sut.AddExp(expToAdd);
+			bool expected = expToAdd >= _sut.GetRequiredExp() ;
+
+			// Act
+			var result = _sut.CanLevelUp();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expected), "Hero's expected ");
+            });
+        }
+
+        [TestCase(1, "Vanguard", "Reinforced Skin")]
 		[TestCase(5, "Vanguard", "Reinforced Skin")]
 		[TestCase(1, "Ranger", "Reinforced Joints")]
 		[TestCase(5, "Ranger", "Reinforced Joints")]
