@@ -23,18 +23,34 @@ Credits: @ProjectPioneerGame.GetCredits()
 <br />
 <br />
 
-@if(_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
-{
-    <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" />
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Equipment</th>
+             <th>Comparison</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+               @foreach (var item in _equipmentCatalog)
+                {
+                    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
+                        @item.Equipment.Name
+                    </button>
+                    <br />
+                }
+            </td>
+            <td>
+                @if(_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
+                {
+                    <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-@foreach (var item in _equipmentCatalog)
-{
-    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
-        @item.Equipment.Name
-    </button>
-    <br />
-}
 
 @code {
     [Parameter]
