@@ -42,7 +42,10 @@
     private async Task AddExpToHeroAsync(int exp)
     {
         ProjectPioneerGame.AddExp(exp);
-        ProjectPioneerGame.LevelUp();
+        while (ProjectPioneerGame.CanLevelUp())
+        {
+            ProjectPioneerGame.LevelUp();
+        }
 
         await DebugCallback.InvokeAsync();
         Logger.LogInformation("Added exp to hero {0}", exp);

@@ -152,13 +152,35 @@ namespace ProjectPioneer.Tests.Systems
             });
         }
 
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(10000)]
+        public void Should_BeAbleToLevelUp_When_ThereIsEnoughExp(int expToAdd)
+        {
+            // Arrange
+            IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None }, new Stats());
+            IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
+            _sut.SetUpHero("TestHero", job, implant);
+            _sut.AddExp(expToAdd);
+            bool expected = expToAdd >= _sut.GetRequiredExp();
+
+            // Act
+            var result = _sut.CanLevelUp();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expected), "Hero's expected ");
+            });
+        }
+
         [TestCase("Vanguard", EquipmentType.Gun)]
         [TestCase("Ranger", EquipmentType.Staff)]
         [TestCase("Technician", EquipmentType.Blade)]
         public void Should_NotBeAbleToEquip_When_JobCannot(string jobName, EquipmentType weaponType)
         {
             // Arrange
-             IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
+            IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
             IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
             _sut.SetUpHero("TestHero", job, implant);
 

@@ -75,6 +75,11 @@ namespace ProjectPioneer.Systems
 			_hero.LevelUp();
         }
 
+        public bool CanLevelUp()
+        {
+            return _hero.Exp >= GetRequiredExp();
+        }
+
         public IEquipment GetEquippedWeapon()
 		{
 			return _hero.EquippedWeapon;

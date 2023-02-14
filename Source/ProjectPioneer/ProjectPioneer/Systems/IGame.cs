@@ -23,6 +23,7 @@ namespace ProjectPioneer.Systems
         void AddExp(int exp);
         int GetRequiredExp();
         void LevelUp();
+        bool CanLevelUp();
         IEquipment GetEquippedWeapon();
 		IEquipment GetEquippedArmor();
 		IEquipment GetEquippedAura();
