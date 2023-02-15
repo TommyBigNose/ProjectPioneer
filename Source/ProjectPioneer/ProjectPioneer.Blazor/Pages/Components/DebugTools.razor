@@ -13,7 +13,12 @@
         </td>
         <td>
             <button type="button" class="btn btn-warning" @onclick="@(_ => AddExpToHeroAsync(10000))">
-                Add 10000 exp
+                Add 10000 Exp
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddCreditsAsync(10000))">
+                Add 10000 Credits
             </button>
         </td>
     </tr>
@@ -49,6 +54,18 @@
 
         await DebugCallback.InvokeAsync();
         Logger.LogInformation("Added exp to hero {0}", exp);
+    }
+
+    private async Task AddCreditsAsync(int credits)
+    {
+        ProjectPioneerGame.AddCredits(credits);
+        while (ProjectPioneerGame.CanLevelUp())
+        {
+            ProjectPioneerGame.LevelUp();
+        }
+
+        await DebugCallback.InvokeAsync();
+        Logger.LogInformation("Added credits {0}", credits);
     }
 
 }

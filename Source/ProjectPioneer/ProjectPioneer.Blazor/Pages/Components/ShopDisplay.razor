@@ -1,4 +1,5 @@
 ﻿@using ProjectPioneer.Systems.Equipment;
+@using ProjectPioneer.Systems.Statistics;
 @inject ILogger<ShopDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
@@ -9,13 +10,33 @@
 </button>
 <br />
 
-@foreach (var item in _equipmentCatalog)
-{
-    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
-        @item.Equipment.Name
-    </button>
-    <br />
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Equipment</th>
+            <th>Comparison</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var item in _equipmentCatalog)
+                {
+                    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
+                        @item.Equipment.Name
+                    </button>
+                    <br />
+                }
+            </td>
+            <td>
+                @if (_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
+                {
+                    <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 @code {
     [Parameter]
@@ -24,6 +45,8 @@
     List<IEquipment> _shopStock;
     List<EquipmentDisplay> _equipmentCatalog;
     EquipmentDisplay _selectedEquipment;
+
+    Stats _statsHeroEquipment;
 
     protected override void OnInitialized()
     {
@@ -61,7 +84,21 @@
 
     public bool CanBuyItem(IEquipment equipment)
     {
-        return (_selectedEquipment.Equipment != null && ProjectPioneerGame.CanHeroAffordEquipment(equipment, ProjectPioneerGame.Inventory));
+        return (_selectedEquipment.Equipment != null &&
+            ProjectPioneerGame.CanHeroAffordEquipment(equipment, ProjectPioneerGame.Inventory) &&
+            CanEquip(equipment));
+    }
+
+    private bool CanEquip(IEquipment equipment)
+    {
+        if (equipment == null)
+        {
+            return false;
+        }
+        else
+        {
+            return ProjectPioneerGame.CanEquip(equipment);
+        }
     }
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
@@ -81,6 +118,31 @@
                 Index = equipmentDisplay.Index,
                 Equipment = _shopStock[equipmentDisplay.Index]
             };
+        }
+
+        SetUpHeroEquipmentComparison();
+    }
+
+    private void SetUpHeroEquipmentComparison()
+    {
+        if (_selectedEquipment != null && _selectedEquipment.Equipment != null)
+        {
+            switch (_selectedEquipment.Equipment.EquipmentType)
+            {
+                case EquipmentType.Armor:
+                    _statsHeroEquipment = ProjectPioneerGame.GetEquippedArmor().Stats;
+                    break;
+                case EquipmentType.Aura:
+                    _statsHeroEquipment = ProjectPioneerGame.GetEquippedAura().Stats;
+                    break;
+                default:
+                    _statsHeroEquipment = ProjectPioneerGame.GetEquippedWeapon().Stats;
+                    break;
+            }
+        }
+        else
+        {
+            _statsHeroEquipment = null;
         }
     }
 
