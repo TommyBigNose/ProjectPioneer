@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic;
-
-namespace ProjectPioneer.Systems.Adventure
+﻿namespace ProjectPioneer.Systems.Adventure
 {
 	public class ProgressBar : IProgressBar
 	{
@@ -31,7 +24,7 @@ namespace ProjectPioneer.Systems.Adventure
 		public bool IsFinished()
 		{
 			// Margin of error due to floats
-			return _value >= (ValueMax-0.2f);
+			return _value >= (ValueMax - 0.2f);
 		}
 
 		public void IncrementProgressBar()

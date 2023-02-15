@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Dice;
@@ -31,21 +25,21 @@ namespace ProjectPioneer.Systems
 		private readonly IFileSystem _fileSystem;
 		private readonly IDiceSystem _diceSystem;
 
-        public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, IFileSystem fileSystem, IDiceSystem diceSystem)
-        {
-            _dataSource = dataSource;
-            _heroBuilder = heroBuilder;
+		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, IFileSystem fileSystem, IDiceSystem diceSystem)
+		{
+			_dataSource = dataSource;
+			_heroBuilder = heroBuilder;
 
-            _inventory = inventory;
-            _shop = shop;
+			_inventory = inventory;
+			_shop = shop;
 
-            _questLog = questLog;
-            _fileSystem = fileSystem;
-            _diceSystem = diceSystem;
-        }
+			_questLog = questLog;
+			_fileSystem = fileSystem;
+			_diceSystem = diceSystem;
+		}
 
-        #region Hero
-        public void SetUpHero(string name, IJob job, IImplant implant)
+		#region Hero
+		public void SetUpHero(string name, IJob job, IImplant implant)
 		{
 			_hero = _heroBuilder.CreateHero(name, job, implant);
 		}
@@ -60,27 +54,27 @@ namespace ProjectPioneer.Systems
 			return _dataSource.GetAllImplants();
 		}
 
-        public void AddExp(int exp)
+		public void AddExp(int exp)
 		{
 			_hero.AddExp(exp);
 		}
 
-        public int GetRequiredExp()
-        {
+		public int GetRequiredExp()
+		{
 			return _hero.GetRequiredExp();
-        }
+		}
 
-        public void LevelUp()
-        {
+		public void LevelUp()
+		{
 			_hero.LevelUp();
-        }
+		}
 
-        public bool CanLevelUp()
-        {
-            return _hero.Exp >= GetRequiredExp();
-        }
+		public bool CanLevelUp()
+		{
+			return _hero.Exp >= GetRequiredExp();
+		}
 
-        public IEquipment GetEquippedWeapon()
+		public IEquipment GetEquippedWeapon()
 		{
 			return _hero.EquippedWeapon;
 		}
@@ -94,15 +88,15 @@ namespace ProjectPioneer.Systems
 		{
 			return _hero.EquippedAura;
 		}
-        #endregion
+		#endregion
 
-        #region Inventory
-        public IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999)
+		#region Inventory
+		public IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999)
 		{
 			return _dataSource.GetAllEquipment(minlevel, maxLevel);
 		}
 
-        public int GetCredits()
+		public int GetCredits()
 		{
 			return Inventory.Credits;
 		}
@@ -208,6 +202,6 @@ namespace ProjectPioneer.Systems
 		{
 			return _diceSystem.GetDiceRoll(min, max);
 		}
-        #endregion
-    }
+		#endregion
+	}
 }

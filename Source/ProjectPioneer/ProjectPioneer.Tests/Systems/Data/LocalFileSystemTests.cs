@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -13,15 +8,15 @@ namespace ProjectPioneer.Tests.Systems.Data
 	[TestFixture]
 	public class LocalFileSystemTests
 	{
-        private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
+		private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
 
-        private IDataSource _dataSource;
+		private IDataSource _dataSource;
 		private IHeroBuilder _heroBuilder;
 		private IInventory _inventory;
 		private IQuestLog _questLog;
 		private SaveData _saveData;
 		private ISaveDataReader _saveDataReader;
-		
+
 		private IFileSystem _sut;
 
 		[SetUp]
@@ -46,7 +41,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 		[TearDown]
 		public void TearDown()
 		{
-			if(File.Exists(_SaveDataFullFilePath))
+			if (File.Exists(_SaveDataFullFilePath))
 			{
 				File.Delete(_SaveDataFullFilePath);
 			}
@@ -91,7 +86,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 
 			// QuestLog
 			_dataSource.GetAllQuests().ToList().ForEach(_ => _questLog.CompleteQuest(_));
-			
+
 			_sut.SaveGame(_saveData);
 
 			// Act

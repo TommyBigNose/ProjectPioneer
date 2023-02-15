@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Data;
+﻿using ProjectPioneer.Systems.Character;
 
 namespace ProjectPioneer.Systems.Equipment
 {
@@ -37,7 +30,7 @@ namespace ProjectPioneer.Systems.Equipment
 		{
 			if (_credits - credits <= 0)
 				_credits = 0;
-			else 
+			else
 				_credits -= credits;
 		}
 
@@ -77,14 +70,14 @@ namespace ProjectPioneer.Systems.Equipment
 			int creditValue = equipment.GetSellableValue();
 			AddCredits(creditValue);
 			HeroInventory.Remove(equipment);
-			
+
 			return creditValue;
 		}
 
 		public void SortEquipment()
 		{
 			_heroInventory = _heroInventory.OrderBy(_ => (int)_.EquipmentType)
-				.ThenBy(_=>_.Stats.Level)
+				.ThenBy(_ => _.Stats.Level)
 				.ToList();
 		}
 	}

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Character;
-
-namespace ProjectPioneer.Systems.Equipment
+﻿namespace ProjectPioneer.Systems.Equipment
 {
 	public interface IShop
 	{

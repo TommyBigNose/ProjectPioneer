@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -181,7 +174,7 @@ namespace ProjectPioneer.Tests.Systems.Data
 				Assert.That(result.Hero.Stats.EarthDefense, Is.EqualTo(_saveData.Hero.Stats.EarthDefense), "JsonSaveDataReaderTests loaded a mismatching Hero's EarthDefense");
 
 				Assert.That(result.Inventory.HeroInventory.Count, Is.EqualTo(_saveData.Inventory.HeroInventory.Count), "JsonSaveDataReaderTests loaded a mismatching HeroInventory count");
-				Assert.That(result.Inventory.HeroInventory.Select(_=>_.ID).Except(_saveData.Inventory.HeroInventory.Select(_ => _.ID)).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching HeroInventory");
+				Assert.That(result.Inventory.HeroInventory.Select(_ => _.ID).Except(_saveData.Inventory.HeroInventory.Select(_ => _.ID)).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching HeroInventory");
 
 				Assert.That(result.QuestLog.CompletedQuests.Count, Is.EqualTo(_saveData.QuestLog.CompletedQuests.Count), "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog count");
 				Assert.That(result.QuestLog.CompletedQuests.Except(_saveData.QuestLog.CompletedQuests).Any(), Is.False, "JsonSaveDataReaderTests loaded a mismatching Completed QuestLog");

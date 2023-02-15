@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectPioneer.Systems.Data
+﻿namespace ProjectPioneer.Systems.Data
 {
 	public class LocalFileSystem : IFileSystem
 	{
-        private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
+		private readonly string _SaveDataFullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ProjectPioneerSaveData.json");
 
-        private ISaveDataReader _saveDataReader;
+		private ISaveDataReader _saveDataReader;
 
 		public LocalFileSystem(ISaveDataReader saveDataReader)
 		{

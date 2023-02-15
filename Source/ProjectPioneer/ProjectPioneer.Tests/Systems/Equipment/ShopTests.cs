@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Data;
+﻿using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
 
 namespace ProjectPioneer.Tests.Systems.Equipment

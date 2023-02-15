@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using ProjectPioneer.Systems;
+﻿using ProjectPioneer.Systems;
 using ProjectPioneer.Systems.Adventure;
-using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Dice;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
@@ -90,7 +82,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			_sut.StartQuest(comparedStats);
 
 			IncrementForSimulatedSeconds(60);
-			for(int i = 0; i < expectedAttemptedLootCount; i++)
+			for (int i = 0; i < expectedAttemptedLootCount; i++)
 			{
 				_sut.QuestTimerElapsed(null, null);
 			}
@@ -98,7 +90,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			// Act
 			var result = _sut.GetEquipmentReward();
 			var totalRewardAttempts = _sut.OnGoingQuest.LootedEquipment.ToList();
-			var totalRealRewards = totalRewardAttempts.FindAll(_ => _ != null).Sum(_=>1);
+			var totalRealRewards = totalRewardAttempts.FindAll(_ => _ != null).Sum(_ => 1);
 
 			// Assert
 			Assert.Multiple(() =>
@@ -123,14 +115,14 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(result.Level, 
-					Is.EqualTo(heroStats.Level - questStats.Level), 
+				Assert.That(result.Level,
+					Is.EqualTo(heroStats.Level - questStats.Level),
 					"Quest stat comparison failed for Level");
-				
-				Assert.That(result.PhysicalAttack, 
+
+				Assert.That(result.PhysicalAttack,
 					Is.EqualTo(heroStats.PhysicalAttack - questStats.PhysicalDefense),
 					"Quest stat comparison failed for PhysicalAttack");
-				Assert.That(result.PhysicalDefense, 
+				Assert.That(result.PhysicalDefense,
 					Is.EqualTo(heroStats.PhysicalDefense - questStats.PhysicalAttack),
 					"Quest stat comparison failed for PhysicalDefense");
 
@@ -206,7 +198,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			// Arrange
 			_sut = new Quest(_dataSource.GetAllQuestInfos().First());
 			int initialQuestLength = _sut.QuestInfo.QuestLengthInSeconds;
-			
+
 			// Act
 			var result = _sut.GetFinalQuestLengthInSeconds(secondReduction);
 			int expectedSeconds = Math.Max(Constants.QuestMinimumLengthInSeconds, initialQuestLength - secondReduction);
@@ -271,30 +263,30 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			});
 		}
 
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Should_BeReadyForLootChance_When_OnGoingQuestHitsInterval(int questLevel)
-        {
-            // Arrange
-            _sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
-            _sut.QuestInfo.TotalChancesForLoot = 5;
-            Stats comparedStats = GetStatsScaledByLevel(questLevel);
-            _sut.StartQuest(comparedStats);
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_BeReadyForLootChance_When_OnGoingQuestHitsInterval(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
 
 			// Act
 			var result1 = _sut.IsProgressReadyForLootChance();
-            IncrementForSimulatedSeconds(60);
-            var result2 = _sut.IsProgressReadyForLootChance();
+			IncrementForSimulatedSeconds(60);
+			var result2 = _sut.IsProgressReadyForLootChance();
 
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result1, Is.False, "Quest is ready to loot too soon");
-                Assert.That(result2, Is.True, "Quest is not ready to loot despite enough time passing");
-            });
-        }
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result1, Is.False, "Quest is ready to loot too soon");
+				Assert.That(result2, Is.True, "Quest is not ready to loot despite enough time passing");
+			});
+		}
 
-        [TestCase(1)]
+		[TestCase(1)]
 		[TestCase(2)]
 		public void Should_CompleteQuest_When_Prompted(int questLevel)
 		{
@@ -302,10 +294,10 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
 			Stats comparedStats = GetStatsScaledByLevel(questLevel);
 			_sut.StartQuest(comparedStats);
-			
+
 			// Act
 			_sut.CompleteQuest();
-			
+
 			// Assert
 			Assert.Multiple(() =>
 			{
@@ -421,7 +413,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			// Act
 			IncrementForSimulatedSeconds(finalQuestLengthInSeconds);
 			var result = _sut.IsQuestCompleted();
-			
+
 			// Assert
 			Assert.Multiple(() =>
 			{
@@ -442,7 +434,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			int finalQuestLengthInSeconds = _sut.OnGoingQuest.FinalQuestLengthInSeconds;
 
 			// Act
-			IncrementForSimulatedSeconds(finalQuestLengthInSeconds/2);
+			IncrementForSimulatedSeconds(finalQuestLengthInSeconds / 2);
 			var result = _sut.IsQuestCompleted();
 
 			// Assert
@@ -486,17 +478,17 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
 			_sut.QuestInfo.ChanceForNormalLoot = chanceForNormalLoot;
 			_sut.QuestInfo.ChanceForRareLoot = chanceForRareLoot;
-			
+
 			// Act
 			for (int i = 0; i < totalLoot; i++)
 			{
 				loot.Add(_sut.RollDiceForLoot());
 			}
-			var amountOfNormalLoot = loot.FindAll(_ => _sut.QuestInfo.NormalLoot.Contains(_)).Sum(_=>1);
-			var amountOfRareLoot = loot.FindAll(_ => _sut.QuestInfo.RareLoot == _).Sum(_=>1);
+			var amountOfNormalLoot = loot.FindAll(_ => _sut.QuestInfo.NormalLoot.Contains(_)).Sum(_ => 1);
+			var amountOfRareLoot = loot.FindAll(_ => _sut.QuestInfo.RareLoot == _).Sum(_ => 1);
 
-			var expectedNormalLoot = (chanceForNormalLoot >= 500)? 1 : 0;
-			var expectedRareLoot = (chanceForRareLoot >= 500)? 1 : 0;
+			var expectedNormalLoot = (chanceForNormalLoot >= 500) ? 1 : 0;
+			var expectedRareLoot = (chanceForRareLoot >= 500) ? 1 : 0;
 
 			// Assert
 			Assert.Multiple(() =>

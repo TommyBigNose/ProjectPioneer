@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Equipment;
+﻿using ProjectPioneer.Systems.Equipment;
 
 namespace ProjectPioneer.Systems.Adventure
 {

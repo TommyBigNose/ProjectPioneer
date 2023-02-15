@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Timers;
-using ProjectPioneer.Systems.Character;
+﻿using System.Timers;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 

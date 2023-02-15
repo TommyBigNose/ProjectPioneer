@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Data;
+﻿using ProjectPioneer.Systems.Data;
 
 namespace ProjectPioneer.Systems.Equipment
 {
@@ -13,7 +8,7 @@ namespace ProjectPioneer.Systems.Equipment
 
 		public Shop(IDataSource dataSource)
 		{
-			_dataSource= dataSource;
+			_dataSource = dataSource;
 		}
 
 		public IEnumerable<IEquipment> GetShopInventory(int level)

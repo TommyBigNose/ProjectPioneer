@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems;
+﻿using ProjectPioneer.Systems;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
@@ -67,27 +62,27 @@ namespace ProjectPioneer.Tests.Systems.Character
 			});
 		}
 
-        [TestCase(0)]
-        [TestCase(10)]
-        [TestCase(10000)]
-        public void Should_BeAbleToLevelUp_When_ThereIsEnoughExp(int expToAdd)
-        {
-            // Arrange
-            _sut = GetTestHero();
-            _sut.AddExp(expToAdd);
-			bool expected = expToAdd >= _sut.GetRequiredExp() ;
+		[TestCase(0)]
+		[TestCase(10)]
+		[TestCase(10000)]
+		public void Should_BeAbleToLevelUp_When_ThereIsEnoughExp(int expToAdd)
+		{
+			// Arrange
+			_sut = GetTestHero();
+			_sut.AddExp(expToAdd);
+			bool expected = expToAdd >= _sut.GetRequiredExp();
 
 			// Act
 			var result = _sut.CanLevelUp();
 
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result, Is.EqualTo(expected), "Hero's expected ");
-            });
-        }
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.EqualTo(expected), "Hero's expected ");
+			});
+		}
 
-        [TestCase(1, "Vanguard", "Reinforced Skin")]
+		[TestCase(1, "Vanguard", "Reinforced Skin")]
 		[TestCase(5, "Vanguard", "Reinforced Skin")]
 		[TestCase(1, "Ranger", "Reinforced Joints")]
 		[TestCase(5, "Ranger", "Reinforced Joints")]
@@ -96,7 +91,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 		public void Should_HaveUpgradedStats_When_LeveledUp(int levelUpCount, string jobName, string implantName)
 		{
 			// Arrange
-			IJob job = _dataSource.GetAllJobs().First(_=>_.Name.Equals(jobName));
+			IJob job = _dataSource.GetAllJobs().First(_ => _.Name.Equals(jobName));
 			IImplant implant = _dataSource.GetAllImplants().First(_ => _.Name.Equals(implantName));
 			IEquipment weapon = _dataSource.GetDefaultWeapon();
 			IEquipment armor = _dataSource.GetDefaultArmor();
@@ -119,8 +114,8 @@ namespace ProjectPioneer.Tests.Systems.Character
 				Assert.That(requiredExp, Is.EqualTo(_sut.Stats.Level * Constants.HeroLevelExpScaling), "Hero required exp did not increase upon leveling");
 				Assert.That(resultingStats.Level, Is.EqualTo(initialStats.Level + levelUpCount), "Hero did not upgrade Level");
 
-				Assert.That(resultingStats.PhysicalAttack, 
-					Is.EqualTo(initialStats.PhysicalAttack + levelUpCount + (job.Stats.PhysicalAttack * levelUpCount) + (implant.Stats.PhysicalAttack * levelUpCount)), 
+				Assert.That(resultingStats.PhysicalAttack,
+					Is.EqualTo(initialStats.PhysicalAttack + levelUpCount + (job.Stats.PhysicalAttack * levelUpCount) + (implant.Stats.PhysicalAttack * levelUpCount)),
 					"Hero did not upgrade PhysicalAttack");
 
 				Assert.That(resultingStats.PhysicalDefense,
@@ -242,7 +237,7 @@ namespace ProjectPioneer.Tests.Systems.Character
 				EarthAttack = 12,
 				EarthDefense = 13,
 			});
-			
+
 			// Act
 			_sut.EquipWeaponAndReturnOldWeapon(weapon);
 			Stats newStats = _sut.GetTotalsAsStats();

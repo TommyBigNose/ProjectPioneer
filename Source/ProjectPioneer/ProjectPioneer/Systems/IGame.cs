@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 
@@ -20,18 +15,18 @@ namespace ProjectPioneer.Systems
 		void SetUpHero(string name, IJob job, IImplant implant);
 		IEnumerable<IJob> GetAllJobs();
 		IEnumerable<IImplant> GetAllImplants();
-        void AddExp(int exp);
-        int GetRequiredExp();
-        void LevelUp();
-        bool CanLevelUp();
-        IEquipment GetEquippedWeapon();
+		void AddExp(int exp);
+		int GetRequiredExp();
+		void LevelUp();
+		bool CanLevelUp();
+		IEquipment GetEquippedWeapon();
 		IEquipment GetEquippedArmor();
 		IEquipment GetEquippedAura();
 		#endregion
 
 		#region Inventory
 		IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999);
-        int GetCredits();
+		int GetCredits();
 		void AddCredits(int credits);
 		void RemoveCredits(int credits);
 		IEnumerable<IEquipment> GetInventory();
@@ -68,6 +63,6 @@ namespace ProjectPioneer.Systems
 		/// <param name="max">Exclusive</param>
 		/// <returns></returns>
 		int GetDiceRoll(int min, int max);
-        #endregion
-    }
+		#endregion
+	}
 }

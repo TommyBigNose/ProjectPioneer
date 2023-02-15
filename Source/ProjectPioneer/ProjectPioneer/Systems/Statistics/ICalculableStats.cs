@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectPioneer.Systems.Statistics
+﻿namespace ProjectPioneer.Systems.Statistics
 {
 	public interface ICalculableStats
 	{
@@ -25,7 +19,7 @@ namespace ProjectPioneer.Systems.Statistics
 		int GetBaseLightningDefense();
 		int GetBaseEarthAttack();
 		int GetBaseEarthDefense();
-		
+
 		// Total
 		int GetTotalPhysicalAttack();
 		int GetTotalPhysicalDefense();

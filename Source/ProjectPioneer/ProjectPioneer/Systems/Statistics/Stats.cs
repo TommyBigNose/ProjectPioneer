@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace ProjectPioneer.Systems.Statistics
+﻿namespace ProjectPioneer.Systems.Statistics
 {
 	public class Stats
 	{
@@ -61,88 +53,88 @@ namespace ProjectPioneer.Systems.Statistics
 			EarthDefense = clone.EarthDefense;
 		}
 
-        public Stats GetStatComparison(Stats comparedStats)
-        {
-            Stats stats = new()
-            {
-                Level = this.Level - comparedStats.Level,
-
-                PhysicalAttack = this.PhysicalAttack - comparedStats.PhysicalDefense,
-                PhysicalDefense = this.PhysicalDefense - comparedStats.PhysicalAttack,
-
-                MagicalAttack = this.MagicalAttack - comparedStats.MagicalDefense,
-                MagicalDefense = this.MagicalDefense - comparedStats.MagicalAttack,
-
-                Speed = this.Speed - comparedStats.Speed,
-
-                FireAttack = this.FireAttack - comparedStats.FireDefense,
-                FireDefense = this.FireDefense - comparedStats.FireAttack,
-
-                IceAttack = this.IceAttack - comparedStats.IceDefense,
-                IceDefense = this.IceDefense - comparedStats.IceAttack,
-
-                LightningAttack = this.LightningAttack - comparedStats.LightningDefense,
-                LightningDefense = this.LightningDefense - comparedStats.LightningAttack,
-
-                EarthAttack = this.EarthAttack - comparedStats.EarthDefense,
-                EarthDefense = this.EarthDefense - comparedStats.EarthAttack,
-            };
-
-            return stats;
-        }
-
-        public List<string> GetLevelUpStatsAsList()
+		public Stats GetStatComparison(Stats comparedStats)
 		{
-            List<string> statList = new()
-            {
-                $"Physical Attack: {PhysicalAttack}",
-                $"Physical Defense: {PhysicalDefense}",
-                $"Magical Attack: {MagicalAttack}",
-                $"Magical Defense: {MagicalDefense}",
-                $"Speed: {Speed}"
-            };
+			Stats stats = new()
+			{
+				Level = this.Level - comparedStats.Level,
 
-            return statList;
-        }
+				PhysicalAttack = this.PhysicalAttack - comparedStats.PhysicalDefense,
+				PhysicalDefense = this.PhysicalDefense - comparedStats.PhysicalAttack,
 
-        public List<string> GetElementalStatsAsList()
-        {
-            List<string> statList = new()
-            {
-                $"Fire Attack: {FireAttack}",
-                $"Fire Defense: {FireDefense}",
-                $"Ice Attack: {IceAttack}",
-                $"Ice Defense: {IceDefense}",
-                $"Lightning Attack: {LightningAttack}",
-                $"Lightning Defense: {LightningDefense}",
-                $"Earth Attack: {EarthAttack}",
-                $"Earth Defense: {EarthDefense}"
-            };
+				MagicalAttack = this.MagicalAttack - comparedStats.MagicalDefense,
+				MagicalDefense = this.MagicalDefense - comparedStats.MagicalAttack,
 
-            return statList;
-        }
+				Speed = this.Speed - comparedStats.Speed,
 
-        public List<string> GetStatsAsList()
-        {
-            List<string> statList = new()
-            {
-                $"Level: {Level}",
-                $"Physical Attack: {PhysicalAttack}",
-                $"Physical Defense: {PhysicalDefense}",
-                $"Magical Attack: {MagicalAttack}",
-                $"Magical Defense: {MagicalDefense}",
-                $"Speed: {Speed}",
-                $"Fire Attack: {FireAttack}",
-                $"Fire Defense: {FireDefense}",
-                $"Ice Attack: {IceAttack}",
-                $"Ice Defense: {IceDefense}",
-                $"Lightning Attack: {LightningAttack}",
-                $"Lightning Defense: {LightningDefense}",
-                $"Earth Attack: {EarthAttack}",
-                $"Earth Defense: {EarthDefense}"
-            };
+				FireAttack = this.FireAttack - comparedStats.FireDefense,
+				FireDefense = this.FireDefense - comparedStats.FireAttack,
 
-            return statList;
-        }
-    }
+				IceAttack = this.IceAttack - comparedStats.IceDefense,
+				IceDefense = this.IceDefense - comparedStats.IceAttack,
+
+				LightningAttack = this.LightningAttack - comparedStats.LightningDefense,
+				LightningDefense = this.LightningDefense - comparedStats.LightningAttack,
+
+				EarthAttack = this.EarthAttack - comparedStats.EarthDefense,
+				EarthDefense = this.EarthDefense - comparedStats.EarthAttack,
+			};
+
+			return stats;
+		}
+
+		public List<string> GetLevelUpStatsAsList()
+		{
+			List<string> statList = new()
+			{
+				$"Physical Attack: {PhysicalAttack}",
+				$"Physical Defense: {PhysicalDefense}",
+				$"Magical Attack: {MagicalAttack}",
+				$"Magical Defense: {MagicalDefense}",
+				$"Speed: {Speed}"
+			};
+
+			return statList;
+		}
+
+		public List<string> GetElementalStatsAsList()
+		{
+			List<string> statList = new()
+			{
+				$"Fire Attack: {FireAttack}",
+				$"Fire Defense: {FireDefense}",
+				$"Ice Attack: {IceAttack}",
+				$"Ice Defense: {IceDefense}",
+				$"Lightning Attack: {LightningAttack}",
+				$"Lightning Defense: {LightningDefense}",
+				$"Earth Attack: {EarthAttack}",
+				$"Earth Defense: {EarthDefense}"
+			};
+
+			return statList;
+		}
+
+		public List<string> GetStatsAsList()
+		{
+			List<string> statList = new()
+			{
+				$"Level: {Level}",
+				$"Physical Attack: {PhysicalAttack}",
+				$"Physical Defense: {PhysicalDefense}",
+				$"Magical Attack: {MagicalAttack}",
+				$"Magical Defense: {MagicalDefense}",
+				$"Speed: {Speed}",
+				$"Fire Attack: {FireAttack}",
+				$"Fire Defense: {FireDefense}",
+				$"Ice Attack: {IceAttack}",
+				$"Ice Defense: {IceDefense}",
+				$"Lightning Attack: {LightningAttack}",
+				$"Lightning Defense: {LightningDefense}",
+				$"Earth Attack: {EarthAttack}",
+				$"Earth Defense: {EarthDefense}"
+			};
+
+			return statList;
+		}
+	}
 }

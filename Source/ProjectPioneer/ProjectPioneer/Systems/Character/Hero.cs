@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Equipment;
+﻿using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
 
 namespace ProjectPioneer.Systems.Character
@@ -44,7 +36,7 @@ namespace ProjectPioneer.Systems.Character
 			_job = job;
 			_implant = implant;
 			_stats = stats;
-			_equippedWeapon= weapon;
+			_equippedWeapon = weapon;
 			_equippedArmor = armor;
 			_equippedAura = aura;
 		}
@@ -63,7 +55,7 @@ namespace ProjectPioneer.Systems.Character
 
 		public void LevelUp()
 		{
-			if(CanLevelUp())
+			if (CanLevelUp())
 			{
 				_exp -= GetRequiredExp();
 				_stats.Level++;
@@ -78,10 +70,10 @@ namespace ProjectPioneer.Systems.Character
 		public bool CanLevelUp()
 		{
 			return Exp >= GetRequiredExp();
-        }
+		}
 
 
-        public bool CanEquip(IEquipment equipment)
+		public bool CanEquip(IEquipment equipment)
 		{
 			return _job.EquipableTypes.Contains(equipment.EquipmentType);
 		}
@@ -118,92 +110,92 @@ namespace ProjectPioneer.Systems.Character
 		public int GetBasePhysicalAttack()
 		{
 			return _stats.PhysicalAttack +
-				Job.Stats.PhysicalAttack + 
+				Job.Stats.PhysicalAttack +
 				Implant.Stats.PhysicalAttack;
 		}
 
 		public int GetBasePhysicalDefense()
 		{
 			return _stats.PhysicalDefense +
-                Job.Stats.PhysicalDefense +
-                Implant.Stats.PhysicalDefense;
+				Job.Stats.PhysicalDefense +
+				Implant.Stats.PhysicalDefense;
 		}
 
 		public int GetBaseMagicalAttack()
 		{
 			return _stats.MagicalAttack +
-                Job.Stats.MagicalAttack +
-                Implant.Stats.MagicalAttack;
+				Job.Stats.MagicalAttack +
+				Implant.Stats.MagicalAttack;
 		}
 
 		public int GetBaseMagicalDefense()
 		{
 			return _stats.MagicalDefense +
-                Job.Stats.MagicalDefense +
-                Implant.Stats.MagicalDefense;
+				Job.Stats.MagicalDefense +
+				Implant.Stats.MagicalDefense;
 		}
 
 		public int GetBaseSpeed()
 		{
 			return _stats.Speed +
-                Job.Stats.Speed +
-                Implant.Stats.Speed;
+				Job.Stats.Speed +
+				Implant.Stats.Speed;
 		}
 
 		public int GetBaseFireAttack()
 		{
 			return _stats.FireAttack +
-                Job.Stats.FireAttack +
-                Implant.Stats.FireAttack;
+				Job.Stats.FireAttack +
+				Implant.Stats.FireAttack;
 		}
 
 		public int GetBaseFireDefense()
 		{
 			return _stats.FireDefense +
-                Job.Stats.FireDefense +
-                Implant.Stats.FireDefense;
+				Job.Stats.FireDefense +
+				Implant.Stats.FireDefense;
 		}
 
 		public int GetBaseIceAttack()
 		{
 			return _stats.IceAttack +
-                Job.Stats.IceAttack +
-                Implant.Stats.IceAttack;
+				Job.Stats.IceAttack +
+				Implant.Stats.IceAttack;
 		}
 
 		public int GetBaseIceDefense()
 		{
 			return _stats.IceDefense +
-                Job.Stats.IceDefense +
-                Implant.Stats.IceDefense;
+				Job.Stats.IceDefense +
+				Implant.Stats.IceDefense;
 		}
 
 		public int GetBaseLightningAttack()
 		{
 			return _stats.LightningAttack +
-                Job.Stats.LightningAttack +
-                Implant.Stats.LightningAttack;
+				Job.Stats.LightningAttack +
+				Implant.Stats.LightningAttack;
 		}
 
 		public int GetBaseLightningDefense()
 		{
 			return _stats.LightningDefense +
-                Job.Stats.LightningDefense +
-                Implant.Stats.LightningDefense;
+				Job.Stats.LightningDefense +
+				Implant.Stats.LightningDefense;
 		}
 
 		public int GetBaseEarthAttack()
 		{
 			return _stats.EarthAttack +
-                Job.Stats.EarthAttack +
-                Implant.Stats.EarthAttack;
+				Job.Stats.EarthAttack +
+				Implant.Stats.EarthAttack;
 		}
 
 		public int GetBaseEarthDefense()
 		{
 			return _stats.EarthDefense +
-                Job.Stats.EarthDefense +
-                Implant.Stats.EarthDefense;
+				Job.Stats.EarthDefense +
+				Implant.Stats.EarthDefense;
 		}
 
 		public int GetTotalPhysicalAttack()

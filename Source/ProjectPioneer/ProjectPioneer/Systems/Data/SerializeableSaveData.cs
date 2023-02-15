@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -34,8 +29,8 @@ namespace ProjectPioneer.Systems.Data
 
 		public SaveData ConvertToSaveData(IDataSource dataSource)
 		{
-			IJob job = dataSource.GetAllJobs().First(_=>_.ID == JobID);
-			IImplant implant = dataSource.GetAllImplants().First(_=>_.ID == ImplantID);
+			IJob job = dataSource.GetAllJobs().First(_ => _.ID == JobID);
+			IImplant implant = dataSource.GetAllImplants().First(_ => _.ID == ImplantID);
 			IEquipment equippedWeapon = dataSource.GetEquipmentByID(EquippedWeaponID);
 			IEquipment equippedArmor = dataSource.GetEquipmentByID(EquippedArmorID);
 			IEquipment equippedAura = dataSource.GetEquipmentByID(EquippedAuraID);
@@ -44,7 +39,7 @@ namespace ProjectPioneer.Systems.Data
 
 			List<IEquipment> heroInventory = dataSource.GetEquipmentByIDs(HeroInventoryIDs).ToList();
 			IInventory inventory = new Inventory(Credits, heroInventory);
-			
+
 			IQuestLog questLog = new QuestLog(CompletedQuests);
 
 			SaveData data = new SaveData()

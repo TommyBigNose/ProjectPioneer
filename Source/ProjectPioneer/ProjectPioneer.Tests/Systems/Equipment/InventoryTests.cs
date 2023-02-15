@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Character;
+﻿using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -38,7 +33,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		{
 			// Arrange
 			_sut.AddCredits(initialCredits);
-			
+
 			// Act
 			_sut.AddCredits(credits);
 
@@ -78,7 +73,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 		public void Should_BeAbleToEquipEquipment_When_PlayersJobAllowsIt()
 		{
 			// Arrange
-			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() 
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>()
 			{ EquipmentType.None, EquipmentType.Blade, EquipmentType.Armor, EquipmentType.Aura }, new Stats());
 
 			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
@@ -109,7 +104,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 			IHero hero = _heroBuilder.CreateHero("Test", job, implant);
 
 			// Act
-			var resultWeapon = _sut.CanEquip(_dataSource.GetAllWeapons().First(_=>_.EquipmentType == EquipmentType.Gun), hero);
+			var resultWeapon = _sut.CanEquip(_dataSource.GetAllWeapons().First(_ => _.EquipmentType == EquipmentType.Gun), hero);
 			var resultArmor = _sut.CanEquip(_dataSource.GetDefaultArmor(), hero);
 			var resultAura = _sut.CanEquip(_dataSource.GetDefaultAura(), hero);
 
@@ -169,7 +164,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 			{
 				Assert.That(result, Is.EqualTo(equipmentToBeSold.GetSellableValue()), "Inventory did not sell equipment at expected amount");
 				Assert.That(_sut.Credits, Is.EqualTo(result), "Inventory did not gain credits from sold equipment");
-				Assert.That(_sut.HeroInventory.Count, Is.EqualTo(initialInventoryAmount-1), "Inventory did not remove sold equipment from inventory collection");
+				Assert.That(_sut.HeroInventory.Count, Is.EqualTo(initialInventoryAmount - 1), "Inventory did not remove sold equipment from inventory collection");
 				Assert.That(_sut.HeroInventory.Contains(equipmentToBeSold), Is.False, "Inventory still has sold equipment");
 			});
 		}
@@ -193,7 +188,7 @@ namespace ProjectPioneer.Tests.Systems.Equipment
 				Assert.That(_sut.Credits, Is.EqualTo(result), "Inventory did not gain credits from sold equipment");
 				Assert.That(_sut.HeroInventory.Count, Is.EqualTo(initialInventoryAmount - 1), "Inventory did not remove sold equipment from inventory collection");
 				Assert.That(_sut.HeroInventory.Contains(equipmentToBeSold), Is.False, "Inventory still has sold equipment");
-				Assert.That(_sut.HeroInventory.Count(_=>_.Name == equipmentToBeSold.Name), Is.LessThan(initialDuplicateAmount), "Inventory still has other duplicates as expected");
+				Assert.That(_sut.HeroInventory.Count(_ => _.Name == equipmentToBeSold.Name), Is.LessThan(initialDuplicateAmount), "Inventory still has other duplicates as expected");
 			});
 		}
 

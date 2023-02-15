@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Timers;
-using ProjectPioneer.Systems.Character;
+﻿using System.Timers;
 using ProjectPioneer.Systems.Dice;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -49,9 +44,9 @@ namespace ProjectPioneer.Systems.Adventure
 		{
 			List<IEquipment> returnedEquipment = new();
 
-			foreach(IEquipment? equipment in _onGoingQuest.LootedEquipment)
+			foreach (IEquipment? equipment in _onGoingQuest.LootedEquipment)
 			{
-				if(equipment != null)
+				if (equipment != null)
 				{
 					returnedEquipment.Add(equipment);
 				}
@@ -111,14 +106,14 @@ namespace ProjectPioneer.Systems.Adventure
 			// Start timer
 			OnGoingQuest.QuestTimer.Elapsed += QuestTimerElapsed;
 			OnGoingQuest.QuestTimer.Start();
-			
+
 			_status = QuestStatus.OnGoing;
 		}
 
 		public void QuestTimerElapsed(object? sender, ElapsedEventArgs e)
 		{
 			OnGoingQuest.ProgressBar.IncrementProgressBar();
-			if(IsProgressReadyForLootChance())
+			if (IsProgressReadyForLootChance())
 			{
 				OnGoingQuest.LootedEquipment.Add(RollDiceForLoot());
 			}
@@ -127,9 +122,9 @@ namespace ProjectPioneer.Systems.Adventure
 		public bool IsProgressReadyForLootChance()
 		{
 			return OnGoingQuest.ProgressBar.Value >= (OnGoingQuest.LootIntervals * Math.Max(OnGoingQuest.LootedEquipment.Count, 1));
-        }
+		}
 
-        public void CompleteQuest()
+		public void CompleteQuest()
 		{
 			_status = QuestStatus.Completed;
 			OnGoingQuest.QuestTimer.Stop();
@@ -174,10 +169,10 @@ namespace ProjectPioneer.Systems.Adventure
 		public IEquipment? RollDiceForLoot()
 		{
 			IEquipment? equipment = null;
-			
+
 			// Chance for Rare Loot
 			int diceRoll = _diceSystem.GetDiceRoll(1, 1001);
-			if(diceRoll <= QuestInfo.ChanceForRareLoot)
+			if (diceRoll <= QuestInfo.ChanceForRareLoot)
 			{
 				return QuestInfo.RareLoot;
 			}

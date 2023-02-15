@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 
@@ -29,7 +24,7 @@ namespace ProjectPioneer.Systems.Data
 				Stats = Hero.Stats,
 
 				Credits = Inventory.Credits,
-				HeroInventoryIDs = Inventory.HeroInventory.Select(_=>_.ID).ToList(),
+				HeroInventoryIDs = Inventory.HeroInventory.Select(_ => _.ID).ToList(),
 
 				CompletedQuests = QuestLog.CompletedQuests
 			};

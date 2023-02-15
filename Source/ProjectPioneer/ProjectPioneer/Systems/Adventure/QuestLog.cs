@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Data;
-
-namespace ProjectPioneer.Systems.Adventure
+﻿namespace ProjectPioneer.Systems.Adventure
 {
 	public class QuestLog : IQuestLog
 	{

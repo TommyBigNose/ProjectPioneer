@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPioneer.Systems.Adventure;
+﻿using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Equipment;
 using ProjectPioneer.Systems.Statistics;
@@ -291,17 +286,17 @@ namespace ProjectPioneer.Systems.Data
 		{
 			List<IEquipment> equipment = new List<IEquipment>();
 
-			if(minlevel == 0)
+			if (minlevel == 0)
 			{
 				equipment.Add(GetDefaultWeapon());
 				equipment.Add(GetDefaultArmor());
 				equipment.Add(GetDefaultAura());
 			}
-			
+
 			equipment.AddRange(GetAllWeapons().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
 			equipment.AddRange(GetAllArmors().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
 			equipment.AddRange(GetAllAuras().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
-			
+
 			return equipment;
 		}
 
@@ -389,7 +384,7 @@ namespace ProjectPioneer.Systems.Data
 					Description = "Desolate buildings are all that remains of the colony's first city.  A seemingly friendly forest encapsulates the town.",
 					QuestLengthInSeconds = 60,
 					ChanceForNormalLoot = 600,
-					ChanceForRareLoot = 50, 
+					ChanceForRareLoot = 50,
 					TotalChancesForLoot = 2,
 					Stats = new Stats()
 					{
@@ -441,14 +436,14 @@ namespace ProjectPioneer.Systems.Data
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
 				},
 			};
-			
+
 			return questInfos;
 		}
 
 		public IEnumerable<IQuest> GetAllQuests()
 		{
 			List<IQuest> quests = new List<IQuest>();
-			
+
 			GetAllQuestInfos().ToList().ForEach(_ => quests.Add(new Quest(_)));
 
 			return quests;
