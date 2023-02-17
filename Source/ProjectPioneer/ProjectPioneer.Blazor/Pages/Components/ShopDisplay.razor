@@ -23,7 +23,7 @@
                 @foreach (var item in _equipmentCatalog)
                 {
                     <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
-                        @item.Equipment.Name
+                        @item.Equipment.Name @(CanEquip(item.Equipment) ? "✅" : "❌")
                     </button>
                     <br />
                 }
