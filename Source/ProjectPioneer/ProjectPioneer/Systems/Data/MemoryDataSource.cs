@@ -217,7 +217,24 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
-				new Armor(302, "Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
+				new Armor(302, "Frame", "Simple mass produced armor with a focus on resisting the elements", EquipmentType.Armor, new Stats()
+				{
+					Level= 2,
+					PhysicalAttack = 0,
+					PhysicalDefense = 2,
+					MagicalAttack = 0,
+					MagicalDefense = 3,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 5,
+					IceAttack = 0,
+					IceDefense = 5,
+					LightningAttack = 0,
+					LightningDefense = 5,
+					EarthAttack = 0,
+					EarthDefense = 5,
+				}),
+				new Armor(320, "Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
 				{
 					Level= 20,
 					PhysicalAttack = 0,
@@ -260,7 +277,24 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 2,
 				}),
-				new Aura(502, "Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
+				new Aura(502, "Shield", "Aura designed to replicate a physical barrier.  It's alright", EquipmentType.Aura,new Stats()
+				{
+					Level= 2,
+					PhysicalAttack = 0,
+					PhysicalDefense = 3,
+					MagicalAttack = 0,
+					MagicalDefense = 1,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 1,
+					IceAttack = 0,
+					IceDefense = 1,
+					LightningAttack = 0,
+					LightningDefense = 1,
+					EarthAttack = 0,
+					EarthDefense = 1,
+				}),
+				new Aura(520, "Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
 				{
 					Level= 20,
 					PhysicalAttack = 0,
