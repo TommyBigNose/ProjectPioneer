@@ -15,7 +15,7 @@
 @foreach (var quest in ProjectPioneerGame.GetAllQuests())
 {
     <button type="button" class="btn @GetItemStyle(quest)" @onclick="@(_ => SetDisplayedItem(quest))">
-        @quest.QuestInfo.Name
+        @(IsQuestCompleted(quest) ? "✅" : "❌") | @quest.QuestInfo.Name
     </button>
     <br />
     @quest.QuestInfo.Description
@@ -38,6 +38,11 @@
     public void Refresh()
     {
         base.InvokeAsync(StateHasChanged);
+    }
+
+    private bool IsQuestCompleted(IQuest quest)
+    {
+        return ProjectPioneerGame.GetCompletedQuests().Contains(quest.QuestInfo.ID);
     }
 
     private void SetDisplayedItem(IQuest quest)

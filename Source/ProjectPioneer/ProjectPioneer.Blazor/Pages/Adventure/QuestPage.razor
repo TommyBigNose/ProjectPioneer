@@ -47,9 +47,31 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
     Collect Rewards
 </button>
 
+<br />
+<br />
+@*<style>
+    /*progress::-moz-progress-bar {
+        background: yellow;
+    }
+
+    progress::-webkit-progress-value {
+        background: yellow;
+    }*/
+
+    progress {
+        appearance: progress-bar;
+        display: inline-block;
+        color: yellow;
+        background-color: yellow;
+    }
+</style>*@
+<progress value="@ProjectPioneerGame.Hero.Exp" max="@ProjectPioneerGame.GetRequiredExp()"></progress>
+<progress value="@ProjectPioneerGame.Hero.Exp" max="@ProjectPioneerGame.GetRequiredExp()"></progress>
+
 <br /><br />
-<button @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav", 1000))>Play</button>
-<button @onclick=@(async () => await PlaySound("/sounds/Windows_Logon.wav", 5000))>Play2</button>
+
+<button hidden="hidden" @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav", 1000))>Play</button>
+<button hidden="hidden" @onclick=@(async () => await PlaySound("/sounds/Windows_Logon.wav", 5000))>Play2</button>
 @if (!_hiddenSound)
 {
     <audio autoplay controls hidden="hidden"><source src="@_soundSrcUrl" /></audio>
@@ -109,6 +131,7 @@ else
         ProjectPioneerGame.AddCredits(_quest.GetCreditsReward());
         ProjectPioneerGame.AddExp(_quest.GetExpReward());
         _quest.GetEquipmentReward().ToList().ForEach(_ => ProjectPioneerGame.AddEquipment(_));
+        ProjectPioneerGame.CompleteQuest(_quest);
         NavManager.NavigateTo($"/Game/MainGame");
     }
 
