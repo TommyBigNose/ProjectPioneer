@@ -1,4 +1,5 @@
-﻿@using ProjectPioneer.Systems.Equipment;
+﻿@using ProjectPioneer.Blazor.Models;
+@using ProjectPioneer.Systems.Equipment;
 @using ProjectPioneer.Systems.Statistics;
 @inject ILogger<ShopDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
@@ -174,11 +175,5 @@
     private string GetItemStyle(EquipmentDisplay equipmentDisplay)
     {
         return (_selectedEquipment.Index == equipmentDisplay.Index && _selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
-    }
-
-    public class EquipmentDisplay
-    {
-        public int Index { get; set; }
-        public IEquipment Equipment { get; set; }
     }
 }
