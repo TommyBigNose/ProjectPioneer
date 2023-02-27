@@ -23,9 +23,10 @@
             <td>
                 @foreach (var item in _equipmentCatalog)
                 {
-                    <button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
+                    @*<button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
                         @GetEquipmentSymbol(item.Equipment) | @item.Equipment.GetPurchaseValue(): @item.Equipment.Name | @(CanEquip(item.Equipment) ? "✅" : "❌")
-                    </button>
+                    </button>*@
+                    <ProjectPioneer.Blazor.Pages.Elements.EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true />
                     <br />
                 }
             </td>
@@ -147,6 +148,19 @@
         }
 
         SetUpHeroEquipmentComparison();
+    }
+
+    public void SetDisplayedItemString(string stringIndex)
+    {
+        int.TryParse(stringIndex, out int index);
+
+        EquipmentDisplay equipmentDisplay = new EquipmentDisplay()
+            {
+                Index = index,
+                Equipment = _shopStock[index]
+            };
+
+        SetDisplayedItem(equipmentDisplay);
     }
 
     private void SetUpHeroEquipmentComparison()
