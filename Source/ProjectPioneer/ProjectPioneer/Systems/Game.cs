@@ -174,6 +174,13 @@ namespace ProjectPioneer.Systems
 		{
 			return QuestLog.CompletedQuests;
 		}
+
+		public void RewardHeroForQuest(IQuest quest)
+		{
+			AddCredits(quest.GetCreditsReward());
+			AddExp(quest.GetExpReward());
+			quest.GetEquipmentReward().ToList().ForEach(_ => AddEquipment(_));
+		}
 		#endregion
 
 		#region Data

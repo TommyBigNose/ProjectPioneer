@@ -47,6 +47,7 @@ namespace ProjectPioneer.Systems
 		IEnumerable<IQuest> GetAllQuests();
 		void CompleteQuest(IQuest quest);
 		ISet<int> GetCompletedQuests();
+		void RewardHeroForQuest(IQuest quest);
 		#endregion
 
 		#region Data

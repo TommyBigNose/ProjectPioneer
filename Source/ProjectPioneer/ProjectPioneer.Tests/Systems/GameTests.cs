@@ -529,6 +529,26 @@ namespace ProjectPioneer.Tests.Systems
 		}
 
 		[Test]
+		public void Should_GiveHeroRewards_When_GivenAQuest()
+		{
+			// Arrange
+			IQuest quest = _sut.GetAllQuests().First();
+			IJob job = new Job(999, "TestJob", "Desc", new List<EquipmentType>() { EquipmentType.None, EquipmentType.Gun }, new Stats());
+			IImplant implant = new Implant(999, "TestImplant", "Desc", new Stats());
+			_sut.SetUpHero("Test", job, implant);
+
+			// Act
+			_sut.RewardHeroForQuest(quest);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(_sut.Inventory.Credits, Is.EqualTo(quest.GetCreditsReward()), "Game did not reward expected amount of credits");
+				Assert.That(_sut.Hero.Exp, Is.EqualTo(quest.GetExpReward()), "Game did not reward expected amount of exp");
+			});
+		}
+
+		[Test]
 		public void Should_CreateASaveFile_When_SavingForTheFirstTime()
 		{
 			// Arrange
