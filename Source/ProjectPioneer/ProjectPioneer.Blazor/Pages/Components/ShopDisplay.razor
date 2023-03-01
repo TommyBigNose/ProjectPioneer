@@ -103,31 +103,6 @@
         }
     }
 
-    private string GetEquipmentSymbol(IEquipment equipment)
-    {
-        string symbol = "";
-        switch(equipment.EquipmentType)
-        {
-            case EquipmentType.Blade:
-                symbol = "⚔️";
-                break;
-            case EquipmentType.Gun:
-                symbol = "🔫";
-                break;
-            case EquipmentType.Staff:
-                symbol = "🧙‍";
-                break;
-            case EquipmentType.Armor:
-                symbol = "🧥";
-                break;
-            case EquipmentType.Aura:
-                symbol = "🛡️";
-                break;
-        }
-
-        return symbol;
-    }
-
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
     {
         // Remove selection if the user is re-selecting it
@@ -184,10 +159,5 @@
         {
             _statsHeroEquipment = null;
         }
-    }
-
-    private string GetItemStyle(EquipmentDisplay equipmentDisplay)
-    {
-        return (_selectedEquipment.Index == equipmentDisplay.Index && _selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
     }
 }

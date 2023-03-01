@@ -118,31 +118,6 @@ Credits: @ProjectPioneerGame.GetCredits()
         }
     }
 
-    private string GetEquipmentSymbol(IEquipment equipment)
-    {
-        string symbol = "";
-        switch (equipment.EquipmentType)
-        {
-            case EquipmentType.Blade:
-                symbol = "⚔️";
-                break;
-            case EquipmentType.Gun:
-                symbol = "🔫";
-                break;
-            case EquipmentType.Staff:
-                symbol = "🧙‍";
-                break;
-            case EquipmentType.Armor:
-                symbol = "🧥";
-                break;
-            case EquipmentType.Aura:
-                symbol = "🛡️";
-                break;
-        }
-
-        return symbol;
-    }
-
     private void EquipSelectedItem()
     {
         ProjectPioneerGame.EquipEquipment(_selectedEquipment.Equipment, ProjectPioneerGame.Hero);
@@ -223,10 +198,5 @@ Credits: @ProjectPioneerGame.GetCredits()
         {
             _statsHeroEquipment = null;
         }
-    }
-
-    private string GetItemStyle(EquipmentDisplay equipmentDisplay)
-    {
-        return (_selectedEquipment.Index == equipmentDisplay.Index && _selectedEquipment.Equipment == equipmentDisplay.Equipment) ? "btn btn-info" : "btn btn-warning";
     }
 }
