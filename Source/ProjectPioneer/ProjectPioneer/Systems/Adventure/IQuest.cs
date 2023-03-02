@@ -20,6 +20,7 @@ namespace ProjectPioneer.Systems.Adventure
 		void StartQuest(Stats comparedStats);
 		void QuestTimerElapsed(object? sender, ElapsedEventArgs e);
 		bool IsProgressReadyForLootChance();
+		void AttemptLootChance();
 		void CompleteQuest();
 		void PauseQuest();
 		void CancelQuest();

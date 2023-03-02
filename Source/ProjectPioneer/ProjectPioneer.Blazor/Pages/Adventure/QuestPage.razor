@@ -139,7 +139,11 @@ else
         //if (_currentLootCount < _quest.OnGoingQuest.LootedEquipment.Count)
         {
             //_currentLootCount++;
-            await PlaySound("/sounds/Windows_Balloon.wav", 1000).ConfigureAwait(false);
+            _quest.AttemptLootChance();
+            if (!_quest.IsQuestCompleted())
+            {
+                await PlaySound("/sounds/Windows_Balloon.wav", 1000).ConfigureAwait(false);
+            }
         }
     }
 
@@ -147,6 +151,7 @@ else
     {
         _soundSrcUrl = srcUrl;
         _hiddenSound = false;
+        await base.InvokeAsync(StateHasChanged);
         await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
     }

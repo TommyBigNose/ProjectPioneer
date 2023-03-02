@@ -84,7 +84,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			IncrementForSimulatedSeconds(60);
 			for (int i = 0; i < expectedAttemptedLootCount; i++)
 			{
-				_sut.QuestTimerElapsed(null, null);
+				_sut.AttemptLootChance();
 			}
 
 			// Act
@@ -246,10 +246,15 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 
 			IncrementForSimulatedSeconds(60);
 			_sut.QuestTimerElapsed(null, null);
+			_sut.AttemptLootChance();
 			_sut.QuestTimerElapsed(null, null);
+			_sut.AttemptLootChance();
 			_sut.QuestTimerElapsed(null, null);
+			_sut.AttemptLootChance();
 			_sut.QuestTimerElapsed(null, null);
+			_sut.AttemptLootChance();
 			_sut.QuestTimerElapsed(null, null);
+			_sut.AttemptLootChance();
 
 			// Act
 			var result = _sut.OnGoingQuest.LootedEquipment.ToList();
@@ -283,6 +288,31 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			{
 				Assert.That(result1, Is.False, "Quest is ready to loot too soon");
 				Assert.That(result2, Is.True, "Quest is not ready to loot despite enough time passing");
+			});
+		}
+
+		[TestCase(1)]
+		[TestCase(2)]
+		public void Should_AddToLoot_When_Prompted(int questLevel)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+
+			// Act
+			_sut.AttemptLootChance();
+			int initialLootCount = _sut.OnGoingQuest.LootedEquipment.Count;
+			IncrementForSimulatedSeconds(60);
+			_sut.AttemptLootChance();
+			int resultingLootCount = _sut.OnGoingQuest.LootedEquipment.Count;
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(initialLootCount, Is.EqualTo(0), "Quest attempted to a loot chance despite progress not being far enough");
+				Assert.That(resultingLootCount, Is.EqualTo(1), "Quest didn't get any loot chances despite progress being far enough");
 			});
 		}
 

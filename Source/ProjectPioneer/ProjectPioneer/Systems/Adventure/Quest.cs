@@ -113,15 +113,24 @@ namespace ProjectPioneer.Systems.Adventure
 		public void QuestTimerElapsed(object? sender, ElapsedEventArgs e)
 		{
 			OnGoingQuest.ProgressBar.IncrementProgressBar();
-			if (IsProgressReadyForLootChance())
-			{
-				OnGoingQuest.LootedEquipment.Add(RollDiceForLoot());
-			}
+			// TODO: I think this needs to be called instead because it's being called extra due to UI async vs this being sync
+			//if (IsProgressReadyForLootChance())
+			//{
+			//	OnGoingQuest.LootedEquipment.Add(RollDiceForLoot());
+			//}
 		}
 
 		public bool IsProgressReadyForLootChance()
 		{
 			return OnGoingQuest.ProgressBar.Value >= (OnGoingQuest.LootIntervals * Math.Max(OnGoingQuest.LootedEquipment.Count, 1));
+		}
+
+		public void AttemptLootChance()
+		{
+			if (IsProgressReadyForLootChance())
+			{
+				OnGoingQuest.LootedEquipment.Add(RollDiceForLoot());
+			}
 		}
 
 		public void CompleteQuest()
