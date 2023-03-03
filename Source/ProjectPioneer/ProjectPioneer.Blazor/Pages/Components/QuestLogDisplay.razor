@@ -12,16 +12,41 @@
 <br />
 <br />
 
-@foreach (var quest in ProjectPioneerGame.GetAllQuests())
-{
-    <button type="button" class="btn @GetItemStyle(quest)" @onclick="@(_ => SetDisplayedItem(quest))">
-        @(IsQuestCompleted(quest) ? "✅" : "❌") | @quest.QuestInfo.Name
-    </button>
-    <br />
-    @quest.QuestInfo.Description
-    <br />
-    <hr />
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quest</th>
+            <th>Compared Stats</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+               @foreach (var quest in ProjectPioneerGame.GetAllQuests())
+                {
+                    <button type="button" class="btn @GetItemStyle(quest)" @onclick="@(_ => SetDisplayedItem(quest))">
+                        @(IsQuestCompleted(quest) ? "✅" : "❌") | @quest.QuestInfo.Name
+                    </button>
+                    <br />
+                    @quest.QuestInfo.Description
+                    <br />
+                    <hr />
+                }
+            </td>
+            <td>
+                @if (_selectedQuest != null && _selectedQuest.QuestInfo != null)
+                {
+                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
 
 @code {
     [Parameter]
