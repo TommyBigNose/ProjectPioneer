@@ -498,6 +498,31 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			});
 		}
 
+		[TestCase(1, true)]
+		[TestCase(1, false)]
+		public void Should_IndicateRareLoot_When_Prompted(int questLevel, bool expectedRare)
+		{
+			// Arrange
+			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
+			_sut.QuestInfo.TotalChancesForLoot = 5;
+			_sut.QuestInfo.ChanceForRareLoot = (expectedRare) ? 1000 : 0;
+			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			_sut.StartQuest(comparedStats);
+			int finalQuestLengthInSeconds = _sut.OnGoingQuest.FinalQuestLengthInSeconds;
+
+			// Act
+			IncrementForSimulatedSeconds(60);
+			_sut.QuestTimerElapsed(null, null);
+			_sut.AttemptLootChance();
+			var result = _sut.IsLastLootRare();
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result, Is.EqualTo(expectedRare), "Quest did not indicate whether or not loot was rare when it should have.");
+			});
+		}
+
 		[TestCase(1, 1000, 0, 100)]
 		[TestCase(1, 0, 1000, 100)]
 		[TestCase(1, 500, 500, 100)]

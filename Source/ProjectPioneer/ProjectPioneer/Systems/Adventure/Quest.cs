@@ -175,6 +175,20 @@ namespace ProjectPioneer.Systems.Adventure
 				_status == QuestStatus.OnGoing);
 		}
 
+		public bool IsLastLootRare()
+		{
+			IEquipment? lastEquipment = _onGoingQuest.LootedEquipment.Last();
+			if (lastEquipment != null)
+			{
+				if(lastEquipment.ID == QuestInfo.RareLoot.ID)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		public IEquipment? RollDiceForLoot()
 		{
 			IEquipment? equipment = null;

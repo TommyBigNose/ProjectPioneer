@@ -28,6 +28,7 @@ namespace ProjectPioneer.Systems.Adventure
 		void ResetQuest();
 		bool IsQuestCompleted();
 		bool IsQuestOnGoing();
+		bool IsLastLootRare();
 		IEquipment? RollDiceForLoot();
 	}
 
