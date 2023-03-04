@@ -139,10 +139,19 @@ else
         //if (_currentLootCount < _quest.OnGoingQuest.LootedEquipment.Count)
         {
             //_currentLootCount++;
+            //_quest.QuestInfo.ChanceForRareLoot = 1000; // For testing noises =) 
             _quest.AttemptLootChance();
             if (!_quest.IsQuestCompleted())
             {
-                await PlaySound("/sounds/Windows_Balloon.wav", 1000).ConfigureAwait(false);
+                if (_quest.IsLastLootRare())
+                {
+                    await PlaySound("/sounds/Windows_Tada.wav", 1000).ConfigureAwait(false);
+                }
+                else
+                {
+                    await PlaySound("/sounds/Windows_Balloon.wav", 1000).ConfigureAwait(false);
+                }
+
             }
         }
     }
