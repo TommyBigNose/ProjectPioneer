@@ -47,6 +47,10 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
     Collect Rewards
 </button>
 
+<button type="button" class="btn btn-danger" @onclick="@(_ => CancelQuest())">
+    Cancel Quest
+</button>
+
 <br />
 <br />
 @*<style>
@@ -130,6 +134,13 @@ else
     {
         ProjectPioneerGame.RewardHeroForQuest(_quest);
         ProjectPioneerGame.CompleteQuest(_quest);
+        NavManager.NavigateTo($"/Game/MainGame");
+    }
+
+    private async void CancelQuest()
+    {
+        _quest.CancelQuest();
+        await PlaySound("/sounds/Windows_Notify.wav", 1500).ConfigureAwait(false);
         NavManager.NavigateTo($"/Game/MainGame");
     }
 
