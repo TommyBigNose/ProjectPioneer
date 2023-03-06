@@ -43,11 +43,11 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 
 <br />
 
-<button type="button" class="btn btn-warning" @onclick="@(_ => CollectRewards())">
+<button type="button" class="btn btn-warning" disabled="@(!_quest.IsQuestCompleted())" @onclick="@(_ => CollectRewards())">
     Collect Rewards
 </button>
 
-<button type="button" class="btn btn-danger" @onclick="@(_ => CancelQuest())">
+<button type="button" class="btn btn-danger" disabled="@(_quest.IsQuestCompleted())" @onclick="@(_ => CancelQuest())">
     Cancel Quest
 </button>
 
