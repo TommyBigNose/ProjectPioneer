@@ -1,0 +1,40 @@
+﻿@using ProjectPioneer.Blazor.Models;
+@using ProjectPioneer.Systems.Equipment;
+@using ProjectPioneer.Systems.Statistics;
+
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+@inject ILogger<SaveLoadMenu> Logger
+
+<h3>Save Load Menu</h3>
+
+<table>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-primary" @onclick="@(_ => Save())">
+                Save
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-success" @onclick="@(_ => Load())">
+                Load
+            </button>
+        </td>
+    </tr>
+</table>
+
+@code {
+    [Parameter]
+    public EventCallback<string> ClickCallback { get; set; }
+
+    private async void Save()
+    {
+        ProjectPioneerGame.SaveData();
+        await ClickCallback.InvokeAsync();
+    }
+
+    private async void Load()
+    {
+        ProjectPioneerGame.LoadSavedData();
+        await ClickCallback.InvokeAsync();
+    }
+}

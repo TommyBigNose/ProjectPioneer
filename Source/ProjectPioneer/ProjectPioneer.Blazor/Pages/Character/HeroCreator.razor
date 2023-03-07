@@ -9,6 +9,8 @@
 
 <h3>Hero Creator</h3>
 
+<ProjectPioneer.Blazor.Pages.Components.SaveLoadMenu ClickCallback="@Callback" />
+
 <br />
 Continue with this Hero?
 <br />
@@ -135,6 +137,12 @@ Continue with this Hero?
         ProjectPioneerGame.SetUpHero(heroInput.Name, heroInput.Job, heroInput.Implant);
         
         Logger.LogInformation("Created Hero with {0}, {1}, {1}", new object[] { heroInput.Name, heroInput.Job.Name, heroInput.Implant.Name });
+    }
+
+    private void Callback()
+    {
+        base.InvokeAsync(StateHasChanged);
+        Logger.LogInformation("HeroCreator Callback invoked");
     }
 
     public class HeroInput
