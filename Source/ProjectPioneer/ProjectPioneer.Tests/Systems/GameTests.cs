@@ -20,7 +20,7 @@ namespace ProjectPioneer.Tests.Systems
 		private IShop _shop;
 		private IQuestLog _questLog;
 		private ISaveDataReader _saveDataReader;
-		private IFileSystem _fileSystem;
+		//private IFileSystem _fileSystem;
 		private IDiceSystem _diceSystem;
 
 		private IGame _sut;
@@ -34,10 +34,10 @@ namespace ProjectPioneer.Tests.Systems
 			_shop = new Shop(_dataSource);
 			_questLog = new QuestLog();
 			_saveDataReader = new JsonSaveDataReader(_dataSource);
-			_fileSystem = new LocalFileSystem(_saveDataReader);
+			//_fileSystem = new LocalFileSystem(_saveDataReader);
 			_diceSystem = new DiceSystem();
 
-			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog, _fileSystem, _diceSystem);
+			_sut = new Game(_dataSource, _heroBuilder, _inventory, _shop, _questLog, _saveDataReader, _diceSystem);
 		}
 
 		[TearDown]
@@ -549,18 +549,19 @@ namespace ProjectPioneer.Tests.Systems
 		}
 
 		[Test]
-		public void Should_CreateASaveFile_When_SavingForTheFirstTime()
+		public void Should_ReturnSaveData_When_Saving()
+		//public void Should_CreateASaveFile_When_SavingForTheFirstTime()
 		{
 			// Arrange
 			_sut.SetUpHero("TestHeroName", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First());
 
 			// Act
-			_sut.SaveData();
+			var result = _sut.SaveData();
 
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(File.Exists(_FullFilePath), Is.True, "Game did not create a save file");
+				Assert.That(string.IsNullOrEmpty(result), Is.False, "Game did not return saved data as a string");
 			});
 		}
 
@@ -569,33 +570,35 @@ namespace ProjectPioneer.Tests.Systems
 		{
 			// Arrange
 			_sut.SetUpHero("TestHeroName", _dataSource.GetAllJobs().First(), _dataSource.GetAllImplants().First());
-			_sut.SaveData();
+			
+			string saveDataString = _sut.SaveData();
+
 			_sut.SetUpHero("SecondHero", _dataSource.GetAllJobs().Last(), _dataSource.GetAllImplants().Last());
 			IHero heroBeforeLoading = _sut.Hero;
 			_sut.AddEquipment(_dataSource.GetAllWeapons().First());
 			_sut.CompleteQuest(_dataSource.GetAllQuests().First());
 
 			// Act
-			_sut.LoadSavedData();
+			_sut.LoadSavedData(saveDataString);
 
 			// Assert
 			Assert.Multiple(() =>
 			{
-				Assert.That(File.Exists(_FullFilePath), Is.True, "Game did not create a save file");
+				//Assert.That(File.Exists(_FullFilePath), Is.True, "Game did not create a save file");
 				Assert.That(_sut.Hero.Name, Is.Not.EqualTo(heroBeforeLoading.Name), "Game did not overwrite Hero");
 				Assert.That(_sut.GetInventory().Count(), Is.EqualTo(0), "Game did not overwrite Inventory");
 				Assert.That(_sut.GetCompletedQuests().Count(), Is.EqualTo(0), "Game did not overwrite QuestLog");
 			});
 		}
 
-		[Test]
-		public void Should_ThrowFileNotFoundException_When_LoadingWithNoFile()
-		{
-			// Arrange
-			// Act
-			// Assert
-			Assert.Throws<FileNotFoundException>(() => _sut.LoadSavedData(), "Game did not throw an exception when attempting to load a file that isn't there");
-		}
+		//[Test]
+		//public void Should_ThrowFileNotFoundException_When_LoadingWithNoFile()
+		//{
+		//	// Arrange
+		//	// Act
+		//	// Assert
+		//	Assert.Throws<FileNotFoundException>(() => _sut.LoadSavedData(), "Game did not throw an exception when attempting to load a file that isn't there");
+		//}
 
 		[TestCaseSource(nameof(GetDiceSystemMinMaxesValid))]
 		public void Should_GetRandomNumberFromDiceRoll_When_MinIsLessThanMax(int min, int max)

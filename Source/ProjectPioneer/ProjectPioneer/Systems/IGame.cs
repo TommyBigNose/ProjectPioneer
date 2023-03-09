@@ -51,8 +51,8 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Data
-		void SaveData();
-		void LoadSavedData();
+		string SaveData();
+		void LoadSavedData(string saveDataString);
 		#endregion
 
 		#region System

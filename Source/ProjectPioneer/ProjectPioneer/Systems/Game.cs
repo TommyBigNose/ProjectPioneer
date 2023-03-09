@@ -22,10 +22,10 @@ namespace ProjectPioneer.Systems
 
 		private readonly IDataSource _dataSource;
 		private readonly IHeroBuilder _heroBuilder;
-		private readonly IFileSystem _fileSystem;
+		private readonly ISaveDataReader _saveDataReader;
 		private readonly IDiceSystem _diceSystem;
 
-		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, IFileSystem fileSystem, IDiceSystem diceSystem)
+		public Game(IDataSource dataSource, IHeroBuilder heroBuilder, IInventory inventory, IShop shop, IQuestLog questLog, ISaveDataReader saveDataReader, IDiceSystem diceSystem)
 		{
 			_dataSource = dataSource;
 			_heroBuilder = heroBuilder;
@@ -34,7 +34,7 @@ namespace ProjectPioneer.Systems
 			_shop = shop;
 
 			_questLog = questLog;
-			_fileSystem = fileSystem;
+			_saveDataReader = saveDataReader;
 			_diceSystem = diceSystem;
 		}
 
@@ -184,7 +184,7 @@ namespace ProjectPioneer.Systems
 		#endregion
 
 		#region Data
-		public void SaveData()
+		public string SaveData()
 		{
 			var saveData = new SaveData()
 			{
@@ -192,12 +192,13 @@ namespace ProjectPioneer.Systems
 				Inventory = _inventory,
 				QuestLog = QuestLog,
 			};
-			_fileSystem.SaveGame(saveData);
+
+			return _saveDataReader.GetStringFromSaveData(saveData);
 		}
 
-		public void LoadSavedData()
+		public void LoadSavedData(string saveDataString)
 		{
-			var saveData = _fileSystem.LoadGame();
+			var saveData = _saveDataReader.GetSaveDataFromString(saveDataString);
 			_hero = saveData.Hero;
 			_inventory = saveData.Inventory;
 			_questLog = saveData.QuestLog;

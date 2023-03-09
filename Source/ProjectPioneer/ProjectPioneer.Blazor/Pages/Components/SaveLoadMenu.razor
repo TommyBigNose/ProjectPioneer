@@ -2,6 +2,7 @@
 @using ProjectPioneer.Systems.Equipment;
 @using ProjectPioneer.Systems.Statistics;
 
+@inject IJSRuntime JSRuntime
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 @inject ILogger<SaveLoadMenu> Logger
 
@@ -28,13 +29,15 @@
 
     private async void Save()
     {
-        ProjectPioneerGame.SaveData();
+        string savedData = ProjectPioneerGame.SaveData();
+        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "saveData", savedData);
         await ClickCallback.InvokeAsync();
     }
 
     private async void Load()
     {
-        ProjectPioneerGame.LoadSavedData();
+        string saveDataString = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "saveData");
+        ProjectPioneerGame.LoadSavedData(saveDataString);
         await ClickCallback.InvokeAsync();
     }
 }
