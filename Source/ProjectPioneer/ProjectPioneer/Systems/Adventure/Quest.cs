@@ -69,6 +69,7 @@ namespace ProjectPioneer.Systems.Adventure
 
 		public int GetSecondReductionFromStatComparison(Stats comparedStats)
 		{
+			// TODO: This should be calculated differently.  If Defense wins, it shouldn't be negative?
 			int secondReduction = 0;
 
 			secondReduction += comparedStats.Level;
