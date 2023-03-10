@@ -137,4 +137,22 @@
 			return statList;
 		}
 	}
+
+	public enum StatType
+	{
+		Level,
+		PhysicalAttack,
+		PhysicalDefense,
+		MagicalAttack,
+		MagicalDefense,
+		Speed,
+		FireAttack,
+		FireDefense,
+		IceAttack,
+		IceDefense,
+		LightningAttack,
+		LightningDefense,
+		EarthAttack,
+		EarthDefense,
+	}
 }
