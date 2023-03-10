@@ -36,10 +36,6 @@ Credits: @ProjectPioneerGame.GetCredits()
             <td>
                @foreach (var item in _equipmentCatalog)
                 {
-                    @*<button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
-                        @GetEquipmentSymbol(item.Equipment) | @item.Equipment.GetSellableValue(): @item.Equipment.Name | @(CanEquip(item.Equipment) ? "✅" : "❌")
-                    </button>*@
-
                     <ProjectPioneer.Blazor.Pages.Elements.EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=false/>
                     <br />
                 }
@@ -71,8 +67,6 @@ Credits: @ProjectPioneerGame.GetCredits()
         _selectedEquipment = new();
         _inventory = new();
         Refresh();
-        //_statsHeroEquipment = new();
-        //TrySetInitialEquipment();
     }
 
     public void Refresh()
@@ -80,8 +74,6 @@ Credits: @ProjectPioneerGame.GetCredits()
         _inventory.Clear();
         _equipmentCatalog.Clear();
         _inventory = ProjectPioneerGame.GetInventory().ToList();
-
-        //TrySetInitialEquipment();
 
         for (int i = 0; i < _inventory.Count; i++)
         {

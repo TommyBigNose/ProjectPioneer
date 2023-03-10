@@ -23,9 +23,6 @@
             <td>
                 @foreach (var item in _equipmentCatalog)
                 {
-                    @*<button type="button" class="btn @GetItemStyle(item)" @onclick="@(_ => SetDisplayedItem(item))">
-                        @GetEquipmentSymbol(item.Equipment) | @item.Equipment.GetPurchaseValue(): @item.Equipment.Name | @(CanEquip(item.Equipment) ? "✅" : "❌")
-                    </button>*@
                     <ProjectPioneer.Blazor.Pages.Elements.EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true />
                     <br />
                 }
