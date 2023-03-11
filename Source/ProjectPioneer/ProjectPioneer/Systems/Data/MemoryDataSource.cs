@@ -420,6 +420,11 @@ namespace ProjectPioneer.Systems.Data
 					ChanceForNormalLoot = 600,
 					ChanceForRareLoot = 50,
 					TotalChancesForLoot = 2,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.FireAttack
+					},
 					Stats = new Stats()
 					{
 						Level = 1,
@@ -449,6 +454,11 @@ namespace ProjectPioneer.Systems.Data
 					ChanceForNormalLoot = 600,
 					ChanceForRareLoot = 50,
 					TotalChancesForLoot = 2,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.FireAttack
+					},
 					Stats = new Stats()
 					{
 						Level = 2,
@@ -478,6 +488,11 @@ namespace ProjectPioneer.Systems.Data
 					ChanceForNormalLoot = 600,
 					ChanceForRareLoot = 50,
 					TotalChancesForLoot = 2,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.IceAttack
+					},
 					Stats = new Stats()
 					{
 						Level = 4,
