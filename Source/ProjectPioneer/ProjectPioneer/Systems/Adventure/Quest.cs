@@ -72,20 +72,47 @@ namespace ProjectPioneer.Systems.Adventure
 			// TODO: This should be calculated differently.  If Defense wins, it shouldn't be negative?
 			int secondReduction = 0;
 
-			secondReduction += comparedStats.Level;
-			secondReduction += comparedStats.PhysicalAttack;
-			secondReduction += comparedStats.PhysicalDefense;
-			secondReduction += comparedStats.MagicalAttack;
-			secondReduction += comparedStats.MagicalDefense;
-			secondReduction += comparedStats.Speed;
-			secondReduction += comparedStats.FireAttack;
-			secondReduction += comparedStats.FireDefense;
-			secondReduction += comparedStats.IceAttack;
-			secondReduction += comparedStats.IceDefense;
-			secondReduction += comparedStats.LightningAttack;
-			secondReduction += comparedStats.LightningDefense;
-			secondReduction += comparedStats.EarthAttack;
-			secondReduction += comparedStats.EarthDefense;
+			if(QuestInfo.StatTypeMultipliers.Contains(StatType.Level)) secondReduction += (int)Math.Ceiling(comparedStats.Level * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.Level;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.PhysicalAttack)) secondReduction += (int)Math.Ceiling(comparedStats.PhysicalAttack * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.PhysicalAttack;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.PhysicalDefense)) secondReduction += (int)Math.Ceiling(comparedStats.PhysicalDefense * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.PhysicalDefense;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.MagicalAttack)) secondReduction += (int)Math.Ceiling(comparedStats.MagicalAttack * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.MagicalAttack;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.MagicalDefense)) secondReduction += (int)Math.Ceiling(comparedStats.MagicalDefense * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.MagicalDefense;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.Speed)) secondReduction += (int)Math.Ceiling(comparedStats.Speed * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.Speed;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.FireAttack)) secondReduction += (int)Math.Ceiling(comparedStats.FireAttack * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.FireAttack;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.FireDefense)) secondReduction += (int)Math.Ceiling(comparedStats.FireDefense * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.FireDefense;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.IceAttack)) secondReduction += (int)Math.Ceiling(comparedStats.IceAttack * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.IceAttack;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.IceDefense)) secondReduction += (int)Math.Ceiling(comparedStats.IceDefense * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.IceDefense;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.LightningAttack)) secondReduction += (int)Math.Ceiling(comparedStats.LightningAttack * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.LightningAttack;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.LightningDefense)) secondReduction += (int)Math.Ceiling(comparedStats.LightningDefense * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.LightningDefense;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.EarthAttack)) secondReduction += (int)Math.Ceiling(comparedStats.EarthAttack * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.EarthAttack;
+
+			if (QuestInfo.StatTypeMultipliers.Contains(StatType.EarthDefense)) secondReduction += (int)Math.Ceiling(comparedStats.EarthDefense * QuestInfo.StatTypeMultiplierRatio);
+			else secondReduction += comparedStats.EarthDefense;
 
 			return secondReduction;
 		}
