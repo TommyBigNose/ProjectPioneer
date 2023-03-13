@@ -170,11 +170,13 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 
 		[TestCase(1)]
 		[TestCase(2)]
+		[TestCase(4)]
 		public void Should_GetReductionInSeconds_When_GivenStats(int questLevel)
 		{
 			// Arrange
 			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
 			Stats comparedStats = GetStatsScaledByLevel(questLevel);
+			int multiplierSum = (int)Math.Ceiling((_sut.QuestInfo.StatTypeMultipliers.Count * questLevel) * _sut.QuestInfo.StatTypeMultiplierRatio);
 
 			// 14 stats, scaling appropriately 
 			int expectedSeconds = 14 * (2 * questLevel);
@@ -183,7 +185,7 @@ namespace ProjectPioneer.Tests.Systems.Adventure
 			var result = _sut.GetSecondReductionFromStatComparison(comparedStats);
 
 			// Assert
-			Assert.That(result, Is.EqualTo(expectedSeconds), "Quest second reduction calculation did not return as expected");
+			Assert.That(result - multiplierSum, Is.EqualTo(expectedSeconds), "Quest second reduction calculation did not return as expected");
 		}
 
 		[TestCase(0)]
