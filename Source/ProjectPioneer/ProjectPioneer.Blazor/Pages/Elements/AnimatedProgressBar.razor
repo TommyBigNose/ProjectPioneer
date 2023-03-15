@@ -1,0 +1,79 @@
+﻿@using ProjectPioneer.Blazor.Models;
+@using ProjectPioneer.Systems.Equipment;
+@using ProjectPioneer.Systems.Statistics;
+
+@inject ILogger<AnimatedProgressBar> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<div class="progress" style="width: 40%">
+    <div class="progress-bar bg-success" aria-valuenow="@_currentValue" aria-valuemax="1000.0">
+        
+    </div>
+    <div class="progress-bar bg-warning progress-bar-striped" aria-valuenow="@_addedValue" aria-valuemax="1000.0">
+        
+    </div>
+    @*<div class="progress-bar bg-danger" aria-valuenow="@_currentValue" aria-valuemax="1000.0">
+        
+    </div>*@
+</div>
+
+<div class="progress" style="width: 40%">
+    <div class="progress-bar bg-success" style="width: @_currentValuePercent">
+    </div>
+    <div class="progress-bar bg-warning progress-bar-striped" style="width: @_addedValuePercent">
+    </div>
+    @*<div class="progress-bar bg-danger" style="width: 10%">
+    </div>*@
+</div>
+
+<div class="progress" style="width: 40%">
+    <div class="progress-bar bg-success" style="width: 35%">
+        
+    </div>
+    <div class="progress-bar bg-warning progress-bar-striped" style="width: 20%">
+        
+    </div>
+    <div class="progress-bar bg-danger" style="width: 10%">
+        
+    </div>
+</div>
+
+<table>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f))">
+                Add Value
+            </button>
+        </td>
+    </tr>
+</table>
+
+@code {
+    private float _currentValue = 0.0f;
+    private string _currentValuePercent = "0%";
+    private float _addedValue = 0.0f;
+    private string _addedValuePercent = "0%";
+
+    private async Task AddValue(float value)
+    {
+        //await Task.Yield();
+        int currentValuePercent = (int)((_currentValue / 1000.0f)*100);
+        int addedValuePercent = (int)((value / 1000.0f)*100);
+        _currentValuePercent = $"{currentValuePercent}%";
+        _addedValuePercent = $"{addedValuePercent}%";
+        Logger.LogInformation($"Current Percent value: {_currentValuePercent}");
+        Logger.LogInformation($"Added Percent value: {_addedValuePercent}");
+        Logger.LogInformation($"Adding value: {value}");
+        _addedValue += value;
+        _currentValue += _addedValue;
+        _addedValue = 0.0f;
+        Logger.LogInformation($"Current value: {_currentValue}");
+        //_currentValuePercent = $"{_currentValue / 1000.0f}%";
+        await Task.Delay(75);
+        currentValuePercent = (int)((_currentValue / 1000.0f) * 100);
+        addedValuePercent = 0;
+        _currentValuePercent = $"{currentValuePercent}%";
+        _addedValuePercent = $"{addedValuePercent}%";
+        await base.InvokeAsync(StateHasChanged);
+    }
+}
