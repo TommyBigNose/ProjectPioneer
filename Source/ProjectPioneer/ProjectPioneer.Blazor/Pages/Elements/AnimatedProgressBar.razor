@@ -41,8 +41,16 @@
 <table>
     <tr>
         <td>
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f))">
-                Add Value
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f, 150))">
+                Add Value short
+            </button>
+
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f, 500))">
+                Add Value medium
+            </button>
+
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f, 750))">
+                Add Value long
             </button>
         </td>
     </tr>
@@ -50,30 +58,40 @@
 
 @code {
     private float _currentValue = 0.0f;
+    private float _maxValue = 1000.0f;
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
     private string _addedValuePercent = "0%";
 
-    private async Task AddValue(float value)
+    private async Task AddValue(float value, int timeBeforeFillms)
     {
-        //await Task.Yield();
-        int currentValuePercent = (int)((_currentValue / 1000.0f)*100);
-        int addedValuePercent = (int)((value / 1000.0f)*100);
-        _currentValuePercent = $"{currentValuePercent}%";
-        _addedValuePercent = $"{addedValuePercent}%";
-        Logger.LogInformation($"Current Percent value: {_currentValuePercent}");
-        Logger.LogInformation($"Added Percent value: {_addedValuePercent}");
-        Logger.LogInformation($"Adding value: {value}");
-        _addedValue += value;
-        _currentValue += _addedValue;
-        _addedValue = 0.0f;
-        Logger.LogInformation($"Current value: {_currentValue}");
-        //_currentValuePercent = $"{_currentValue / 1000.0f}%";
-        await Task.Delay(75);
-        currentValuePercent = (int)((_currentValue / 1000.0f) * 100);
-        addedValuePercent = 0;
-        _currentValuePercent = $"{currentValuePercent}%";
-        _addedValuePercent = $"{addedValuePercent}%";
-        await base.InvokeAsync(StateHasChanged);
+        if (_currentValue < _maxValue)
+        {
+            int currentValuePercent = (int)((_currentValue / 1000.0f) * 100);
+            int addedValuePercent = (int)((value / 1000.0f) * 100);
+            _currentValuePercent = $"{currentValuePercent}%";
+            _addedValuePercent = $"{addedValuePercent}%";
+            Logger.LogInformation($"Current Percent value: {_currentValuePercent}");
+            Logger.LogInformation($"Added Percent value: {_addedValuePercent}");
+            Logger.LogInformation($"Adding value: {value}");
+            _addedValue += value;
+            _currentValue += _addedValue;
+            if (_currentValue > _maxValue)
+            {
+                _currentValue = _maxValue;
+            }
+            _addedValue = 0.0f;
+            Logger.LogInformation($"Current value: {_currentValue}");
+            //_currentValuePercent = $"{_currentValue / 1000.0f}%";
+
+            // Basically how long it waits in-between filling the incoming filled zone
+            await Task.Delay(timeBeforeFillms);
+
+            currentValuePercent = (int)((_currentValue / 1000.0f) * 100);
+            addedValuePercent = 0;
+            _currentValuePercent = $"{currentValuePercent}%";
+            _addedValuePercent = $"{addedValuePercent}%";
+            await base.InvokeAsync(StateHasChanged);
+        }
     }
 }
