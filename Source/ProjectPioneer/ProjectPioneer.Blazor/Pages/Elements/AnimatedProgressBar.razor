@@ -6,7 +6,7 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <div class="progress" style="width: 40%">
-    <div class="progress-bar bg-success" aria-valuenow="@_currentValue" aria-valuemax="1000.0">
+    <div class="progress-bar bg-success" aria-valuenow="@CurrentValue" aria-valuemax="1000.0">
         
     </div>
     <div class="progress-bar bg-warning progress-bar-striped" aria-valuenow="@_addedValue" aria-valuemax="1000.0">
@@ -41,15 +41,15 @@
 <table>
     <tr>
         <td>
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f, 150))">
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue())">
                 Add Value short
             </button>
 
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f, 500))">
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue())">
                 Add Value medium
             </button>
 
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue(50.0f, 750))">
+            <button type="button" class="btn btn-warning" @onclick="@(_ => AddValue())">
                 Add Value long
             </button>
         </td>
@@ -57,37 +57,53 @@
 </table>
 
 @code {
-    private float _currentValue = 0.0f;
+    //[Parameter]
+    //public EventCallback<string> ClickCallback { get; set; }
+
+
+    [Parameter]
+    public float CurrentValue { get; set; }
+
+    [Parameter]
+    public float IncomingAdditionalValue { get; set; }
+
+    [Parameter]
+    public int FillInDelay_ms { get; set; }
+
     private float _maxValue = 1000.0f;
+
+    //private float _currentValue = 0.0f;
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
     private string _addedValuePercent = "0%";
 
-    private async Task AddValue(float value, int timeBeforeFillms)
+    private async Task AddValue()
+    //private async Task AddValue(float value)
+    //private async Task AddValue(float value, int timeBeforeFillms)
     {
-        if (_currentValue < _maxValue)
+        if (CurrentValue < _maxValue)
         {
-            int currentValuePercent = (int)((_currentValue / 1000.0f) * 100);
-            int addedValuePercent = (int)((value / 1000.0f) * 100);
+            int currentValuePercent = (int)((CurrentValue / 1000.0f) * 100);
+            int addedValuePercent = (int)((IncomingAdditionalValue / 1000.0f) * 100);
             _currentValuePercent = $"{currentValuePercent}%";
             _addedValuePercent = $"{addedValuePercent}%";
             Logger.LogInformation($"Current Percent value: {_currentValuePercent}");
             Logger.LogInformation($"Added Percent value: {_addedValuePercent}");
-            Logger.LogInformation($"Adding value: {value}");
-            _addedValue += value;
-            _currentValue += _addedValue;
-            if (_currentValue > _maxValue)
+            Logger.LogInformation($"Adding value: {IncomingAdditionalValue}");
+            _addedValue += IncomingAdditionalValue;
+            CurrentValue += _addedValue;
+            if (CurrentValue > _maxValue)
             {
-                _currentValue = _maxValue;
+                CurrentValue = _maxValue;
             }
             _addedValue = 0.0f;
-            Logger.LogInformation($"Current value: {_currentValue}");
+            Logger.LogInformation($"Current value: {CurrentValue}");
             //_currentValuePercent = $"{_currentValue / 1000.0f}%";
 
             // Basically how long it waits in-between filling the incoming filled zone
-            await Task.Delay(timeBeforeFillms);
+            await Task.Delay(FillInDelay_ms);
 
-            currentValuePercent = (int)((_currentValue / 1000.0f) * 100);
+            currentValuePercent = (int)((CurrentValue / 1000.0f) * 100);
             addedValuePercent = 0;
             _currentValuePercent = $"{currentValuePercent}%";
             _addedValuePercent = $"{addedValuePercent}%";
