@@ -5,17 +5,17 @@
 @inject ILogger<AnimatedProgressBar> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
-<div class="progress" style="width: 40%">
+@*<div class="progress" style="width: 40%">
     <div class="progress-bar bg-success" aria-valuenow="@CurrentValue" aria-valuemax="1000.0">
         
     </div>
     <div class="progress-bar bg-warning progress-bar-striped" aria-valuenow="@_addedValue" aria-valuemax="1000.0">
         
     </div>
-    @*<div class="progress-bar bg-danger" aria-valuenow="@_currentValue" aria-valuemax="1000.0">
+    <div class="progress-bar bg-danger" aria-valuenow="@_currentValue" aria-valuemax="1000.0">
         
-    </div>*@
-</div>
+    </div>
+</div>*@
 
 <div class="progress" style="width: 40%">
     <div class="progress-bar bg-success" style="width: @_currentValuePercent">
@@ -26,7 +26,7 @@
     </div>*@
 </div>
 
-<div class="progress" style="width: 40%">
+@*<div class="progress" style="width: 40%">
     <div class="progress-bar bg-success" style="width: 35%">
         
     </div>
@@ -36,7 +36,7 @@
     <div class="progress-bar bg-danger" style="width: 10%">
         
     </div>
-</div>
+</div>*@
 
 <table>
     <tr>
@@ -57,10 +57,6 @@
 </table>
 
 @code {
-    //[Parameter]
-    //public EventCallback<string> ClickCallback { get; set; }
-
-
     [Parameter]
     public float CurrentValue { get; set; }
 
@@ -72,14 +68,11 @@
 
     private float _maxValue = 1000.0f;
 
-    //private float _currentValue = 0.0f;
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
     private string _addedValuePercent = "0%";
 
-    private async Task AddValue()
-    //private async Task AddValue(float value)
-    //private async Task AddValue(float value, int timeBeforeFillms)
+    public async Task AddValue()
     {
         if (CurrentValue < _maxValue)
         {
@@ -98,7 +91,6 @@
             }
             _addedValue = 0.0f;
             Logger.LogInformation($"Current value: {CurrentValue}");
-            //_currentValuePercent = $"{_currentValue / 1000.0f}%";
 
             // Basically how long it waits in-between filling the incoming filled zone
             await Task.Delay(FillInDelay_ms);

@@ -1,6 +1,7 @@
 ﻿@page "/Adventure/QuestPage"
 @page "/Adventure/QuestPage/{QuestID}"
 
+@using ProjectPioneer.Blazor.Pages.Elements;
 @using ProjectPioneer.Systems.Adventure;
 @using System.Collections;
 @using System.Timers;
@@ -31,7 +32,10 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 <br />
 <br />
 
-<ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar CurrentValue=0.0f IncomingAdditionalValue=100.0f FillInDelay_ms=300 />
+<ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar @ref=_animatedQuestBar
+    CurrentValue=@_quest.OnGoingQuest.ProgressBar.Value 
+    IncomingAdditionalValue=@_quest.OnGoingQuest.ProgressBar.IncrementRate
+    FillInDelay_ms=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) />
 
 <br />
 <br />
@@ -94,6 +98,8 @@ else
     [Parameter]
     public string QuestID { get; set; }
 
+    private AnimatedProgressBar? _animatedQuestBar;
+
     private IQuest _quest;
     private int _currentLootCount = 0;
 
@@ -106,6 +112,8 @@ else
 
     protected override void OnInitialized()
     {
+        _animatedQuestBar = new AnimatedProgressBar();
+
         _quest = ProjectPioneerGame.GetAllQuests().First(_ => _.QuestInfo.ID == int.Parse(QuestID));
         _quest.OnGoingQuest.QuestTimer.Elapsed += TimerOnElapsed;
 
@@ -119,6 +127,7 @@ else
 
     private async void TimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
+        await _animatedQuestBar.AddValue();
         await base.InvokeAsync(StateHasChanged);
 
         if (!_quest.IsQuestCompleted())
