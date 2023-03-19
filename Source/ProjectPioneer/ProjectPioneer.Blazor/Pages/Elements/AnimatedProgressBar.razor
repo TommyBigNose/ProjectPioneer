@@ -76,13 +76,10 @@
     {
         if (CurrentValue < _maxValue)
         {
-            int currentValuePercent = (int)((CurrentValue / 1000.0f) * 100);
-            int addedValuePercent = (int)((IncomingAdditionalValue / 1000.0f) * 100);
+            int currentValuePercent = (int)((CurrentValue / _maxValue) * 100);
+            int addedValuePercent = (int)((IncomingAdditionalValue / _maxValue) * 100);
             _currentValuePercent = $"{currentValuePercent}%";
             _addedValuePercent = $"{addedValuePercent}%";
-            Logger.LogInformation($"Current Percent value: {_currentValuePercent}");
-            Logger.LogInformation($"Added Percent value: {_addedValuePercent}");
-            Logger.LogInformation($"Adding value: {IncomingAdditionalValue}");
             _addedValue += IncomingAdditionalValue;
             CurrentValue += _addedValue;
             if (CurrentValue > _maxValue)
@@ -90,12 +87,11 @@
                 CurrentValue = _maxValue;
             }
             _addedValue = 0.0f;
-            Logger.LogInformation($"Current value: {CurrentValue}");
 
             // Basically how long it waits in-between filling the incoming filled zone
             await Task.Delay(FillInDelay_ms);
 
-            currentValuePercent = (int)((CurrentValue / 1000.0f) * 100);
+            currentValuePercent = (int)((CurrentValue / _maxValue) * 100);
             addedValuePercent = 0;
             _currentValuePercent = $"{currentValuePercent}%";
             _addedValuePercent = $"{addedValuePercent}%";
