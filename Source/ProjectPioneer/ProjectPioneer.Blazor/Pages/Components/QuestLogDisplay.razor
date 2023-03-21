@@ -37,7 +37,7 @@
                 @if (_selectedQuest != null && _selectedQuest.QuestInfo != null)
                 {
                     <span>Stat Multiplier(s): @string.Join(',',_selectedQuest.QuestInfo.StatTypeMultipliers)</span>
-                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" />
+                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" Multipliers="@GetMultipliersAsStrings()" />
                 }
             </td>
         </tr>
@@ -92,5 +92,10 @@
     private void StartQuest()
     {
         NavManager.NavigateTo($"/Adventure/QuestPage/{_selectedQuest.QuestInfo.ID}");
+    }
+
+    private List<string> GetMultipliersAsStrings()
+    {
+        return _selectedQuest.QuestInfo.StatTypeMultipliers.Select(_ => _.ToString()).ToList();
     }
 }

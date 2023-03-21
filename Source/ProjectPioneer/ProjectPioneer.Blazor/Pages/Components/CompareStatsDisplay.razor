@@ -15,7 +15,15 @@
             <td>
                 @foreach (var stat in GetComparedStats())
                 {
-                    @GetExtractedStatType(stat) <span style="@GetStatColor(stat)">@GetStatNumber(stat)</span>
+                    if (Multipliers.Any() && Multipliers.Contains(@GetExtractedStatType(stat).Replace(" ", "")))
+                    {
+                        <b>@GetExtractedStatType(stat)</b>
+                    }
+                    else
+                    {
+                        @GetExtractedStatType(stat)
+                    }
+                    <text>&nbsp;</text><span style="@GetStatColor(stat)">@GetStatNumber(stat)</span>
                     <br />
                 }
             </td>
@@ -29,6 +37,9 @@
 
     [Parameter]
     public Stats Stats2 { get; set; }
+
+    [Parameter]
+    public List<string> Multipliers { get; set; } = new List<string>();
 
     private List<string> GetComparedStats()
     {
