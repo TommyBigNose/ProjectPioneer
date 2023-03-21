@@ -513,6 +513,40 @@ namespace ProjectPioneer.Systems.Data
 					NormalLoot = GetAllWeapons(),
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
 				},
+				new QuestInfo()
+				{
+					ID = 4,
+					Name = "Caves - Part 1",
+					Description = "Oh yay, caves with magma",
+					QuestLengthInSeconds = 120,
+					ChanceForNormalLoot = 600,
+					ChanceForRareLoot = 50,
+					TotalChancesForLoot = 4,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.FireDefense
+					},
+					Stats = new Stats()
+					{
+						Level = 6,
+						PhysicalAttack = 15,
+						PhysicalDefense = 6,
+						MagicalAttack = 12,
+						MagicalDefense = 8,
+						Speed = 5,
+						FireAttack = 15,
+						FireDefense = 15,
+						IceAttack = 0,
+						IceDefense = 0,
+						LightningAttack = 0,
+						LightningDefense = 0,
+						EarthAttack = 10,
+						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons(),
+					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
+				},
 			};
 
 			return questInfos;
