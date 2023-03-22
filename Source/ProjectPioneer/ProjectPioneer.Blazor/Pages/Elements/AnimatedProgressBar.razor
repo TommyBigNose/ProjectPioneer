@@ -58,15 +58,16 @@
 
 @code {
     [Parameter]
-    public float CurrentValue { get; set; }
+    public float CurrentValue { get; set; } = 0.0f;
 
     [Parameter]
-    public float IncomingAdditionalValue { get; set; }
+    public float IncomingAdditionalValue { get; set; } = 0.0f;
 
     [Parameter]
-    public int FillInDelay_ms { get; set; }
+    public int FillInDelay_ms { get; set; } = 300;
 
-    private float _maxValue = 1000.0f;
+    [Parameter]
+    public float MaxValue { get; set; } = 1000.0f;
 
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
@@ -74,24 +75,24 @@
 
     public async Task AddValue()
     {
-        if (CurrentValue < _maxValue)
+        if (CurrentValue < MaxValue)
         {
-            int currentValuePercent = (int)((CurrentValue / _maxValue) * 100);
-            int addedValuePercent = (int)((IncomingAdditionalValue / _maxValue) * 100);
+            int currentValuePercent = (int)((CurrentValue / MaxValue) * 100);
+            int addedValuePercent = (int)((IncomingAdditionalValue / MaxValue) * 100);
             _currentValuePercent = $"{currentValuePercent}%";
             _addedValuePercent = $"{addedValuePercent}%";
             _addedValue += IncomingAdditionalValue;
             CurrentValue += _addedValue;
-            if (CurrentValue > _maxValue)
+            if (CurrentValue > MaxValue)
             {
-                CurrentValue = _maxValue;
+                CurrentValue = MaxValue;
             }
             _addedValue = 0.0f;
 
             // Basically how long it waits in-between filling the incoming filled zone
             await Task.Delay(FillInDelay_ms);
 
-            currentValuePercent = (int)((CurrentValue / _maxValue) * 100);
+            currentValuePercent = (int)((CurrentValue / MaxValue) * 100);
             addedValuePercent = 0;
             _currentValuePercent = $"{currentValuePercent}%";
             _addedValuePercent = $"{addedValuePercent}%";

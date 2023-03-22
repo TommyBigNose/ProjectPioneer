@@ -35,7 +35,8 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 <ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar @ref=_animatedQuestBar
     CurrentValue=@_quest.OnGoingQuest.ProgressBar.Value 
     IncomingAdditionalValue=@_quest.OnGoingQuest.ProgressBar.IncrementRate
-    FillInDelay_ms=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) />
+    FillInDelay_ms=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) 
+    MaxValue="@_quest.OnGoingQuest.ProgressBar.ValueMax"/>
 
 <br />
 <br />
