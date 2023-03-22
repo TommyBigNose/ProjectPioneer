@@ -525,7 +525,7 @@ namespace ProjectPioneer.Systems.Data
 					StatTypeMultiplierRatio = 2.0f,
 					StatTypeMultipliers = new List<StatType>()
 					{
-						StatType.FireDefense
+						StatType.FireDefense, StatType.EarthAttack
 					},
 					Stats = new Stats()
 					{
