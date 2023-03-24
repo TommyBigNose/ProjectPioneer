@@ -191,6 +191,58 @@ namespace ProjectPioneer.Systems.Data
 					EarthAttack = 0,
 					EarthDefense = 0,
 				}),
+
+				new Weapon(104, "Pallasch", "A single edged energy blade designed by a local energy smith.  Support family owned businesses.", EquipmentType.Blade, new Stats()
+				{
+					Level= 3,
+					PhysicalAttack = 6,
+					PhysicalDefense = 0,
+					MagicalAttack = 0,
+					MagicalDefense = 0,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 0,
+					IceAttack = 0,
+					IceDefense = 0,
+					LightningAttack = 0,
+					LightningDefense = 5,
+					EarthAttack = 0,
+					EarthDefense = 0,
+				}),
+				new Weapon(105, "Blaster Rifle", "The CEO's kid named this one.  It's alright.", EquipmentType.Gun, new Stats()
+				{
+					Level= 3,
+					PhysicalAttack = 4,
+					PhysicalDefense = 0,
+					MagicalAttack = 0,
+					MagicalDefense = 0,
+					Speed = 4,
+					FireAttack = 5,
+					FireDefense = 0,
+					IceAttack = 0,
+					IceDefense = 0,
+					LightningAttack = 0,
+					LightningDefense = 0,
+					EarthAttack = 0,
+					EarthDefense = 0,
+				}),
+				new Weapon(106, "Hocus Wand", "Researchers still don't know how it works.  They spent dozens of minutes looking into it.", EquipmentType.Staff, new Stats()
+				{
+					Level= 3,
+					PhysicalAttack = 0,
+					PhysicalDefense = 0,
+					MagicalAttack = 6,
+					MagicalDefense = 0,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 0,
+					IceAttack = 0,
+					IceDefense = 0,
+					LightningAttack = 0,
+					LightningDefense = 0,
+					EarthAttack = 0,
+					EarthDefense = 5,
+				}),
 			};
 
 			return weapons;
