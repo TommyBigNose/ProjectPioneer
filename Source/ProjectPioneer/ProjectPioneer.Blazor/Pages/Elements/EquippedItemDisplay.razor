@@ -1,0 +1,49 @@
+﻿@using ProjectPioneer.Systems.Equipment;
+@inject ILogger<EquippedItemDisplay> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+@*<h3>EquippedItemDisplay</h3>*@
+<table class="table" style="width: 50%">
+@*    <thead>
+        <tr>
+            <th>Stats</th>
+        </tr>
+    </thead>*@
+    <tbody>
+        <tr>
+            <td>
+                @EquippedItem.Name | @EquippedItem.EquipmentType
+            </td>
+        </tr>
+        <tr>
+            <td>
+                P-Atk: @EquippedItem.Stats.PhysicalAttack |
+                P-Def: @EquippedItem.Stats.PhysicalDefense | 
+                M-Atk: @EquippedItem.Stats.MagicalAttack | 
+                M-Def: @EquippedItem.Stats.MagicalDefense | 
+                Spd: @EquippedItem.Stats.PhysicalDefense
+            </td>
+        </tr>
+        <tr>
+            <td>
+                🔥-Atk: @EquippedItem.Stats.FireAttack |
+                🔥-Def: @EquippedItem.Stats.FireDefense |
+                ❄️-Atk: @EquippedItem.Stats.IceAttack |
+                ❄️-Def: @EquippedItem.Stats.IceDefense
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ⚡-Atk: @EquippedItem.Stats.LightningAttack |
+                ⚡-Def: @EquippedItem.Stats.LightningDefense |
+                ⛰️-Atk: @EquippedItem.Stats.EarthAttack |
+                ⛰️-Def: @EquippedItem.Stats.EarthDefense
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+	[Parameter]
+	public IEquipment EquippedItem { get; set; }
+}

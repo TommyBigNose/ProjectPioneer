@@ -3,23 +3,25 @@
 
 <h3>Hero Display</h3>
 
-Hero Name: @Hero.Name
+Name: @Hero.Name
 <br />
-Hero Exp: @Hero.Exp | Hero Required Exp: @Hero.GetRequiredExp()
+Exp: @Hero.Exp / @Hero.GetRequiredExp()
 <br />
 <ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar @ref=_animatedQuestBar
     CurrentValue=@Hero.Exp
     MaxValue=@Hero.GetRequiredExp() />
 <br />
-Hero Job: @Hero.Job.Name
+Job: @Hero.Job.Name
 <br />
-Hero Implant: @Hero.Implant.Name
+Implant: @Hero.Implant.Name
 <br />
 Equipped Weapon: @Hero.EquippedWeapon.Name
 <br />
 Equipped Armor: @Hero.EquippedArmor.Name
 <br />
 Equipped Aura: @Hero.EquippedAura.Name
+<br />
+<EquippedItemDisplay EquippedItem="@Hero.EquippedWeapon"/>
 
 @code {
     [Parameter]

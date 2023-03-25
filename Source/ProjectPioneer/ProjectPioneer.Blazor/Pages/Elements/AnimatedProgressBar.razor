@@ -5,18 +5,6 @@
 @inject ILogger<AnimatedProgressBar> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
-@*<div class="progress" style="width: 40%">
-    <div class="progress-bar bg-success" aria-valuenow="@CurrentValue" aria-valuemax="1000.0">
-        
-    </div>
-    <div class="progress-bar bg-warning progress-bar-striped" aria-valuenow="@_addedValue" aria-valuemax="1000.0">
-        
-    </div>
-    <div class="progress-bar bg-danger" aria-valuenow="@_currentValue" aria-valuemax="1000.0">
-        
-    </div>
-</div>*@
-
 <div class="progress" style="width: 40%">
     <div class="progress-bar bg-success" style="width: @_currentValuePercent">
     </div>
