@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace ProjectPioneer.Systems.Commands
+﻿namespace ProjectPioneer.Systems.Commands
 {
 	public class CommandManager
 	{

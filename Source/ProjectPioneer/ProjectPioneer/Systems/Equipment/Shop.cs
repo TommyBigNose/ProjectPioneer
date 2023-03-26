@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Data;
-
-namespace ProjectPioneer.Systems.Equipment
+﻿namespace ProjectPioneer.Systems.Equipment
 {
 	public class Shop : IShop
 	{

@@ -1,8 +1,4 @@
-﻿using ProjectPioneer.Systems.Adventure;
-using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Equipment;
-
-namespace ProjectPioneer.Systems
+﻿namespace ProjectPioneer.Systems
 {
 	public interface IGame
 	{

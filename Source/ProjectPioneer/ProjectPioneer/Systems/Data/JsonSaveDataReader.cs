@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace ProjectPioneer.Systems.Data
+﻿namespace ProjectPioneer.Systems.Data
 {
 	public class JsonSaveDataReader : ISaveDataReader
 	{

@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Equipment;
-
-namespace ProjectPioneer.Systems.Adventure
+﻿namespace ProjectPioneer.Systems.Adventure
 {
 	public class OnGoingQuest
 	{

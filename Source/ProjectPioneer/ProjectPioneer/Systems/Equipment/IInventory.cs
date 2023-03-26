@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Character;
-
-namespace ProjectPioneer.Systems.Equipment
+﻿namespace ProjectPioneer.Systems.Equipment
 {
 	public interface IInventory
 	{

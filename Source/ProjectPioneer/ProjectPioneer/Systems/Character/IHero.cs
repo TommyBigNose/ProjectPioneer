@@ -1,7 +1,4 @@
-﻿using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Systems.Character
+﻿namespace ProjectPioneer.Systems.Character
 {
 	public interface IHero : ICalculableStats
 	{

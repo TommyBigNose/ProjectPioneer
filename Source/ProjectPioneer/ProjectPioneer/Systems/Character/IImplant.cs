@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Systems.Character
+﻿namespace ProjectPioneer.Systems.Character
 {
 	public interface IImplant
 	{

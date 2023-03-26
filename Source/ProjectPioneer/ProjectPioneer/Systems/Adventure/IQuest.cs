@@ -1,8 +1,4 @@
-﻿using System.Timers;
-using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Systems.Adventure
+﻿namespace ProjectPioneer.Systems.Adventure
 {
 	public interface IQuest
 	{

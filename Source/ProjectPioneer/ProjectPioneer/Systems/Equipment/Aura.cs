@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Systems.Equipment
+﻿namespace ProjectPioneer.Systems.Equipment
 {
 	public class Aura : IEquipment
 	{

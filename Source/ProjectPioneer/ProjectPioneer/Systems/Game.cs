@@ -1,10 +1,4 @@
-﻿using ProjectPioneer.Systems.Adventure;
-using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Dice;
-using ProjectPioneer.Systems.Equipment;
-
-namespace ProjectPioneer.Systems
+﻿namespace ProjectPioneer.Systems
 {
 	public class Game : IGame
 	{

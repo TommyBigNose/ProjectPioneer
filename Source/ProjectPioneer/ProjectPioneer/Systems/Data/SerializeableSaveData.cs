@@ -1,9 +1,4 @@
-﻿using ProjectPioneer.Systems.Adventure;
-using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Systems.Data
+﻿namespace ProjectPioneer.Systems.Data
 {
 	public class SerializeableSaveData
 	{
