@@ -52,7 +52,7 @@
     public float IncomingAdditionalValue { get; set; } = 0.0f;
 
     [Parameter]
-    public int FillInDelay_ms { get; set; } = 300;
+    public int FillInDelayInMs { get; set; } = 300;
 
     [Parameter]
     public float MaxValue { get; set; } = 1000.0f;
@@ -78,7 +78,7 @@
             _addedValue = 0.0f;
 
             // Basically how long it waits in-between filling the incoming filled zone
-            await Task.Delay(FillInDelay_ms);
+            await Task.Delay(FillInDelayInMs);
 
             currentValuePercent = (int)((CurrentValue / MaxValue) * 100);
             addedValuePercent = 0;

@@ -35,7 +35,7 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 <ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar @ref=_animatedQuestBar
     CurrentValue=@_quest.OnGoingQuest.ProgressBar.Value 
     IncomingAdditionalValue=@_quest.OnGoingQuest.ProgressBar.IncrementRate
-    FillInDelay_ms=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) 
+    FillInDelayInMs=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) 
     MaxValue="@_quest.OnGoingQuest.ProgressBar.ValueMax"/>
 
 <br />
@@ -62,26 +62,6 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
 
 <br />
 <br />
-@*<style>
-    /*progress::-moz-progress-bar {
-        background: yellow;
-    }
-
-    progress::-webkit-progress-value {
-        background: yellow;
-    }*/
-
-    progress {
-        appearance: progress-bar;
-        display: inline-block;
-        color: yellow;
-        background-color: yellow;
-    }
-</style>*@
-@*<progress value="@ProjectPioneerGame.Hero.Exp" max="@ProjectPioneerGame.GetRequiredExp()"></progress>
-<progress value="@ProjectPioneerGame.Hero.Exp" max="@ProjectPioneerGame.GetRequiredExp()"></progress>*@
-
-<br /><br />
 
 <button hidden="hidden" @onclick=@(async () => await PlaySound("/sounds/Windows_Balloon.wav", 1000))>Play</button>
 <button hidden="hidden" @onclick=@(async () => await PlaySound("/sounds/Windows_Logon.wav", 5000))>Play2</button>
