@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Adventure;
-
-namespace ProjectPioneer.Tests.Systems.Adventure
+﻿namespace ProjectPioneer.Tests.Systems.Adventure
 {
 	[TestFixture]
 	public class ProgressBarTests

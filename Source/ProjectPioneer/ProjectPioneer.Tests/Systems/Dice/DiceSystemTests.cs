@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using ProjectPioneer.Systems.Dice;
-
-namespace ProjectPioneer.Tests.Systems.Dice
+﻿namespace ProjectPioneer.Tests.Systems.Dice
 {
 	public class DiceSystemTests
 	{

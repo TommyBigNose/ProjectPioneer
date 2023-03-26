@@ -1,1 +1,10 @@
+global using System.Collections;
 global using NUnit.Framework;
+global using ProjectPioneer.Systems;
+global using ProjectPioneer.Systems.Adventure;
+global using ProjectPioneer.Systems.Character;
+global using ProjectPioneer.Systems.Commands;
+global using ProjectPioneer.Systems.Data;
+global using ProjectPioneer.Systems.Dice;
+global using ProjectPioneer.Systems.Equipment;
+global using ProjectPioneer.Systems.Statistics;

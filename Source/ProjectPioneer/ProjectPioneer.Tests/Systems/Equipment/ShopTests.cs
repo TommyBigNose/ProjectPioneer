@@ -1,7 +1,4 @@
-﻿using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Equipment;
-
-namespace ProjectPioneer.Tests.Systems.Equipment
+﻿namespace ProjectPioneer.Tests.Systems.Equipment
 {
 	[TestFixture]
 	public class ShopTests

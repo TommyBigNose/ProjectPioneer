@@ -1,10 +1,4 @@
-﻿using ProjectPioneer.Systems;
-using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Tests.Systems.Character
+﻿namespace ProjectPioneer.Tests.Systems.Character
 {
 	[TestFixture]
 	public class HeroTests

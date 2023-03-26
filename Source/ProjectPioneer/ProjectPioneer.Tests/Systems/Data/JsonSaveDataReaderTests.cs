@@ -1,10 +1,4 @@
-﻿using ProjectPioneer.Systems.Adventure;
-using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Tests.Systems.Data
+﻿namespace ProjectPioneer.Tests.Systems.Data
 {
 	[TestFixture]
 	public class JsonSaveDataReaderTests

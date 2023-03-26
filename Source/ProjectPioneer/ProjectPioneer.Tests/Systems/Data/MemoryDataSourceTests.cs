@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Data;
-
-namespace ProjectPioneer.Tests.Systems.Data
+﻿namespace ProjectPioneer.Tests.Systems.Data
 {
 	[TestFixture]
 	public class MemoryDataSourceTests

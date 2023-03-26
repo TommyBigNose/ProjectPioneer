@@ -1,10 +1,4 @@
-﻿using ProjectPioneer.Systems;
-using ProjectPioneer.Systems.Adventure;
-using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Tests.Systems.Adventure
+﻿namespace ProjectPioneer.Tests.Systems.Adventure
 {
 	[TestFixture]
 	internal class QuestTests

@@ -1,9 +1,4 @@
-﻿using ProjectPioneer.Systems.Character;
-using ProjectPioneer.Systems.Data;
-using ProjectPioneer.Systems.Equipment;
-using ProjectPioneer.Systems.Statistics;
-
-namespace ProjectPioneer.Tests.Systems.Equipment
+﻿namespace ProjectPioneer.Tests.Systems.Equipment
 {
 	[TestFixture]
 	public class InventoryTests

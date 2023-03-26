@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Commands;
-
-namespace ProjectPioneer.Tests.Systems.Commands
+﻿namespace ProjectPioneer.Tests.Systems.Commands
 {
 	public class CommandManagerTests
 	{
