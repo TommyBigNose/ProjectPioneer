@@ -13,14 +13,15 @@ Exp: @Hero.Exp / @Hero.GetRequiredExp()
 <br />
 <p class="bg-primary" style="width: 40%; --bs-bg-opacity: .5">Job: @Hero.Job.Name</p>
 <p class="bg-success" style="width: 40%; --bs-bg-opacity: .5">Implant: @Hero.Implant.Name</p>
-<br />
-Equipped Weapon: @Hero.EquippedWeapon.Name
-<br />
-Equipped Armor: @Hero.EquippedArmor.Name
-<br />
-Equipped Aura: @Hero.EquippedAura.Name
-<br />
+
+<p class="bg-secondary" style="width: 40%; --bs-bg-opacity: .5">----</p>
+
+<p class="bg-primary" style="width: 40%; --bs-bg-opacity: .5">Equipped Weapon:</p>
 <EquippedItemDisplay EquippedItem="@Hero.EquippedWeapon"/>
+<p class="bg-success" style="width: 40%; --bs-bg-opacity: .5">Equipped Armor:</p>
+<EquippedItemDisplay EquippedItem="@Hero.EquippedArmor"/>
+<p class="bg-info" style="width: 40%; --bs-bg-opacity: .5">Equipped Aura:</p>
+<EquippedItemDisplay EquippedItem="@Hero.EquippedAura"/>
 
 @code {
     [Parameter]
