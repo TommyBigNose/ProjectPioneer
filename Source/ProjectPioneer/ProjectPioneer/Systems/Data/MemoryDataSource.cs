@@ -281,6 +281,23 @@
 					EarthAttack = 0,
 					EarthDefense = 5,
 				}),
+				new Armor(303, "Soul Frame", "This armor gives off some good vibes.", EquipmentType.Armor, new Stats()
+				{
+					Level= 5,
+					PhysicalAttack = 0,
+					PhysicalDefense = 13,
+					MagicalAttack = 0,
+					MagicalDefense = 13,
+					Speed = 5,
+					FireAttack = 0,
+					FireDefense = 3,
+					IceAttack = 0,
+					IceDefense = 3,
+					LightningAttack = 0,
+					LightningDefense = 3,
+					EarthAttack = 0,
+					EarthDefense = 3,
+				}),
 				new Armor(320, "Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
 				{
 					Level= 20,
@@ -340,6 +357,23 @@
 					LightningDefense = 1,
 					EarthAttack = 0,
 					EarthDefense = 1,
+				}),
+				new Aura(503, "Giga Shield", "Just a really think energy layer that surrounds you.", EquipmentType.Aura,new Stats()
+				{
+					Level= 4,
+					PhysicalAttack = 0,
+					PhysicalDefense = 6,
+					MagicalAttack = 0,
+					MagicalDefense = 6,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 3,
+					IceAttack = 0,
+					IceDefense = 3,
+					LightningAttack = 0,
+					LightningDefense = 3,
+					EarthAttack = 0,
+					EarthDefense = 3,
 				}),
 				new Aura(520, "Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
 				{
