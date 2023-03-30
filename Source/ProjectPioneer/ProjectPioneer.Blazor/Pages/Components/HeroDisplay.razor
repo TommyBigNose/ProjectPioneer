@@ -11,17 +11,17 @@ Exp: @Hero.Exp / @Hero.GetRequiredExp()
     CurrentValue=@Hero.Exp
     MaxValue=@Hero.GetRequiredExp() />
 <br />
-<p class="bg-primary" style="width: 40%; --bs-bg-opacity: .5">Job: @Hero.Job.Name</p>
-<p class="bg-success" style="width: 40%; --bs-bg-opacity: .5">Implant: @Hero.Implant.Name</p>
+<p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Job: @Hero.Job.Name</p>
+<p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Implant: @Hero.Implant.Name</p>
 
-<p class="bg-secondary" style="width: 40%; --bs-bg-opacity: .5">----</p>
+@* <p class="bg-secondary" style="width: 50%; --bs-bg-opacity: .5">----</p> *@
 
-<p class="bg-primary" style="width: 40%; --bs-bg-opacity: .5">Equipped Weapon:</p>
-<EquippedItemDisplay EquippedItem="@Hero.EquippedWeapon"/>
-<p class="bg-success" style="width: 40%; --bs-bg-opacity: .5">Equipped Armor:</p>
-<EquippedItemDisplay EquippedItem="@Hero.EquippedArmor"/>
-<p class="bg-info" style="width: 40%; --bs-bg-opacity: .5">Equipped Aura:</p>
-<EquippedItemDisplay EquippedItem="@Hero.EquippedAura"/>
+@* <p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Equipped Weapon:</p> *@
+<EquippedItemDisplay EquippedItem="@Hero.EquippedWeapon" EquippedItemType="Weapon" ColorTheme="bg-primary" />
+@* <p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Equipped Armor:</p> *@
+<EquippedItemDisplay EquippedItem="@Hero.EquippedArmor" EquippedItemType="Armor"  ColorTheme="bg-success" />
+@* <p class="bg-info" style="width: 50%; --bs-bg-opacity: .5">Equipped Aura:</p> *@
+<EquippedItemDisplay EquippedItem="@Hero.EquippedAura" EquippedItemType="Aura"  ColorTheme="bg-info" />
 
 @code {
     [Parameter]

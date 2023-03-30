@@ -3,12 +3,12 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 @*<h3>EquippedItemDisplay</h3>*@
-<table class="table" style="width: 50%">
-@*    <thead>
-        <tr>
-            <th>Stats</th>
+<table class="table bg-light" style="width: 50%">
+    <thead>
+        <tr class="@ColorTheme --bs-bg-opacity: .5">
+            <th>Equipped @EquippedItemType</th>
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
         <tr>
             <td>
@@ -46,4 +46,11 @@
 @code {
 	[Parameter]
 	public IEquipment EquippedItem { get; set; }
+    
+    [Parameter]
+    public string EquippedItemType { get; set; }
+    
+    [Parameter]
+    public string ColorTheme { get; set; }
+
 }
