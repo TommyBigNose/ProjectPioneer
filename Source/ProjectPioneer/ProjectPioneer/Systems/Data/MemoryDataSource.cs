@@ -348,6 +348,23 @@
 					EarthAttack = 0,
 					EarthDefense = 3,
 				}),
+				new Armor(304, "Elemental Padding", "Wards off the elements, but doesn't help physically much.", EquipmentType.Armor, new Stats()
+				{
+					Level= 7,
+					PhysicalAttack = 0,
+					PhysicalDefense = 3,
+					MagicalAttack = 0,
+					MagicalDefense = 3,
+					Speed = 1,
+					FireAttack = 0,
+					FireDefense = 15,
+					IceAttack = 0,
+					IceDefense = 15,
+					LightningAttack = 0,
+					LightningDefense = 15,
+					EarthAttack = 0,
+					EarthDefense = 15,
+				}),
 				new Armor(320, "Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
 				{
 					Level= 20,
@@ -423,6 +440,23 @@
 					LightningAttack = 0,
 					LightningDefense = 3,
 					EarthAttack = 0,
+					EarthDefense = 3,
+				}),
+				new Aura(504, "Force Barrier", "Doesn't just block, it pushes back!", EquipmentType.Aura,new Stats()
+				{
+					Level= 6,
+					PhysicalAttack = 1,
+					PhysicalDefense = 7,
+					MagicalAttack = 1,
+					MagicalDefense = 7,
+					Speed = 0,
+					FireAttack = 1,
+					FireDefense = 3,
+					IceAttack = 1,
+					IceDefense = 3,
+					LightningAttack = 1,
+					LightningDefense = 3,
+					EarthAttack = 1,
 					EarthDefense = 3,
 				}),
 				new Aura(520, "Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
