@@ -28,6 +28,7 @@
                         @(IsQuestCompleted(quest) ? "✅" : "❌") | @quest.QuestInfo.Name
                     </button>
                     <br />
+                    <p class="@GetRecommendedLevelClass(quest)" style="width: 100px; --bs-bg-opacity: .5">Level: @quest.GetRecommendedLevel()</p>
                     @quest.QuestInfo.Description
                     <br />
                     <hr />
@@ -82,6 +83,11 @@
         {
             _selectedQuest = quest;
         }
+    }
+
+    private string GetRecommendedLevelClass(IQuest quest)
+    {
+        return (ProjectPioneerGame.Hero.Stats.Level >= quest.GetRecommendedLevel()) ? "bg-success" : "bg-danger";
     }
 
     private string GetItemStyle(IQuest quest)
