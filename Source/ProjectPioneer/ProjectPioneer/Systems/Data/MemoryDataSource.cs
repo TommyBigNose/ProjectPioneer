@@ -607,7 +607,7 @@
 						EarthAttack = 5,
 						EarthDefense = 20,
 					},
-					NormalLoot = GetAllWeapons(),
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 2),
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
 				},
 				new QuestInfo()
@@ -641,8 +641,8 @@
 						EarthAttack = 5,
 						EarthDefense = 20,
 					},
-					NormalLoot = GetAllWeapons(),
-					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 2),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 20)
 				},
 				new QuestInfo()
 				{
@@ -675,7 +675,7 @@
 						EarthAttack = 10,
 						EarthDefense = 10,
 					},
-					NormalLoot = GetAllWeapons(),
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 4),
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
 				},
 				new QuestInfo()
@@ -709,7 +709,41 @@
 						EarthAttack = 10,
 						EarthDefense = 10,
 					},
-					NormalLoot = GetAllWeapons(),
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 6),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 20)
+				},
+				new QuestInfo()
+				{
+					ID = 5,
+					Name = "Caves - Part 2",
+					Description = "A cool breeze permeates the damp air.  No more magma, but scarier wildlife appears from the streams and flowers.",
+					QuestLengthInSeconds = 130,
+					ChanceForNormalLoot = 500,
+					ChanceForRareLoot = 50,
+					TotalChancesForLoot = 5,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.Speed, StatType.IceDefense
+					},
+					Stats = new Stats()
+					{
+						Level = 8,
+						PhysicalAttack = 17,
+						PhysicalDefense = 10,
+						MagicalAttack = 12,
+						MagicalDefense = 10,
+						Speed = 6,
+						FireAttack = 15,
+						FireDefense = 15,
+						IceAttack = 0,
+						IceDefense = 0,
+						LightningAttack = 0,
+						LightningDefense = 0,
+						EarthAttack = 10,
+						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 8),
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
 				},
 			};
