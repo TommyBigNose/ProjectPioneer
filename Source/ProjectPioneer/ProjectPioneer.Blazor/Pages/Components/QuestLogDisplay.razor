@@ -31,6 +31,18 @@
                     <p class="@GetRecommendedLevelClass(quest)" style="width: 100px; --bs-bg-opacity: .5">Level: @quest.GetRecommendedLevel()</p>
                     @quest.QuestInfo.Description
                     <br />
+                    
+                    <span>Normal Equipment</span>
+                    <br />
+                    @foreach (var equipment in quest.QuestInfo.NormalLoot)
+                    {
+                        @equipment.Name
+                        <br />
+                    }
+                    <span>Rare Equipment</span>
+                    <br />
+                    @quest.QuestInfo.RareLoot.Name
+                    
                     <hr />
                 }
             </td>
