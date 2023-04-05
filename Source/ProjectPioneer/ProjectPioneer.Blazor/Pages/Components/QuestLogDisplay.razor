@@ -1,4 +1,5 @@
-﻿@using ProjectPioneer.Systems.Adventure;
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Systems.Adventure;
 
 @inject NavigationManager NavManager
 @inject ILogger<QuestLogDisplay> Logger
@@ -36,13 +37,14 @@
                     <br />
                     @foreach (var equipment in quest.QuestInfo.NormalLoot)
                     {
-                        @equipment.Name
+                        @* @equipment.Name *@
+                        <QuestLootItemDisplay EquippedItem="@equipment" EquippedItemType=@equipment.EquipmentType.ToString() ColorTheme="bg-success" />
                         <br />
                     }
                     <span>Rare Equipment</span>
                     <br />
-                    @quest.QuestInfo.RareLoot.Name
-                    
+                    @* @quest.QuestInfo.RareLoot.Name *@
+                    <QuestLootItemDisplay EquippedItem="@quest.QuestInfo.RareLoot" EquippedItemType=@quest.QuestInfo.RareLoot.EquipmentType.ToString() ColorTheme="bg-success" />
                     <hr />
                 }
             </td>
