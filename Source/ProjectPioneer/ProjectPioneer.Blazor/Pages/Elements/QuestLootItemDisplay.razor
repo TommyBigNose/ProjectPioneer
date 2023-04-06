@@ -1,5 +1,4 @@
-﻿@using ProjectPioneer.Systems.Equipment;
-@inject ILogger<QuestLootItemDisplay> Logger
+﻿@inject ILogger<QuestLootItemDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 @*<h3>EquippedItemDisplay</h3>*@
@@ -43,12 +42,7 @@
 @*     </tbody> *@
 @* </table> *@
 
-@EquippedItem.Name
-<br />
-@EquippedItem.Stats.Level
-<br />
-@EquippedItemType
-<br />
+<p class="@ColorTheme" style="width: 250px; --bs-bg-opacity: .5">@EquippedItem.Name | @Utility.SymbolHelper.GetEquipmentSymbol(EquippedItem)</p>
 
 @code {
 	[Parameter]

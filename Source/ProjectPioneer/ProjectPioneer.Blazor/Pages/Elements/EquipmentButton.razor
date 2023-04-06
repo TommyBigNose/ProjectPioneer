@@ -1,11 +1,7 @@
-﻿@using ProjectPioneer.Blazor.Models;
-@using ProjectPioneer.Systems.Equipment;
-@using ProjectPioneer.Systems.Statistics;
-
-@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+﻿@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <button type="button" class="btn @GetItemStyle(CurrentEquipment)" @onclick="@(_ => ClickCallback.InvokeAsync(CurrentEquipment.Index.ToString()))">
-    @GetEquipmentSymbol(CurrentEquipment.Equipment) | @GetValue(CurrentEquipment.Equipment): @CurrentEquipment.Equipment.Name | @GetCanEquipSymbol(CurrentEquipment.Equipment)
+    @Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment.Equipment) | @GetValue(CurrentEquipment.Equipment): @CurrentEquipment.Equipment.Name | @GetCanEquipSymbol(CurrentEquipment.Equipment)
 </button>
 
 @code {
@@ -20,31 +16,6 @@
 
     [Parameter]
     public bool IsShop { get; set; }
-
-    private string GetEquipmentSymbol(IEquipment equipment)
-    {
-        string symbol = "";
-        switch (equipment.EquipmentType)
-        {
-            case EquipmentType.Blade:
-                symbol = "⚔️";
-                break;
-            case EquipmentType.Gun:
-                symbol = "🔫";
-                break;
-            case EquipmentType.Staff:
-                symbol = "🧙‍";
-                break;
-            case EquipmentType.Armor:
-                symbol = "🧥";
-                break;
-            case EquipmentType.Aura:
-                symbol = "🛡️";
-                break;
-        }
-
-        return symbol;
-    }
 
     private string GetCanEquipSymbol(IEquipment equipment)
     {

@@ -37,13 +37,10 @@
                     <br />
                     @foreach (var equipment in quest.QuestInfo.NormalLoot)
                     {
-                        @* @equipment.Name *@
-                        <QuestLootItemDisplay EquippedItem="@equipment" EquippedItemType=@equipment.EquipmentType.ToString() ColorTheme="bg-success" />
-                        <br />
+                        <QuestLootItemDisplay EquippedItem="@equipment" EquippedItemType=@equipment.EquipmentType.ToString() ColorTheme="bg-secondary" />
                     }
                     <span>Rare Equipment</span>
                     <br />
-                    @* @quest.QuestInfo.RareLoot.Name *@
                     <QuestLootItemDisplay EquippedItem="@quest.QuestInfo.RareLoot" EquippedItemType=@quest.QuestInfo.RareLoot.EquipmentType.ToString() ColorTheme="bg-success" />
                     <hr />
                 }

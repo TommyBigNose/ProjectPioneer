@@ -6,7 +6,6 @@ using ProjectPioneer.Systems.Adventure;
 using ProjectPioneer.Systems.Character;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Dice;
-using ProjectPioneer.Systems.Equipment;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

@@ -1,6 +1,4 @@
-﻿using ProjectPioneer.Systems.Equipment;
-
-namespace ProjectPioneer.Blazor.Models
+﻿namespace ProjectPioneer.Blazor.Models
 {
 	public class EquipmentDisplay
 	{
