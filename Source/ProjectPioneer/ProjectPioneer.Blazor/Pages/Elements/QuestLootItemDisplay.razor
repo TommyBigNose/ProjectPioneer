@@ -42,14 +42,11 @@
 @*     </tbody> *@
 @* </table> *@
 
-<p class="@ColorTheme" style="width: 250px; --bs-bg-opacity: .5">@EquippedItem.Name | @Utility.SymbolHelper.GetEquipmentSymbol(EquippedItem)</p>
+<p class="@ColorTheme" style="width: 250px; --bs-bg-opacity: .5">@LootableItem.Name | @Utility.SymbolHelper.GetEquipmentSymbol(LootableItem)</p>
 
 @code {
 	[Parameter]
-	public IEquipment EquippedItem { get; set; }
-    
-    [Parameter]
-    public string EquippedItemType { get; set; }
+	public IEquipment LootableItem { get; set; }
     
     [Parameter]
     public string ColorTheme { get; set; }

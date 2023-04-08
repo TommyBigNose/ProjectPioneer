@@ -17,7 +17,7 @@
     <thead>
         <tr>
             <th>Quest</th>
-            <th>Compared Stats</th>
+            @* <th>Compared Stats</th> *@
         </tr>
     </thead>
     <tbody>
@@ -37,19 +37,19 @@
                     <br />
                     @foreach (var equipment in quest.QuestInfo.NormalLoot)
                     {
-                        <QuestLootItemDisplay EquippedItem="@equipment" EquippedItemType=@equipment.EquipmentType.ToString() ColorTheme="bg-secondary" />
+                        <QuestLootItemDisplay LootableItem="@equipment" ColorTheme="bg-secondary" />
                     }
                     <span>Rare Equipment</span>
                     <br />
-                    <QuestLootItemDisplay EquippedItem="@quest.QuestInfo.RareLoot" EquippedItemType=@quest.QuestInfo.RareLoot.EquipmentType.ToString() ColorTheme="bg-success" />
+                    <QuestLootItemDisplay LootableItem="@quest.QuestInfo.RareLoot" ColorTheme="bg-success" />
                     <hr />
                 }
             </td>
             <td>
                 @if (_selectedQuest != null && _selectedQuest.QuestInfo != null)
                 {
-                    <span>Stat Multiplier(s): @string.Join(',',_selectedQuest.QuestInfo.StatTypeMultipliers)</span>
-                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" Multipliers="@GetMultipliersAsStrings()" />
+                    <span>Stat Multiplier(s): @string.Join(',', _selectedQuest.QuestInfo.StatTypeMultipliers)</span>
+                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" Multipliers="@GetMultipliersAsStrings()"/>
                 }
             </td>
         </tr>
