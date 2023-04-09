@@ -19,7 +19,7 @@
 
     private string GetCanEquipSymbol(IEquipment equipment)
     {
-        return Utility.SymbolHelper.GetCheckmarkOrX((equipment == null || !ProjectPioneerGame.CanEquip(equipment)));
+        return Utility.SymbolHelper.GetCheckmarkOrX((equipment != null && ProjectPioneerGame.CanEquip(equipment)));
     }
 
     private string GetValue(IEquipment equipment)

@@ -1,4 +1,7 @@
-﻿@inject ILogger<ShopDisplay> Logger
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject ILogger<ShopDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>ShopDisplay</h3>
@@ -20,7 +23,7 @@
             <td>
                 @foreach (var item in _equipmentCatalog)
                 {
-                    <ProjectPioneer.Blazor.Pages.Elements.EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true />
+                    <EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true />
                     <br />
                 }
             </td>
