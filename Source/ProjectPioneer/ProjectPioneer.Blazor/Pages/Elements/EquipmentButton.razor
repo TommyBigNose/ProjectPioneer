@@ -19,24 +19,12 @@
 
     private string GetCanEquipSymbol(IEquipment equipment)
     {
-        if (equipment == null || !ProjectPioneerGame.CanEquip(equipment))
-        {
-            return "❌";
-        }
-        else
-        {
-            return "✅";
-        }
+        return Utility.SymbolHelper.GetCheckmarkOrX((equipment == null || !ProjectPioneerGame.CanEquip(equipment)));
     }
 
     private string GetValue(IEquipment equipment)
     {
-        if(IsShop)
-        {
-            return equipment.GetPurchaseValue().ToString();
-        }
-
-        return equipment.GetSellableValue().ToString();
+        return IsShop ? equipment.GetPurchaseValue().ToString() : equipment.GetSellableValue().ToString();
     }
 
     private string GetItemStyle(EquipmentDisplay equipmentDisplay)

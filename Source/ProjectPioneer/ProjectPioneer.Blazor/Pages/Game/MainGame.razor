@@ -19,10 +19,10 @@
             <HeroStatsTotal Hero="@ProjectPioneerGame.Hero" />
             <br />
             <br />
-            <InventoryDisplay @ref="InventoryComponent" InventoryCallback="@Callback" />
+            <InventoryDisplay @ref="_inventoryComponent" InventoryCallback="@Callback" />
             <br />
             <br />
-            <ShopDisplay @ref="ShopComponent" ShopCallback="@Callback" />
+            <ShopDisplay @ref="_shopComponent" ShopCallback="@Callback" />
             <br />
             <br />
         </td>
@@ -35,19 +35,19 @@
 
 
 @code {
-    protected InventoryDisplay? InventoryComponent;
-    protected ShopDisplay? ShopComponent;
+    private InventoryDisplay? _inventoryComponent;
+    private ShopDisplay? _shopComponent;
 
     protected override void OnInitialized()
     {
-        InventoryComponent = new InventoryDisplay();
-        ShopComponent = new ShopDisplay();
+        _inventoryComponent = new InventoryDisplay();
+        _shopComponent = new ShopDisplay();
     }
 
     private void Callback()
     {
-        InventoryComponent?.Refresh();
-        ShopComponent?.Refresh();
+        _inventoryComponent?.Refresh();
+        _shopComponent?.Refresh();
         base.InvokeAsync(StateHasChanged);
         Logger.LogInformation("MainGame Callback invoked");
     }

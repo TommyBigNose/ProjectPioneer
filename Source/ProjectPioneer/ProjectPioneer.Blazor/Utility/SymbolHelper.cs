@@ -26,5 +26,10 @@
 
 			return symbol;
 		}
+
+		public static string GetCheckmarkOrX(bool value)
+		{
+			return (value) ? "✅" : "❌";
+		}
 	}
 }

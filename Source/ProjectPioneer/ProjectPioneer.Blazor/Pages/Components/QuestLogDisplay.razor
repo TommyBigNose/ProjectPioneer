@@ -1,5 +1,5 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Elements
-@using ProjectPioneer.Systems.Adventure;
+@using ProjectPioneer.Blazor.Pages.Components;
 
 @inject NavigationManager NavManager
 @inject ILogger<QuestLogDisplay> Logger
@@ -26,7 +26,7 @@
                @foreach (var quest in ProjectPioneerGame.GetAllQuests())
                 {
                     <button type="button" class="btn @GetItemStyle(quest)" @onclick="@(_ => SetDisplayedItem(quest))">
-                        @(IsQuestCompleted(quest) ? "✅" : "❌") | @quest.QuestInfo.Name
+                        @Utility.SymbolHelper.GetCheckmarkOrX(IsQuestCompleted(quest)) | @quest.QuestInfo.Name
                     </button>
                     <br />
                     <p class="@GetRecommendedLevelClass(quest)" style="width: 100px; --bs-bg-opacity: .5">Level: @quest.GetRecommendedLevel()</p>
