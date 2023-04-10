@@ -1,0 +1,22 @@
+﻿@page "/Adventure/QuestLogPage"
+
+@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject NavigationManager NavManager
+@inject ILogger<QuestLogPage> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>QuestLogPage</h3>
+
+<QuestLogDisplay QuestLogCallback="@Callback" />
+
+@code {
+    private void Callback()
+    {
+        // _inventoryComponent?.Refresh();
+        // _shopComponent?.Refresh();
+        base.InvokeAsync(StateHasChanged);
+        Logger.LogInformation("QuestLogPage Callback invoked");
+    }
+}
