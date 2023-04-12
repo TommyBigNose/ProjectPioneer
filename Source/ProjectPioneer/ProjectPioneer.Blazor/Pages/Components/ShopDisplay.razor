@@ -21,11 +21,13 @@
     <tbody>
         <tr>
             <td>
-                @foreach (var item in _equipmentCatalog)
-                {
-                    <EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true />
-                    <br />
-                }
+                <div style="height:600px; overflow-y:scroll;">
+                    @foreach (var item in _equipmentCatalog)
+                    {
+                        <EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true/>
+                        <br/>
+                    }
+                </div>    
             </td>
             <td>
                 @if (_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)

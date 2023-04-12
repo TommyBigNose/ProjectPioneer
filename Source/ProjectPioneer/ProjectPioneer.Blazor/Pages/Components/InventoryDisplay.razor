@@ -1,4 +1,7 @@
-﻿@inject ILogger<InventoryDisplay> Logger
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject ILogger<InventoryDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>InventoryDisplay</h3>
@@ -30,11 +33,13 @@ Credits: @ProjectPioneerGame.GetCredits()
     <tbody>
         <tr>
             <td>
-               @foreach (var item in _equipmentCatalog)
-                {
-                    <ProjectPioneer.Blazor.Pages.Elements.EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=false/>
-                    <br />
-                }
+                <div style="height:600px; overflow-y:scroll;">
+                    @foreach (var item in _equipmentCatalog)
+                    {
+                        <EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=false/>
+                        <br/>
+                    }
+                </div>
             </td>
             <td>
                 @if(_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
