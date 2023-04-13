@@ -11,7 +11,7 @@
 </button>
 <br />
 
-<table class="table">
+<table class="table" style="vertical-align: top; width: 60%">
     <thead>
         <tr>
             <th>Equipment</th>
@@ -20,7 +20,7 @@
     </thead>
     <tbody>
         <tr>
-            <td>
+            <td style="width: 60%">
                 <div style="height:600px; overflow-y:scroll;">
                     @foreach (var item in _equipmentCatalog)
                     {
@@ -29,7 +29,7 @@
                     }
                 </div>    
             </td>
-            <td>
+            <td style="width: 40%">
                 @if (_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
                 {
                     <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" />
