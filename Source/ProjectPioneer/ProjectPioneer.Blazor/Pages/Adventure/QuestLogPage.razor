@@ -14,8 +14,6 @@
 @code {
     private void Callback()
     {
-        // _inventoryComponent?.Refresh();
-        // _shopComponent?.Refresh();
         base.InvokeAsync(StateHasChanged);
         Logger.LogInformation("QuestLogPage Callback invoked");
     }

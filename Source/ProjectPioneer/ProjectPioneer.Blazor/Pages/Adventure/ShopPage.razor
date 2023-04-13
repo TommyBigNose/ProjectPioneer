@@ -1,0 +1,27 @@
+﻿@page "/Adventure/ShopPage"
+
+@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject NavigationManager NavManager
+@inject ILogger<ShopPage> Logger
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+
+<h3>ShopPage</h3>
+<ShopDisplay @ref="_shopComponent" ShopCallback="@Callback" />
+
+@code {
+    private ShopDisplay? _shopComponent;
+
+    protected override void OnInitialized()
+    {
+        _shopComponent = new ShopDisplay();
+    }
+    
+    private void Callback()
+    {
+        _shopComponent?.Refresh();
+        base.InvokeAsync(StateHasChanged);
+        Logger.LogInformation("ShopPage Callback invoked");
+    }
+}
