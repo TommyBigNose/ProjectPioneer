@@ -804,6 +804,40 @@
 					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 8),
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 20)
 				},
+				new QuestInfo()
+				{
+					ID = 6,
+					Name = "Caves - Part 3",
+					Description = "Deep within the final layer of the mines, you see both wretched creatures and man-made machines.",
+					QuestLengthInSeconds = 160,
+					ChanceForNormalLoot = 550,
+					ChanceForRareLoot = 100,
+					TotalChancesForLoot = 5,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.LightningAttack
+					},
+					Stats = new Stats()
+					{
+						Level = 10,
+						PhysicalAttack = 20,
+						PhysicalDefense = 20,
+						MagicalAttack = 13,
+						MagicalDefense = 13,
+						Speed = 7,
+						FireAttack = 0,
+						FireDefense = 5,
+						IceAttack = 0,
+						IceDefense = 5,
+						LightningAttack = 25,
+						LightningDefense = 25,
+						EarthAttack = 5,
+						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 10),
+					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 12)
+				},
 			};
 
 			return questInfos;
