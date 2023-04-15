@@ -12,18 +12,18 @@ Credits: @ProjectPioneerGame.GetCredits()
 <button type="button" class="btn btn-primary" disabled="@(!CanEquip(_selectedEquipment.Equipment))" @onclick="@(_ => EquipSelectedItem())">
     Equip Selected Item
 </button>
-<br />
+@* <br /> *@
 <button type="button" class="btn btn-danger" disabled="@(_selectedEquipment.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
     Sell Selected Item
 </button>
-<br />
+@* <br /> *@
 <button type="button" class="btn btn-link" disabled="@(_equipmentCatalog.Count <= 1)" @onclick="@(_ => SortInventory())">
     Sort Inventory
 </button>
-<br />
-<br />
+@* <br /> *@
+@* <br /> *@
 
-<table class="table">
+<table class="table" style="vertical-align: top; width: 100%">
     <thead>
         <tr>
             <th>Equipment</th>

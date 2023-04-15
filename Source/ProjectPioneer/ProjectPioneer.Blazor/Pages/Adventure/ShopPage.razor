@@ -8,18 +8,34 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>ShopPage</h3>
-<ShopDisplay @ref="_shopComponent" ShopCallback="@Callback" />
+
+<h2>Credits: <span style="color: green">@ProjectPioneerGame.Inventory.Credits</span></h2>
+
+<table style="width: 75%">
+    <tr>
+        <td style="width: 50%">
+            <ShopDisplay @ref="_shopComponent" ShopCallback="@Callback" />
+        </td>
+        <td style="width: 50%">
+            <InventoryDisplay @ref="_inventoryComponent" InventoryCallback="@Callback" />
+        </td>
+    </tr>
+</table>
+
 
 @code {
+    private InventoryDisplay? _inventoryComponent;
     private ShopDisplay? _shopComponent;
 
     protected override void OnInitialized()
     {
+        _inventoryComponent = new InventoryDisplay();
         _shopComponent = new ShopDisplay();
     }
     
     private void Callback()
     {
+        _inventoryComponent?.Refresh();
         _shopComponent?.Refresh();
         base.InvokeAsync(StateHasChanged);
         Logger.LogInformation("ShopPage Callback invoked");

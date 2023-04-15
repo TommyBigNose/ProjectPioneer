@@ -22,10 +22,12 @@
             <InventoryDisplay @ref="_inventoryComponent" InventoryCallback="@Callback" />
             <br />
             <br />
-            @* <ShopDisplay @ref="_shopComponent" ShopCallback="@Callback" /> *@
-            @* <br /> *@
-            @* <br /> *@
         </td>
+        @* <td style="vertical-align: top; width: 50%"> *@
+        @*     <ShopDisplay @ref="_shopComponent" ShopCallback="@Callback" /> *@
+        @*     <br /> *@
+        @*     <br /> *@
+        @* </td> *@
         @* <td style="vertical-align: top; width: 50%"> *@
         @*     <QuestLogDisplay QuestLogCallback="@Callback" /> *@
         @* </td> *@
@@ -36,18 +38,18 @@
 
 @code {
     private InventoryDisplay? _inventoryComponent;
-    private ShopDisplay? _shopComponent;
+    // private ShopDisplay? _shopComponent;
 
     protected override void OnInitialized()
     {
         _inventoryComponent = new InventoryDisplay();
-        _shopComponent = new ShopDisplay();
+        // _shopComponent = new ShopDisplay();
     }
 
     private void Callback()
     {
         _inventoryComponent?.Refresh();
-        _shopComponent?.Refresh();
+        // _shopComponent?.Refresh();
         base.InvokeAsync(StateHasChanged);
         Logger.LogInformation("MainGame Callback invoked");
     }
