@@ -38,11 +38,18 @@
     [Parameter]
     public List<string> Multipliers { get; set; } = new List<string>();
 
+    [Parameter]
+    public bool IsComparingForQuest { get; set; }
+
     private List<string> GetComparedStats()
     {
         try
         {
-            return Stats1.GetStatComparison(Stats2).GetStatsAsList();
+            if (IsComparingForQuest)
+            {
+                return Stats1.GetStatComparisonForQuest(Stats2).GetStatsAsList();
+            }
+            return Stats1.GetStatComparisonForItems(Stats2).GetStatsAsList();
         }
         catch
         {

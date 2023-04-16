@@ -51,7 +51,7 @@
                 @if (_selectedQuest != null && _selectedQuest.QuestInfo != null)
                 {
                     <span>Stat Multiplier(s): @string.Join(',', _selectedQuest.QuestInfo.StatTypeMultipliers)</span>
-                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" Multipliers="@GetMultipliersAsStrings()"/>
+                    <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" Multipliers="@GetMultipliersAsStrings()" IsComparingForQuest="true"/>
                 }
             </td>
         </tr>

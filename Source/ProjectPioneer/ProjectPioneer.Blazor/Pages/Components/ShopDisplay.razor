@@ -33,7 +33,7 @@
             <td style="width: 40%">
                 @if (_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
                 {
-                    <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" />
+                    <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" IsComparingForQuest="false" />
                 }
             </td>
         </tr>

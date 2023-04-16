@@ -52,8 +52,38 @@
 			EarthAttack = clone.EarthAttack;
 			EarthDefense = clone.EarthDefense;
 		}
+		
+		public Stats GetStatComparisonForItems(Stats comparedStats)
+		{
+			Stats stats = new()
+			{
+				Level = this.Level - comparedStats.Level,
 
-		public Stats GetStatComparison(Stats comparedStats)
+				PhysicalAttack = this.PhysicalAttack - comparedStats.PhysicalAttack,
+				PhysicalDefense = this.PhysicalDefense - comparedStats.PhysicalDefense,
+
+				MagicalAttack = this.MagicalAttack - comparedStats.MagicalAttack,
+				MagicalDefense = this.MagicalDefense - comparedStats.MagicalDefense,
+
+				Speed = this.Speed - comparedStats.Speed,
+
+				FireAttack = this.FireAttack - comparedStats.FireAttack,
+				FireDefense = this.FireDefense - comparedStats.FireDefense,
+
+				IceAttack = this.IceAttack - comparedStats.IceAttack,
+				IceDefense = this.IceDefense - comparedStats.IceDefense,
+
+				LightningAttack = this.LightningAttack - comparedStats.LightningAttack,
+				LightningDefense = this.LightningDefense - comparedStats.LightningDefense,
+
+				EarthAttack = this.EarthAttack - comparedStats.EarthAttack,
+				EarthDefense = this.EarthDefense - comparedStats.EarthDefense,
+			};
+
+			return stats;
+		}
+
+		public Stats GetStatComparisonForQuest(Stats comparedStats)
 		{
 			Stats stats = new()
 			{

@@ -57,7 +57,7 @@
 			// Negative is bad for the player
 			// Hero Attack vs Quest Defense
 			// Hero Defense vs Quest Attack
-			Stats stats = heroStats.GetStatComparison(QuestInfo.Stats);
+			Stats stats = heroStats.GetStatComparisonForQuest(QuestInfo.Stats);
 
 			return stats;
 		}
