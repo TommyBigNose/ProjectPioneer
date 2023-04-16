@@ -2,22 +2,22 @@
 @using ProjectPioneer.Blazor.Pages.Components;
 
 @inject ILogger<InventoryDisplay> Logger
-@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+@inject Systems.IGame ProjectPioneerGame
 
 <h3>InventoryDisplay</h3>
 
 Credits: @ProjectPioneerGame.GetCredits()
 <br />
 
-<button type="button" class="btn btn-primary" disabled="@(!CanEquip(_selectedEquipment.Equipment))" @onclick="@(_ => EquipSelectedItem())">
+<button type="button" class="btn btn-primary" disabled="@(!CanEquip(_selectedEquipment?.Equipment))" @onclick="@(_ => EquipSelectedItem())">
     Equip Selected Item
 </button>
 @* <br /> *@
-<button type="button" class="btn btn-danger" disabled="@(_selectedEquipment.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
+<button type="button" class="btn btn-danger" disabled="@(_selectedEquipment?.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
     Sell Selected Item
 </button>
 @* <br /> *@
-<button type="button" class="btn btn-link" disabled="@(_equipmentCatalog.Count <= 1)" @onclick="@(_ => SortInventory())">
+<button type="button" class="btn btn-link" disabled="@(_equipmentCatalog?.Count <= 1)" @onclick="@(_ => SortInventory())">
     Sort Inventory
 </button>
 @* <br /> *@
@@ -34,7 +34,7 @@ Credits: @ProjectPioneerGame.GetCredits()
         <tr>
             <td>
                 <div style="height:600px; overflow-y:scroll;">
-                    @foreach (var item in _equipmentCatalog)
+                    @foreach (var item in _equipmentCatalog!)
                     {
                         <EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=false/>
                         <br/>
@@ -56,11 +56,11 @@ Credits: @ProjectPioneerGame.GetCredits()
     [Parameter]
     public EventCallback<string> InventoryCallback { get; set; }
 
-    List<IEquipment> _inventory;
-    List<EquipmentDisplay> _equipmentCatalog;
-    EquipmentDisplay _selectedEquipment;
+    List<IEquipment>? _inventory;
+    List<EquipmentDisplay>? _equipmentCatalog;
+    EquipmentDisplay? _selectedEquipment;
 
-    Stats _statsHeroEquipment;
+    Stats? _statsHeroEquipment;
 
     protected override void OnInitialized()
     {
@@ -72,24 +72,24 @@ Credits: @ProjectPioneerGame.GetCredits()
 
     public void Refresh()
     {
-        _inventory.Clear();
-        _equipmentCatalog.Clear();
+        _inventory?.Clear();
+        _equipmentCatalog?.Clear();
         _inventory = ProjectPioneerGame.GetInventory().ToList();
 
         for (int i = 0; i < _inventory.Count; i++)
         {
-            _equipmentCatalog.Add(new EquipmentDisplay()
+            _equipmentCatalog?.Add(new EquipmentDisplay()
             {
                 Index = i,
                 Equipment = _inventory[i]
             });
         }
-        base.InvokeAsync(StateHasChanged);
+        InvokeAsync(StateHasChanged);
     }
 
     private void TrySetInitialEquipment()
     {
-        if (_selectedEquipment.Equipment == null && _inventory.Count > 0)
+        if (_selectedEquipment?.Equipment == null && _inventory?.Count > 0)
         {
             _selectedEquipment = new EquipmentDisplay()
             {
@@ -99,30 +99,23 @@ Credits: @ProjectPioneerGame.GetCredits()
         }
     }
 
-    private bool CanEquip(IEquipment equipment)
+    private bool CanEquip(IEquipment? equipment)
     {
-        if(equipment == null)
-        {
-            return false;
-        }
-        else
-        {
-            return ProjectPioneerGame.CanEquip(equipment);
-        }
+        return equipment != null && ProjectPioneerGame.CanEquip(equipment);
     }
 
     private void EquipSelectedItem()
     {
-        ProjectPioneerGame.EquipEquipment(_selectedEquipment.Equipment, ProjectPioneerGame.Hero);
-        _selectedEquipment.Equipment = null;
+        ProjectPioneerGame.EquipEquipment(_selectedEquipment?.Equipment!, ProjectPioneerGame.Hero);
+        _selectedEquipment!.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
     private void SellSelectedItem()
     {
-        ProjectPioneerGame.SellEquipment(_selectedEquipment.Equipment);
-        _selectedEquipment.Equipment = null;
+        ProjectPioneerGame.SellEquipment(_selectedEquipment?.Equipment!);
+        _selectedEquipment!.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
@@ -130,7 +123,7 @@ Credits: @ProjectPioneerGame.GetCredits()
     private void SortInventory()
     {
         ProjectPioneerGame.SortEquipment();
-        _selectedEquipment.Equipment = null;
+        _selectedEquipment!.Equipment = null;
         Refresh();
         InventoryCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
@@ -138,7 +131,7 @@ Credits: @ProjectPioneerGame.GetCredits()
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
     {
         // Remove selection if the user is re-selecting it
-        if (_selectedEquipment.Equipment != null && _selectedEquipment.Index == equipmentDisplay.Index)
+        if (_selectedEquipment?.Equipment != null && _selectedEquipment.Index == equipmentDisplay.Index)
         {
             _selectedEquipment = new EquipmentDisplay()
             {
@@ -150,7 +143,7 @@ Credits: @ProjectPioneerGame.GetCredits()
             _selectedEquipment = new EquipmentDisplay()
             {
                 Index = equipmentDisplay.Index,
-                Equipment = _inventory[equipmentDisplay.Index]
+                Equipment = _inventory?[equipmentDisplay.Index]
             };
         }
 
@@ -164,7 +157,7 @@ Credits: @ProjectPioneerGame.GetCredits()
         EquipmentDisplay equipmentDisplay = new EquipmentDisplay()
         {
             Index = index,
-            Equipment = _inventory[index]
+            Equipment = _inventory?[index]
         };
 
         SetDisplayedItem(equipmentDisplay);
@@ -172,7 +165,7 @@ Credits: @ProjectPioneerGame.GetCredits()
 
     private void SetUpHeroEquipmentComparison()
     {
-        if (_selectedEquipment != null && _selectedEquipment.Equipment != null)
+        if (_selectedEquipment?.Equipment != null)
         {
             switch(_selectedEquipment.Equipment.EquipmentType)
             {
@@ -189,7 +182,7 @@ Credits: @ProjectPioneerGame.GetCredits()
         }
         else
         {
-            _statsHeroEquipment = null;
+            _statsHeroEquipment = null!;
         }
     }
 }

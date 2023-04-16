@@ -3,23 +3,25 @@
 	public class SerializeableSaveData
 	{
 		#region Hero
-		public string Name { get; set; }
+
+		public string Name { get; set; } = "NAME";
 		public int Exp { get; set; }
 		public int JobID { get; set; }
 		public int ImplantID { get; set; }
 		public int EquippedWeaponID { get; set; }
 		public int EquippedArmorID { get; set; }
 		public int EquippedAuraID { get; set; }
-		public Stats Stats { get; set; }
+		public Stats Stats { get; set; } = new();
 		#endregion
 
 		#region Inventory
 		public int Credits { get; set; }
-		public List<int> HeroInventoryIDs { get; set; }
+		public List<int> HeroInventoryIDs { get; set; } = new();
 		#endregion
 
 		#region QuestLog
-		public HashSet<int> CompletedQuests { get; set; }
+
+		public HashSet<int> CompletedQuests { get; set; } = new();
 		#endregion
 
 		public SaveData ConvertToSaveData(IDataSource dataSource)

@@ -3,29 +3,29 @@
 
 <h3>Hero Display</h3>
 
-Name: @Hero.Name
+Name: @Hero?.Name
 <br />
-Exp: @Hero.Exp / @Hero.GetRequiredExp()
+Exp: @Hero?.Exp / @Hero?.GetRequiredExp()
 <br />
 <ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar @ref=_animatedQuestBar
-    CurrentValue=@Hero.Exp
-    MaxValue=@Hero.GetRequiredExp() />
+    CurrentValue=@Hero!.Exp
+    MaxValue=@Hero!.GetRequiredExp() />
 <br />
-<p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Job: @Hero.Job.Name</p>
-<p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Implant: @Hero.Implant.Name</p>
+<p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Job: @Hero?.Job.Name</p>
+<p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Implant: @Hero?.Implant.Name</p>
 
 @* <p class="bg-secondary" style="width: 50%; --bs-bg-opacity: .5">----</p> *@
 
 @* <p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Equipped Weapon:</p> *@
-<EquippedItemDisplay EquippedItem="@Hero.EquippedWeapon" EquippedItemType="Weapon" ColorTheme="bg-primary" />
+<EquippedItemDisplay EquippedItem="@Hero?.EquippedWeapon" EquippedItemType="Weapon" ColorTheme="bg-primary" />
 @* <p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Equipped Armor:</p> *@
-<EquippedItemDisplay EquippedItem="@Hero.EquippedArmor" EquippedItemType="Armor"  ColorTheme="bg-success" />
+<EquippedItemDisplay EquippedItem="@Hero?.EquippedArmor" EquippedItemType="Armor"  ColorTheme="bg-success" />
 @* <p class="bg-info" style="width: 50%; --bs-bg-opacity: .5">Equipped Aura:</p> *@
-<EquippedItemDisplay EquippedItem="@Hero.EquippedAura" EquippedItemType="Aura"  ColorTheme="bg-info" />
+<EquippedItemDisplay EquippedItem="@Hero?.EquippedAura" EquippedItemType="Aura"  ColorTheme="bg-info" />
 
 @code {
     [Parameter]
-    public IHero Hero { get; set; }
+    public IHero? Hero { get; set; }
 
     private AnimatedProgressBar? _animatedQuestBar;
 
@@ -38,7 +38,7 @@ Exp: @Hero.Exp / @Hero.GetRequiredExp()
     {
         if(firstRender)
         {
-            await _animatedQuestBar.AddValue();
+            await _animatedQuestBar?.AddValue()!;
         }
     }
 }

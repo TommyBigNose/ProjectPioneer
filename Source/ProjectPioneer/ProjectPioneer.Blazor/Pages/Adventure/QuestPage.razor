@@ -73,12 +73,11 @@ else
 
 @code {
     [Parameter]
-    public string QuestID { get; set; }
+    public string? QuestID { get; set; }
 
     private AnimatedProgressBar? _animatedQuestBar;
 
-    private IQuest _quest;
-    private int _currentLootCount = 0;
+    private IQuest _quest = null!;
 
     // UI stuff
     private int _padding = 0;
@@ -91,7 +90,7 @@ else
     {
         _animatedQuestBar = new AnimatedProgressBar();
 
-        _quest = ProjectPioneerGame.GetAllQuests().First(_ => _.QuestInfo.ID == int.Parse(QuestID));
+        _quest = ProjectPioneerGame.GetAllQuests().First(_ => _.QuestInfo.ID == int.Parse(QuestID!));
         _quest.OnGoingQuest.QuestTimer.Elapsed += TimerOnElapsed;
 
         Stats comparedStats = _quest.GetStatComparison(ProjectPioneerGame.Hero.Stats);
@@ -104,7 +103,7 @@ else
 
     private async void TimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
-        await _animatedQuestBar.AddValue();
+        await _animatedQuestBar!.AddValue();
         await base.InvokeAsync(StateHasChanged);
 
         if (!_quest.IsQuestCompleted())
@@ -137,10 +136,7 @@ else
     private async Task HasHitLootInterval()
     {
         if (_quest.IsProgressReadyForLootChance())
-        //if (_currentLootCount < _quest.OnGoingQuest.LootedEquipment.Count)
         {
-            //_currentLootCount++;
-            //_quest.QuestInfo.ChanceForRareLoot = 1000; // For testing noises =) 
             _quest.AttemptLootChance();
             if (!_quest.IsQuestCompleted())
             {

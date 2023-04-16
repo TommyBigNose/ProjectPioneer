@@ -2,10 +2,10 @@
 {
 	public static class SymbolHelper
 	{
-		public static string GetEquipmentSymbol(IEquipment equipment)
+		public static string GetEquipmentSymbol(IEquipment? equipment)
 		{
 			string symbol = "";
-			switch (equipment.EquipmentType)
+			switch (equipment?.EquipmentType)
 			{
 				case EquipmentType.Blade:
 					symbol = "⚔️";

@@ -1,5 +1,5 @@
 ﻿@inject ILogger<QuestLootItemDisplay> Logger
-@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+@inject Systems.IGame ProjectPioneerGame
 
 @*<h3>EquippedItemDisplay</h3>*@
 @* <table class="table bg-light" style="width: 50%"> *@
@@ -42,13 +42,13 @@
 @*     </tbody> *@
 @* </table> *@
 
-<p class="@ColorTheme" style="width: 250px; --bs-bg-opacity: .5">@LootableItem.Name | @Utility.SymbolHelper.GetEquipmentSymbol(LootableItem)</p>
+<p class="@ColorTheme" style="width: 250px; --bs-bg-opacity: .5">@LootableItem?.Name | @Utility.SymbolHelper.GetEquipmentSymbol(LootableItem)</p>
 
 @code {
 	[Parameter]
-	public IEquipment LootableItem { get; set; }
+	public IEquipment? LootableItem { get; set; }
     
     [Parameter]
-    public string ColorTheme { get; set; }
+    public string? ColorTheme { get; set; }
 
 }

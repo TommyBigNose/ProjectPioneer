@@ -30,10 +30,10 @@
 
 @code {
     [Parameter]
-    public Stats Stats1 { get; set; }
+    public Stats? Stats1 { get; set; }
 
     [Parameter]
-    public Stats Stats2 { get; set; }
+    public Stats? Stats2 { get; set; }
 
     [Parameter]
     public List<string> Multipliers { get; set; } = new List<string>();
@@ -47,9 +47,9 @@
         {
             if (IsComparingForQuest)
             {
-                return Stats1.GetStatComparisonForQuest(Stats2).GetStatsAsList();
+                return Stats1?.GetStatComparisonForQuest(Stats2).GetStatsAsList()!;
             }
-            return Stats1.GetStatComparisonForItems(Stats2).GetStatsAsList();
+            return Stats1?.GetStatComparisonForItems(Stats2).GetStatsAsList()!;
         }
         catch
         {

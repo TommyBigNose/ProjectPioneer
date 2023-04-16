@@ -10,14 +10,14 @@
     <tbody>
         <tr>
             <td>
-                @foreach (var stat in Stats.GetLevelUpStatsAsList())
+                @foreach (var stat in Stats?.GetLevelUpStatsAsList()!)
                 {
                     @stat
                     <br />
                 }
             </td>
             <td>
-                @foreach (var stat in Stats.GetElementalStatsAsList())
+                @foreach (var stat in Stats?.GetElementalStatsAsList()!)
                 {
                     @stat
                     <br />
@@ -31,5 +31,5 @@
 
 @code {
     [Parameter]
-    public Stats Stats { get; set; }
+    public Stats? Stats { get; set; }
 }

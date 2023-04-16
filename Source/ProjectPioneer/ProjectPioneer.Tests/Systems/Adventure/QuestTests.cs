@@ -525,7 +525,7 @@
 		public void Should_RandomlyReturnEquipment_When_Prompted(int questLevel, int chanceForNormalLoot, int chanceForRareLoot, int totalLoot)
 		{
 			// Arrange
-			List<IEquipment?> loot = new List<IEquipment?>();
+			List<IEquipment> loot = new List<IEquipment>();
 			_sut = new Quest(_dataSource.GetAllQuestInfos().First(_ => _.Stats.Level == questLevel));
 			_sut.QuestInfo.ChanceForNormalLoot = chanceForNormalLoot;
 			_sut.QuestInfo.ChanceForRareLoot = chanceForRareLoot;

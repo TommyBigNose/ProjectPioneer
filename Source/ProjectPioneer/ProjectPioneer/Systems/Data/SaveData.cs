@@ -2,15 +2,15 @@
 {
 	public class SaveData
 	{
-		public IHero Hero { get; set; }
-		public IInventory Inventory { get; set; }
-		public IQuestLog QuestLog { get; set; }
+		public IHero? Hero { get; set; }
+		public IInventory? Inventory { get; set; }
+		public IQuestLog? QuestLog { get; set; }
 
 		public SerializeableSaveData ConvertToSerializeableSaveData()
 		{
 			SerializeableSaveData data = new()
 			{
-				Name = Hero.Name,
+				Name = Hero!.Name,
 				Exp = Hero.Exp,
 				JobID = Hero.Job.ID,
 				ImplantID = Hero.Implant.ID,
@@ -19,10 +19,10 @@
 				EquippedAuraID = Hero.EquippedAura.ID,
 				Stats = Hero.Stats,
 
-				Credits = Inventory.Credits,
+				Credits = Inventory!.Credits,
 				HeroInventoryIDs = Inventory.HeroInventory.Select(_ => _.ID).ToList(),
 
-				CompletedQuests = QuestLog.CompletedQuests
+				CompletedQuests = QuestLog!.CompletedQuests
 			};
 
 			return data;

@@ -1,7 +1,7 @@
 ﻿@page "/Character/HeroCreator"
 
 @inject ILogger<HeroCreator> Logger
-@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+@inject Systems.IGame ProjectPioneerGame
 
 <h3>Hero Creator</h3>
 
@@ -10,14 +10,14 @@
 <br />
 Continue with this Hero?
 <br />
-@heroInput.Name
+@_heroInput?.Name
 <br />
-@heroInput.Job.Name
+@_heroInput?.Job?.Name
 <br />
-@heroInput.Implant.Name
+@_heroInput?.Implant?.Name
 <br />
 
-<EditForm Model=@heroInput OnValidSubmit=@HandleValidSubmit>
+<EditForm Model=@_heroInput OnValidSubmit=@HandleValidSubmit>
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div>
@@ -35,7 +35,7 @@ Continue with this Hero?
                 <tr>
                     <td>Name</td>
                     <td>
-                        <InputText @bind-Value=heroInput.Name />
+                        <InputText @bind-Value=_heroInput!.Name />
                     </td>
                     <td></td>
                     <td></td>
@@ -52,9 +52,9 @@ Continue with this Hero?
                             <br />
                         }
                     </td>
-                    <td>@heroInput.Job.Description</td>
+                    <td>@_heroInput?.Job?.Description</td>
                     <td>
-                        <ProjectPioneer.Blazor.Pages.Components.HeroCreatorStatsSimple Stats="@heroInput.Job.Stats" />
+                        <ProjectPioneer.Blazor.Pages.Components.HeroCreatorStatsSimple Stats="@_heroInput?.Job?.Stats" />
                     </td>
                 </tr>
 
@@ -69,9 +69,9 @@ Continue with this Hero?
                             <br />
                         }
                     </td>
-                    <td>@heroInput.Implant.Description</td>
+                    <td>@_heroInput?.Implant?.Description</td>
                     <td>
-                        <ProjectPioneer.Blazor.Pages.Components.HeroCreatorStatsSimple Stats="@heroInput.Implant.Stats" />
+                        <ProjectPioneer.Blazor.Pages.Components.HeroCreatorStatsSimple Stats="@_heroInput?.Implant?.Stats" />
                     </td>
                 </tr>
             </tbody>
@@ -79,48 +79,42 @@ Continue with this Hero?
     </div>
 </EditForm>
 @code {
-    //private Dictionary<int, ElementReference> jobElements = new Dictionary<int, ElementReference>();
-    //private Dictionary<int, ElementReference> implantElements = new Dictionary<int, ElementReference>();
-    HeroInput heroInput = new HeroInput();
-
-    //style="background-color:blue; color:white;"
-    string selectedStyle = "style=\"background-color:blue; color:white;\"";
-    string unselectedStyle = "style=\"background-color:gray; color:white;\"";
+    readonly HeroInput? _heroInput = new HeroInput();
 
     protected override void OnInitialized()
     {
-        heroInput.Job = ProjectPioneerGame.GetAllJobs().First();
-        heroInput.Implant = ProjectPioneerGame.GetAllImplants().First();
+        _heroInput!.Job = ProjectPioneerGame.GetAllJobs().First();
+        _heroInput!.Implant = ProjectPioneerGame.GetAllImplants().First();
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        //if (firstRender)
-        //{
-        //    await jobElements.First().Value.FocusAsync();
-        //    await implantElements.First().Value.FocusAsync();
-        //}
-        //jobElements.First().Value.
-    }
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     //if (firstRender)
+    //     //{
+    //     //    await jobElements.First().Value.FocusAsync();
+    //     //    await implantElements.First().Value.FocusAsync();
+    //     //}
+    //     //jobElements.First().Value.
+    // }
 
     private void SetDisplayedJob(IJob job)
     {
-        heroInput.Job = job;
+        _heroInput!.Job = job;
     }
 
     private void SetDisplayedImplant(IImplant implant)
     {
-        heroInput.Implant = implant;
+        _heroInput!.Implant = implant;
     }
 
     public string GetJobStyle(int id)
     {
-        return heroInput.Job.ID == id ? "btn btn-info" : "btn btn-warning";
+        return _heroInput!.Job!.ID == id ? "btn btn-info" : "btn btn-warning";
     }
 
     public string GetImplantStyle(int id)
     {
-        return heroInput.Implant.ID == id ? "btn btn-info" : "btn btn-warning";
+        return _heroInput!.Implant!.ID == id ? "btn btn-info" : "btn btn-warning";
     }
 
     private void HandleValidSubmit(EditContext editContext)
@@ -128,16 +122,16 @@ Continue with this Hero?
         Logger.LogInformation("HandleValidSubmit called");
 
         // Process the form
-        Logger.LogInformation("Creating Hero with {0}, {1}, {1}", new object[] { heroInput.Name, heroInput.Job.Name, heroInput.Implant.Name });
+        Logger.LogInformation("Creating Hero with {0}, {1}, {1}", new object[] { _heroInput!.Name!, _heroInput!.Job!.Name, _heroInput!.Implant!.Name });
         
-        ProjectPioneerGame.SetUpHero(heroInput.Name, heroInput.Job, heroInput.Implant);
+        ProjectPioneerGame.SetUpHero(_heroInput!.Name!, _heroInput!.Job!, _heroInput!.Implant!);
         
-        Logger.LogInformation("Created Hero with {0}, {1}, {1}", new object[] { heroInput.Name, heroInput.Job.Name, heroInput.Implant.Name });
+        Logger.LogInformation("Created Hero with {0}, {1}, {1}", new object[] { _heroInput!.Name!, _heroInput!.Job!.Name, _heroInput!.Implant!.Name });
     }
 
     private void Callback()
     {
-        base.InvokeAsync(StateHasChanged);
+        InvokeAsync(StateHasChanged);
         Logger.LogInformation("HeroCreator Callback invoked");
     }
 

@@ -2,8 +2,8 @@
 {
 	public class Game : IGame
 	{
-		private IHero _hero;
-		public IHero Hero => _hero;
+		private IHero? _hero;
+		public IHero Hero => _hero!;
 
 		private IInventory _inventory;
 		public IInventory Inventory => _inventory;
@@ -50,37 +50,37 @@
 
 		public void AddExp(int exp)
 		{
-			_hero.AddExp(exp);
+			_hero!.AddExp(exp);
 		}
 
 		public int GetRequiredExp()
 		{
-			return _hero.GetRequiredExp();
+			return _hero!.GetRequiredExp();
 		}
 
 		public void LevelUp()
 		{
-			_hero.LevelUp();
+			_hero!.LevelUp();
 		}
 
 		public bool CanLevelUp()
 		{
-			return _hero.Exp >= GetRequiredExp();
+			return _hero!.Exp >= GetRequiredExp();
 		}
 
 		public IEquipment GetEquippedWeapon()
 		{
-			return _hero.EquippedWeapon;
+			return _hero!.EquippedWeapon;
 		}
 
 		public IEquipment GetEquippedArmor()
 		{
-			return _hero.EquippedArmor;
+			return _hero!.EquippedArmor;
 		}
 
 		public IEquipment GetEquippedAura()
 		{
-			return _hero.EquippedAura;
+			return _hero!.EquippedAura;
 		}
 		#endregion
 
@@ -193,9 +193,9 @@
 		public void LoadSavedData(string saveDataString)
 		{
 			var saveData = _saveDataReader.GetSaveDataFromString(saveDataString);
-			_hero = saveData.Hero;
-			_inventory = saveData.Inventory;
-			_questLog = saveData.QuestLog;
+			_hero = saveData.Hero!;
+			_inventory = saveData.Inventory!;
+			_questLog = saveData.QuestLog!;
 		}
 		#endregion
 

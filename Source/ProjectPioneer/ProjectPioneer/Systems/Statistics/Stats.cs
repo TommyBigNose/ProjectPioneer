@@ -53,11 +53,11 @@
 			EarthDefense = clone.EarthDefense;
 		}
 		
-		public Stats GetStatComparisonForItems(Stats comparedStats)
+		public Stats GetStatComparisonForItems(Stats? comparedStats)
 		{
 			Stats stats = new()
 			{
-				Level = this.Level - comparedStats.Level,
+				Level = this.Level - comparedStats!.Level,
 
 				PhysicalAttack = this.PhysicalAttack - comparedStats.PhysicalAttack,
 				PhysicalDefense = this.PhysicalDefense - comparedStats.PhysicalDefense,
@@ -83,11 +83,11 @@
 			return stats;
 		}
 
-		public Stats GetStatComparisonForQuest(Stats comparedStats)
+		public Stats GetStatComparisonForQuest(Stats? comparedStats)
 		{
 			Stats stats = new()
 			{
-				Level = this.Level - comparedStats.Level,
+				Level = this.Level - comparedStats!.Level,
 
 				PhysicalAttack = this.PhysicalAttack - comparedStats.PhysicalDefense,
 				PhysicalDefense = this.PhysicalDefense - comparedStats.PhysicalAttack,

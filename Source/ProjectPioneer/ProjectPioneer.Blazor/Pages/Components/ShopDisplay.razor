@@ -2,11 +2,11 @@
 @using ProjectPioneer.Blazor.Pages.Components;
 
 @inject ILogger<ShopDisplay> Logger
-@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+@inject Systems.IGame ProjectPioneerGame
 
 <h3>ShopDisplay</h3>
 
-<button type="button" class="btn btn-primary" disabled="@(!CanBuyItem(_selectedEquipment.Equipment))" @onclick="@(_ => BuySelectedItem())">
+<button type="button" class="btn btn-primary" disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))" @onclick="@(_ => BuySelectedItem())">
     Buy Selected Item
 </button>
 <br />
@@ -23,7 +23,7 @@
         <tr>
             <td style="width: 60%">
                 <div style="height:600px; overflow-y:scroll;">
-                    @foreach (var item in _equipmentCatalog)
+                    @foreach (var item in _equipmentCatalog!)
                     {
                         <EquipmentButton ClickCallback="@SetDisplayedItemString" CurrentEquipment="@item" SelectedEquipment="@_selectedEquipment" IsShop=true/>
                         <br/>
@@ -31,7 +31,7 @@
                 </div>    
             </td>
             <td style="width: 40%">
-                @if (_selectedEquipment != null && _selectedEquipment.Equipment != null && _statsHeroEquipment != null)
+                @if (_selectedEquipment?.Equipment != null)
                 {
                     <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" IsComparingForQuest="false" />
                 }
@@ -44,11 +44,11 @@
     [Parameter]
     public EventCallback<string> ShopCallback { get; set; }
 
-    List<IEquipment> _shopStock;
-    List<EquipmentDisplay> _equipmentCatalog;
-    EquipmentDisplay _selectedEquipment;
+    List<IEquipment>? _shopStock;
+    List<EquipmentDisplay>? _equipmentCatalog;
+    EquipmentDisplay? _selectedEquipment;
 
-    Stats _statsHeroEquipment;
+    Stats? _statsHeroEquipment;
 
     protected override void OnInitialized()
     {
@@ -60,13 +60,13 @@
 
     public void Refresh()
     {
-        _shopStock.Clear();
-        _equipmentCatalog.Clear();
+        _shopStock?.Clear();
+        _equipmentCatalog?.Clear();
         _shopStock = ProjectPioneerGame.GetShopInventory(ProjectPioneerGame.Hero.Stats.Level).ToList();
 
         for (int i = 0; i < _shopStock.Count; i++)
         {
-            _equipmentCatalog.Add(new EquipmentDisplay()
+            _equipmentCatalog?.Add(new EquipmentDisplay()
                 {
                     Index = i,
                     Equipment = _shopStock[i]
@@ -78,35 +78,28 @@
 
     private void BuySelectedItem()
     {
-        ProjectPioneerGame.BuyEquipmentAndAddToInventory(_selectedEquipment.Equipment, ProjectPioneerGame.Inventory);
-        _selectedEquipment.Equipment = null;
+        ProjectPioneerGame.BuyEquipmentAndAddToInventory(_selectedEquipment?.Equipment!, ProjectPioneerGame.Inventory);
+        _selectedEquipment!.Equipment = null;
         Refresh();
         ShopCallback.InvokeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
-    public bool CanBuyItem(IEquipment equipment)
+    public bool CanBuyItem(IEquipment? equipment)
     {
-        return (_selectedEquipment.Equipment != null &&
-            ProjectPioneerGame.CanHeroAffordEquipment(equipment, ProjectPioneerGame.Inventory) &&
+        return (_selectedEquipment?.Equipment != null &&
+            ProjectPioneerGame.CanHeroAffordEquipment(equipment!, ProjectPioneerGame.Inventory) &&
             CanEquip(equipment));
     }
 
-    private bool CanEquip(IEquipment equipment)
+    private bool CanEquip(IEquipment? equipment)
     {
-        if (equipment == null)
-        {
-            return false;
-        }
-        else
-        {
-            return ProjectPioneerGame.CanEquip(equipment);
-        }
+        return equipment != null && ProjectPioneerGame.CanEquip(equipment);
     }
 
     private void SetDisplayedItem(EquipmentDisplay equipmentDisplay)
     {
         // Remove selection if the user is re-selecting it
-        if (_selectedEquipment.Equipment != null && _selectedEquipment.Index == equipmentDisplay.Index)
+        if (_selectedEquipment?.Equipment != null && _selectedEquipment?.Index == equipmentDisplay.Index)
         {
             _selectedEquipment = new EquipmentDisplay()
             {
@@ -118,7 +111,7 @@
             _selectedEquipment = new EquipmentDisplay()
             {
                 Index = equipmentDisplay.Index,
-                Equipment = _shopStock[equipmentDisplay.Index]
+                Equipment = _shopStock?[equipmentDisplay.Index]
             };
         }
 
@@ -132,7 +125,7 @@
         EquipmentDisplay equipmentDisplay = new EquipmentDisplay()
             {
                 Index = index,
-                Equipment = _shopStock[index]
+                Equipment = _shopStock?[index]
             };
 
         SetDisplayedItem(equipmentDisplay);

@@ -3,7 +3,7 @@
 
 @inject NavigationManager NavManager
 @inject ILogger<QuestLogDisplay> Logger
-@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
+@inject Systems.IGame ProjectPioneerGame
 
 <h3>QuestLogDisplay</h3>
 
@@ -36,7 +36,7 @@
 
                         <span>Normal Equipment</span>
                         <br/>
-                        @foreach (var equipment in quest.QuestInfo.NormalLoot)
+                        @foreach (var equipment in quest.QuestInfo.NormalLoot!)
                         {
                             <QuestLootItemDisplay LootableItem="@equipment" ColorTheme="bg-secondary"/>
                         }
@@ -48,9 +48,9 @@
                 </div>
             </td>
             <td style="width: 40%">
-                @if (_selectedQuest != null && _selectedQuest.QuestInfo != null)
+                @if (_selectedQuest != null)
                 {
-                    <span>Stat Multiplier(s): @string.Join(',', _selectedQuest.QuestInfo.StatTypeMultipliers)</span>
+                    <span>Stat Multiplier(s): @string.Join(',', _selectedQuest.QuestInfo.StatTypeMultipliers!)</span>
                     <CompareStatsDisplay Stats1="@ProjectPioneerGame.Hero.GetTotalsAsStats()" Stats2="@_selectedQuest.QuestInfo.Stats" Multipliers="@GetMultipliersAsStrings()" IsComparingForQuest="true"/>
                 }
             </td>
@@ -67,7 +67,7 @@
     [Parameter]
     public EventCallback<string> QuestLogCallback { get; set; }
 
-    private IQuest _selectedQuest;
+    private IQuest? _selectedQuest;
 
     protected override void OnInitialized()
     {
@@ -110,11 +110,11 @@
 
     private void StartQuest()
     {
-        NavManager.NavigateTo($"/Adventure/QuestPage/{_selectedQuest.QuestInfo.ID}");
+        NavManager.NavigateTo($"/Adventure/QuestPage/{_selectedQuest?.QuestInfo.ID}");
     }
 
     private List<string> GetMultipliersAsStrings()
     {
-        return _selectedQuest.QuestInfo.StatTypeMultipliers.Select(_ => _.ToString()).ToList();
+        return _selectedQuest?.QuestInfo.StatTypeMultipliers!.Select(_ => _.ToString()).ToList()!;
     }
 }

@@ -12,28 +12,28 @@
     <tbody>
         <tr>
             <td>
-                @EquippedItem.Name | @EquippedItem.EquipmentType
+                @EquippedItem?.Name | @EquippedItem?.EquipmentType
             </td>
             <td>
-                P-Atk: @EquippedItem.Stats.PhysicalAttack |
-                P-Def: @EquippedItem.Stats.PhysicalDefense | 
-                M-Atk: @EquippedItem.Stats.MagicalAttack | 
-                M-Def: @EquippedItem.Stats.MagicalDefense | 
-                Spd: @EquippedItem.Stats.PhysicalDefense
+                P-Atk: @EquippedItem?.Stats.PhysicalAttack |
+                P-Def: @EquippedItem?.Stats.PhysicalDefense | 
+                M-Atk: @EquippedItem?.Stats.MagicalAttack | 
+                M-Def: @EquippedItem?.Stats.MagicalDefense | 
+                Spd: @EquippedItem?.Stats.PhysicalDefense
             </td>
         </tr>
         <tr>
             <td>
-                🔥-Atk: @EquippedItem.Stats.FireAttack |
-                🔥-Def: @EquippedItem.Stats.FireDefense |
-                ❄️-Atk: @EquippedItem.Stats.IceAttack |
-                ❄️-Def: @EquippedItem.Stats.IceDefense
+                🔥-Atk: @EquippedItem?.Stats.FireAttack |
+                🔥-Def: @EquippedItem?.Stats.FireDefense |
+                ❄️-Atk: @EquippedItem?.Stats.IceAttack |
+                ❄️-Def: @EquippedItem?.Stats.IceDefense
             </td>
             <td>
-                ⚡-Atk: @EquippedItem.Stats.LightningAttack |
-                ⚡-Def: @EquippedItem.Stats.LightningDefense |
-                ⛰️-Atk: @EquippedItem.Stats.EarthAttack |
-                ⛰️-Def: @EquippedItem.Stats.EarthDefense
+                ⚡-Atk: @EquippedItem?.Stats.LightningAttack |
+                ⚡-Def: @EquippedItem?.Stats.LightningDefense |
+                ⛰️-Atk: @EquippedItem?.Stats.EarthAttack |
+                ⛰️-Def: @EquippedItem?.Stats.EarthDefense
             </td>
         </tr>
     </tbody>
@@ -41,12 +41,12 @@
 
 @code {
 	[Parameter]
-	public IEquipment EquippedItem { get; set; }
+	public IEquipment? EquippedItem { get; set; }
     
     [Parameter]
-    public string EquippedItemType { get; set; }
+    public string? EquippedItemType { get; set; }
     
     [Parameter]
-    public string ColorTheme { get; set; }
+    public string? ColorTheme { get; set; }
 
 }
