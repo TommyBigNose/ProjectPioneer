@@ -2,6 +2,7 @@
 @page "/Adventure/QuestPage/{QuestID}"
 
 @using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Utility
 
 @inject NavigationManager NavManager
 @inject ILogger<QuestPage> Logger
@@ -84,7 +85,7 @@ else
     private string _paddingStyle = string.Empty;
 
     bool _hiddenSound = true;
-    string _soundSrcUrl = "/sounds/Windows_Balloon.wav";
+    string _soundSrcUrl = AudioFxHelper.Fx_Positive_Url;
 
     protected override void OnInitialized()
     {
@@ -114,7 +115,7 @@ else
         if(_quest.IsQuestCompleted())
         {
             _quest.CompleteQuest();
-            await PlaySound("/sounds/Windows_Logon.wav", 5000).ConfigureAwait(false);
+            await PlaySound(AudioFxHelper.Fx_Success_Url, 5000).ConfigureAwait(false);
         }
         await base.InvokeAsync(StateHasChanged);
     }
@@ -129,7 +130,7 @@ else
     private async void CancelQuest()
     {
         _quest.CancelQuest();
-        await PlaySound("/sounds/Windows_Notify.wav", 1500).ConfigureAwait(false);
+        await PlaySound(AudioFxHelper.Fx_Negative_Url, 1500).ConfigureAwait(false);
         NavManager.NavigateTo($"/Game/MainGame");
     }
 
@@ -142,11 +143,11 @@ else
             {
                 if (_quest.IsLastLootRare())
                 {
-                    await PlaySound("/sounds/Windows_Tada.wav", 1000).ConfigureAwait(false);
+                    await PlaySound(AudioFxHelper.Fx_Cheer_Url, 1000).ConfigureAwait(false);
                 }
                 else
                 {
-                    await PlaySound("/sounds/Windows_Balloon.wav", 1000).ConfigureAwait(false);
+                    await PlaySound(AudioFxHelper.Fx_Positive_Url, 1000).ConfigureAwait(false);
                 }
 
             }
@@ -157,7 +158,7 @@ else
     {
         _soundSrcUrl = srcUrl;
         _hiddenSound = false;
-        await base.InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
         await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
     }

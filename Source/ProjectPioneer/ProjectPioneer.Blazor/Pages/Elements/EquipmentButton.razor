@@ -1,4 +1,9 @@
-﻿@inject Systems.IGame ProjectPioneerGame
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject Systems.IGame ProjectPioneerGame
+
+<StandardButton ButtonClass="@GetItemStyle(CurrentEquipment)" />
 
 <button type="button" class="btn @GetItemStyle(CurrentEquipment)" @onclick="@(_ => ClickCallback.InvokeAsync(CurrentEquipment?.Index.ToString()))">
     @Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment?.Equipment) | @GetValue(CurrentEquipment?.Equipment): @CurrentEquipment?.Equipment?.Name | @GetCanEquipSymbol(CurrentEquipment?.Equipment)

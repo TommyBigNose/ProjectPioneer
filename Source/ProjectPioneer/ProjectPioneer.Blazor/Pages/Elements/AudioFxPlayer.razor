@@ -1,0 +1,29 @@
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject NavigationManager NavManager
+@inject ILogger<AudioFxPlayer> Logger
+@inject Systems.IGame ProjectPioneerGame
+
+@if (!_hiddenSound)
+{
+    <audio autoplay controls hidden="hidden"><source src="@_soundSrcUrl" /></audio>
+}
+else
+{
+    <audio controls muted hidden="hidden"><source src="@_soundSrcUrl" /></audio>
+}
+
+@code {
+    bool _hiddenSound = true;
+    string _soundSrcUrl = "/sounds/Windows_Balloon.wav";
+    
+    private async Task PlaySound(string srcUrl, int soundLengthInMs)
+    {
+        _soundSrcUrl = srcUrl;
+        _hiddenSound = false;
+        await InvokeAsync(StateHasChanged);
+        await Task.Delay(soundLengthInMs);
+        _hiddenSound = true;
+    }
+}
