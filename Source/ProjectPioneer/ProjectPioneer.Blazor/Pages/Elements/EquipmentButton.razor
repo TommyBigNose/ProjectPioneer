@@ -3,11 +3,14 @@
 
 @inject Systems.IGame ProjectPioneerGame
 
-<StandardButton ButtonClass="@GetItemStyle(CurrentEquipment)" />
+<StandardButton ButtonClass="@GetItemStyle(CurrentEquipment)"
+                ButtonText="@GetItemText()"
+                ClickCallback="@ClickCallback"
+                ClickCallbackParameter="@CurrentEquipment?.Index.ToString()"/>
 
-<button type="button" class="btn @GetItemStyle(CurrentEquipment)" @onclick="@(_ => ClickCallback.InvokeAsync(CurrentEquipment?.Index.ToString()))">
-    @Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment?.Equipment) | @GetValue(CurrentEquipment?.Equipment): @CurrentEquipment?.Equipment?.Name | @GetCanEquipSymbol(CurrentEquipment?.Equipment)
-</button>
+@* <button type="button" class="btn @GetItemStyle(CurrentEquipment)" @onclick="@(_ => ClickCallback.InvokeAsync(CurrentEquipment?.Index.ToString()))"> *@
+@*     @Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment?.Equipment) | @GetValue(CurrentEquipment?.Equipment): @CurrentEquipment?.Equipment?.Name | @GetCanEquipSymbol(CurrentEquipment?.Equipment) *@
+@* </button> *@
 
 @code {
     [Parameter]
@@ -35,5 +38,10 @@
     private string GetItemStyle(EquipmentDisplay? equipmentDisplay)
     {
         return (SelectedEquipment?.Index == equipmentDisplay?.Index && SelectedEquipment?.Equipment == equipmentDisplay?.Equipment) ? "btn btn-info" : "btn btn-warning";
+    }
+
+    private string GetItemText()
+    {
+        return $"{Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment?.Equipment)} | {GetValue(CurrentEquipment?.Equipment)}: {CurrentEquipment?.Equipment?.Name} | {GetCanEquipSymbol(CurrentEquipment?.Equipment)}";
     }
 }

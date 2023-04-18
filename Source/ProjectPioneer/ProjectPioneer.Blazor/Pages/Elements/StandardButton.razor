@@ -1,14 +1,24 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Elements
 @using ProjectPioneer.Blazor.Pages.Components;
 
-<button class="btn @ButtonClass">
-    TEST
+<button type="button" 
+        class="btn @ButtonClass" 
+        @onclick="@(async () => await ClickCallback.InvokeAsync(ClickCallbackParameter))">
+    @ButtonText
 </button>
 
 
 @code {
+    [Parameter]
+    public string? ButtonClass { get; set; }
 
     [Parameter]
-    public string ButtonClass { get; set; }
+    public string? ButtonText { get; set; }
+    
+    [Parameter]
+    public EventCallback<string> ClickCallback { get; set; }
+
+    [Parameter]
+    public string? ClickCallbackParameter { get; set; }
 
 }
