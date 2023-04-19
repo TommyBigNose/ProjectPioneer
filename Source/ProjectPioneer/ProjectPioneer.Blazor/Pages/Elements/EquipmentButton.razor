@@ -8,10 +8,6 @@
                 ClickCallback="@ClickCallback"
                 ClickCallbackParameter="@CurrentEquipment?.Index.ToString()"/>
 
-@* <button type="button" class="btn @GetItemStyle(CurrentEquipment)" @onclick="@(_ => ClickCallback.InvokeAsync(CurrentEquipment?.Index.ToString()))"> *@
-@*     @Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment?.Equipment) | @GetValue(CurrentEquipment?.Equipment): @CurrentEquipment?.Equipment?.Name | @GetCanEquipSymbol(CurrentEquipment?.Equipment) *@
-@* </button> *@
-
 @code {
     [Parameter]
     public EventCallback<string> ClickCallback { get; set; }

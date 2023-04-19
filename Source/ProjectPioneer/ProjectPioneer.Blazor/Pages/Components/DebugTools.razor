@@ -1,4 +1,7 @@
-﻿@inject ILogger<DebugTools> Logger
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject ILogger<DebugTools> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Debug Tools</h3>
@@ -6,33 +9,31 @@
 <table>
     <tr>
         <td>
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddRandomEquipmentAsync())">
-                Add Random Equipment
-            </button>
+            <StandardButton ButtonClass="btn-warning"
+                            ButtonText="Add Random Equipment"
+                            ClickCallback="@AddRandomEquipmentAsync"
+                            ClickCallbackParameter=""/>
         </td>
         <td>
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddExpToHeroAsync(10000))">
-                Add 10000 Exp
-            </button>
+            <StandardButton ButtonClass="btn-warning"
+                            ButtonText="Add 10000 Exp"
+                            ClickCallback="@AddExpToHeroAsync"
+                            ClickCallbackParameter="10000"/>
         </td>
         <td>
-            <button type="button" class="btn btn-warning" @onclick="@(_ => AddCreditsAsync(10000))">
-                Add 10000 Credits
-            </button>
+            <StandardButton ButtonClass="btn-warning"
+                            ButtonText="Add 10000 Credits"
+                            ClickCallback="@AddCreditsAsync"
+                            ClickCallbackParameter="10000"/>
         </td>
     </tr>
 </table>
-
-
-
-
-
 
 @code {
     [Parameter]
     public EventCallback<string> DebugCallback { get; set; }
 
-    private async Task AddRandomEquipmentAsync()
+    private async void AddRandomEquipmentAsync(string input)
     {
         List<IEquipment> equipmentList = ProjectPioneerGame.GetAllPossibleEquipment().ToList();
         int max = equipmentList.Count;
@@ -43,8 +44,11 @@
         Logger.LogInformation("Added random equipment {0}", equipment.Name);
     }
 
-    private async Task AddExpToHeroAsync(int exp)
+    private async void AddExpToHeroAsync(string expString)
     {
+        bool isValid = int.TryParse(expString, out int exp);
+        if (!isValid) return;
+        
         ProjectPioneerGame.AddExp(exp);
         while (ProjectPioneerGame.CanLevelUp())
         {
@@ -55,8 +59,11 @@
         Logger.LogInformation("Added exp to hero {0}", exp);
     }
 
-    private async Task AddCreditsAsync(int credits)
+    private async void AddCreditsAsync(string creditsString)
     {
+        bool isValid = int.TryParse(creditsString, out int credits);
+        if (!isValid) return;
+        
         ProjectPioneerGame.AddCredits(credits);
         while (ProjectPioneerGame.CanLevelUp())
         {
