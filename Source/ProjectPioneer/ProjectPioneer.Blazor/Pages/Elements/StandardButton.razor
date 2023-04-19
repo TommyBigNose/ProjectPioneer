@@ -1,12 +1,18 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Elements
 @using ProjectPioneer.Blazor.Pages.Components;
+@using ProjectPioneer.Blazor.Utility
 
 <button type="button" 
         class="btn @ButtonClass" 
-        @onclick="@(async () => await ClickCallback.InvokeAsync(ClickCallbackParameter))">
+        @onclick="@(async () => 
+                  {
+                      await ClickCallback.InvokeAsync(ClickCallbackParameter); 
+                      await PlayClickSound(); 
+                  })">
     @ButtonText
 </button>
 
+<AudioFxPlayer @ref="_audioFxPlayer"/>
 
 @code {
     [Parameter]
@@ -21,4 +27,15 @@
     [Parameter]
     public string? ClickCallbackParameter { get; set; }
 
+    private AudioFxPlayer? _audioFxPlayer;
+
+    protected override void OnInitialized()
+    {
+        _audioFxPlayer = new AudioFxPlayer();
+    }
+
+    private async Task PlayClickSound()
+    {
+        await _audioFxPlayer!.PlaySound(AudioFxHelper.Fx_Unknown_Url, 1000);
+    }
 }
