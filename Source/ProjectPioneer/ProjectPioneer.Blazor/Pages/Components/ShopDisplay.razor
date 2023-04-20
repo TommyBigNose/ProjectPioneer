@@ -6,9 +6,14 @@
 
 <h3>ShopDisplay</h3>
 
-<button type="button" class="btn btn-primary" disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))" @onclick="@(_ => BuySelectedItem())">
-    Buy Selected Item
-</button>
+@* <button type="button" class="btn btn-primary" disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))" @onclick="@(_ => BuySelectedItem())"> *@
+@*     Buy Selected Item *@
+@* </button> *@
+<StandardButton ButtonClass="btn-primary"
+                Disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))"
+                ButtonText="Buy Selected Item"
+                ClickCallback="@BuySelectedItem"
+                ClickCallbackParameter=""/>
 <br />
 
 <table class="table" style="vertical-align: top; width: 100%">

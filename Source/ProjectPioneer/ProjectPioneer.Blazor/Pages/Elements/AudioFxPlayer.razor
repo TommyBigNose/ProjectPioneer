@@ -25,5 +25,6 @@ else
         await InvokeAsync(StateHasChanged);
         await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
+        await InvokeAsync(StateHasChanged);
     }
 }
