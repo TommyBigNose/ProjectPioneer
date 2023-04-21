@@ -1,4 +1,7 @@
-﻿@inject IJSRuntime JSRuntime
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject IJSRuntime JSRuntime
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 @inject ILogger<SaveLoadMenu> Logger
 
@@ -7,14 +10,16 @@
 <table>
     <tr>
         <td>
-            <button type="button" class="btn btn-primary" @onclick="@(_ => Save())">
-                Save
-            </button>
+            <StandardButton ButtonClass="btn-primary"
+                            ButtonText="Save"
+                            ClickCallback="@(_ => Save())"
+                            ClickCallbackParameter=""/>
         </td>
         <td>
-            <button type="button" class="btn btn-success" @onclick="@(_ => Load())">
-                Load
-            </button>
+            <StandardButton ButtonClass="btn-success"
+                            ButtonText="Load"
+                            ClickCallback="@(_ => Load())"
+                            ClickCallbackParameter=""/>
         </td>
     </tr>
 </table>

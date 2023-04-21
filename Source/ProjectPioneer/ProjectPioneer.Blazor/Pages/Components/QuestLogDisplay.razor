@@ -7,9 +7,11 @@
 
 <h3>QuestLogDisplay</h3>
 
-<button type="button" class="btn btn-warning" disabled="@(_selectedQuest == null)" @onclick="@(_ => StartQuest())">
-    Start Selected Quest
-</button>
+<StandardButton ButtonClass="btn-warning"
+                ButtonText="Start Selected Quest"
+                Disabled="@(_selectedQuest == null)"
+                ClickCallback="@(_ => StartQuest())"
+                ClickCallbackParameter=""/>
 <br />
 <br />
 
@@ -26,9 +28,10 @@
                 <div style="height:600px; overflow-y:scroll;">
                     @foreach (var quest in ProjectPioneerGame.GetAllQuests())
                     {
-                        <button type="button" class="btn @GetItemStyle(quest)" @onclick="@(_ => SetDisplayedItem(quest))">
-                            @Utility.SymbolHelper.GetCheckmarkOrX(IsQuestCompleted(quest)) | @quest.QuestInfo.Name
-                        </button>
+                        <StandardButton ButtonClass="@GetItemStyle(quest)"
+                                        ButtonText="@GetQuestButtonText(quest)"
+                                        ClickCallback="@(_ => SetDisplayedItem(quest))"
+                                        ClickCallbackParameter=""/>
                         <br/>
                         <p class="@GetRecommendedLevelClass(quest)" style="width: 100px; --bs-bg-opacity: .5">Level: @quest.GetRecommendedLevel()</p>
                         @quest.QuestInfo.Description
@@ -57,10 +60,6 @@
         </tr>
     </tbody>
 </table>
-
-
-
-
 
 
 @code {
@@ -116,5 +115,10 @@
     private List<string> GetMultipliersAsStrings()
     {
         return _selectedQuest?.QuestInfo.StatTypeMultipliers!.Select(_ => _.ToString()).ToList()!;
+    }
+
+    private string GetQuestButtonText(IQuest quest)
+    {
+        return $"{Utility.SymbolHelper.GetCheckmarkOrX(IsQuestCompleted(quest))} | {quest.QuestInfo.Name}";
     }
 }

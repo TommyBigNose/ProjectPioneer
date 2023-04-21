@@ -9,19 +9,23 @@
 Credits: @ProjectPioneerGame.GetCredits()
 <br />
 
-<button type="button" class="btn btn-primary" disabled="@(!CanEquip(_selectedEquipment?.Equipment))" @onclick="@(_ => EquipSelectedItem())">
-    Equip Selected Item
-</button>
-@* <br /> *@
-<button type="button" class="btn btn-danger" disabled="@(_selectedEquipment?.Equipment == null)" @onclick="@(_ => SellSelectedItem())">
-    Sell Selected Item
-</button>
-@* <br /> *@
-<button type="button" class="btn btn-link" disabled="@(_equipmentCatalog?.Count <= 1)" @onclick="@(_ => SortInventory())">
-    Sort Inventory
-</button>
-@* <br /> *@
-@* <br /> *@
+<StandardButton ButtonClass="btn-primary"
+                ButtonText="Equip Selected Item"
+                Disabled="@(!CanEquip(_selectedEquipment?.Equipment))"
+                ClickCallback="@(_ => EquipSelectedItem())"
+                ClickCallbackParameter=""/>
+
+<StandardButton ButtonClass="btn-danger"
+                ButtonText="Sell Selected Item"
+                Disabled="@(_selectedEquipment?.Equipment == null)"
+                ClickCallback="@(_ => SellSelectedItem())"
+                ClickCallbackParameter=""/>
+
+<StandardButton ButtonClass="btn-link"
+                ButtonText="Sort Inventory"
+                Disabled="@(_equipmentCatalog?.Count <= 1)"
+                ClickCallback="@(_ => SortInventory())"
+                ClickCallbackParameter=""/>
 
 <table class="table" style="vertical-align: top; width: 100%">
     <thead>
