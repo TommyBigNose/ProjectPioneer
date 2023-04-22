@@ -1,4 +1,7 @@
-﻿@page "/Character/HeroCreator"
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@page "/Character/HeroCreator"
 
 @inject ILogger<HeroCreator> Logger
 @inject Systems.IGame ProjectPioneerGame
@@ -21,7 +24,11 @@ Continue with this Hero?
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div>
-        <button type="submit" class="btn btn-primary">Create Hero</button>
+        <StandardButton ButtonType="submit"
+                        ButtonClass="btn-primary"
+                        ButtonText="Create Hero"
+                        ClickCallback="@(_ => Console.WriteLine("Create hero!"))"
+                        ClickCallbackParameter=""/>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -46,9 +53,10 @@ Continue with this Hero?
                     <td>
                         @foreach(var job in ProjectPioneerGame.GetAllJobs())
                         {
-                            <button type="button" class="btn @GetJobStyle(job.ID)" name="job@job.ID" @onclick="@(_ => SetDisplayedJob(job))">
-                                @job.Name
-                            </button>
+                            <StandardButton ButtonClass="@(@GetJobStyle(job.ID))"
+                                            ButtonText="@job.Name"
+                                            ClickCallback="@(_ => SetDisplayedJob(job))"
+                                            ClickCallbackParameter=""/>
                             <br />
                         }
                     </td>
@@ -63,9 +71,10 @@ Continue with this Hero?
                      <td>
                         @foreach (var implant in ProjectPioneerGame.GetAllImplants())
                         {
-                            <button type="button" class="btn @GetImplantStyle(implant.ID)" name="implant@implant.ID" @onclick="@(_ => SetDisplayedImplant(implant))">
-                                @implant.Name
-                            </button>
+                            <StandardButton ButtonClass="@(GetImplantStyle(implant.ID))"
+                                            ButtonText="@implant.Name"
+                                            ClickCallback="@(_ => SetDisplayedImplant(implant))"
+                                            ClickCallbackParameter=""/>
                             <br />
                         }
                     </td>

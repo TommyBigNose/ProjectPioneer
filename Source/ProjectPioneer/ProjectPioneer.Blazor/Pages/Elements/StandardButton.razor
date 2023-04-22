@@ -2,7 +2,7 @@
 @using ProjectPioneer.Blazor.Pages.Components;
 @using ProjectPioneer.Blazor.Utility
 
-<button type="button" 
+<button type="@ButtonType" 
         class="btn @ButtonClass" 
         disabled="@Disabled"
         @onclick="@(async () => 
@@ -16,6 +16,10 @@
 <AudioFxPlayer @ref="_audioFxPlayer"/>
 
 @code {
+
+    [Parameter]
+    public string ButtonType { get; set; } = "button";
+
     [Parameter]
     public string? ButtonClass { get; set; }
 
