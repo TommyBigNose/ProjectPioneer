@@ -808,7 +808,7 @@
 				{
 					ID = 6,
 					Name = "Caves - Part 3",
-					Description = "Deep within the final layer of the mines, you see both wretched creatures and man-made machines.",
+					Description = "Deep within the final layer of the caves, you see both wretched creatures and man-made machines.",
 					QuestLengthInSeconds = 160,
 					ChanceForNormalLoot = 550,
 					ChanceForRareLoot = 100,
@@ -834,6 +834,40 @@
 						LightningDefense = 25,
 						EarthAttack = 5,
 						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 10),
+					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 12)
+				},
+				new QuestInfo()
+				{
+					ID = 7,
+					Name = "Caves - Mutated Worm",
+					Description = "A creature once controlled to dig out quarries for the settlement, is now on a rampage.",
+					QuestLengthInSeconds = 200,
+					ChanceForNormalLoot = 550,
+					ChanceForRareLoot = 100,
+					TotalChancesForLoot = 3,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.PhysicalDefense, StatType.FireAttack, StatType.EarthDefense 
+					},
+					Stats = new Stats()
+					{
+						Level = 12,
+						PhysicalAttack = 30,
+						PhysicalDefense = 23,
+						MagicalAttack = 20,
+						MagicalDefense = 18,
+						Speed = 12,
+						FireAttack = 0,
+						FireDefense = 5,
+						IceAttack = 0,
+						IceDefense = 15,
+						LightningAttack = 0,
+						LightningDefense = 15,
+						EarthAttack = 35,
+						EarthDefense = 35,
 					},
 					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 10),
 					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 12)
