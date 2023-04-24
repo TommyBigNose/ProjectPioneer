@@ -1,0 +1,49 @@
+﻿<h3>InfoTable</h3>
+
+<table class="table bg-light" style="width: 50%">
+    <thead>
+        <tr class="@ColorTheme --bs-bg-opacity: .5">
+            <th>@DisplayName</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                P-Atk: @DisplayStats?.PhysicalAttack |
+                P-Def: @DisplayStats?.PhysicalDefense | 
+                M-Atk: @DisplayStats?.MagicalAttack | 
+                M-Def: @DisplayStats?.MagicalDefense | 
+                Spd: @DisplayStats?.PhysicalDefense
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                🔥-Atk: @DisplayStats?.FireAttack |
+                🔥-Def: @DisplayStats?.FireDefense |
+                ❄️-Atk: @DisplayStats?.IceAttack |
+                ❄️-Def: @DisplayStats?.IceDefense
+            </td>
+            <td>
+                ⚡-Atk: @DisplayStats?.LightningAttack |
+                ⚡-Def: @DisplayStats?.LightningDefense |
+                ⛰️-Atk: @DisplayStats?.EarthAttack |
+                ⛰️-Def: @DisplayStats?.EarthDefense
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public string? DisplayName { get; set; }
+    
+    [Parameter]
+    public Stats? DisplayStats { get; set; }
+    
+    [Parameter]
+    public string? ColorTheme { get; set; }
+}

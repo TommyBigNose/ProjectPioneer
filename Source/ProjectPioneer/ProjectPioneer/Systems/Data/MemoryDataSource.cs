@@ -845,7 +845,7 @@
 					Description = "A creature once controlled to dig out quarries for the settlement, is now on a rampage.",
 					QuestLengthInSeconds = 200,
 					ChanceForNormalLoot = 550,
-					ChanceForRareLoot = 100,
+					ChanceForRareLoot = 150,
 					TotalChancesForLoot = 3,
 					StatTypeMultiplierRatio = 2.0f,
 					StatTypeMultipliers = new List<StatType>()
@@ -869,8 +869,8 @@
 						EarthAttack = 35,
 						EarthDefense = 35,
 					},
-					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 10),
-					RareLoot = GetAllAuras().First(_ => _.Stats.Level >= 12)
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
 				},
 			};
 

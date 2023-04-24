@@ -11,8 +11,11 @@ Exp: @Hero?.Exp / @Hero?.GetRequiredExp()
     CurrentValue=@Hero!.Exp
     MaxValue=@Hero!.GetRequiredExp() />
 <br />
-<p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Job: @Hero?.Job.Name</p>
-<p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Implant: @Hero?.Implant.Name</p>
+@* <p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Job: @Hero?.Job.Name</p> *@
+@* <p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Implant: @Hero?.Implant.Name</p> *@
+
+<InfoTable DisplayName="@($"Job: {Hero?.Job.Name}")" DisplayStats="@Hero?.Job.Stats" ColorTheme="bg-primary" />
+<InfoTable DisplayName="@($"Implant: {Hero?.Implant.Name}")" DisplayStats="@Hero?.Implant.Stats" ColorTheme="bg-success" />
 
 @* <p class="bg-secondary" style="width: 50%; --bs-bg-opacity: .5">----</p> *@
 
