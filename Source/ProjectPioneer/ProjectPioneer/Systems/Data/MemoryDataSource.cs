@@ -423,6 +423,23 @@
 					EarthAttack = 0,
 					EarthDefense = 15,
 				}),
+				new Armor(305, "General Armor", "Your general purpose, all encompassing, armor!  Won't let you down, but it also won't surprise you.", EquipmentType.Armor, new Stats()
+				{
+					Level= 9,
+					PhysicalAttack = 0,
+					PhysicalDefense = 20,
+					MagicalAttack = 0,
+					MagicalDefense = 20,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 10,
+					IceAttack = 0,
+					IceDefense = 10,
+					LightningAttack = 0,
+					LightningDefense = 10,
+					EarthAttack = 0,
+					EarthDefense = 10,
+				}),
 				new Armor(320, "Dragon's Skin", "Wield the skin of a dragon.  High elemental resistance", EquipmentType.Armor, new Stats()
 				{
 					Level= 20,
@@ -516,6 +533,23 @@
 					LightningDefense = 3,
 					EarthAttack = 1,
 					EarthDefense = 3,
+				}),
+				new Aura(505, "General Barrier", "Your general purpose, all encompassing, barrier!  Won't let you down, but it also won't surprise you.", EquipmentType.Aura,new Stats()
+				{
+					Level= 8,
+					PhysicalAttack = 0,
+					PhysicalDefense = 10,
+					MagicalAttack = 0,
+					MagicalDefense = 10,
+					Speed = 0,
+					FireAttack = 0,
+					FireDefense = 5,
+					IceAttack = 0,
+					IceDefense = 5,
+					LightningAttack = 0,
+					LightningDefense = 5,
+					EarthAttack = 0,
+					EarthDefense = 5,
 				}),
 				new Aura(520, "Dragon's Aura", "Wield the spirit of a dragon.  High elemental resistance", EquipmentType.Aura,new Stats()
 				{
