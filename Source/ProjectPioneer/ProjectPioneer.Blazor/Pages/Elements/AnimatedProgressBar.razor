@@ -1,12 +1,20 @@
 ﻿@inject ILogger<AnimatedProgressBar> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
-<div class="progress" style="width: 40%">
+<div class="progress" style="width: @_progressBarWidthString">
     <div class="progress-bar bg-success" style="width: @_currentValuePercent">
     </div>
     <div class="progress-bar bg-warning progress-bar-striped" style="width: @_addedValuePercent">
     </div>
 </div>
+
+@if (ShowIconsBelowBar)
+{
+    @for (int i = 1; i <= numberOfIcons; i++)
+    {
+        <span style="padding-left: @_paddingStyle">@Utility.SymbolHelper.GetChestSymbol()</span>
+    }
+}
 
 @code {
     [Parameter]
@@ -21,9 +29,26 @@
     [Parameter]
     public float MaxValue { get; set; } = 1000.0f;
 
+    [Parameter]
+    public bool ShowIconsBelowBar { get; set; } = false;
+
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
     private string _addedValuePercent = "0%";
+
+    // WIP Icons below progress bar
+    private int numberOfIcons = 5;
+    private int _progressBarWidth = 500;
+    private string _progressBarWidthString = string.Empty;
+    private int _padding = 0;
+    private string _paddingStyle = string.Empty;
+    
+    protected override void OnInitialized()
+    {
+        _progressBarWidthString = $"{_progressBarWidth}px";
+        _padding = (_progressBarWidth / numberOfIcons) - 20; //Offset for symbol
+        _paddingStyle = $"{_padding}px";
+    }
 
     public async Task AddValue()
     {

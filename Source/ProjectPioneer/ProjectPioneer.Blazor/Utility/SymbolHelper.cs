@@ -31,5 +31,10 @@
 		{
 			return (value) ? "✅" : "❌";
 		}
+
+		public static object GetChestSymbol()
+		{
+			return "🧰";
+		}
 	}
 }
