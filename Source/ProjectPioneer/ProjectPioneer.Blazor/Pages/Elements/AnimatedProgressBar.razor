@@ -10,7 +10,7 @@
 
 @if (ShowIconsBelowBar)
 {
-    @for (int i = 1; i <= numberOfIcons; i++)
+    @for (int i = 1; i <= NumberOfIcons; i++)
     {
         <span style="padding-left: @_paddingStyle">@Utility.SymbolHelper.GetChestSymbol()</span>
     }
@@ -32,12 +32,14 @@
     [Parameter]
     public bool ShowIconsBelowBar { get; set; } = false;
 
+    [Parameter]
+    public int NumberOfIcons { get; set; } = 1;
+
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
     private string _addedValuePercent = "0%";
 
     // WIP Icons below progress bar
-    private int numberOfIcons = 5;
     private int _progressBarWidth = 500;
     private string _progressBarWidthString = string.Empty;
     private int _padding = 0;
@@ -46,7 +48,7 @@
     protected override void OnInitialized()
     {
         _progressBarWidthString = $"{_progressBarWidth}px";
-        _padding = (_progressBarWidth / numberOfIcons) - 20; //Offset for symbol
+        _padding = (_progressBarWidth / NumberOfIcons) - 20; //Offset for symbol
         _paddingStyle = $"{_padding}px";
     }
 

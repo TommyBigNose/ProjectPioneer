@@ -9,7 +9,8 @@ Exp: @Hero?.Exp / @Hero?.GetRequiredExp()
 <br />
 <ProjectPioneer.Blazor.Pages.Elements.AnimatedProgressBar @ref=_animatedQuestBar
     CurrentValue=@Hero!.Exp
-    MaxValue=@Hero!.GetRequiredExp() />
+    MaxValue=@Hero!.GetRequiredExp()
+    ShowIconsBelowBar="false" />
 <br />
 @* <p class="bg-primary" style="width: 50%; --bs-bg-opacity: .5">Job: @Hero?.Job.Name</p> *@
 @* <p class="bg-success" style="width: 50%; --bs-bg-opacity: .5">Implant: @Hero?.Implant.Name</p> *@

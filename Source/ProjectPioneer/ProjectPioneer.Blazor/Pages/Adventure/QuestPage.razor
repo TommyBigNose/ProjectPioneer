@@ -33,7 +33,9 @@ Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
     CurrentValue=@_quest.OnGoingQuest.ProgressBar.Value 
     IncomingAdditionalValue=@_quest.OnGoingQuest.ProgressBar.IncrementRate
     FillInDelayInMs=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) 
-    MaxValue="@_quest.OnGoingQuest.ProgressBar.ValueMax"/>
+    MaxValue="@_quest.OnGoingQuest.ProgressBar.ValueMax"
+    ShowIconsBelowBar="true"
+    NumberOfIcons=@_quest.QuestInfo.TotalChancesForLoot />
 
 <br />
 <br />
