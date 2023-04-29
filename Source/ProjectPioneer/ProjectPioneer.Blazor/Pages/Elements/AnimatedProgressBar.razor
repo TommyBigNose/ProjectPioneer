@@ -1,7 +1,7 @@
 ﻿@inject ILogger<AnimatedProgressBar> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
-<div class="progress" style="width: @_progressBarWidthString">
+<div class="progress" style="width: @_progressBarWidthString; height: @_progressBarHeightString">
     <div class="progress-bar bg-success" style="width: @_currentValuePercent">
     </div>
     <div class="progress-bar bg-warning progress-bar-striped" style="width: @_addedValuePercent">
@@ -35,20 +35,26 @@
     [Parameter]
     public int NumberOfIcons { get; set; } = 1;
 
+    [Parameter]
+    public int ProgressBarWidth { get; set; } = 500;
+
+    [Parameter]
+    public int ProgressBarHeight { get; set; } = 16;
+    
     private string _currentValuePercent = "0%";
     private float _addedValue = 0.0f;
     private string _addedValuePercent = "0%";
 
-    // WIP Icons below progress bar
-    private int _progressBarWidth = 500;
     private string _progressBarWidthString = string.Empty;
+    private string _progressBarHeightString = string.Empty;
     private int _padding = 0;
     private string _paddingStyle = string.Empty;
     
     protected override void OnInitialized()
     {
-        _progressBarWidthString = $"{_progressBarWidth}px";
-        _padding = (_progressBarWidth / NumberOfIcons) - 20; //Offset for symbol
+        _progressBarWidthString = $"{ProgressBarWidth}px";
+        _progressBarHeightString = $"{ProgressBarHeight}px";
+        _padding = (ProgressBarWidth / NumberOfIcons) - 20; //Offset for symbol
         _paddingStyle = $"{_padding}px";
     }
 
