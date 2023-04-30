@@ -1,14 +1,13 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Elements
 @using ProjectPioneer.Blazor.Pages.Components;
-@using ProjectPioneer.Blazor.Utility
 
 <button type="@ButtonType" 
         class="btn @ButtonClass" 
         disabled="@Disabled"
         @onclick="@(async () => 
                   {
-                      await ClickCallback.InvokeAsync(ClickCallbackParameter); 
-                      await PlayClickSound(); 
+                      await ClickCallback.InvokeAsync(ClickCallbackParameter);
+                      await PlayClickSound();
                   })">
     @ButtonText
 </button>
