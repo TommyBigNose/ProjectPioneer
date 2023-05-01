@@ -22,6 +22,9 @@
 				case EquipmentType.Aura:
 					symbol = "🛡️";
 					break;
+				default:
+					symbol = "❔";
+					break;
 			}
 
 			return symbol;
