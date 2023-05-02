@@ -5,6 +5,7 @@
 		int ID { get; }
 		string Name { get; }
 		string Description { get; }
+		string ImageName { get; }
 		Stats Stats { get; }
 		EquipmentType EquipmentType { get; }
 		int GetPurchaseValue();
