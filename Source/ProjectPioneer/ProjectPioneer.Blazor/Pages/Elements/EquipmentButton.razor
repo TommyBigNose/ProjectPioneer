@@ -2,7 +2,7 @@
 @using ProjectPioneer.Blazor.Pages.Components;
 
 @inject Systems.IGame ProjectPioneerGame
-
+<img src="@GetItemArt(CurrentEquipment?.Equipment)" alt="@GetItemArtAlt(CurrentEquipment?.Equipment)"/>
 <StandardButton ButtonClass="@GetItemStyle(CurrentEquipment)"
                 ButtonText="@GetItemText()"
                 ClickCallback="@ClickCallback"
@@ -39,5 +39,15 @@
     private string GetItemText()
     {
         return $"{Utility.SymbolHelper.GetEquipmentSymbol(CurrentEquipment?.Equipment)} | {GetValue(CurrentEquipment?.Equipment)}: {CurrentEquipment?.Equipment?.Name} | {GetCanEquipSymbol(CurrentEquipment?.Equipment)}";
+    }
+
+    private string GetItemArt(IEquipment? equipment)
+    {
+        return $"art/equipment/{equipment?.ImageName}.png";
+    }
+    
+    private string GetItemArtAlt(IEquipment? equipment)
+    {
+        return $"{equipment?.ImageName}.png";
     }
 }
