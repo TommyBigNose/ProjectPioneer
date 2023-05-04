@@ -11,7 +11,7 @@
 		private readonly string _description = string.Empty;
 		public string Description => _description;
 
-		public string ImageName => Name.Replace(" ", "");
+		public string ImageName => Name.Replace(" ", "").Replace("\'", "");
 
 		private readonly EquipmentType _equipmentType = EquipmentType.None;
 		public EquipmentType EquipmentType => _equipmentType;
