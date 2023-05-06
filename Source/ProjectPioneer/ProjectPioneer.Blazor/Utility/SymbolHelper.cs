@@ -39,5 +39,15 @@
 		{
 			return "🧰";
 		}
+		
+		public static string GetItemArt(IEquipment? equipment)
+		{
+			return $"art/equipment/{equipment?.ImageName}.png";
+		}
+    
+		public static string GetItemArtAlt(IEquipment? equipment)
+		{
+			return $"{equipment?.ImageName}.png";
+		}
 	}
 }

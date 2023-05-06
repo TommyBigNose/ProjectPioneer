@@ -4,14 +4,14 @@
 <table class="table bg-light" style="width: 50%">
     <thead>
         <tr class="@ColorTheme --bs-bg-opacity: .5">
-            <th>Equipped @EquippedItemType</th>
+            <th>Equipped: @EquippedItemType | @SymbolHelper.GetEquipmentSymbol(@EquippedItem) | @EquippedItem?.EquipmentType </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                @SymbolHelper.GetEquipmentSymbol(@EquippedItem) | @EquippedItem?.Name | @EquippedItem?.EquipmentType
+                <img src="@SymbolHelper.GetItemArt(EquippedItem)" alt="@SymbolHelper.GetItemArtAlt(EquippedItem)"/> | @EquippedItem?.Name
             </td>
             <td>
                 P-Atk: @EquippedItem?.Stats.PhysicalAttack |
