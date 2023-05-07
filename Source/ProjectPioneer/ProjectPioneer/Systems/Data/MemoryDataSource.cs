@@ -906,6 +906,40 @@
 					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
 					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
 				},
+				new QuestInfo()
+				{
+					ID = 8,
+					Name = "Mines - Part 1",
+					Description = "A mining facility and factory in one, producing machines that no longer are on their original programming.",
+					QuestLengthInSeconds = 220,
+					ChanceForNormalLoot = 600,
+					ChanceForRareLoot = 50,
+					TotalChancesForLoot = 3,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.LightningAttack, StatType.MagicalAttack 
+					},
+					Stats = new Stats()
+					{
+						Level = 14,
+						PhysicalAttack = 35,
+						PhysicalDefense = 35,
+						MagicalAttack = 15,
+						MagicalDefense = 15,
+						Speed = 25,
+						FireAttack = 15,
+						FireDefense = 15,
+						IceAttack = 0,
+						IceDefense = 5,
+						LightningAttack = 0,
+						LightningDefense = 0,
+						EarthAttack = 0,
+						EarthDefense = 0,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
 			};
 
 			return questInfos;
