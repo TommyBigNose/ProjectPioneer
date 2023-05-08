@@ -49,5 +49,34 @@
 		{
 			return $"{equipment?.ImageName}.png";
 		}
+
+		public static string GetELementalSymbol(StatType statType)
+		{
+			string symbol = "";
+			switch (statType)
+			{
+				case StatType.FireAttack:
+				case StatType.FireDefense:
+					symbol = "🔥";
+					break;
+				case StatType.IceAttack:
+				case StatType.IceDefense:
+					symbol = "❄️";
+					break;
+				case StatType.LightningAttack:
+				case StatType.LightningDefense:
+					symbol = "⚡";
+					break;
+				case StatType.EarthAttack:
+				case StatType.EarthDefense:
+					symbol = "⛰️";
+					break;
+				default:
+					symbol = "❔";
+					break;
+			}
+
+			return symbol;
+		}
 	}
 }

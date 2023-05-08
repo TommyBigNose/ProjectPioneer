@@ -23,16 +23,16 @@
         </tr>
         <tr>
             <td>
-                🔥-Atk: @EquippedItem?.Stats.FireAttack |
-                🔥-Def: @EquippedItem?.Stats.FireDefense |
-                ❄️-Atk: @EquippedItem?.Stats.IceAttack |
-                ❄️-Def: @EquippedItem?.Stats.IceDefense
+                @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @EquippedItem?.Stats.FireAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @EquippedItem?.Stats.FireDefense |
+                @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @EquippedItem?.Stats.IceAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @EquippedItem?.Stats.IceDefense
             </td>
             <td>
-                ⚡-Atk: @EquippedItem?.Stats.LightningAttack |
-                ⚡-Def: @EquippedItem?.Stats.LightningDefense |
-                ⛰️-Atk: @EquippedItem?.Stats.EarthAttack |
-                ⛰️-Def: @EquippedItem?.Stats.EarthDefense
+                @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @EquippedItem?.Stats.LightningAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @EquippedItem?.Stats.LightningDefense |
+                @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @EquippedItem?.Stats.EarthAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @EquippedItem?.Stats.EarthDefense
             </td>
         </tr>
     </tbody>

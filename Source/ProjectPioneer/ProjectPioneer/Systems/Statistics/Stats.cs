@@ -166,6 +166,28 @@
 
 			return statList;
 		}
+		
+		public List<string> GetStatsAsListSlim()
+		{
+			List<string> statList = new()
+			{
+				$"P-Atk: {PhysicalAttack}",
+				$"P-Def: {PhysicalDefense}",
+				$"M-Atk: {MagicalAttack}",
+				$"M-Def: {MagicalDefense}",
+				$"Spd: {Speed}",
+				$"F-Atk: {FireAttack}",
+				$"F-Def: {FireDefense}",
+				$"I-Atk: {IceAttack}",
+				$"I-Def: {IceDefense}",
+				$"L-Atk: {LightningAttack}",
+				$"L-Def: {LightningDefense}",
+				$"E-Atk: {EarthAttack}",
+				$"E-Def: {EarthDefense}"
+			};
+
+			return statList;
+		}
 	}
 
 	public enum StatType
