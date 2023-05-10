@@ -22,16 +22,16 @@
         </tr>
         <tr>
             <td>
-                🔥-Atk: @DisplayStats?.FireAttack |
-                🔥-Def: @DisplayStats?.FireDefense |
-                ❄️-Atk: @DisplayStats?.IceAttack |
-                ❄️-Def: @DisplayStats?.IceDefense
+                @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @DisplayStats?.FireAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @DisplayStats?.FireDefense |
+                @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @DisplayStats?.IceAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @DisplayStats?.IceDefense
             </td>
             <td>
-                ⚡-Atk: @DisplayStats?.LightningAttack |
-                ⚡-Def: @DisplayStats?.LightningDefense |
-                ⛰️-Atk: @DisplayStats?.EarthAttack |
-                ⛰️-Def: @DisplayStats?.EarthDefense
+                @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @DisplayStats?.LightningAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @DisplayStats?.LightningDefense |
+                @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @DisplayStats?.EarthAttack |
+                @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @DisplayStats?.EarthDefense
             </td>
         </tr>
     </tbody>
