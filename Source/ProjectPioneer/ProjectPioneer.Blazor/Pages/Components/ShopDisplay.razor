@@ -4,7 +4,7 @@
 @inject ILogger<ShopDisplay> Logger
 @inject Systems.IGame ProjectPioneerGame
 
-<h3>ShopDisplay</h3>
+@* <h3>ShopDisplay</h3> *@
 
 <StandardButton ButtonClass="btn-primary"
                 Disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))"
@@ -35,6 +35,7 @@
             <td style="width: 40%">
                 @if (_selectedEquipment?.Equipment != null)
                 {
+                    @_selectedEquipment.Equipment.EquipmentType
                     <CompareStatsDisplay Stats1="@_selectedEquipment.Equipment.Stats" Stats2="@_statsHeroEquipment" IsComparingForQuest="false" />
                 }
             </td>
