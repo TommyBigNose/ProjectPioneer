@@ -34,6 +34,9 @@
     [Parameter]
     public string? ClickCallbackParameter { get; set; }
 
+    [Parameter]
+    public string ClickSound { get; set; } = AudioFxHelper.Fx_Info_Url;
+
     private AudioFxPlayer? _audioFxPlayer;
 
     protected override void OnInitialized()
@@ -43,6 +46,6 @@
 
     private async Task PlayClickSound()
     {
-        await _audioFxPlayer!.PlaySound(AudioFxHelper.Fx_Info_Url, 1000);
+        await _audioFxPlayer!.PlaySound(ClickSound, 1000);
     }
 }
