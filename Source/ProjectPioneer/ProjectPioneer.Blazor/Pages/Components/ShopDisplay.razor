@@ -10,7 +10,8 @@
                 Disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))"
                 ButtonText="Buy Selected Item"
                 ClickCallback="@BuySelectedItem"
-                ClickCallbackParameter=""/>
+                ClickCallbackParameter=""
+                ClickSound="@AudioFxHelper.Fx_Shop_Beep_Url"/>
 <br />
 
 <table class="table" style="vertical-align: top; width: 100%">

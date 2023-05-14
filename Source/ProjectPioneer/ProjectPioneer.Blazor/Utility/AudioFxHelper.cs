@@ -10,6 +10,7 @@
 		public static string Fx_Unknown_Url =  "/sounds/Windows_Ding.wav";
 		public static string Fx_Info_Url =  "/sounds/Windows_Information_Bar.wav";
 		public static string Fx_Calm_Url =  "/sounds/Windows_Ring9.wav";
+		public static string Fx_Shop_Beep_Url =  "/sounds/Repeatable_Beep.wav";
 		
 	}
 }
