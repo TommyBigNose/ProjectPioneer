@@ -10,8 +10,11 @@
     <tbody>
         <tr>
             <td>
-                @foreach (var stat in GetComparedStats())
+                @for (int i = 0; i < GetStatCount(); i++)
                 {
+                    var stat = _stats1Array![i];
+                    var comparedStat = _comparedStatsArray![i];
+
                     if (Multipliers.Any() && Multipliers.Contains(@GetExtractedStatType(stat).Replace(" ", "")))
                     {
                         <b>@GetExtractedStatType(stat)</b>
@@ -20,8 +23,8 @@
                     {
                         @GetExtractedStatType(stat)
                     }
-                    <text>&nbsp;</text><span style="@GetStatColor(stat)">@GetStatNumber(stat)</span>
-                    <br />
+                    <text>&nbsp;</text>@GetStatNumber(stat)<span style="@GetStatColor(comparedStat)"><text>&nbsp;</text>@GetStatPlusOrMinus(comparedStat)@GetStatNumber(comparedStat)</span>
+                    <br/>
                 }
             </td>
         </tr>
@@ -40,6 +43,27 @@
 
     [Parameter]
     public bool IsComparingForQuest { get; set; }
+
+    private string[]? _stats1Array;
+    private string[]? _comparedStatsArray;
+    
+    protected override void OnInitialized()
+    {
+        Refresh();
+    }
+    
+    private void Refresh()
+    {
+        _stats1Array = Stats1!.GetStatsAsList().ToArray();
+        _comparedStatsArray = GetComparedStats().ToArray();
+    }
+
+    private int GetStatCount()
+    {
+        Refresh();
+
+        return _stats1Array!.Length;
+    }
 
     private List<string> GetComparedStats()
     {
@@ -94,6 +118,26 @@
         return statStyle;
     }
 
-    
+    private string GetStatPlusOrMinus(string stat)
+    {
+        int.TryParse(GetStatNumber(stat), out int statValue);
+        
+        string plusOrMinus = $"";
+
+        if (statValue > 0)
+        {
+            plusOrMinus = "+";
+        }
+        else if (statValue < 0)
+        {
+            plusOrMinus = ""; // Number is already negative so this will double the "-"
+        }
+        else
+        {
+            plusOrMinus = "=";
+        }
+
+        return plusOrMinus;
+    }
 
 }
