@@ -1,42 +1,81 @@
 ﻿@inject ILogger<EquippedItemDisplay> Logger
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
-<table class="table bg-light" style="width: 50%">
-    <thead>
-        <tr class="@ColorTheme --bs-bg-opacity: .5">
-            <th>Equipped: @EquippedItemType | @SymbolHelper.GetEquipmentSymbol(@EquippedItem) | @EquippedItem?.EquipmentType </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <img src="@SymbolHelper.GetItemArt(EquippedItem)" alt="@SymbolHelper.GetItemArtAlt(EquippedItem)"/> | @EquippedItem?.Name
-            </td>
-            <td>
-                P-Atk: @EquippedItem?.Stats.PhysicalAttack |
-                P-Def: @EquippedItem?.Stats.PhysicalDefense | 
-                M-Atk: @EquippedItem?.Stats.MagicalAttack | 
-                M-Def: @EquippedItem?.Stats.MagicalDefense | 
-                Spd: @EquippedItem?.Stats.PhysicalDefense
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @EquippedItem?.Stats.FireAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @EquippedItem?.Stats.FireDefense |
-                @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @EquippedItem?.Stats.IceAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @EquippedItem?.Stats.IceDefense
-            </td>
-            <td>
-                @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @EquippedItem?.Stats.LightningAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @EquippedItem?.Stats.LightningDefense |
-                @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @EquippedItem?.Stats.EarthAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @EquippedItem?.Stats.EarthDefense
-            </td>
-        </tr>
-    </tbody>
-</table>
+@* <table class="table bg-light" style="width: 50%"> *@
+@*     <thead> *@
+@*     <tr class="@ColorTheme --bs-bg-opacity: .5"> *@
+@*         <th>Equipped: @EquippedItemType | @SymbolHelper.GetEquipmentSymbol(@EquippedItem) | @EquippedItem?.EquipmentType </th> *@
+@*         <th></th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*     <tr> *@
+@*         <td> *@
+@*             <img src="@SymbolHelper.GetItemArt(EquippedItem)" alt="@SymbolHelper.GetItemArtAlt(EquippedItem)"/> | @EquippedItem?.Name *@
+@*         </td> *@
+@*         <td> *@
+@*             P-Atk: @EquippedItem?.Stats.PhysicalAttack | *@
+@*             P-Def: @EquippedItem?.Stats.PhysicalDefense |  *@
+@*             M-Atk: @EquippedItem?.Stats.MagicalAttack |  *@
+@*             M-Def: @EquippedItem?.Stats.MagicalDefense |  *@
+@*             Spd: @EquippedItem?.Stats.PhysicalDefense *@
+@*         </td> *@
+@*     </tr> *@
+@*     <tr> *@
+@*         <td> *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @EquippedItem?.Stats.FireAttack | *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @EquippedItem?.Stats.FireDefense | *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @EquippedItem?.Stats.IceAttack | *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @EquippedItem?.Stats.IceDefense *@
+@*         </td> *@
+@*         <td> *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @EquippedItem?.Stats.LightningAttack | *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @EquippedItem?.Stats.LightningDefense | *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @EquippedItem?.Stats.EarthAttack | *@
+@*             @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @EquippedItem?.Stats.EarthDefense *@
+@*         </td> *@
+@*     </tr> *@
+@*     </tbody> *@
+@* </table> *@
+
+<img src="@SymbolHelper.GetItemArt(EquippedItem)" alt="@SymbolHelper.GetItemArtAlt(EquippedItem)"/>
+<StandardButton ButtonClass="@GetItemStyle(EquippedItem)"
+                ButtonText="@GetItemText(EquippedItem)"
+                ClickCallback="@(_ => ShowStats(EquippedItem))"
+                ClickCallbackParameter=""/>
+<br />
+
+@if (_showStats)
+{
+    <span>
+        P-Atk: @EquippedItem?.Stats.PhysicalAttack
+        <br />
+        P-Def: @EquippedItem?.Stats.PhysicalDefense
+        <br />
+        M-Atk: @EquippedItem?.Stats.MagicalAttack
+        <br />
+        M-Def: @EquippedItem?.Stats.MagicalDefense
+        <br />
+        Spd: @EquippedItem?.Stats.PhysicalDefense
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @EquippedItem?.Stats.FireAttack
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @EquippedItem?.Stats.FireDefense
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @EquippedItem?.Stats.IceAttack
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @EquippedItem?.Stats.IceDefense
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @EquippedItem?.Stats.LightningAttack
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @EquippedItem?.Stats.LightningDefense
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @EquippedItem?.Stats.EarthAttack
+        <br />
+        @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @EquippedItem?.Stats.EarthDefense
+    </span>
+}
+<br />
 
 @code {
 	[Parameter]
@@ -48,4 +87,33 @@
     [Parameter]
     public string? ColorTheme { get; set; }
 
+    private bool _showStats = false;
+
+    private string GetItemText(IEquipment? equipment)
+    {
+        return equipment.Name;
+    }
+    
+    private string GetItemStyle(IEquipment? equipment)
+    {
+        string style = "btn btn-info";
+        switch (equipment.EquipmentType)
+        {
+            case EquipmentType.Armor:
+                style = "btn btn-secondary";
+                break;
+            case EquipmentType.Aura:
+                style = "btn btn-info";
+                break;
+            default:
+                style = "btn btn-warning";
+                break;
+        }
+        return style;
+    }
+
+    private void ShowStats(IEquipment? equipment)
+    {
+        _showStats = !_showStats;
+    }
 }
