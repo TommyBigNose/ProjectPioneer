@@ -41,7 +41,7 @@
 <img src="@SymbolHelper.GetItemArt(EquippedItem)" alt="@SymbolHelper.GetItemArtAlt(EquippedItem)"/>
 <StandardButton ButtonClass="@GetItemStyle(EquippedItem)"
                 ButtonText="@GetItemText(EquippedItem)"
-                ClickCallback="@(_ => ShowStats(EquippedItem))"
+                ClickCallback="@(_ => ShowStats())"
                 ClickCallbackParameter=""/>
 <br />
 
@@ -91,13 +91,13 @@
 
     private string GetItemText(IEquipment? equipment)
     {
-        return equipment.Name;
+        return equipment?.Name!;
     }
     
     private string GetItemStyle(IEquipment? equipment)
     {
         string style = "btn btn-info";
-        switch (equipment.EquipmentType)
+        switch (equipment?.EquipmentType)
         {
             case EquipmentType.Armor:
                 style = "btn btn-secondary";
@@ -112,7 +112,7 @@
         return style;
     }
 
-    private void ShowStats(IEquipment? equipment)
+    private void ShowStats()
     {
         _showStats = !_showStats;
     }

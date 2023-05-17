@@ -1,41 +1,44 @@
-﻿<h3>InfoTable</h3>
+﻿<h3>@DisplayName</h3>
 
-<table class="table bg-light" style="width: 50%">
-    <thead>
-        <tr class="@ColorTheme --bs-bg-opacity: .5">
-            <th>@DisplayName</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                P-Atk: @DisplayStats?.PhysicalAttack |
-                P-Def: @DisplayStats?.PhysicalDefense | 
-                M-Atk: @DisplayStats?.MagicalAttack | 
-                M-Def: @DisplayStats?.MagicalDefense | 
-                Spd: @DisplayStats?.PhysicalDefense
-            </td>
-            <td>
-                
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @DisplayStats?.FireAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @DisplayStats?.FireDefense |
-                @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @DisplayStats?.IceAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @DisplayStats?.IceDefense
-            </td>
-            <td>
-                @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @DisplayStats?.LightningAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @DisplayStats?.LightningDefense |
-                @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @DisplayStats?.EarthAttack |
-                @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @DisplayStats?.EarthDefense
-            </td>
-        </tr>
-    </tbody>
-</table>
+<StandardButton ButtonClass="@ButtonClass"
+                ButtonText="Show Bonuses"
+                ClickCallback="@(_ => ShowStats())"
+                ClickCallbackParameter=""/>
+<br />
+
+@if (_showStats)
+{
+    <span>
+        <h4>Level up bonuses</h4>
+        P-Atk: @DisplayStats?.PhysicalAttack
+        <br/>
+        P-Def: @DisplayStats?.PhysicalDefense
+        <br/>
+        M-Atk: @DisplayStats?.MagicalAttack
+        <br/>
+        M-Def: @DisplayStats?.MagicalDefense
+        <br/>
+        Spd: @DisplayStats?.PhysicalDefense
+        <br/>
+        <h4>Initial Elemental bonuses</h4>
+        @SymbolHelper.GetELementalSymbol(StatType.FireAttack)-Atk: @DisplayStats?.FireAttack
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.FireDefense)-Def: @DisplayStats?.FireDefense
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.IceAttack)-Atk: @DisplayStats?.IceAttack
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.IceDefense)-Def: @DisplayStats?.IceDefense
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.LightningAttack)-Atk: @DisplayStats?.LightningAttack
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.LightningDefense)-Def: @DisplayStats?.LightningDefense
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @DisplayStats?.EarthAttack
+        <br/>
+        @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @DisplayStats?.EarthDefense
+    </span>
+}
+<br />
 
 @code {
     [Parameter]
@@ -45,5 +48,12 @@
     public Stats? DisplayStats { get; set; }
     
     [Parameter]
-    public string? ColorTheme { get; set; }
+    public string? ButtonClass { get; set; }
+    
+    private bool _showStats = false;
+
+    private void ShowStats()
+    {
+        _showStats = !_showStats;
+    }
 }
