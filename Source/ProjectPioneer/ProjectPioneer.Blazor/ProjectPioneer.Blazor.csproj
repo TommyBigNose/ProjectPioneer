@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\art\backgrounds" />
     <Folder Include="wwwroot\art\equipment" />
   </ItemGroup>
 
