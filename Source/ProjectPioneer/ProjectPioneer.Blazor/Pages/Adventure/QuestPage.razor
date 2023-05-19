@@ -8,77 +8,78 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <div style="width: 800px; height: 600px; background-image:url('./art/backgrounds/forest-1-poc.png');">
-@* <div style="background-image:url('./art/backgrounds/forest-1-poc.png');"> *@
     
-    <h3>Quest Page</h3>
-    <br />
-
-    Name: @_quest.QuestInfo.Name
-    <br />
-    Description: @_quest.QuestInfo.Description
-    <br />
-    Quest Length in Seconds: @_quest.QuestInfo.QuestLengthInSeconds
-    <br />
-    Quest Final Quest Length in Seconds: @_quest.OnGoingQuest.FinalQuestLengthInSeconds
-    <br />
-    Is Quest Ongoing?: @_quest.IsQuestOnGoing()
-    <br />
-    Quest Status?: @_quest.Status
-    <br />
-    Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
-    <br />
-
-    <br />
-    <br />
-
-    <AnimatedProgressBar @ref=_animatedQuestBar
-        CurrentValue=@_quest.OnGoingQuest.ProgressBar.Value 
-        IncomingAdditionalValue=@_quest.OnGoingQuest.ProgressBar.IncrementRate
-        FillInDelayInMs=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) 
-        MaxValue="@_quest.OnGoingQuest.ProgressBar.ValueMax"
-        ShowIconsBelowBar="true"
-        NumberOfIcons=@_quest.QuestInfo.TotalChancesForLoot
-        ProgressBarWidth="700"
-        ProgressBarHeight="50"/>
-
-    <br />
-    <br />
-
-    <progress style="width: 200px; height: 100px" value="@_quest.OnGoingQuest.ProgressBar.Value" max="1000.0"></progress>
-
-    <br />
-
-    @for (int i = 1; i <= @_quest.QuestInfo.TotalChancesForLoot; i++)
-    {
-        <span style="padding-left: @_paddingStyle">|</span>
-    }
-
-    <br />
-
-    <StandardButton ButtonClass="btn-warning"
-                    Disabled="@(!_quest.IsQuestCompleted())"
-                    ButtonText="Collect Rewards"
-                    ClickCallback="@(_ => CollectRewards())"
-                    ClickCallbackParameter=""/>
-
-    <StandardButton ButtonClass="btn-danger"
-                    Disabled="@(_quest.IsQuestCompleted())"
-                    ButtonText="Cancel Quest"
-                    ClickCallback="@(_ => CancelQuest())"
-                    ClickCallbackParameter=""/>
-
-    <br />
-    <br />
-
-    @if (!_hiddenSound)
-    {
-        <audio autoplay controls hidden="hidden"><source src="@_soundSrcUrl" /></audio>
-    }
-    else
-    {
-        <audio controls muted hidden="hidden"><source src="@_soundSrcUrl" /></audio>
-    }
 </div>
+
+<h3>Quest Page</h3>
+<br />
+
+Name: @_quest.QuestInfo.Name
+<br />
+Description: @_quest.QuestInfo.Description
+<br />
+Quest Length in Seconds: @_quest.QuestInfo.QuestLengthInSeconds
+<br />
+Quest Final Quest Length in Seconds: @_quest.OnGoingQuest.FinalQuestLengthInSeconds
+<br />
+Is Quest Ongoing?: @_quest.IsQuestOnGoing()
+<br />
+Quest Status?: @_quest.Status
+<br />
+Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
+<br />
+
+<br />
+<br />
+
+<AnimatedProgressBar @ref=_animatedQuestBar
+    CurrentValue=@_quest.OnGoingQuest.ProgressBar.Value 
+    IncomingAdditionalValue=@_quest.OnGoingQuest.ProgressBar.IncrementRate
+    FillInDelayInMs=@((int)(_quest.OnGoingQuest.ProgressBar.IncrementTickRateInMs * 0.75f)) 
+    MaxValue="@_quest.OnGoingQuest.ProgressBar.ValueMax"
+    ShowIconsBelowBar="true"
+    NumberOfIcons=@_quest.QuestInfo.TotalChancesForLoot
+    ProgressBarWidth="700"
+    ProgressBarHeight="50"/>
+
+<br />
+<br />
+
+<progress style="width: 200px; height: 100px" value="@_quest.OnGoingQuest.ProgressBar.Value" max="1000.0"></progress>
+
+<br />
+
+@for (int i = 1; i <= @_quest.QuestInfo.TotalChancesForLoot; i++)
+{
+    <span style="padding-left: @_paddingStyle">|</span>
+}
+
+<br />
+
+<StandardButton ButtonClass="btn-warning"
+                Disabled="@(!_quest.IsQuestCompleted())"
+                ButtonText="Collect Rewards"
+                ClickCallback="@(_ => CollectRewards())"
+                ClickCallbackParameter=""/>
+
+<StandardButton ButtonClass="btn-danger"
+                Disabled="@(_quest.IsQuestCompleted())"
+                ButtonText="Cancel Quest"
+                ClickCallback="@(_ => CancelQuest())"
+                ClickCallbackParameter=""/>
+
+<br />
+<br />
+
+@if (!_hiddenSound)
+{
+    <audio autoplay controls hidden="hidden"><source src="@_soundSrcUrl" /></audio>
+}
+else
+{
+    <audio controls muted hidden="hidden"><source src="@_soundSrcUrl" /></audio>
+}
+
 
 @code {
     [Parameter]
