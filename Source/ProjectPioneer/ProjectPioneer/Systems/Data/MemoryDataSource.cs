@@ -940,6 +940,74 @@
 					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
 					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
 				},
+				new QuestInfo()
+				{
+					ID = 9,
+					Name = "Mines - Part 2",
+					Description = "Down here, the lights flicker and the approaching machines seem to have larger silhouettes.",
+					QuestLengthInSeconds = 250,
+					ChanceForNormalLoot = 600,
+					ChanceForRareLoot = 50,
+					TotalChancesForLoot = 4,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.LightningAttack, StatType.MagicalDefense
+					},
+					Stats = new Stats()
+					{
+						Level = 16,
+						PhysicalAttack = 40,
+						PhysicalDefense = 40,
+						MagicalAttack = 20,
+						MagicalDefense = 25,
+						Speed = 30,
+						FireAttack = 20,
+						FireDefense = 20,
+						IceAttack = 0,
+						IceDefense = 5,
+						LightningAttack = 0,
+						LightningDefense = 0,
+						EarthAttack = 0,
+						EarthDefense = 5,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
+				new QuestInfo()
+				{
+					ID = 10,
+					Name = "Mines - Corrupted Mainframe",
+					Description = "Never have your people suspected your own AI could turn against you.",
+					QuestLengthInSeconds = 300,
+					ChanceForNormalLoot = 650,
+					ChanceForRareLoot = 100,
+					TotalChancesForLoot = 4,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.MagicalAttack, StatType.MagicalDefense, StatType.Speed
+					},
+					Stats = new Stats()
+					{
+						Level = 18,
+						PhysicalAttack = 50,
+						PhysicalDefense = 40,
+						MagicalAttack = 40,
+						MagicalDefense = 40,
+						Speed = 10,
+						FireAttack = 20,
+						FireDefense = 20,
+						IceAttack = 20,
+						IceDefense = 20,
+						LightningAttack = 20,
+						LightningDefense = 20,
+						EarthAttack = 20,
+						EarthDefense = 20,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
 			};
 
 			return questInfos;
