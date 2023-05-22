@@ -1,9 +1,12 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Elements
 @using ProjectPioneer.Blazor.Pages.Components;
 
+@inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 @* <h3>Hero Display</h3> *@
 
 Name: @Hero?.Name
+<br />
+Credits: @ProjectPioneerGame.GetCredits()
 <br />
 Exp: @Hero?.Exp / @Hero?.GetRequiredExp()
 <br />

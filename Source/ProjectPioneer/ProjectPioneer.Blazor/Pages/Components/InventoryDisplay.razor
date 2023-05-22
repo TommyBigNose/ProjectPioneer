@@ -4,10 +4,8 @@
 @inject ILogger<InventoryDisplay> Logger
 @inject Systems.IGame ProjectPioneerGame
 
-@* <h3>InventoryDisplay</h3> *@
-
-Credits: @ProjectPioneerGame.GetCredits()
-<br />
+@* Credits: @ProjectPioneerGame.GetCredits() *@
+@* <br /> *@
 
 <StandardButton ButtonClass="btn-primary"
                 ButtonText="Equip Selected Item"
@@ -27,7 +25,7 @@ Credits: @ProjectPioneerGame.GetCredits()
                 ClickCallback="@(_ => SortInventory())"
                 ClickCallbackParameter=""/>
 
-<table class="table" style="vertical-align: top; width: 100%">
+<table class="table border border-3 border-dark rounded" style="vertical-align: top; width: 100%">
     <thead>
         <tr>
             <th>Equipment</th>
