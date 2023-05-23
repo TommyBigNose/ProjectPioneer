@@ -8,7 +8,7 @@
 
 @if (_showStats)
 {
-    <span>
+    <div class="border border-3 border-dark rounded">
         <h4>Level up bonuses</h4>
         P-Atk: @DisplayStats?.PhysicalAttack
         <br/>
@@ -36,7 +36,7 @@
         @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @DisplayStats?.EarthAttack
         <br/>
         @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @DisplayStats?.EarthDefense
-    </span>
+    </div>
 }
 <br />
 

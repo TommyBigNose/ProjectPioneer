@@ -47,7 +47,7 @@
 
 @if (_showStats)
 {
-    <span>
+    <div class="border border-3 border-dark rounded">
         P-Atk: @EquippedItem?.Stats.PhysicalAttack
         <br />
         P-Def: @EquippedItem?.Stats.PhysicalDefense
@@ -73,7 +73,7 @@
         @SymbolHelper.GetELementalSymbol(StatType.EarthAttack)-Atk: @EquippedItem?.Stats.EarthAttack
         <br />
         @SymbolHelper.GetELementalSymbol(StatType.EarthDefense)-Def: @EquippedItem?.Stats.EarthDefense
-    </span>
+    </div>
 }
 <br />
 
