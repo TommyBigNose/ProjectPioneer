@@ -1008,6 +1008,40 @@
 					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
 					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
 				},
+				new QuestInfo()
+				{
+					ID = 11,
+					Name = "Ruins - Part 1",
+					Description = "The mines had run into something ancient, but highly advanced.  What are these contraptions?",
+					QuestLengthInSeconds = 400,
+					ChanceForNormalLoot = 700,
+					ChanceForRareLoot = 50,
+					TotalChancesForLoot = 6,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.MagicalAttack, StatType.MagicalDefense, StatType.Speed
+					},
+					Stats = new Stats()
+					{
+						Level = 20,
+						PhysicalAttack = 45,
+						PhysicalDefense = 45,
+						MagicalAttack = 45,
+						MagicalDefense = 45,
+						Speed = 20,
+						FireAttack = 10,
+						FireDefense = 10,
+						IceAttack = 10,
+						IceDefense = 10,
+						LightningAttack = 10,
+						LightningDefense = 10,
+						EarthAttack = 10,
+						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
 			};
 
 			return questInfos;
