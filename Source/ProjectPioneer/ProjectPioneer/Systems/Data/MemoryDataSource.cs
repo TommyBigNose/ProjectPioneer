@@ -1020,7 +1020,7 @@
 					StatTypeMultiplierRatio = 2.0f,
 					StatTypeMultipliers = new List<StatType>()
 					{
-						StatType.MagicalAttack, StatType.MagicalDefense, StatType.Speed
+						StatType.PhysicalAttack, StatType.PhysicalDefense
 					},
 					Stats = new Stats()
 					{
@@ -1038,6 +1038,108 @@
 						LightningDefense = 10,
 						EarthAttack = 10,
 						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
+				new QuestInfo()
+				{
+					ID = 12,
+					Name = "Ruins - Part 2",
+					Description = "The deeper you go, the more you realize this is beyond you.  What is powering all of the electronics on this... vessel?",
+					QuestLengthInSeconds = 450,
+					ChanceForNormalLoot = 700,
+					ChanceForRareLoot = 75,
+					TotalChancesForLoot = 7,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.MagicalAttack, StatType.MagicalDefense
+					},
+					Stats = new Stats()
+					{
+						Level = 22,
+						PhysicalAttack = 50,
+						PhysicalDefense = 50,
+						MagicalAttack = 50,
+						MagicalDefense = 50,
+						Speed = 30,
+						FireAttack = 10,
+						FireDefense = 10,
+						IceAttack = 10,
+						IceDefense = 10,
+						LightningAttack = 10,
+						LightningDefense = 10,
+						EarthAttack = 10,
+						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
+				new QuestInfo()
+				{
+					ID = 13,
+					Name = "Ruins - Part 3",
+					Description = "Now you know, this was an ancient spacecraft.  How and why is it still on?  Why is it filled with monsters?",
+					QuestLengthInSeconds = 500,
+					ChanceForNormalLoot = 700,
+					ChanceForRareLoot = 80,
+					TotalChancesForLoot = 7,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.Speed
+					},
+					Stats = new Stats()
+					{
+						Level = 24,
+						PhysicalAttack = 55,
+						PhysicalDefense = 55,
+						MagicalAttack = 55,
+						MagicalDefense = 55,
+						Speed = 35,
+						FireAttack = 10,
+						FireDefense = 10,
+						IceAttack = 10,
+						IceDefense = 10,
+						LightningAttack = 10,
+						LightningDefense = 10,
+						EarthAttack = 10,
+						EarthDefense = 10,
+					},
+					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
+					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
+				},
+				new QuestInfo()
+				{
+					ID = 14,
+					Name = "Ruins - Dark Energy Manifestation",
+					Description = "This being is beyond any of our understanding, but it's still alive, and thus, can be killed.",
+					QuestLengthInSeconds = 600,
+					ChanceForNormalLoot = 700,
+					ChanceForRareLoot = 100,
+					TotalChancesForLoot = 8,
+					StatTypeMultiplierRatio = 2.0f,
+					StatTypeMultipliers = new List<StatType>()
+					{
+						StatType.FireAttack, StatType.IceAttack, StatType.LightningAttack, StatType.EarthAttack
+					},
+					Stats = new Stats()
+					{
+						Level = 26,
+						PhysicalAttack = 60,
+						PhysicalDefense = 60,
+						MagicalAttack = 60,
+						MagicalDefense = 60,
+						Speed = 40,
+						FireAttack = 20,
+						FireDefense = 5,
+						IceAttack = 20,
+						IceDefense = 5,
+						LightningAttack = 20,
+						LightningDefense = 5,
+						EarthAttack = 20,
+						EarthDefense = 5,
 					},
 					NormalLoot = GetAllWeapons().Where(_=>_.Stats.Level <= 12),
 					RareLoot = GetAllArmors().First(_ => _.Stats.Level >= 12)
