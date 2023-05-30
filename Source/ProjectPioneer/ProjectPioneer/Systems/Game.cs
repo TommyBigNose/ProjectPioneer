@@ -85,9 +85,9 @@
 		#endregion
 
 		#region Inventory
-		public IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999)
+		public IEnumerable<IEquipment> GetAllPossibleEquipment(int minLevel = 0, int maxLevel = 999)
 		{
-			return _dataSource.GetAllEquipment(minlevel, maxLevel);
+			return _dataSource.GetAllEquipment(minLevel, maxLevel);
 		}
 
 		public int GetCredits()
@@ -154,9 +154,9 @@
 		#endregion
 
 		#region Quest
-		public IEnumerable<IQuest> GetAllQuests()
+		public IEnumerable<IQuest> GetAllQuests(int minLevel = 0, int maxLevel = 999)
 		{
-			return _dataSource.GetAllQuests();
+			return _dataSource.GetAllQuests(minLevel, maxLevel);
 		}
 
 		public void CompleteQuest(IQuest quest)

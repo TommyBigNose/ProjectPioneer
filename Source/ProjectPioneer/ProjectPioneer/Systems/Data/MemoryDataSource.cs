@@ -573,20 +573,20 @@
 			return auras;
 		}
 
-		public IEnumerable<IEquipment> GetAllEquipment(int minlevel = 0, int maxLevel = 999)
+		public IEnumerable<IEquipment> GetAllEquipment(int minLevel = 0, int maxLevel = 999)
 		{
 			List<IEquipment> equipment = new List<IEquipment>();
 
-			if (minlevel == 0)
+			if (minLevel == 0)
 			{
 				equipment.Add(GetDefaultWeapon());
 				equipment.Add(GetDefaultArmor());
 				equipment.Add(GetDefaultAura());
 			}
 
-			equipment.AddRange(GetAllWeapons().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
-			equipment.AddRange(GetAllArmors().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
-			equipment.AddRange(GetAllAuras().ToList().FindAll(_ => _.Stats.Level >= minlevel && _.Stats.Level <= maxLevel));
+			equipment.AddRange(GetAllWeapons().ToList().FindAll(_ => _.Stats.Level >= minLevel && _.Stats.Level <= maxLevel));
+			equipment.AddRange(GetAllArmors().ToList().FindAll(_ => _.Stats.Level >= minLevel && _.Stats.Level <= maxLevel));
+			equipment.AddRange(GetAllAuras().ToList().FindAll(_ => _.Stats.Level >= minLevel && _.Stats.Level <= maxLevel));
 
 			return equipment;
 		}
@@ -1149,12 +1149,14 @@
 			return questInfos;
 		}
 
-		public IEnumerable<IQuest> GetAllQuests()
+		public IEnumerable<IQuest> GetAllQuests(int minLevel = 0, int maxLevel = 999)
 		{
-			List<IQuest> quests = new List<IQuest>();
-
-			GetAllQuestInfos().ToList().ForEach(_ => quests.Add(new Quest(_)));
-
+			List<QuestInfo> filteredQuestInfos = new();
+			List<IQuest> quests = new();
+			
+			filteredQuestInfos.AddRange(GetAllQuestInfos().ToList().FindAll(_ => _.Stats!.Level >= minLevel && _.Stats.Level <= maxLevel));
+			filteredQuestInfos.ToList().ForEach(_ => quests.Add(new Quest(_)));
+			
 			return quests;
 		}
 	}

@@ -21,7 +21,7 @@
 		#endregion
 
 		#region Inventory
-		IEnumerable<IEquipment> GetAllPossibleEquipment(int minlevel = 0, int maxLevel = 999);
+		IEnumerable<IEquipment> GetAllPossibleEquipment(int minLevel = 0, int maxLevel = 999);
 		int GetCredits();
 		void AddCredits(int credits);
 		void RemoveCredits(int credits);
@@ -40,7 +40,7 @@
 		#endregion
 
 		#region Quest
-		IEnumerable<IQuest> GetAllQuests();
+		IEnumerable<IQuest> GetAllQuests(int minLevel = 0, int maxLevel = 999);
 		void CompleteQuest(IQuest quest);
 		ISet<int> GetCompletedQuests();
 		void RewardHeroForQuest(IQuest quest);

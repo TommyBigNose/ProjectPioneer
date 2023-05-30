@@ -152,5 +152,25 @@
 			// Assert
 			Assert.That(result.Count, Is.GreaterThanOrEqualTo(2), "MemoryDataSourceTests did not return enough Quests.");
 		}
+		
+		[TestCase(1, 5)]
+		[TestCase(1, 20)]
+		[TestCase(0, 999)]
+		public void Should_GetAllQuestsWithinLevelRange_When_Prompted(int minLevel, int maxLevel)
+		{
+			// Arrange
+			// Act
+			var result = _sut.GetAllQuests(minLevel, maxLevel);
+			var totalQuests = _sut.GetAllQuests().ToList().Count;
+			bool isQuestOutOfRange = result.ToList().Exists(_ => _.QuestInfo.Stats!.Level < minLevel || _.QuestInfo.Stats.Level > maxLevel);
+
+			// Assert
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.Count, Is.LessThanOrEqualTo(totalQuests), "MemoryDataSourceTests returned too many quests");
+				Assert.That(result.Count, Is.GreaterThan(1), "MemoryDataSourceTests did not return enough quests between range");
+				Assert.That(isQuestOutOfRange, Is.False, "MemoryDataSourceTests returned quests out of specified range");
+			});
+		}
 	}
 }
