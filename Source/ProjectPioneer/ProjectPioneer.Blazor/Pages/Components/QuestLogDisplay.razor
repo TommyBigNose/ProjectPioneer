@@ -33,13 +33,14 @@
                                             ButtonText="@GetQuestButtonText(quest)"
                                             ClickCallback="@(_ => SetDisplayedItem(quest))"
                                             ClickCallbackParameter=""/>
-                            <br/>
+                            <br />
                             <p class="@GetRecommendedLevelClass(quest)" style="width: 100px; --bs-bg-opacity: .5">Level: @quest.GetRecommendedLevel()</p>
+                            <br />
                             @quest.QuestInfo.Description
-                            <br/>
-    
+                            <br />
+                            <br />
                             <span>Normal Equipment</span>
-                            <br/>
+                            <br />
                             @foreach (var equipment in quest.QuestInfo.NormalLoot!)
                             {
                                 <QuestLootItemDisplay LootableItem="@equipment" ColorTheme="bg-secondary"/>
