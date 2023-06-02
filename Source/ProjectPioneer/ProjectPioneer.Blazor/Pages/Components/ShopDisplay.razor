@@ -12,6 +12,11 @@
                 ClickCallback="@BuySelectedItem"
                 ClickCallbackParameter=""
                 ClickSound="@AudioFxHelper.Fx_Shop_Beep_Url"/>
+<StandardButton ButtonClass="btn-link"
+                ButtonText="Filter Equippable"
+                ClickCallback="@(_ => FilterEquipment())"
+                ClickCallbackParameter=""/>
+
 <br />
 
 <table class="table border border-3 border-dark rounded" style="vertical-align: top; width: 100%">
@@ -47,11 +52,14 @@
     [Parameter]
     public EventCallback<string> ShopCallback { get; set; }
 
-    List<IEquipment>? _shopStock;
-    List<EquipmentDisplay>? _equipmentCatalog;
-    EquipmentDisplay? _selectedEquipment;
+    private List<IEquipment>? _shopStock;
+    private List<EquipmentDisplay>? _equipmentCatalog;
+    private EquipmentDisplay? _selectedEquipment;
 
-    Stats? _statsHeroEquipment;
+    private Stats? _statsHeroEquipment;
+
+    private bool _showEquippableOnly = false;
+    
 
     protected override void OnInitialized()
     {
@@ -69,11 +77,14 @@
 
         for (int i = 0; i < _shopStock.Count; i++)
         {
-            _equipmentCatalog?.Add(new EquipmentDisplay()
+            if (!_showEquippableOnly || CanEquip(_shopStock[i]))
+            {
+                _equipmentCatalog?.Add(new EquipmentDisplay()
                 {
                     Index = i,
                     Equipment = _shopStock[i]
                 });
+            }
         }
 
         base.InvokeAsync(StateHasChanged);
@@ -155,5 +166,11 @@
         {
             _statsHeroEquipment = null;
         }
+    }
+
+    private void FilterEquipment()
+    {
+        _showEquippableOnly = !_showEquippableOnly;
+        Refresh();
     }
 }
