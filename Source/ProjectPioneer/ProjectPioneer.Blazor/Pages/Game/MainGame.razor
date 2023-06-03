@@ -5,8 +5,10 @@
 @inject ProjectPioneer.Systems.IGame ProjectPioneerGame
 
 <h3>Project Pioneer Main Game</h3>
+
 <DebugTools DebugCallback="@Callback" />
 <br />
+<ProjectPioneer.Blazor.Pages.Components.SaveLoadMenu ClickCallback="@Callback" />
 <br />
 <br />
 
@@ -16,9 +18,9 @@
             <HeroDisplay Hero="@ProjectPioneerGame.Hero" />
             <br />
             <br />
-            <HeroStatsTotal Hero="@ProjectPioneerGame.Hero" />
-            <br />
-            <br />
+            @* <HeroStatsTotal Hero="@ProjectPioneerGame.Hero" /> *@
+            @* <br /> *@
+            @* <br /> *@
             <InventoryDisplay @ref="_inventoryComponent" InventoryCallback="@Callback" />
             <br />
             <br />
@@ -33,7 +35,6 @@
         @* </td> *@
     </tr>
 </table>
-
 
 
 @code {
