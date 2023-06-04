@@ -5,8 +5,6 @@
 @inject ILogger<QuestLogDisplay> Logger
 @inject Systems.IGame ProjectPioneerGame
 
-@* <h3>QuestLogDisplay</h3> *@
-
 <StandardButton ButtonClass="btn-warning"
                 ButtonText="Start Selected Quest"
                 Disabled="@(_selectedQuest == null)"
@@ -19,7 +17,6 @@
     <thead>
         <tr>
             <th>Quest</th>
-            @* <th>Compared Stats</th> *@
         </tr>
     </thead>
     <tbody>
