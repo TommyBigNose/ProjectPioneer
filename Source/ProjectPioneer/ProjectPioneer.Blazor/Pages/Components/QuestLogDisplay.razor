@@ -36,6 +36,9 @@
                             @quest.QuestInfo.Description
                             <br />
                             <br />
+                            Estimated Time to Finish Quest: @GetEstimatedQuestTimeInSeconds(quest)
+                            <br />
+                            <br />
                             <span>Normal Equipment</span>
                             <br />
                             @foreach (var equipment in quest.QuestInfo.NormalLoot!)
@@ -119,5 +122,15 @@
     private string GetQuestButtonText(IQuest quest)
     {
         return $"{Utility.SymbolHelper.GetCheckmarkOrX(IsQuestCompleted(quest))} | {quest.QuestInfo.Name}";
+    }
+
+    private int GetEstimatedQuestTimeInSeconds(IQuest quest)
+    {
+        // TODO: This is kind of ugly, we can probably bring this down to one call and have the ProjectPioneerGame do it.
+        Stats statComparison = quest.GetStatComparison(ProjectPioneerGame.Hero.Stats);
+        int reduction = quest.GetSecondReductionFromStatComparison(statComparison);
+        int finalTime = quest.GetFinalQuestLengthInSeconds(reduction);
+
+        return finalTime;
     }
 }
