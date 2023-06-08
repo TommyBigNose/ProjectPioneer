@@ -89,13 +89,26 @@
 		public void Should_GetSpecificEquipmentList_When_GivenListOfIDs()
 		{
 			// Arrange
-			List<int> ids = new List<int>() { 1, 101, 301, 501 };
+			List<int> ids = new() { 1, 101, 301, 501 };
 
 			// Act
 			var result = _sut.GetEquipmentByIDs(ids).Select(_ => _.ID);
 
 			// Assert
 			Assert.That(result.Except(ids).Any(), Is.False, "MemoryDataSourceTests did not return the expected equipment list.");
+		}
+		
+		[Test]
+		public void Should_GetSpecificEquipmentList_When_GivenListOfNames()
+		{
+			// Arrange
+			List<string> names = new () { "Pallasch", "Energy Pistol", "Charged Railgun", "Hocus Wand", "Resistance Barrier", "General Armor" };
+
+			// Act
+			var result = _sut.GetEquipmentByNames(names).Select(_ => _.Name);
+
+			// Assert
+			Assert.That(result.Except(names).Any(), Is.False, "MemoryDataSourceTests did not return the expected equipment list when searching by name.");
 		}
 
 		[Test]

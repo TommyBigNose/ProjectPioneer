@@ -600,6 +600,11 @@
 		{
 			return GetAllEquipment().Where(_ => ids.Contains(_.ID));
 		}
+		
+		public IEnumerable<IEquipment> GetEquipmentByNames(List<string> names)
+		{
+			return GetAllEquipment().Where(_ => names.Exists(n => n.Equals(_.Name)));
+		}
 
 		public IEquipment GetDefaultWeapon()
 		{

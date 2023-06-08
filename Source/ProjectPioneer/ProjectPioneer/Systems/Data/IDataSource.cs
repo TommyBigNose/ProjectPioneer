@@ -10,6 +10,7 @@
 		IEnumerable<IEquipment> GetAllEquipment(int minLevel = 0, int maxLevel = 999);
 		IEquipment GetEquipmentByID(int id);
 		IEnumerable<IEquipment> GetEquipmentByIDs(List<int> ids);
+		IEnumerable<IEquipment> GetEquipmentByNames(List<string> names);
 		IEquipment GetDefaultWeapon();
 		IEquipment GetDefaultArmor();
 		IEquipment GetDefaultAura();
