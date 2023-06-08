@@ -3,9 +3,13 @@
 
 <table class="table">
     <thead>
+    @if (ShowHeader)
+    {
         <tr>
             <th>Stats</th>
         </tr>
+    }
+    
     </thead>
     <tbody>
         <tr>
@@ -32,6 +36,10 @@
 </table>
 
 @code {
+
+    [Parameter]
+    public bool ShowHeader { get; set; } = true;
+    
     [Parameter]
     public Stats? Stats1 { get; set; }
 
