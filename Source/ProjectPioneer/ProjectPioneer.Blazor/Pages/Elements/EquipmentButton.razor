@@ -6,7 +6,8 @@
 <StandardButton ButtonClass="@GetItemStyle(CurrentEquipment)"
                 ButtonText="@GetItemText()"
                 ClickCallback="@ClickCallback"
-                ClickCallbackParameter="@CurrentEquipment?.Index.ToString()"/>
+                ClickCallbackParameter="@CurrentEquipment?.Index.ToString()"
+                Disabled="@Disabled"/>
 
 @code {
     [Parameter]
@@ -20,6 +21,9 @@
 
     [Parameter]
     public bool IsShop { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
 
     private string GetCanEquipSymbol(IEquipment? equipment)
     {

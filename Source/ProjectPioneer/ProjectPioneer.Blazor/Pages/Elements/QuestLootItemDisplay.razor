@@ -1,48 +1,16 @@
-﻿@inject ILogger<QuestLootItemDisplay> Logger
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@inject ILogger<QuestLootItemDisplay> Logger
 @inject Systems.IGame ProjectPioneerGame
 
-@*<h3>EquippedItemDisplay</h3>*@
-@* <table class="table bg-light" style="width: 50%"> *@
-@*     <thead> *@
-@*         <tr class="@ColorTheme --bs-bg-opacity: .5"> *@
-@*             <th>Equipped @EquippedItemType</th> *@
-@*         </tr> *@
-@*     </thead> *@
-@*     <tbody> *@
-@*         <tr> *@
-@*             <td> *@
-@*                 @EquippedItem.Name | @EquippedItem.EquipmentType *@
-@*             </td> *@
-@*         </tr> *@
-@*         <tr> *@
-@*             <td> *@
-@*                 P-Atk: @EquippedItem.Stats.PhysicalAttack | *@
-@*                 P-Def: @EquippedItem.Stats.PhysicalDefense |  *@
-@*                 M-Atk: @EquippedItem.Stats.MagicalAttack |  *@
-@*                 M-Def: @EquippedItem.Stats.MagicalDefense |  *@
-@*                 Spd: @EquippedItem.Stats.PhysicalDefense *@
-@*             </td> *@
-@*         </tr> *@
-@*         <tr> *@
-@*             <td> *@
-@*                 🔥-Atk: @EquippedItem.Stats.FireAttack | *@
-@*                 🔥-Def: @EquippedItem.Stats.FireDefense | *@
-@*                 ❄️-Atk: @EquippedItem.Stats.IceAttack | *@
-@*                 ❄️-Def: @EquippedItem.Stats.IceDefense *@
-@*             </td> *@
-@*         </tr> *@
-@*         <tr> *@
-@*             <td> *@
-@*                 ⚡-Atk: @EquippedItem.Stats.LightningAttack | *@
-@*                 ⚡-Def: @EquippedItem.Stats.LightningDefense | *@
-@*                 ⛰️-Atk: @EquippedItem.Stats.EarthAttack | *@
-@*                 ⛰️-Def: @EquippedItem.Stats.EarthDefense *@
-@*             </td> *@
-@*         </tr> *@
-@*     </tbody> *@
-@* </table> *@
+@* <p class="@ColorTheme" style="width: 300px; --bs-bg-opacity: .5">@LootableItem?.Name | @Utility.SymbolHelper.GetEquipmentSymbol(LootableItem)</p> *@
 
-<p class="@ColorTheme" style="width: 250px; --bs-bg-opacity: .5">@LootableItem?.Name | @Utility.SymbolHelper.GetEquipmentSymbol(LootableItem)</p>
+<EquipmentButton ClickCallback="@(() => Logger.LogInformation("Clicked Quest Equipment"))"
+                 CurrentEquipment="@_lootableEquipmentDisplay"
+                 SelectedEquipment="@_selectedEquipment" 
+                 Disabled="true"
+                 IsShop=false/>
 
 @code {
 	[Parameter]
@@ -50,5 +18,27 @@
     
     [Parameter]
     public string? ColorTheme { get; set; }
-
+	
+	// List<EquipmentDisplay>? _equipmentCatalog;
+	EquipmentDisplay? _lootableEquipmentDisplay;
+	EquipmentDisplay? _selectedEquipment;
+	
+	protected override void OnInitialized()
+	{
+		_lootableEquipmentDisplay = new()
+		{
+			Index = 0,
+			Equipment = LootableItem
+		};
+		_selectedEquipment = new();
+		
+		// for (int i = 0; i < _inventory.Count; i++)
+		// {
+		// 	_equipmentCatalog?.Add(new EquipmentDisplay()
+		// 	{
+		// 		Index = i,
+		// 		Equipment = _inventory[i]
+		// 	});
+		// }
+	}
 }
