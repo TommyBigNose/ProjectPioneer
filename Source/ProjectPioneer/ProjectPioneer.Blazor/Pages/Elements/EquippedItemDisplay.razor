@@ -96,17 +96,17 @@
     
     private string GetItemStyle(IEquipment? equipment)
     {
-        string style = "btn btn-info";
+        string style = $"{@StylingHelper.Btn_Class_Info}";
         switch (equipment?.EquipmentType)
         {
             case EquipmentType.Armor:
-                style = "btn btn-secondary";
+                style = $"{@StylingHelper.Btn_Class_Secondary}";
                 break;
             case EquipmentType.Aura:
-                style = "btn btn-info";
+                style = $"{@StylingHelper.Btn_Class_Info}";
                 break;
             default:
-                style = "btn btn-warning";
+                style = $"{@StylingHelper.Btn_Class_Warning}";
                 break;
         }
         return style;

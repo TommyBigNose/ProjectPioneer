@@ -5,7 +5,7 @@
 @inject ILogger<QuestLogDisplay> Logger
 @inject Systems.IGame ProjectPioneerGame
 
-<StandardButton ButtonClass="btn-warning"
+<StandardButton ButtonClass="@StylingHelper.Btn_Class_Warning"
                 ButtonText="Start Selected Quest"
                 Disabled="@(_selectedQuest == null)"
                 ClickCallback="@(_ => StartQuest())"
@@ -118,7 +118,7 @@
 
     private string GetItemStyle(IQuest quest)
     {
-        return (_selectedQuest != null && _selectedQuest.QuestInfo.ID == quest.QuestInfo.ID) ? "btn btn-info" : "btn btn-warning";
+        return (_selectedQuest != null && _selectedQuest.QuestInfo.ID == quest.QuestInfo.ID) ? $"{@StylingHelper.Btn_Class_Info}" : $"{@StylingHelper.Btn_Class_Warning}";
     }
 
     private void StartQuest()

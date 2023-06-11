@@ -7,19 +7,19 @@
 @* Credits: @ProjectPioneerGame.GetCredits() *@
 @* <br /> *@
 
-<StandardButton ButtonClass="btn-primary"
+<StandardButton ButtonClass="@StylingHelper.Btn_Class_Primary"
                 ButtonText="Equip Selected Item"
                 Disabled="@(!CanEquip(_selectedEquipment?.Equipment))"
                 ClickCallback="@(_ => EquipSelectedItem())"
                 ClickCallbackParameter=""/>
 
-<StandardButton ButtonClass="btn-danger"
+<StandardButton ButtonClass="@StylingHelper.Btn_Class_Danger"
                 ButtonText="Sell Selected Item"
                 Disabled="@(_selectedEquipment?.Equipment == null)"
                 ClickCallback="@(_ => SellSelectedItem())"
                 ClickCallbackParameter=""/>
 
-<StandardButton ButtonClass="btn-link"
+<StandardButton ButtonClass="@StylingHelper.Btn_Class_Link"
                 ButtonText="Sort Inventory"
                 Disabled="@(_equipmentCatalog?.Count <= 1)"
                 ClickCallback="@(_ => SortInventory())"

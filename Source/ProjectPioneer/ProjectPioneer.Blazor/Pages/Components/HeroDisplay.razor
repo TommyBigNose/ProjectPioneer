@@ -17,8 +17,8 @@ Exp: @Hero?.Exp / @Hero?.GetRequiredExp()
 <HeroStatsTotal Hero="@Hero" />
 <br />
 
-<InfoTable DisplayName="@($"Job: {Hero?.Job.Name}")" DisplayStats="@Hero?.Job.Stats" ButtonClass="btn btn-secondary" />
-<InfoTable DisplayName="@($"Implant: {Hero?.Implant.Name}")" DisplayStats="@Hero?.Implant.Stats" ButtonClass="btn btn-info" />
+<InfoTable DisplayName="@($"Job: {Hero?.Job.Name}")" DisplayStats="@Hero?.Job.Stats" ButtonClass="@StylingHelper.Btn_Class_Secondary" />
+<InfoTable DisplayName="@($"Implant: {Hero?.Implant.Name}")" DisplayStats="@Hero?.Implant.Stats" ButtonClass="@StylingHelper.Btn_Class_Info" />
 
 <EquippedItemDisplay EquippedItem="@Hero?.EquippedWeapon" EquippedItemType="Weapon" ColorTheme="bg-primary" />
 <EquippedItemDisplay EquippedItem="@Hero?.EquippedArmor" EquippedItemType="Armor"  ColorTheme="bg-success" />

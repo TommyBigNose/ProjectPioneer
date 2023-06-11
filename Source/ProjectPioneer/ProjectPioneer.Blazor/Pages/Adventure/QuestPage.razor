@@ -71,13 +71,13 @@
     <br/>
     <br/>
 
-    <StandardButton ButtonClass="btn-warning"
+    <StandardButton ButtonClass="@StylingHelper.Btn_Class_Warning"
                     Disabled="@(!_quest.IsQuestCompleted())"
                     ButtonText="Collect Rewards"
                     ClickCallback="@(_ => CollectRewards())"
                     ClickCallbackParameter=""/>
 
-    <StandardButton ButtonClass="btn-danger"
+    <StandardButton ButtonClass="@StylingHelper.Btn_Class_Danger"
                     Disabled="@(_quest.IsQuestCompleted())"
                     ButtonText="Cancel Quest"
                     ClickCallback="@(_ => CancelQuest())"

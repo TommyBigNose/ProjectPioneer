@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Pages.Components;
+
+@page "/"
 
 <PageTitle>Index</PageTitle>
 
@@ -31,3 +34,9 @@ Welcome to your new app.
         </td>
     </tr>
 </table>
+
+<h3>Audio Testing</h3>
+
+<StandardButton 
+    ButtonText="TESTING 1"
+    ButtonClass="@StylingHelper.Btn_Class_Primary" />

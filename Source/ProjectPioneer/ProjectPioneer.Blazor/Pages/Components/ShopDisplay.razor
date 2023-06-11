@@ -6,13 +6,13 @@
 
 @* <h3>ShopDisplay</h3> *@
 
-<StandardButton ButtonClass="btn-primary"
+<StandardButton ButtonClass="@StylingHelper.Btn_Class_Primary"
                 Disabled="@(!CanBuyItem(_selectedEquipment?.Equipment))"
                 ButtonText="Buy Selected Item"
                 ClickCallback="@BuySelectedItem"
                 ClickCallbackParameter=""
                 ClickSound="@AudioFxHelper.Fx_Shop_Beep_Url"/>
-<StandardButton ButtonClass="btn-link"
+<StandardButton ButtonClass="@StylingHelper.Btn_Class_Link"
                 ButtonText="Filter Equippable"
                 ClickCallback="@(_ => FilterEquipment())"
                 ClickCallbackParameter=""/>

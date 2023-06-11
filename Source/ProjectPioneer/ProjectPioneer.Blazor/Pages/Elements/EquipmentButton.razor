@@ -37,7 +37,7 @@
 
     private string GetItemStyle(EquipmentDisplay? equipmentDisplay)
     {
-        return (SelectedEquipment?.Index == equipmentDisplay?.Index && SelectedEquipment?.Equipment == equipmentDisplay?.Equipment) ? "btn btn-info" : "btn btn-warning";
+        return (SelectedEquipment?.Index == equipmentDisplay?.Index && SelectedEquipment?.Equipment == equipmentDisplay?.Equipment) ? $"{@StylingHelper.Btn_Class_Info}" : $"{@StylingHelper.Btn_Class_Warning}";
     }
 
     private string GetItemText()
