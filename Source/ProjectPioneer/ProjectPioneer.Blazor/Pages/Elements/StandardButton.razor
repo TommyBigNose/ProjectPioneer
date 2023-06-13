@@ -46,6 +46,6 @@
 
     private async Task PlayClickSound()
     {
-        await _audioFxPlayer!.PlaySound(ClickSound, 1000);
+        await _audioFxPlayer!.PlaySound(ClickSound, AudioFxHelper.FxTimerDetails[ClickSound]);
     }
 }
