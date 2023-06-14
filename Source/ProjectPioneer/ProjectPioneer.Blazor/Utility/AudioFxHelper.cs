@@ -12,12 +12,12 @@
 		public static string Fx_Calm_Url =  "/sounds/Windows_Ring9.wav";
 		public static string Fx_Shop_Beep_Url =  "/sounds/Repeatable_Beep.wav";
 
-		public static readonly Dictionary<string, int> FxTimerDetails = new Dictionary<string, int>()
+		public static readonly Dictionary<string, int> FxTimerDetails = new()
 		{
 			{Fx_Positive_Url, 1000},
-			{Fx_Negative_Url, 1000},
-			{Fx_Success_Url, 1000},
-			{Fx_Cheer_Url, 1000},
+			{Fx_Negative_Url, 1500},
+			{Fx_Success_Url, 5000},
+			{Fx_Cheer_Url, 1500},
 			{Fx_Failure_Url, 1000},
 			// {Fx_Unknown_Url, 1000},
 			{Fx_Info_Url, 1000},
