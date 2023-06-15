@@ -35,6 +35,9 @@ Welcome to your new app.
     </tr>
 </table>
 
+<button @onclick="@(async () => await TestSound())" >TEST</button>
+<AudioFxPlayer @ref="_audioFxPlayer1" />
+
 <h3>Audio Testing</h3>
 @* TODO: Dictionary of sounds for sound dir and length?  Or is there a better way? *@
 <StandardButton 
@@ -52,3 +55,18 @@ Welcome to your new app.
     ButtonClass="@StylingHelper.Btn_Class_Primary"
     ClickSound="@AudioFxHelper.Fx_Positive_Url"/>
 <br />
+
+@code {
+    private AudioFxPlayer _audioFxPlayer1 = new AudioFxPlayer();
+
+    protected override void OnInitialized()
+    {
+        _audioFxPlayer1 = new AudioFxPlayer();
+    }
+
+    private async Task TestSound()
+    {
+        // await Task.Yield();
+        await _audioFxPlayer1.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url).ConfigureAwait(false);
+    }
+}

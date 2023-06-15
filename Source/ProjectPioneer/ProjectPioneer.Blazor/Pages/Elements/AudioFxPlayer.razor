@@ -17,8 +17,13 @@ else
     bool _hiddenSound = true;
     string _soundSrcUrl = "/sounds/Windows_Balloon.wav";
     
-    public async Task PlaySound(string srcUrl, int soundLengthInMs)
+    public async Task PlaySoundAsync(string srcUrl, int soundLengthInMs = 0)
     {
+        if (soundLengthInMs == 0)
+        {
+            soundLengthInMs = AudioFxHelper.FxTimerDetails[srcUrl];
+        }
+        
         _soundSrcUrl = srcUrl;
         _hiddenSound = false;
         await InvokeAsync(StateHasChanged);
