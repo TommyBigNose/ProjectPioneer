@@ -21,7 +21,7 @@
 			{Fx_Failure_Url, 1000},
 			// {Fx_Unknown_Url, 1000},
 			{Fx_Info_Url, 1000},
-			{Fx_Calm_Url, 1000},
+			{Fx_Calm_Url, 10000},
 			{Fx_Shop_Beep_Url, 1000},
 		};
 	}

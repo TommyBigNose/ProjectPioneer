@@ -35,8 +35,27 @@ Welcome to your new app.
     </tr>
 </table>
 
-<button @onclick="@(async () => await TestSound())" >TEST</button>
+<button @onclick="@(async () => await AddSound())" >ADD SOUND</button>
+<button @onclick="@(async () => await TestSound())" >PLAY SOUND</button>
 <AudioFxPlayer @ref="_audioFxPlayer1" />
+
+@* <AudioFxPlayer @ref="_audioFxPlayers.Last()" /> *@
+
+
+@* @for(int i = 0; i < _lastIndex; i++) *@
+@* { *@
+@*     <AudioFxPlayer @ref="_audioFxPlayers[i]" /> *@
+@* } *@
+
+@foreach (var audioFx in _audioFxPlayers)
+{
+    <AudioFxPlayer @ref="audioFx.AudioFxThing" />
+}
+
+INFO: List Count: @_audioFxPlayers.Count
+<br />
+<br />
+<br />
 
 <h3>Audio Testing</h3>
 @* TODO: Dictionary of sounds for sound dir and length?  Or is there a better way? *@
@@ -59,14 +78,31 @@ Welcome to your new app.
 @code {
     private AudioFxPlayer _audioFxPlayer1 = new AudioFxPlayer();
 
+    private List<AudioWrapper> _audioFxPlayers = new List<AudioWrapper>();
+    private int _lastPlayedIndex = 0;
+
     protected override void OnInitialized()
     {
         _audioFxPlayer1 = new AudioFxPlayer();
+        _audioFxPlayers = new List<AudioWrapper>();
+        _lastPlayedIndex = 0;
     }
 
+    private async Task AddSound()
+    {
+        await Task.Yield();
+        //await _audioFxPlayer1.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url).ConfigureAwait(false);
+        // _audioFxPlayers.Add(new AudioFxPlayer());
+        _audioFxPlayers.Add(new AudioWrapper() {AudioFxThing = new AudioFxPlayer() });
+    }
+    
     private async Task TestSound()
     {
-        // await Task.Yield();
-        await _audioFxPlayer1.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url).ConfigureAwait(false);
+        await _audioFxPlayers[_lastPlayedIndex++].AudioFxThing.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url);
+    }
+
+    public class AudioWrapper
+    {
+        public AudioFxPlayer AudioFxThing { get; set; }
     }
 }
