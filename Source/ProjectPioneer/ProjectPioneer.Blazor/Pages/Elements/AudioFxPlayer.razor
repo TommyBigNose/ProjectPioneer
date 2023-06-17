@@ -16,7 +16,9 @@ else
 @code {
     bool _hiddenSound = true;
     string _soundSrcUrl = "/sounds/Windows_Balloon.wav";
-    
+
+    public bool IsCurrentlyPlaying { get; private set; }
+
     public async Task PlaySoundAsync(string srcUrl, int soundLengthInMs = 0)
     {
         if (soundLengthInMs == 0)
@@ -26,9 +28,11 @@ else
         
         _soundSrcUrl = srcUrl;
         _hiddenSound = false;
+        IsCurrentlyPlaying = true;
         await InvokeAsync(StateHasChanged);
         await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
+        IsCurrentlyPlaying = false;
         await InvokeAsync(StateHasChanged);
     }
 }
