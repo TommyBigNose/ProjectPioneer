@@ -1,5 +1,5 @@
-﻿@using ProjectPioneer.Blazor.Pages.Elements
-@using ProjectPioneer.Blazor.Pages.Components;
+﻿@using ProjectPioneer.Blazor.Pages.Components;
+@using ProjectPioneer.Blazor.Pages.Elements
 
 @page "/"
 
@@ -37,19 +37,10 @@ Welcome to your new app.
 
 <button @onclick="@(async () => await AddSound())" >ADD SOUND</button>
 <button @onclick="@(async () => await TestSound())" >PLAY SOUND</button>
-<AudioFxPlayer @ref="_audioFxPlayer1" />
-
-@* <AudioFxPlayer @ref="_audioFxPlayers.Last()" /> *@
-
-
-@* @for(int i = 0; i < _lastIndex; i++) *@
-@* { *@
-@*     <AudioFxPlayer @ref="_audioFxPlayers[i]" /> *@
-@* } *@
 
 @foreach (var audioFx in _audioFxPlayers)
 {
-    <AudioFxPlayer @ref="audioFx.AudioFxThing" />
+    <AudioFxPlayer @ref="audioFx.AudioFxComponent" />
 }
 
 INFO: List Count: @_audioFxPlayers.Count
@@ -58,7 +49,6 @@ INFO: List Count: @_audioFxPlayers.Count
 <br />
 
 <h3>Audio Testing</h3>
-@* TODO: Dictionary of sounds for sound dir and length?  Or is there a better way? *@
 <StandardButton 
     ButtonText="Fx_Success_Url"
     ButtonClass="@StylingHelper.Btn_Class_Primary"
@@ -76,40 +66,27 @@ INFO: List Count: @_audioFxPlayers.Count
 <br />
 
 @code {
-    private AudioFxPlayer _audioFxPlayer1 = new AudioFxPlayer();
-
-    private List<AudioWrapper> _audioFxPlayers = new List<AudioWrapper>();
-    private int _lastPlayedIndex = 0;
+    private List<AudioWrapper> _audioFxPlayers = new ();
 
     protected override void OnInitialized()
     {
-        _audioFxPlayer1 = new AudioFxPlayer();
         _audioFxPlayers = new List<AudioWrapper>();
-        _lastPlayedIndex = 0;
     }
 
     private async Task AddSound()
     {
         await Task.Yield();
-        //await _audioFxPlayer1.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url).ConfigureAwait(false);
-        // _audioFxPlayers.Add(new AudioFxPlayer());
-        _audioFxPlayers.Add(new AudioWrapper() {AudioFxThing = new AudioFxPlayer() });
+        _audioFxPlayers.Add(new AudioWrapper() {AudioFxComponent = new AudioFxPlayer() });
     }
     
     private async Task TestSound()
     {
         for (int i = 0; i < _audioFxPlayers.Count; i++)
         {
-            if (!_audioFxPlayers[i].AudioFxThing.IsCurrentlyPlaying)
+            if (!_audioFxPlayers[i].AudioFxComponent.IsCurrentlyPlaying)
             {
-                await _audioFxPlayers[i].AudioFxThing.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url);
+                await _audioFxPlayers[i].AudioFxComponent.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url);
             }
         }
-        // await _audioFxPlayers[_lastPlayedIndex++].AudioFxThing.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url);
-    }
-
-    public class AudioWrapper
-    {
-        public AudioFxPlayer AudioFxThing { get; set; }
     }
 }
