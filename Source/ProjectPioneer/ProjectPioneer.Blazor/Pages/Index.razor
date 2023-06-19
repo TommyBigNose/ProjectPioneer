@@ -1,5 +1,8 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Components;
 @using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Services
+
+@inject IAudioPlayer BlazorAudioPlayer
 
 @page "/"
 
@@ -37,8 +40,14 @@ Welcome to your new app.
 
 <button @onclick="@(async () => await AddSound())" >ADD SOUND</button>
 <button @onclick="@(async () => await TestSound())" >PLAY SOUND</button>
+<button @onclick="@(async () => await TestSoundBlazor())" >PLAY SOUND VIA BLAZOR SERVICE </button>
 
 @foreach (var audioFx in _audioFxPlayers)
+{
+    <AudioFxPlayer @ref="audioFx.AudioFxComponent" />
+}
+
+@foreach (var audioFx in BlazorAudioPlayer.AudioFxPlayers)
 {
     <AudioFxPlayer @ref="audioFx.AudioFxComponent" />
 }
@@ -88,5 +97,10 @@ INFO: List Count: @_audioFxPlayers.Count
                 await _audioFxPlayers[i].AudioFxComponent.PlaySoundAsync(@AudioFxHelper.Fx_Calm_Url);
             }
         }
+    }
+
+    private async Task TestSoundBlazor()
+    {
+        await BlazorAudioPlayer.PlaySoundAsync(AudioFxHelper.Fx_Calm_Url);
     }
 }

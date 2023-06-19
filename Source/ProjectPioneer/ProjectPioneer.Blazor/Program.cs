@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ProjectPioneer.Blazor;
+using ProjectPioneer.Blazor.Services;
 using ProjectPioneer.Systems;
 using ProjectPioneer.Systems.Data;
 using ProjectPioneer.Systems.Dice;
@@ -10,6 +11,9 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+// Blazor specific 
+builder.Services.AddSingleton<IAudioPlayer, BlazorAudioPlayer>();
 
 // Adding ProjectPioneer Dependencies
 builder.Services.AddSingleton<IDataSource, MemoryDataSource>();
