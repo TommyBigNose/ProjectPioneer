@@ -19,7 +19,7 @@ namespace ProjectPioneer.Blazor.Services
 			
 			AudioWrapper audio = new () { AudioFxComponent = new AudioFxPlayer() };
 			AudioFxPlayers.Add(audio);
-			// await Task.Delay(25).ConfigureAwait(false);
+			await Task.Delay(10).ConfigureAwait(false);
 			await audio.AudioFxComponent.PlaySoundAsync(soundUrl).ConfigureAwait(false);
 		}
 	}
