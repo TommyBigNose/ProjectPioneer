@@ -4,5 +4,6 @@
 	{
 		List<AudioWrapper> AudioFxPlayers { get; }
 		Task PlaySoundAsync(string soundUrl);
+		void Cleanup();
 	}
 }

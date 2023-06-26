@@ -1,5 +1,8 @@
 ﻿@using ProjectPioneer.Blazor.Pages.Elements
 @using ProjectPioneer.Blazor.Pages.Components;
+@using ProjectPioneer.Blazor.Services
+
+@inject IAudioPlayer BlazorAudioPlayer
 
 <button type="@ButtonType" 
         class="btn @ButtonClass" 
@@ -13,6 +16,10 @@
 </button>
 
 <AudioFxPlayer @ref="_audioFxPlayer"/>
+@foreach (var audioFx in BlazorAudioPlayer.AudioFxPlayers)
+{
+    <AudioFxPlayer @ref="audioFx.AudioFxComponent" />
+}
 
 @code {
 
@@ -46,6 +53,7 @@
 
     private async Task PlayClickSound()
     {
-        await _audioFxPlayer!.PlaySoundAsync(ClickSound, AudioFxHelper.FxTimerDetails[ClickSound]);
+        await BlazorAudioPlayer.PlaySoundAsync(ClickSound).ConfigureAwait(false);
+        // await _audioFxPlayer!.PlaySoundAsync(ClickSound, AudioFxHelper.FxTimerDetails[ClickSound]);
     }
 }

@@ -1,4 +1,10 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using ProjectPioneer.Blazor.Pages.Components;
+@using ProjectPioneer.Blazor.Pages.Elements
+@using ProjectPioneer.Blazor.Services
+
+@inject IAudioPlayer BlazorAudioPlayer
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">ProjectPioneer.Blazor</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -10,27 +16,27 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="CleanupAudio">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Character/HeroCreator">
+            <NavLink class="nav-link" href="Character/HeroCreator" @onclick="CleanupAudio">
                 <span class="oi oi-home" aria-hidden="true"></span> Hero Creator
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Game/MainGame">
+            <NavLink class="nav-link" href="Game/MainGame" @onclick="CleanupAudio">
                 <span class="oi oi-home" aria-hidden="true"></span> Main Game Page
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Adventure/ShopPage">
+            <NavLink class="nav-link" href="Adventure/ShopPage" @onclick="CleanupAudio">
                 <span class="oi oi-home" aria-hidden="true"></span> The Shop
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Adventure/QuestLogPage">
+            <NavLink class="nav-link" href="Adventure/QuestLogPage" @onclick="CleanupAudio">
                 <span class="oi oi-home" aria-hidden="true"></span> Quest Center
             </NavLink>
         </div>
@@ -45,5 +51,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CleanupAudio()
+    {
+        BlazorAudioPlayer.Cleanup();
     }
 }
