@@ -2,13 +2,6 @@
 {
 	public class MemoryDataSource : IDataSource
 	{
-		// TODO: Load collections into these and leverage them for speed and ease of use later?
-		// private List<IJob> _allJobs;
-		// private List<IImplant> _allImplants;
-		// private List<IEquipment> _allEquipment;
-		// private List<QuestInfo> _allQuestInfos;
-		// private List<IQuest> _allQuests;
-
 		public IEnumerable<IJob> GetAllJobs()
 		{
 			var jobs = new List<IJob>()
