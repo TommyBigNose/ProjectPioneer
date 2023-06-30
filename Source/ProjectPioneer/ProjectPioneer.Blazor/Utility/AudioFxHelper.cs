@@ -10,6 +10,7 @@
 		// public static string Fx_Unknown_Url =  "/sounds/Windows_Ding.wav";
 		public static string Fx_Info_Url =  "/sounds/Windows_Information_Bar.wav";
 		public static string Fx_Calm_Url =  "/sounds/Windows_Ring9.wav";
+		public static string Fx_Calm_2_Url =  "/sounds/Windows_Ring10.wav";
 		public static string Fx_Shop_Beep_Url =  "/sounds/Repeatable_Beep.wav";
 
 		public static readonly Dictionary<string, int> FxTimerDetails = new()
@@ -22,6 +23,7 @@
 			// {Fx_Unknown_Url, 1000},
 			{Fx_Info_Url, 1000},
 			{Fx_Calm_Url, 10000},
+			{Fx_Calm_2_Url, 10000},
 			{Fx_Shop_Beep_Url, 1000},
 		};
 	}
