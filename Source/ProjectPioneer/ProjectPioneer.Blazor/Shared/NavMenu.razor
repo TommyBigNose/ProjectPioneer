@@ -36,7 +36,7 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Adventure/QuestLogPage" @onclick="CleanupAudio">
+            <NavLink class="nav-link" href="Adventure/QuestLogPage" @onclick="PlayQuestPageMelody">
                 <span class="oi oi-home" aria-hidden="true"></span> Quest Center
             </NavLink>
         </div>
@@ -76,6 +76,11 @@
     private async Task PlayShopMelody()
     {
         await PlayMenuMelody(AudioFxHelper.Fx_Calm_2_Url);
+    }
+    
+    private async Task PlayQuestPageMelody()
+    {
+        await PlayMenuMelody(AudioFxHelper.Fx_Calm_3_Url);
     }
 
     private async Task PlayMenuMelody(string audioFx)
