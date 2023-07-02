@@ -16,7 +16,7 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="CleanupAudio">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="PlayHomePageMelody">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
@@ -26,7 +26,7 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Game/MainGame" @onclick="CleanupAudio">
+            <NavLink class="nav-link" href="Game/MainGame" @onclick="PlayMainGamePageMelody">
                 <span class="oi oi-home" aria-hidden="true"></span> Main Game Page
             </NavLink>
         </div>
@@ -83,6 +83,16 @@
         await PlayMenuMelody(AudioFxHelper.Fx_Calm_3_Url);
     }
 
+    private async Task PlayMainGamePageMelody()
+    {
+        await PlayMenuMelody(AudioFxHelper.Fx_Calm_4_Url);
+    }
+    
+    private async Task PlayHomePageMelody()
+    {
+        await PlayMenuMelody(AudioFxHelper.Fx_Calm_5_Url);
+    }
+    
     private async Task PlayMenuMelody(string audioFx)
     {
         CleanupAudio();

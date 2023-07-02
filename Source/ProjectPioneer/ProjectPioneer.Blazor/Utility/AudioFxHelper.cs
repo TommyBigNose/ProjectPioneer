@@ -15,6 +15,8 @@
 		public static string Fx_Calm_Url =  "/sounds/Windows_Ring9.wav";
 		public static string Fx_Calm_2_Url =  "/sounds/Windows_Ring10.wav";
 		public static string Fx_Calm_3_Url =  "/sounds/Windows_Ring8.wav";
+		public static string Fx_Calm_4_Url =  "/sounds/Windows_Ring2.wav";
+		public static string Fx_Calm_5_Url =  "/sounds/Windows_Ring3.wav";
 		
 
 		public static readonly Dictionary<string, int> FxTimerDetails = new()
@@ -32,6 +34,8 @@
 			{Fx_Calm_Url, 10000},
 			{Fx_Calm_2_Url, 10000},
 			{Fx_Calm_3_Url, 10000},
+			{Fx_Calm_4_Url, 10000},
+			{Fx_Calm_5_Url, 10000},
 			
 		};
 	}
