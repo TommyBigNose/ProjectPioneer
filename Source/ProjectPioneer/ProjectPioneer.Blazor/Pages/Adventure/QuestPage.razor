@@ -94,6 +94,7 @@ else
     <audio controls muted hidden="hidden"><source src="@_soundSrcUrl" /></audio>
 }
 
+<AudioFxPlayer @ref="_audioFxPlayer"/>
 
 @code {
     [Parameter]
@@ -108,6 +109,8 @@ else
     private string _paddingStyle = string.Empty;
 
     bool _hiddenSound = true;
+    private AudioFxPlayer? _audioFxPlayer;
+    
     string _soundSrcUrl = AudioFxHelper.Fx_Positive_Url;
 
     protected override void OnInitialized()
@@ -123,7 +126,14 @@ else
         _padding = 200 / _quest.QuestInfo.TotalChancesForLoot;
         _paddingStyle = $"{_padding}px";
 
+        _audioFxPlayer = new AudioFxPlayer();
     }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _audioFxPlayer.PlaySoundAsync(AudioFxHelper.Fx_Calm_6_Url);
+    }
+
 
     private async void TimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
@@ -185,4 +195,6 @@ else
         await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
     }
+    
+    
 }
