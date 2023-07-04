@@ -53,6 +53,26 @@
                     Chances for Loot: @_quest.QuestInfo.TotalChancesForLoot
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Gathered Loot:
+                    @foreach(IEquipment? loot in _quest.OnGoingQuest.LootedEquipment)
+                    {
+                        <ul>
+                            <li>
+                                @if (loot != null)
+                                {
+                                    <QuestLootItemDisplay LootableItem="@loot" ColorTheme="bg-secondary"/>
+                                }
+                                else
+                                {
+                                    SymbolHelper.GetCheckmarkOrX(false);
+                                }
+                            </li>
+                        </ul>
+                    }
+                </td>
+            </tr>
         </tbody>
     </table>
     
@@ -112,6 +132,7 @@ else
     private AudioFxPlayer? _audioFxPlayer;
     
     string _soundSrcUrl = AudioFxHelper.Fx_Positive_Url;
+    bool _currentlyLooting = false;
 
     protected override void OnInitialized()
     {
@@ -169,8 +190,9 @@ else
 
     private async Task HasHitLootInterval()
     {
-        if (_quest.IsProgressReadyForLootChance())
+        if (_quest.IsProgressReadyForLootChance() && !_currentlyLooting)
         {
+            _currentlyLooting = true;
             _quest.AttemptLootChance();
             if (!_quest.IsQuestCompleted())
             {
@@ -182,8 +204,8 @@ else
                 {
                     await PlaySound(AudioFxHelper.Fx_Positive_Url, 1000).ConfigureAwait(false);
                 }
-
             }
+            _currentlyLooting = false;
         }
     }
 
@@ -195,6 +217,4 @@ else
         await Task.Delay(soundLengthInMs);
         _hiddenSound = true;
     }
-    
-    
 }
