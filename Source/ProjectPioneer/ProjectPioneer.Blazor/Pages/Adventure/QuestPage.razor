@@ -168,6 +168,7 @@ else
 
         if(_quest.IsQuestCompleted())
         {
+            await HasHitLootInterval();
             _quest.CompleteQuest();
             await PlaySound(AudioFxHelper.Fx_Success_Url, 5000).ConfigureAwait(false);
         }

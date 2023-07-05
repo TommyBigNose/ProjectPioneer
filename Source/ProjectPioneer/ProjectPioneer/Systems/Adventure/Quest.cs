@@ -145,7 +145,7 @@
 
 		public bool IsProgressReadyForLootChance()
 		{
-			return OnGoingQuest.ProgressBar.Value >= (OnGoingQuest.LootIntervals * Math.Max(OnGoingQuest.LootedEquipment.Count, 1));
+			return OnGoingQuest.ProgressBar.Value >= (OnGoingQuest.LootIntervals * (OnGoingQuest.LootedEquipment.Count + 1));
 		}
 
 		public void AttemptLootChance()
